@@ -10,4 +10,16 @@ package stellarclicker.app;
  */
 public class BigNumber {
     
+    BigNumber()
+    {
+        System.out.println("number created");
+    }
+    /*
+     * Public methods
+     */
+    
+    /*
+     * Private methods
+     */
+    
 }
