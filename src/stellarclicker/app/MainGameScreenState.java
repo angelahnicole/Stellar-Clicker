@@ -8,6 +8,7 @@ package stellarclicker.app;
  *
  * @author Alex
  */
-public class MainGameScreenState {
+public class MainGameScreenState 
+{
     
 }
