@@ -10,6 +10,7 @@ package stellarclicker.app;
  * @description
  *
  */
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import com.jme3.app.Application;
@@ -67,7 +68,7 @@ public class StartState extends AbstractAppState implements ScreenController
         
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
         nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/screen.xml", "start", this);
+        nifty.fromXml("Interface/XML/screen.xml", "start", this);
         guiViewPort.addProcessor(niftyDisplay);
         inputManager.setCursorVisible(true);
     }
