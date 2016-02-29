@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty-controls>
+    
+    <controlDefinition name="ship-component-div" style="" controller="">
+
+        <panel width="100%" childLayout="horizontal" padding="5px">
+
+            <panel style="nifty-panel-no-shadow" width="30%" childLayout="center"></panel>
+            <panel style="nifty-panel-red-no-shadow" width="70%" childLayout="center"></panel>
+
+        </panel>
+    
+    
+    </controlDefinition>
+    
+    <controlDefinition name="money-div" style="" controller="">
+
+        <panel width="100%" childLayout="horizontal" padding="5px">
+
+            <panel style="nifty-panel-no-shadow" width="30%" childLayout="center"></panel>
+            <panel style="nifty-panel-red-no-shadow" width="70%" childLayout="center"></panel>
+
+        </panel>
+    
+    
+    </controlDefinition>
+    
+    <controlDefinition name="ship-statistic-text" style="" controller="">
+
+        <panel width="100%" childLayout="horizontal" padding="5px">
+
+            <panel style="nifty-panel-no-shadow" width="20%" childLayout="center"></panel>
+            <panel style="nifty-panel-red-no-shadow" width="50%" childLayout="center"></panel>
+            <panel style="nifty-panel-no-shadow" width="30%" childLayout="center"></panel>
+
+        </panel>
+    
+    
+    </controlDefinition>
+    
+    <controlDefinition name="screen-button" style="" controller="">
+
+        <panel childLayout="center" padding="5px">
+
+            <panel style="nifty-panel-no-shadow" width="100%" childLayout="center"></panel>
+
+        </panel>
+    
+    
+    </controlDefinition>
+  
+    <controlDefinition name="senior-staff-div" style="" controller="">
+      
+    
+    
+    </controlDefinition>
+  
+    <controlDefinition name="unlocks-div" style="" controller="">
+      
+    
+    
+    </controlDefinition>
+  
+</nifty-controls>

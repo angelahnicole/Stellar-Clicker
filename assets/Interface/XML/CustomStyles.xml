@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty-styles>
+    <style id="number-picker#text">
+        <attributes font="Interface/Fonts/SpaceAge_16.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center" visibleToMouse="false" color="#28ff9c"/>
+    </style>
+  
+    <style id="number-picker#upButton">
+        <attributes backgroundImage="Interface/UI/Buttons/Button_ArrowUp.png" imageMode="sprite:18,18,0" childLayout="center" visibleToMouse="true" focusable="false"  width="18px" height="18px" />
+        <effect>
+            <onHover name="imageOverlay" filename="Interface/UI/Buttons/Button_ArrowUp.png" imageMode="sprite:18,18,1" post="true" />
+            <onClick name="imageOverlay" filename="Interface/UI/Buttons/Button_ArrowUp.png" imageMode="sprite:18,18,2" post="true" />
+        </effect>
+    </style>
+  
+    <style id="number-picker#downButton">
+        <attributes backgroundImage="Interface/UI/Buttons/Button_ArrowDown.png" imageMode="sprite:18,18,0" childLayout="center" visibleToMouse="true" focusable="false" width="18px" height="18px" />
+        <effect>
+            <onHover name="imageOverlay" filename="Interface/UI/Buttons/Button_ArrowDown.png" imageMode="sprite:18,18,1" post="true" />
+            <onClick name="imageOverlay" filename="Interface/UI/Buttons/Button_ArrowDown.png" imageMode="sprite:18,18,2" post="true" />
+        </effect>
+    </style>
+  
+</nifty-styles>
