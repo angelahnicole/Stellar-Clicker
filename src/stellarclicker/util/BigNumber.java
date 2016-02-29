@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package stellarclicker.app;
+package stellarclicker.util;
 
 /**
  *
  * @author Alex
  */
-public class BigNumber {
+public class BigNumber 
+{
     
     BigNumber()
     {

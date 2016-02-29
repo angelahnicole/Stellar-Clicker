@@ -8,6 +8,6 @@ package stellarclicker.app;
  *
  * @author Alex
  */
-public interface SimpleApplication {
+public class SeniorStaffScreenState {
     
 }
