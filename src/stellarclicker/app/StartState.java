@@ -139,9 +139,9 @@ public class StartState extends AbstractAppState implements ScreenController
     /**
      * 
      */
-    public void startGame(String nextScreen)
+    public void startGame()
     {
-        nifty.gotoScreen(nextScreen);  // switch to another screen
+        nifty.fromXml("Interface/XML/MainGameScreen.xml", "mainGame", this);
         MainApplication.app.changeState(MainApplication.EAppState.GAME_STATE); // switch to new state
     }
 
