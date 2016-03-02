@@ -69,14 +69,15 @@ public class GameState extends AbstractAppState implements ScreenController
         this.guiViewPort = this.app.getGuiViewPort();
         this.audioRenderer = this.app.getAudioRenderer();
         
-        Box b = new Box(1, 1, 1);
-        Geometry geom = new Geometry("Box", b);
-
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
-        geom.setMaterial(mat);
-        rootNode.attachChild(geom); 
- 
+//        Box b = new Box(1, 1, 1);
+//        Geometry geom = new Geometry("Box", b);
+//        
+//
+//        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+//        mat.setColor("Color", ColorRGBA.Blue);
+//        geom.setMaterial(mat);
+//        rootNode.attachChild(geom); 
+// 
     }
 
     /** 
@@ -111,7 +112,7 @@ public class GameState extends AbstractAppState implements ScreenController
     @Override
     public void update(float tpf)
     {
-        
+        System.out.println("Updating all the things!");        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,6 +134,40 @@ public class GameState extends AbstractAppState implements ScreenController
     * 
     * 
     */
+  
+    /**
+     * 
+     */
+    public void openStaffScreen()
+    {
+        System.out.println("Staff Screen");       
+    }
+
+    /**
+     * 
+     */
+    public void openTravelScreen()
+    {
+        System.out.println("Travel Screen");        
+    }
+ 
+     /**
+     * 
+     */
+    public void openOfficerScreen()
+    {
+        System.out.println("Officer Screen");        
+    }
+
+     /**
+     * 
+     */
+    public void openUnlockScreen()
+    {
+        System.out.println("Unlock Screen");        
+    }
+
+    
     public void onStartScreen()
     {
         System.out.println("onStartScreen");
