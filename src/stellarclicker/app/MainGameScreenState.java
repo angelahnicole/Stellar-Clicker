@@ -178,11 +178,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         System.out.println("Unlock Screen");        
     }
     
-    public void gainExp(Element element, String shipComponentType)
-    {
-        System.out.println("Gaining experience with " + shipComponentType.toString());
-
-    }
+    
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 }

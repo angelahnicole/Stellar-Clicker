@@ -20,12 +20,12 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <panel id="leftPanel" width="25%" height="100%" childLayout="vertical">
                 
-                <control id="lifeSupport" name="ship-component-div"/>
-                <control id="shields" name="ship-component-div"/>
-                <control id="weapons" name="ship-component-div"/>
-                <control id="engines" name="ship-component-div"/>
-                <control id="holodecks" name="ship-component-div"/>
-                <control id="replicators" name="ship-component-div"/>
+                <control id="lifeSupport" name="ship-component-div" compEnum="LIFE_SUPPORT" compImage="Interface/Images/UI/squareGray.png" compLevel="1" />
+                <control id="shields" name="ship-component-div" compEnum="SHIELDS" compImage="Interface/Images/UI/squareGray.png" compLevel="1"/>
+                <control id="weapons" name="ship-component-div" compEnum="WEAPONS" compImage="Interface/Images/UI/squareGray.png" compLevel="1"/>
+                <control id="engines" name="ship-component-div" compEnum="ENGINES" compImage="Interface/Images/UI/squareGray.png" compLevel="1"/>
+                <control id="holodecks" name="ship-component-div" compEnum="HOLODECKS" compImage="Interface/Images/UI/squareGray.png" compLevel="1"/>
+                <control id="replicators" name="ship-component-div" compEnum="REPLICATORS" compImage="Interface/Images/UI/squareGray.png" compLevel="1"/>
                
             </panel>
             
@@ -39,9 +39,7 @@
                 <panel height="60%" backgroundImage="Textures/Ships/mainShip_1.png"></panel>
                 
                 <panel height="20%"></panel>
-                
-                
-               
+
             </panel>
             
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
@@ -81,6 +79,88 @@
             </panel>
             
         </layer>
+        
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <!-- Officers Window -->
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <layer id="officerUI" childLayout="absolute" visible="false">
+            
+            <control id="officerWindow" name="window" title="Officers" width="65%" height="65%" valign="center" align="center">
+                <control name="scrollPanel" horizontal="false" height="100%">
+                    
+                    <panel childLayout="vertical">
+                        
+                        
+                        
+                    </panel>
+                    
+
+                </control>
+            </control>
+          
+        </layer>
+        
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <!-- Senior Staff Window -->
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <layer id="seniorStaffUI" childLayout="absolute" visible="false">
+            
+            <control id="seniorStaffWindow" name="window" title="Senior Staff" width="65%" height="65%" valign="center" align="center">
+                <control name="scrollPanel" horizontal="false" height="100%">
+                    
+                    <panel childLayout="vertical">
+                        
+                        
+                        
+                    </panel>
+                    
+
+                </control>
+            </control>
+          
+        </layer>
+        
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <!-- Unlocks Window -->
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <layer id="unlocksUI" childLayout="absolute" visible="false">
+            
+            <control id="unlocksWindow" name="window" title="Unlocks" width="65%" height="65%" valign="center" align="center">
+                <control name="scrollPanel" horizontal="false" height="100%">
+                    
+                    <panel childLayout="vertical">
+                        
+                        
+                        
+                    </panel>
+                    
+
+                </control>
+            </control>
+          
+        </layer>
+        
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <!-- Travelling Window -->
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <layer id="travelUI" childLayout="absolute" visible="false">
+            
+            <control id="travelWindow" name="window" title="Travel" width="65%" height="65%" valign="center" align="center">
+                <control name="scrollPanel" horizontal="false" height="100%">
+                    
+                    <panel childLayout="vertical">
+                        
+                        
+                        
+                    </panel>
+                    
+
+                </control>
+            </control>
+          
+        </layer>
+        
+        
         
         
         
