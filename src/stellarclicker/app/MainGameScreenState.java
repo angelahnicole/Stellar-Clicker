@@ -17,18 +17,15 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
-import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.ViewPort;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import stellarclicker.util.ShipComponentEnum;
@@ -41,6 +38,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     private Nifty nifty;
+    private Screen screen;
     private MainApplication app;
     private AssetManager assetManager;
     private AppStateManager stateManager;
@@ -71,14 +69,6 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         this.viewPort = this.app.getViewPort();
         this.guiViewPort = this.app.getGuiViewPort();
         this.audioRenderer = this.app.getAudioRenderer();
-        
-        this.app.setPauseOnLostFocus(false);
-        
-        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-        nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/XML/screen.xml", "start", this);
-        guiViewPort.addProcessor(niftyDisplay);
-        inputManager.setCursorVisible(true);
     }
 
     /**
@@ -123,6 +113,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public void bind(Nifty nifty, Screen screen)
     {
         System.out.println("bind( " + screen.getScreenId() + ")");
+        
+        this.nifty = nifty;
+        this.screen = screen;
     }
 
     
@@ -140,17 +133,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
      */
     public void onEndScreen()
     {
-        nifty.gotoScreen("empty");
-    }
-
-    
-    /**
-     * 
-     */
-    public void startGame()
-    {
-        nifty.fromXml("Interface/XML/MainGameScreen.xml", "mainGame", this);
-        MainApplication.app.changeState(MainApplication.EAppState.GAME_STATE); // switch to new state
+        
     }
 
     
@@ -166,9 +149,39 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
 
     // MAIN GUI METHODS
     
-    public void gainExp(ShipComponentEnum shipComponentType)
+    public void openStaffScreen()
+    {
+        System.out.println("Staff Screen");       
+    }
+
+    /**
+     * 
+     */
+    public void openTravelScreen()
+    {
+        System.out.println("Travel Screen");        
+    }
+ 
+     /**
+     * 
+     */
+    public void openOfficerScreen()
+    {
+        System.out.println("Officer Screen");        
+    }
+
+     /**
+     * 
+     */
+    public void openUnlockScreen()
+    {
+        System.out.println("Unlock Screen");        
+    }
+    
+    public void gainExp(Element element, String shipComponentType)
     {
         System.out.println("Gaining experience with " + shipComponentType.toString());
+
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 

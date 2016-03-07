@@ -49,7 +49,7 @@ public class MainApplication extends SimpleApplication
         System.out.println("Initializing...");
 
         // always start with the start state
-        changeState = EAppState.START_STATE;
+        changeState = EAppState.SPLASH_SCREEN_STATE;
     }
 
     /**
@@ -73,16 +73,14 @@ public class MainApplication extends SimpleApplication
         
         switch(changeState)
         {
-            case START_STATE:
+            case SPLASH_SCREEN_STATE:
             {
                 if(stateManager.hasState(currentState))
                 {
                     stateManager.detach(currentState);
-                    currentState = new StartState();
-                    stateManager.attach(currentState);
                 }
                 
-                currentState = new StartState();
+                currentState = new SplashScreenState();
                 stateManager.attach(currentState);
                 
                 break;
@@ -94,7 +92,7 @@ public class MainApplication extends SimpleApplication
                     stateManager.detach(currentState);
                 }
                 
-                currentState = new GameState();
+                currentState = new MainGameScreenState();
                 stateManager.attach(currentState);
                 
                 break;
@@ -130,7 +128,7 @@ public class MainApplication extends SimpleApplication
      */
     public static enum EAppState
     {
-        START_STATE, GAME_STATE, STAY_STATE
+        SPLASH_SCREEN_STATE, GAME_STATE, STAY_STATE
     }
     
     /**
