@@ -15,12 +15,21 @@ package stellarclicker.app;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
+import com.jme3.app.state.AppStateManager;
+import com.jme3.asset.AssetManager;
+import com.jme3.audio.AudioRenderer;
+import com.jme3.input.InputManager;
+import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.renderer.ViewPort;
+import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.screen.Screen;
 
 public class MainApplication extends SimpleApplication
 {
     
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+    private Nifty nifty;
+    private NiftyJmeDisplay niftyDisplay;
     public static MainApplication app;
     protected EAppState changeState;
     protected AppState currentState;
@@ -47,11 +56,19 @@ public class MainApplication extends SimpleApplication
     public void simpleInitApp()
     {
         System.out.println("Initializing...");
-
+        
+        /*
+         * Initializing the nifty GUI
+         */
+        niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+        nifty = niftyDisplay.getNifty();
+        nifty.fromXml("Interface/XML/SplashScreen.xml", "splash");
+        guiViewPort.addProcessor(niftyDisplay);
+       
         // always start with the start state
         changeState = EAppState.SPLASH_SCREEN_STATE;
     }
-
+    
     /**
      * 
      */
