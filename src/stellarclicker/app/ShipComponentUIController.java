@@ -11,7 +11,7 @@ package stellarclicker.app;
  * 
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * 
- * @description 
+ * @description Controllers for the ship components  
  * 
  */
 
@@ -65,7 +65,8 @@ public class ShipComponentUIController implements Controller
     }
 
     /**
-     * 
+     * This function is run on a focus change event
+     * @param getFocus 
      */
     public void onFocus(boolean getFocus)
     {

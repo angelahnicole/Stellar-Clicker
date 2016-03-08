@@ -12,7 +12,7 @@ package stellarclicker.ship;
  * 
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * 
- * @description 
+ * @description This class defines a ship component for the ship 
  * 
  */
 

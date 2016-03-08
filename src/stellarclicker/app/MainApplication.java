@@ -50,7 +50,7 @@ public class MainApplication extends SimpleApplication
     }
 
     /**
-     * 
+     * Initialization for the state
      */
     @Override
     public void simpleInitApp()
@@ -67,10 +67,17 @@ public class MainApplication extends SimpleApplication
        
         // always start with the start state
         changeState = EAppState.SPLASH_SCREEN_STATE;
+       
+        /*
+         * Set stats views to default off
+         */
+        setDisplayFps(false);
+        setDisplayStatView(false);
+        
     }
     
     /**
-     * 
+     * Update method for the state
      */
     @Override
     public void update()
@@ -126,7 +133,7 @@ public class MainApplication extends SimpleApplication
     }
 
     /**
-     * 
+     * Kill the current state 
      */
     @Override
     public void destroy()
@@ -149,7 +156,8 @@ public class MainApplication extends SimpleApplication
     }
     
     /**
-     * 
+     * This function changes the application state
+     * @param newState the new app state to switch to
      */
     public void changeState(EAppState newState)
     {

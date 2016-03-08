@@ -11,7 +11,7 @@ package stellarclicker.app;
  * 
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * 
- * @description 
+ * @description This state defines the splash screen and the methods it has
  * 
  */
 
