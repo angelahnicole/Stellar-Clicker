@@ -4,24 +4,24 @@ package stellarclicker.util;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @file ShipStatEnum.java
+ * @file ESeniorStaff.java
  * 
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * 
- * @description Contains the ship statistic enumeration used for array indexing purposes
+ * @description Contains the senior staff enumeration used for array indexing purposes
  * 
  */
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public enum ShipStatEnum
+public enum ESeniorStaff
 {
-    HULL_HEALTH,
-    SHIELD_HEALTH,
-    ENGINE_SPEED,
-    WEAPON_DAMAGE,
-    OFFICER_HEALTH,
-    OFFICER_HAPPINESS
+    WARP_ENGINEER,
+    SHIELDS_ENGINEER,
+    HOLODECK_PROGRAMMER,
+    TACTICAL_OFFICER,
+    BARKEEP,
+    CHIEF_MEDICAL_OFFICER
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

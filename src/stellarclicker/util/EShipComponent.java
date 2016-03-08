@@ -4,24 +4,25 @@ package stellarclicker.util;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @file SeniorStaffEnum.java
+ * @file EShipComponent.java
  * 
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * 
- * @description Contains the senior staff enumeration used for array indexing purposes
+ * @description Contains the ship component enumeration used for array indexing purposes
  * 
  */
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public enum SeniorStaffEnum
+public enum EShipComponent
 {
-    WARP_ENGINEER,
-    SHIELDS_ENGINEER,
-    HOLODECK_PROGRAMMER,
-    TACTICAL_OFFICER,
-    BARKEEP,
-    CHIEF_MEDICAL_OFFICER
+    HULL,
+    SHIELDS,
+    ENGINES,
+    WEAPONS,
+    LIFE_SUPPORT,
+    REPLICATORS,
+    HOLODECKS
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
