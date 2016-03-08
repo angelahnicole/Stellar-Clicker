@@ -73,10 +73,6 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
         
         this.app.setPauseOnLostFocus(false);
         
-        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-        nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/XML/SplashScreen.xml", "splash", this);
-        guiViewPort.addProcessor(niftyDisplay);
         inputManager.setCursorVisible(true);
     }
 
@@ -117,7 +113,7 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
 
     
     /**
-     * 
+     * Nifty binding method
      */
     public void bind(Nifty nifty, Screen screen)
     {
