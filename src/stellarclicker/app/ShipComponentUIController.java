@@ -25,7 +25,7 @@ import de.lessvoid.nifty.input.NiftyInputEvent;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.xml.xpp3.Attributes;
 import java.util.Properties;
-import stellarclicker.util.ShipComponentEnum;
+import stellarclicker.util.EShipComponent;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -93,45 +93,45 @@ public class ShipComponentUIController implements Controller
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
-    private ShipComponentEnum stringToEnum(String enumString)
+    private EShipComponent stringToEnum(String enumString)
     {
-        ShipComponentEnum convertedEnum = ShipComponentEnum.HULL;
+        EShipComponent convertedEnum = EShipComponent.HULL;
         
         switch(enumString)
         {
             case "HULL":
             {
-                convertedEnum = ShipComponentEnum.HULL;
+                convertedEnum = EShipComponent.HULL;
                 break;
             }
             case "SHIELDS":
             {
-                convertedEnum = ShipComponentEnum.SHIELDS;
+                convertedEnum = EShipComponent.SHIELDS;
                 break;
             }
             case "ENGINES":
             {
-                convertedEnum = ShipComponentEnum.ENGINES;
+                convertedEnum = EShipComponent.ENGINES;
                 break;
             }
             case "WEAPONS":
             {
-                convertedEnum = ShipComponentEnum.WEAPONS;
+                convertedEnum = EShipComponent.WEAPONS;
                 break;
             }
             case "LIFE_SUPPORT":
             {
-                convertedEnum = ShipComponentEnum.LIFE_SUPPORT;
+                convertedEnum = EShipComponent.LIFE_SUPPORT;
                 break;
             }
             case "REPLICATORS":
             {
-                convertedEnum = ShipComponentEnum.REPLICATORS;
+                convertedEnum = EShipComponent.REPLICATORS;
                 break;
             }
             case "HOLODECKS":
             {
-                convertedEnum = ShipComponentEnum.HOLODECKS;
+                convertedEnum = EShipComponent.HOLODECKS;
                 break;
             }
         }
