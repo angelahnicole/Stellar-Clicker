@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty-styles>
-    <style id="number-picker#text">
-        <attributes font="Interface/Fonts/SpaceAge_16.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center" visibleToMouse="false" color="#28ff9c"/>
+    
+    <style id="font16">
+        <attributes font="Interface/Fonts/PoiretOne_16.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
+    
+    <style id="font12">
+        <attributes font="Interface/Fonts/PoiretOne_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
+    <style id="horizontalBar">
+        <attributes imageMode="resize:10,175,10,8,10,175,10,10,10,175,10,8" width="100%"/>
+    </style>
+    
+    <style id="glassPanel">
+        <attributes imageMode="resize:10,80,10,10,10,80,10,80,10,80,10,10"/>
+    </style>
+    
+    <style id="componentButton">
+        <effect>
+            <onHover name="fade" start="#FFFFFF" end="#B3FFFF"/>
+            <onClick name="imageSizePulsate" startSize="100%" endSize="150%" pulsator="SinusPulsator"/>
+        </effect>
+    </style>
+   
   
     <style id="number-picker#upButton">
         <attributes backgroundImage="Interface/UI/Buttons/Button_ArrowUp.png" imageMode="sprite:18,18,0" childLayout="center" visibleToMouse="true" focusable="false"  width="18px" height="18px" />

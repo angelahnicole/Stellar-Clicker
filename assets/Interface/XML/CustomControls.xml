@@ -11,28 +11,34 @@
             <panel width="30%" childLayout="vertical">
                 
                 <!-- SHIP COMPONENT IMAGE / BUTTON -->
-                <panel backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center">
-                    <interact onClick="gainExp($compEnum)"></interact>
+                <panel backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" padding="10px" style="componentButton">
+                    <interact onClick="gainExp()"></interact>
                     <image filename="$compImage" width="100%" height="100%"/>
                 </panel>
                 
                 <!-- SHIP COMPONENT LEVEL BANNER -->
                 <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
-                    <text id="level" text="$compLevel" font="Interface/Fonts/PoiretOne_16.fnt"/>
+                    <text id="level" text="$compLevel" style="font16"/>
                 </panel>
 
             </panel>
             
-            <panel backgroundImage="Interface/Images/UI/glassPanel_dark.png" width="70%" childLayout="vertical" padding="5px">
+            <panel backgroundImage="Interface/Images/UI/glassPanel_dark.png" style="glassPanel" width="70%" childLayout="vertical" padding="5px" >
                 
                 <!-- SHIP COMPONENT PROGRESS BAR -->
-                <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" width="100%" height="50%" childClip="true" childLayout="absolute" padding="5px">
-                    <image filename="Interface/Images/UI/barHorizontal_green.png" width="100%" height="100%" x="-80%" y ="0"/>
+                <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" style="horizontalBar" height="50%" childClip="true" childLayout="absolute" padding="5px">
+                    <image filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="100%" height="100%" x="0%" y ="0"/>
                 </panel>
                 
                 <!-- SHIP COMPONENT PROGRESS TIME LEFT -->
-                <panel backgroundImage="Interface/Images/UI/glassPanel_dark.png" height="50%" childLayout="center">
-                    <text id="timeLeft" text="00:00:00" font="Interface/Fonts/PoiretOne_16.fnt"/>
+                <panel height="50%" childLayout="horizontal">
+                    
+                    <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="center" height="100%" padding="10px"/>
+                    
+                    <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="center" height="100%" padding="10px">
+                        <text id="timeLeft" text="00:00:00" style="font16"/>
+                    </panel>
+                    
                 </panel>
                 
             </panel>
