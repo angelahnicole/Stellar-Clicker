@@ -18,7 +18,7 @@
                 
                 <!-- SHIP COMPONENT LEVEL BANNER -->
                 <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
-                    <text id="level" text="$compLevel" style="font16"/>
+                    <text id="#level" text="$compLevel" style="font16" color="#000000"/>
                 </panel>
 
             </panel>
@@ -26,17 +26,24 @@
             <panel backgroundImage="Interface/Images/UI/glassPanel_dark.png" style="glassPanel" width="70%" childLayout="vertical" padding="5px" >
                 
                 <!-- SHIP COMPONENT PROGRESS BAR -->
-                <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" style="horizontalBar" height="50%" childClip="true" childLayout="absolute" padding="5px">
+                <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" style="horizontalBar" height="50%" childClip="true" childLayout="absolute" padding="5px,0px">
                     <image filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="100%" height="100%" x="0%" y ="0"/>
                 </panel>
                 
                 <!-- SHIP COMPONENT PROGRESS TIME LEFT -->
                 <panel height="50%" childLayout="horizontal">
                     
-                    <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="center" height="100%" padding="10px"/>
+                    <panel childLayout="center" padding="2px">
+                        <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="horizontal" height="100%" padding="10px">
+                            <control id="#buyButton" name="button" label="Buy" width="*"/>
+                            <control id="#repairButton" name="button" label="Repair" width="*"/>
+                        </panel>
+                    </panel>
                     
-                    <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="center" height="100%" padding="10px">
-                        <text id="timeLeft" text="00:00:00" style="font16"/>
+                    <panel childLayout="center" padding="2px">
+                        <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="center" height="100%" padding="10px">
+                            <text id="#timeLeft" text="00:00:00" style="font16"/>
+                        </panel>
                     </panel>
                     
                 </panel>
