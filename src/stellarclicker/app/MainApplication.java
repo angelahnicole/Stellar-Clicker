@@ -15,7 +15,7 @@ package stellarclicker.app;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
-
+import stellarclicker.app.*;
 public class MainApplication extends SimpleApplication
 {
     
@@ -47,9 +47,12 @@ public class MainApplication extends SimpleApplication
     public void simpleInitApp()
     {
         System.out.println("Initializing...");
-
+        stellarclicker.util.ThreadManager mythreadmanager = new stellarclicker.util.ThreadManager();
+        mythreadmanager.initialize();
         // always start with the start state
         changeState = EAppState.START_STATE;
+        
+        
     }
 
     /**
