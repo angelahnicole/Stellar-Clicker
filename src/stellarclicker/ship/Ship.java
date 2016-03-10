@@ -8,7 +8,7 @@ package stellarclicker.ship;
  * 
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * 
- * @description 
+ * @description This is the ship class that defines the ship object
  * 
  */
 
@@ -18,6 +18,9 @@ import stellarclicker.util.BigNumber;
 
 public class Ship {
     
+    /*
+     * Private variable for the ship
+     */
     private ShipComponent[] shipComponenets;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
@@ -28,6 +31,7 @@ public class Ship {
     // Ship Constructor
     Ship()
     {
+        System.out.println("You created a ship");
     }
     
     /*

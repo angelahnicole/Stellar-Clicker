@@ -15,12 +15,24 @@ package stellarclicker.app;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
+
 import stellarclicker.app.*;
+
+import com.jme3.app.state.AppStateManager;
+import com.jme3.asset.AssetManager;
+import com.jme3.audio.AudioRenderer;
+import com.jme3.input.InputManager;
+import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.renderer.ViewPort;
+import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.screen.Screen;
+
 public class MainApplication extends SimpleApplication
 {
     
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+    private Nifty nifty;
+    private NiftyJmeDisplay niftyDisplay;
     public static MainApplication app;
     protected EAppState changeState;
     protected AppState currentState;
@@ -41,22 +53,35 @@ public class MainApplication extends SimpleApplication
     }
 
     /**
-     * 
+     * Initialization for the state
      */
     @Override
     public void simpleInitApp()
     {
         System.out.println("Initializing...");
-        stellarclicker.util.ThreadManager mythreadmanager = new stellarclicker.util.ThreadManager();
-        mythreadmanager.initialize();
+
+        /*
+         * Initializing the nifty GUI
+         */
+        niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+        nifty = niftyDisplay.getNifty();
+        nifty.fromXml("Interface/XML/SplashScreen.xml", "splash");
+        guiViewPort.addProcessor(niftyDisplay);
+       
         // always start with the start state
-        changeState = EAppState.START_STATE;
-        
+        changeState = EAppState.SPLASH_SCREEN_STATE;
+       
+        /*
+         * Set stats views to default off
+         */
+        setDisplayFps(false);
+        setDisplayStatView(false);
+
         
     }
-
+    
     /**
-     * 
+     * Update method for the state
      */
     @Override
     public void update()
@@ -76,16 +101,14 @@ public class MainApplication extends SimpleApplication
         
         switch(changeState)
         {
-            case START_STATE:
+            case SPLASH_SCREEN_STATE:
             {
                 if(stateManager.hasState(currentState))
                 {
                     stateManager.detach(currentState);
-                    currentState = new StartState();
-                    stateManager.attach(currentState);
                 }
                 
-                currentState = new StartState();
+                currentState = new SplashScreenState();
                 stateManager.attach(currentState);
                 
                 break;
@@ -97,7 +120,7 @@ public class MainApplication extends SimpleApplication
                     stateManager.detach(currentState);
                 }
                 
-                currentState = new GameState();
+                currentState = new MainGameScreenState();
                 stateManager.attach(currentState);
                 
                 break;
@@ -114,7 +137,7 @@ public class MainApplication extends SimpleApplication
     }
 
     /**
-     * 
+     * Kill the current state 
      */
     @Override
     public void destroy()
@@ -133,11 +156,12 @@ public class MainApplication extends SimpleApplication
      */
     public static enum EAppState
     {
-        START_STATE, GAME_STATE, STAY_STATE
+        SPLASH_SCREEN_STATE, GAME_STATE, STAY_STATE
     }
     
     /**
-     * 
+     * This function changes the application state
+     * @param newState the new app state to switch to
      */
     public void changeState(EAppState newState)
     {

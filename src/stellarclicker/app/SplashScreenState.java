@@ -11,7 +11,7 @@ package stellarclicker.app;
  * 
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * 
- * @description 
+ * @description This state defines the splash screen and the methods it has
  * 
  */
 
@@ -35,9 +35,11 @@ import de.lessvoid.nifty.screen.ScreenController;
 public class SplashScreenState extends AbstractAppState implements ScreenController
 {
 
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     private Nifty nifty;
+    private Screen screen;
     private MainApplication app;
     private AssetManager assetManager;
     private AppStateManager stateManager;
@@ -71,10 +73,6 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
         
         this.app.setPauseOnLostFocus(false);
         
-        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-        nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/XML/screen.xml", "start", this);
-        guiViewPort.addProcessor(niftyDisplay);
         inputManager.setCursorVisible(true);
     }
 
@@ -115,11 +113,14 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
 
     
     /**
-     * 
+     * Nifty binding method
      */
     public void bind(Nifty nifty, Screen screen)
     {
         System.out.println("bind( " + screen.getScreenId() + ")");
+        
+        this.nifty = nifty;
+        this.screen = screen;
     }
 
     

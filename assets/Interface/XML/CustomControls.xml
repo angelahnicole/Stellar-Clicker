@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty-controls>
     
-    <controlDefinition name="ship-component-div" style="" controller="">
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- SHIP COMPONENT DIV -->
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <controlDefinition name="ship-component-div" controller="stellarclicker.app.ShipComponentUIController">
 
         <panel width="100%" childLayout="horizontal" padding="5px">
 
-            <panel style="nifty-panel-no-shadow" width="30%" childLayout="center"></panel>
-            <panel style="nifty-panel-red-no-shadow" width="70%" childLayout="center"></panel>
+            <panel width="30%" childLayout="vertical">
+                
+                <!-- SHIP COMPONENT IMAGE / BUTTON -->
+                <panel backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" padding="10px" style="componentButton">
+                    <interact onClick="gainExp()"></interact>
+                    <image filename="$compImage" width="100%" height="100%"/>
+                </panel>
+                
+                <!-- SHIP COMPONENT LEVEL BANNER -->
+                <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
+                    <text id="level" text="$compLevel" style="font16"/>
+                </panel>
+
+            </panel>
+            
+            <panel backgroundImage="Interface/Images/UI/glassPanel_dark.png" style="glassPanel" width="70%" childLayout="vertical" padding="5px" >
+                
+                <!-- SHIP COMPONENT PROGRESS BAR -->
+                <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" style="horizontalBar" height="50%" childClip="true" childLayout="absolute" padding="5px">
+                    <image filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="100%" height="100%" x="0%" y ="0"/>
+                </panel>
+                
+                <!-- SHIP COMPONENT PROGRESS TIME LEFT -->
+                <panel height="50%" childLayout="horizontal">
+                    
+                    <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="center" height="100%" padding="10px"/>
+                    
+                    <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="center" height="100%" padding="10px">
+                        <text id="timeLeft" text="00:00:00" style="font16"/>
+                    </panel>
+                    
+                </panel>
+                
+            </panel>
 
         </panel>
     
