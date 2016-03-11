@@ -16,7 +16,8 @@ package stellarclicker.ship;
 
 import stellarclicker.util.BigNumber;
 
-public class Ship {
+public class Ship 
+{
     
     /*
      * Private variable for the ship
@@ -24,9 +25,9 @@ public class Ship {
     private ShipComponent[] shipComponenets;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
-    private BigNumber officers;
-    private BigNumber money;
-    private BigNumber moneyPerSecond;
+    private double officers;
+    private double money;
+    private double moneyPerSecond;
     
     // Ship Constructor
     Ship()

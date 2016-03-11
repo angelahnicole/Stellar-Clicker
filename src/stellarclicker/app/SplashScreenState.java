@@ -1,20 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
+/**========================================================================================================================== 
  * @file SplashScreenState.java
- * 
+ * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
- * 
- * @description This state defines the splash screen and the methods it has
- * 
- */
-
+ * --------------------------------------------------------------------------------------------------------------------------
+ * @description An application state that is ran at the beginning of the game. It gives credits to the makers of the game and
+ * allows the user to start or exit the game.
+ *///========================================================================================================================
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,18 +20,16 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
-import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.ViewPort;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import stellarclicker.util.EAppState;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public class SplashScreenState extends AbstractAppState implements ScreenController
 {
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     private Nifty nifty;
@@ -53,12 +47,14 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     
     // APP STATE METHODS
 
-    /** 
+    /**========================================================================================================================== 
+    * @name INITIALIZE
     * 
+    * @description Initializes the application state 
     * 
-    * @param stateManager 
-    * @param app 
-    */
+    * @param stateManager An instance of the main application's state manager
+    * @param app The main application
+    *///=========================================================================================================================
     @Override
     public void initialize(AppStateManager stateManager, Application app)
     {
@@ -72,13 +68,16 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
         this.audioRenderer = this.app.getAudioRenderer();
         
         this.app.setPauseOnLostFocus(false);
+        this.inputManager.setCursorVisible(true);
         
-        inputManager.setCursorVisible(true);
+        this.app.getNifty().fromXml("Interface/XML/SplashScreen.xml", "splash");
     }
 
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name CLEAN UP
+    * 
+    * @description Cleans up the application state
+    *///=========================================================================================================================
     @Override
     public void cleanup()
     {
@@ -86,21 +85,27 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     }
 
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name SET ENABLED
+    * 
+    * @description Make the application state enabled or disabled (i.e. pause and unpause)
+    * 
+    * @param enabled Whether or not to enabled or disable the application state
+    *///=========================================================================================================================
     @Override
     public void setEnabled(boolean enabled)
     {
-        // Pause and unpause
         super.setEnabled(enabled);
-
     }
 
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name UPDATE
+    * 
+    * @description Method called by the main thread (loop) that updates the state of the game.
+    * 
+    * @param tpf The amount of time per frame
+    *///=========================================================================================================================
     @Override
     public void update(float tpf)
     {
@@ -109,12 +114,19 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    // SCREEN CONTROLLER METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // IMPLEMENTED SCREEN CONTROLLER METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
 
     
-    /**
-     * Nifty binding method
-     */
+    /**========================================================================================================================== 
+    * @name BIND
+    * 
+    * @description Method that binds the screen controller with the nifty instance and the screen.
+    * 
+    * @param nifty The nifty instance
+    * @param screen The screen instance
+    *///=========================================================================================================================
     public void bind(Nifty nifty, Screen screen)
     {
         System.out.println("bind( " + screen.getScreenId() + ")");
@@ -124,31 +136,42 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     }
 
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name ON START SCREEN
+    * 
+    * @description Method that is called when the screen has initially started up
+    *///=========================================================================================================================
     public void onStartScreen()
     {
         System.out.println("onStartScreen");
     }
 
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name ON END SCREEN
+    * 
+    * @description Method that is called at the end of the screen's life
+    *///=========================================================================================================================
     public void onEndScreen()
     {
-        nifty.gotoScreen("empty");
+
     }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // MAIN SCREEN CONTROLLER METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
 
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name START GAME
+    * 
+    * @description Switches the application
+    *///=========================================================================================================================
     public void startGame()
     {
-        nifty.fromXml("Interface/XML/MainGameScreen.xml", "mainGame", this);
-        MainApplication.app.changeState(MainApplication.EAppState.GAME_STATE); // switch to new state
+        MainApplication.app.changeState(EAppState.GAME_STATE);
     }
 
     
