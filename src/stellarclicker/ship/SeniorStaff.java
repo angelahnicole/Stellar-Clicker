@@ -24,7 +24,7 @@ public class SeniorStaff
     protected ShipComponent managedComponent;
     protected EShipStat[] shipStatComponentBoostIdx;
     protected int[] shipStatBoost;
-    protected Double purchasedCost;
+    protected double purchasedCost;
     protected boolean isPurchased;
     
     // Constructor
