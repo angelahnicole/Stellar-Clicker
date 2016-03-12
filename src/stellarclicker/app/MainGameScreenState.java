@@ -3,14 +3,13 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
+/**========================================================================================================================== 
  * @file MainGameScreenState.java
- * 
+ * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
- * 
- * @description 
- * 
- */
+ * --------------------------------------------------------------------------------------------------------------------------
+ * @description It's an application state that handles the interaction between the user, UI, and the ship.
+ *///========================================================================================================================
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +28,6 @@ import de.lessvoid.nifty.screen.ScreenController;
 
 public class MainGameScreenState extends AbstractAppState implements ScreenController
 {
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     private Nifty nifty;
@@ -45,14 +43,18 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     // APP STATE METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
 
-    /** 
+    /**========================================================================================================================== 
+    * @name INITIALIZE
     * 
+    * @description Initializes the application state 
     * 
-    * @param stateManager 
-    * @param app 
-    */
+    * @param stateManager An instance of the main application's state manager
+    * @param app The main application
+    *///=========================================================================================================================
     @Override
     public void initialize(AppStateManager stateManager, Application app)
     {
@@ -64,47 +66,61 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         this.viewPort = this.app.getViewPort();
         this.guiViewPort = this.app.getGuiViewPort();
         this.audioRenderer = this.app.getAudioRenderer();
+        
+        this.app.getNifty().fromXml("Interface/XML/MainGameScreen.xml", "mainGame", this);
     }
 
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name CLEAN UP
+    * 
+    * @description Cleans up the application state
+    *///=========================================================================================================================
     @Override
     public void cleanup()
     {
         super.cleanup();
     }
 
-    
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name SET ENABLED
+    * 
+    * @description Make the application state enabled or disabled (i.e. pause and unpause)
+    * 
+    * @param enabled Whether or not to enabled or disable the application state
+    *///=========================================================================================================================
     @Override
     public void setEnabled(boolean enabled)
     {
-        // Pause and unpause
         super.setEnabled(enabled);
-
     }
-
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name UPDATE
+    * 
+    * @description Method called by the main thread (loop) that updates the state of the game.
+    * 
+    * @param tpf The amount of time per frame
+    *///=========================================================================================================================
     @Override
     public void update(float tpf)
     {
-        
+           
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    // SCREEN CONTROLLER METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // IMPLEMENTED SCREEN CONTROLLER METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
 
-    
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name BIND
+    * 
+    * @description Method that binds the screen controller with the nifty instance and the screen.
+    * 
+    * @param nifty The nifty instance
+    * @param screen The screen instance
+    *///=========================================================================================================================
     public void bind(Nifty nifty, Screen screen)
     {
         System.out.println("bind( " + screen.getScreenId() + ")");
@@ -113,67 +129,81 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         this.screen = screen;
     }
 
-    
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name ON START SCREEN
+    * 
+    * @description Method that is called when the screen has initially started up
+    *///=========================================================================================================================
     public void onStartScreen()
     {
         System.out.println("onStartScreen");
     }
 
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name ON END SCREEN
+    * 
+    * @description Method that is called at the end of the screen's life
+    *///=========================================================================================================================
     public void onEndScreen()
-    {
-        
+    { 
     }
+     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // MAIN SCREEN CONTROLLER METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name QUIT GAME
+    * 
+    * @description Stops the application
+    *///=========================================================================================================================
     public void quitGame()
     {
         app.stop();
     }
     
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // MAIN GUI METHODS
-    
-    public void openStaffScreen()
+    /**========================================================================================================================== 
+    * @name OPEN STAFF WINDOW
+    * 
+    * @description Opens the staff window in the main screen
+    *///=========================================================================================================================
+    public void openStaffWindow()
     {
-        System.out.println("Staff Screen");       
+        System.out.println("Staff Window Opened");       
     }
 
-    /**
-     * 
-     */
-    public void openTravelScreen()
+    /**========================================================================================================================== 
+    * @name OPEN TRAVEL WINDOW
+    * 
+    * @description Opens the travel window in the main screen
+    *///=========================================================================================================================
+    public void openTravelWindow()
     {
-        System.out.println("Travel Screen");        
+        System.out.println("Travel Window Opened");        
     }
  
-     /**
-     * 
-     */
-    public void openOfficerScreen()
+     /**========================================================================================================================== 
+    * @name OPEN OFFICER WINDOW
+    * 
+    * @description Opens the officer window in the main screen
+    *///=========================================================================================================================
+    public void openOfficerWindow()
     {
-        System.out.println("Officer Screen");        
+        System.out.println("Officer Window Opened");        
     }
 
-     /**
-     * 
-     */
-    public void openUnlockScreen()
+     /**========================================================================================================================== 
+    * @name OPEN UNLOCK WINDOW
+    * 
+    * @description Opens the unlock window in the main screen
+    *///=========================================================================================================================
+    public void openUnlockWindow()
     {
         System.out.println("Unlock Screen");        
     }
-    
-    
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 }

@@ -33,7 +33,7 @@
                 <panel id="panel_bottom_right" height="50%" width="50%" valign="center" childLayout="center">
                     <control name="button" label="Quit" id="QuitButton" align="center" valign="center">
                         <interact onClick="quitGame()"/>
-                    </control>
+                    </control>m
                 </panel>
             </panel>
             

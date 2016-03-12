@@ -3,8 +3,6 @@
  * and open the template in the editor.
  */
 package stellarclicker.ship;
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -15,46 +13,61 @@ package stellarclicker.ship;
  * @description This class defines a ship component for the ship 
  * 
  */
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import stellarclicker.util.BigNumber;
 
-public class ShipComponent {
+import stellarclicker.util.BigNumber;
+import stellarclicker.util.Timer;
+
+
+import stellarclicker.util.EShipStat;
+
+
+public class ShipComponent
+{
+
     
     public int NUM_SHIP_STAT_COMPONENETS;
     
     protected int MAX_DURABILITY;
     protected int MAX_LEVEL;
     protected float BASE_RANK;
-    protected BigNumber levelCost;
-    protected BigNumber repairCost;
+    protected double levelCost;
+    protected double repairCost;
     protected int durability;
     protected int level;
     protected int currentExp;
     protected int nextLevelExp;
     protected boolean isEnabled;
     
+    protected EShipStat[] shipStatCompUnlocksIdx;
+    
+    protected int expGain;
+
+    
     //protected ShipStatEnum[] shipStatCompUnlocksIdx;
+
     protected int[][] shipStatUnlocks;
     
+    protected long expTime;
+    protected Timer expTimer;
+    
+    
    //Constructor 
-    ShipComponent()
+    public ShipComponent()
     {
         System.out.println("Constructing component");
+        
+        this.expTimer = new Timer();
+        
     }
     
     /*
      * Public Methods
      */
-    public void update()
+    public void update(double gameTime)
     {
-        System.out.println("Updating Component");
-    }
-    
-    public void gainExp()
-    {
-        System.out.println("Gaining xp");
+        
     }
     
     public void degradeComponent()

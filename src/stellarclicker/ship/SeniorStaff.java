@@ -15,14 +15,16 @@ package stellarclicker.ship;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import stellarclicker.util.BigNumber;
+import stellarclicker.util.EShipStat;
 
 
-public class SeniorStaff {
+public class SeniorStaff 
+{
     
     protected ShipComponent managedComponent;
-    //protected ShipStatEnum[] shipStatComponentBoostIdx;
+    protected EShipStat[] shipStatComponentBoostIdx;
     protected int[] shipStatBoost;
-    protected BigNumber purchasedCost;
+    protected double purchasedCost;
     protected boolean isPurchased;
     
     // Constructor
@@ -35,7 +37,6 @@ public class SeniorStaff {
      */
     public void update()
     {
-        System.out.println("Updat the things");
     }
     
     public void purchase()

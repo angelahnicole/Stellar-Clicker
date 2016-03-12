@@ -1,39 +1,61 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package stellarclicker.util;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * @file BigNumber.java
- * 
- * @author Angela Gross, Matthew Dolan, Alex Dunn
- * 
- * @description This is the custom Big Number type that we define to use in our game
- * 
- */
+import java.util.HashMap;
 
+
+/**========================================================================================================================== 
+ * @file BigNumber.java
+ * --------------------------------------------------------------------------------------------------------------------------
+ * @author Angela Gross, Matthew Dolan, Alex Dunn
+ * --------------------------------------------------------------------------------------------------------------------------
+ * @description This is the custom Big Number type that we define to store and do operations on large numbers without 
+ * actually storing a gigantic number in memory.
+ *///========================================================================================================================
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public class BigNumber 
 {
-    /*
-     * Constructor for BigNumber
-     */
-    BigNumber()
-    {
-        System.out.println("number created");
-    }
-    /*
-     * Public methods
-     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    /*
-     * Private methods
-     */
+    private static String[] numberSuffixes =
+    {
+      "",
+      "K",
+      "Million",
+      "Billion",
+      "Trillion",
+      "Quadrillion",
+      "Quintillion",
+      "Sextillion",
+      "Septillion",
+      "Octillion",
+      "Nonillion",
+      "Decillion",
+      "Undecillion"
+    };
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+    public static String getNumberString(double number)
+    {
+        // get the index used for the number suffix
+        int suffixIndex = (int)Math.log(number) / 3;
+        String numberSuffix = numberSuffixes[suffixIndex];
+
+        // get a truncated version of the number
+        number /= Math.pow(10, suffixIndex * 3);
+        
+        // return the number
+        return number + " " + numberSuffix;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 }
