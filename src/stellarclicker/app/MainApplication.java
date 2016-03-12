@@ -2,36 +2,62 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
+/**========================================================================================================================== 
  * @file MainApplication.java
- * 
+ * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
- * 
- * @description 
- * 
- */
+ * --------------------------------------------------------------------------------------------------------------------------
+ * @description Serves as a main entry point into the game along with being a state manager and the handler of the ship.
+ * --------------------------------------------------------------------------------------------------------------------------
+    JME LICENSE
+    ******************************************************************************
+    Copyright (c) 2003-2016 jMonkeyEngine
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+
+    * Neither the name of 'jMonkeyEngine' nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+    PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *///========================================================================================================================
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
-
 import stellarclicker.app.*;
-
-import com.jme3.app.state.AppStateManager;
-import com.jme3.asset.AssetManager;
-import com.jme3.audio.AudioRenderer;
-import com.jme3.input.InputManager;
 import com.jme3.niftygui.NiftyJmeDisplay;
-import com.jme3.renderer.ViewPort;
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.screen.Screen;
+import stellarclicker.util.EAppState;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import stellarclicker.ship.Ship;
 public class MainApplication extends SimpleApplication
-{
-    
+{  
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     private Nifty nifty;
     private NiftyJmeDisplay niftyDisplay;
     public static MainApplication app;
@@ -41,58 +67,60 @@ public class MainApplication extends SimpleApplication
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    // SIMPLE APPLICATION METHODS
-   
-    /** 
-    * Main entry into the game.
+    /**========================================================================================================================== 
+    * @name MAIN
+    * 
+    * @description Main entry into the game.
     * 
     * @param args Arguments given to the main method (usually via command line)
-    */
+    *///=========================================================================================================================
     public static void main(String[] args)
     {
         app = new MainApplication();
         app.start();
     }
-
-    /**
-     * Initialization for the state
-     */
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // SIMPLE APPLICATION METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+   
+    /**========================================================================================================================== 
+    * @name SIMPLE INIT APP
+    * 
+    * @description Initialization for the state
+    *///=========================================================================================================================
     @Override
     public void simpleInitApp()
     {
         System.out.println("Initializing...");
 
-        /*
-         * Initializing the nifty GUI
-         */
+        // initializing the nifty GUI
         niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
         nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/XML/SplashScreen.xml", "splash");
         guiViewPort.addProcessor(niftyDisplay);
        
         // always start with the start state
         changeState = EAppState.SPLASH_SCREEN_STATE;
        
-        /*
-         * Set stats views to default off
-         */
+        // set stats views to default off
         setDisplayFps(false);
         setDisplayStatView(false);
-
-        
     }
-    
-    /**
-     * Update method for the state
-     */
+
+    /**========================================================================================================================== 
+    * @name UPDATE
+    * 
+    * @description Update method for the state
+    *///=========================================================================================================================
     @Override
     public void update()
     {
         super.update();
 
-        // do some animation
+        // update and render the current state
         float tpf = timer.getTimePerFrame();
-
         stateManager.update(tpf);
         stateManager.render(renderManager);
         rootNode.updateLogicalState(tpf);
@@ -103,6 +131,7 @@ public class MainApplication extends SimpleApplication
         
         switch(changeState)
         {
+            // go to the splash screen state
             case SPLASH_SCREEN_STATE:
             {
                 if(stateManager.hasState(currentState))
@@ -115,6 +144,7 @@ public class MainApplication extends SimpleApplication
                 
                 break;
             }
+            // go to the main game state
             case GAME_STATE:
             {
                 if(stateManager.hasState(currentState))
@@ -127,22 +157,25 @@ public class MainApplication extends SimpleApplication
                 
                 break;
             }
+            // do nothing- we are staying in the same state
             case STAY_STATE:
             {
-                // Do nothing. We are staying here.
+                
                 break;
             }
         }
         
-        // Go back to not changing state
+        // ensure that we don't constantly change states
         changeState = EAppState.STAY_STATE;
         
         
     }
 
-    /**
-     * Kill the current state 
-     */
+    /**========================================================================================================================== 
+    * @name DESTROY
+    * 
+    * @description Kill the current state 
+    *///=========================================================================================================================
     @Override
     public void destroy()
     {
@@ -153,25 +186,31 @@ public class MainApplication extends SimpleApplication
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     // STATE MANAGEMENT METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     
-    /**
-     * TODO: This will most likely be moved to stellarclicker.util
-     */
-    public static enum EAppState
-    {
-        SPLASH_SCREEN_STATE, GAME_STATE, STAY_STATE
-    }
-    
-    /**
-     * This function changes the application state
-     * @param newState the new app state to switch to
-     */
+    /**========================================================================================================================== 
+    * @name CHANGE STATE
+    * 
+    * @description Notifies the state manager to switch to the new state
+    * 
+    * @param newState the new app state to switch to
+    *///=========================================================================================================================
     public void changeState(EAppState newState)
     {
         changeState = newState;
     }
     
+    /**========================================================================================================================== 
+    * @name GET NIFTY
+    * 
+    * @description Returns the main instance of nifty 
+    *///=========================================================================================================================
+    public Nifty getNifty()
+    {
+        return nifty;
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 }

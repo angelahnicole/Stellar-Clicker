@@ -18,7 +18,8 @@ import stellarclicker.util.Timer;
 
 import stellarclicker.util.BigNumber;
 
-public class Ship {
+public class Ship 
+{
     
     /*
      * Private variable for the ship
@@ -26,9 +27,9 @@ public class Ship {
     private ShipComponent[] shipComponents;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
-    private BigNumber officers;
-    private BigNumber money;
-    private BigNumber moneyPerSecond;
+    private double officers;
+    private double money;
+    private double moneyPerSecond;
     
     // Ship Constructor
     public Ship()

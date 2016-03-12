@@ -15,29 +15,41 @@ package stellarclicker.ship;
  */
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 
 
-public class ShipComponent{
+import stellarclicker.util.EShipStat;
+
+
+public class ShipComponent
+{
+
     
     public int NUM_SHIP_STAT_COMPONENETS;
     
     protected int MAX_DURABILITY;
     protected int MAX_LEVEL;
     protected float BASE_RANK;
-    protected BigNumber levelCost;
-    protected BigNumber repairCost;
+    protected double levelCost;
+    protected double repairCost;
     protected int durability;
     protected int level;
     protected int currentExp;
     protected int nextLevelExp;
     protected boolean isEnabled;
+    
+    protected EShipStat[] shipStatCompUnlocksIdx;
+    
     protected int expGain;
-    protected long expTime;
+
+    
     //protected ShipStatEnum[] shipStatCompUnlocksIdx;
+
     protected int[][] shipStatUnlocks;
     
+    protected long expTime;
     protected Timer expTimer;
     
     
