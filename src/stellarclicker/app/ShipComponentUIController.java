@@ -18,6 +18,7 @@ import de.lessvoid.nifty.controls.Controller;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.input.NiftyInputEvent;
 import de.lessvoid.nifty.screen.Screen;
+import de.lessvoid.nifty.tools.SizeValue;
 import de.lessvoid.xml.xpp3.Attributes;
 import java.util.Properties;
 import stellarclicker.util.EShipComponent;
@@ -114,16 +115,81 @@ public class ShipComponentUIController implements Controller
     /**========================================================================================================================== 
     * @name GAIN EXP
     * 
-    * @description Method called when the ship component's circle is clicked. Sets off a timer for the associated ship component
-    * wait, gain experience, and level up.
+    * @description Method called when the ship component's circle is clicked. Disables the component and will update the 
+    * progress bar as progress is being made in gaining experience.
     *///=========================================================================================================================
     public void gainExp()
     {
-        String compEnum = controlDefinitionAttributes.get("compEnum");
-        System.out.println("Gaining experience with " + compEnum);
-        
 
+        System.out.println("Gaining experience with " + shipCompElem.getId());
+        disableComponent();
+        
+        updateProgressBar(1.0, "#greenBar");
     }
+    
+    /**========================================================================================================================== 
+    * @name REPAIR
+    * 
+    * @description Method called when a component is broken and needs to be repaired. Disables the component and will update the
+    * progress bar as progress is being made.
+    *///=========================================================================================================================
+    public void repair()
+    {
+        System.out.println("Reparing " + shipCompElem.getId());
+        
+        updateProgressBar(1.0, "#redBar");
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE PROGRESS BAR
+    * 
+    * @description Moves the progress bar given the desired percentage and its name
+    * 
+    * @param percentComplete The percentage (a number from 0 to 1) that the bar should update to
+    * @param progressBarID The name (ID) of the element that contains the progress bar
+    *///=========================================================================================================================
+    public void updateProgressBar(double percentComplete, String progressBarID)
+    {
+        // convert to a whole number percentage
+        percentComplete = percentComplete*100;
+        
+        // convert to the proper x percentage needed for updating the progress bar
+        double progressBarPercent = -100.0 + percentComplete;
+        
+        // update the progress bar
+        Element progressBar = shipCompElem.findElementByName(progressBarID);
+        if(progressBar != null)
+        {
+            progressBar.setConstraintX(new SizeValue(progressBarPercent + "%"));
+        }
+        
+        // layout the elements
+        shipCompElem.layoutElements();
+        
+    }
+    /**========================================================================================================================== 
+    * @name REENABLE COMPONENT
+    * 
+    * @description Re-enables the component by resetting the progress bar, making 
+    *///=========================================================================================================================
+    private void reenableComponent()
+    {
+        shipCompElem.enable();
+        shipCompElem.findElementByName("#greenBar").setConstraintX(new SizeValue("-100%"));
+        shipCompElem.findElementByName("#redBar").setConstraintX(new SizeValue("-100%"));
+    }
+    
+    /**========================================================================================================================== 
+    * @name REPAIR
+    * 
+    * @description Method called when a component is broken and needs to be repaired. Disables the component and will update the
+    * progress bar as progress is being made.
+    *///=========================================================================================================================
+    private void disableComponent()
+    {
+        shipCompElem.disable();
+    }
+    
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     

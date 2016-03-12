@@ -21,12 +21,13 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <panel id="leftPanel" width="25%" height="100%" childLayout="vertical">
                 
-                <control id="lifeSupport" name="ship-component-div" compEnum="LIFE_SUPPORT" compImage="Interface/Images/UI/squareRed.png" compLevel="1" />
-                <control id="shields" name="ship-component-div" compEnum="SHIELDS" compImage="Interface/Images/UI/squareGreen.png" compLevel="1"/>
-                <control id="weapons" name="ship-component-div" compEnum="WEAPONS" compImage="Interface/Images/UI/squareYellow.png" compLevel="1"/>
-                <control id="engines" name="ship-component-div" compEnum="ENGINES" compImage="Interface/Images/UI/squareRed.png" compLevel="1"/>
-                <control id="holodecks" name="ship-component-div" compEnum="HOLODECKS" compImage="Interface/Images/UI/squareGreen.png" compLevel="1"/>
-                <control id="replicators" name="ship-component-div" compEnum="REPLICATORS" compImage="Interface/Images/UI/squareRed.png" compLevel="1"/>
+                <!-- SHIP COMPONENTS: IDs will match their ship component enumeration -->
+                <control id="LIFE_SUPPORT" name="ship-component-div" compImage="Interface/Images/UI/squareRed.png" compLevel="1" />
+                <control id="SHIELDS" name="ship-component-div" compImage="Interface/Images/UI/squareGreen.png" compLevel="1"/>
+                <control id="WEAPONS" name="ship-component-div" compImage="Interface/Images/UI/squareYellow.png" compLevel="1"/>
+                <control id="ENGINES" name="ship-component-div" compImage="Interface/Images/UI/squareRed.png" compLevel="1"/>
+                <control id="HOLODECKS" name="ship-component-div" compImage="Interface/Images/UI/squareGreen.png" compLevel="1"/>
+                <control id="REPLICATORS" name="ship-component-div" compImage="Interface/Images/UI/squareRed.png" compLevel="1"/>
                
             </panel>
             

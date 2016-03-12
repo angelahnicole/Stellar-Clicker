@@ -20,7 +20,7 @@
     <style id="componentButton">
         <effect>
             <onHover name="fade" start="#FFFFFF" end="#B3FFFF"/>
-            <onClick name="imageSizePulsate" startSize="100%" endSize="150%" pulsator="SinusPulsator"/>
+            <onClick name="imageSizePulsate" startSize="100%" endSize="110%" length="250" pulsator="SinusPulsator"/>
         </effect>
     </style>
    

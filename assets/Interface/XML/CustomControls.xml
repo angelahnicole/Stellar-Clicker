@@ -27,7 +27,8 @@
                 
                 <!-- SHIP COMPONENT PROGRESS BAR -->
                 <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" style="horizontalBar" height="50%" childClip="true" childLayout="absolute" padding="5px,0px">
-                    <image filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="100%" height="100%" x="0%" y ="0"/>
+                    <image id="#greenBar" filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
+                    <image id="#redBar" filename="Interface/Images/UI/barHorizontal_red.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
                 </panel>
                 
                 <!-- SHIP COMPONENT PROGRESS TIME LEFT -->
@@ -36,7 +37,6 @@
                     <panel childLayout="center" padding="2px">
                         <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="horizontal" height="100%" padding="10px">
                             <control id="#buyButton" name="button" label="Buy" width="*"/>
-                            <control id="#repairButton" name="button" label="Repair" width="*"/>
                         </panel>
                     </panel>
                     
