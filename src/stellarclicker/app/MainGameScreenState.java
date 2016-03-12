@@ -32,7 +32,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     
     private Nifty nifty;
     private Screen screen;
-    private MainApplication app;
+    private Application app;
     private AssetManager assetManager;
     private AppStateManager stateManager;
     private InputManager inputManager;
@@ -59,7 +59,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public void initialize(AppStateManager stateManager, Application app)
     {
         super.initialize(stateManager, app);
-        this.app = (MainApplication) app;
+        this.app = app;
         this.assetManager = this.app.getAssetManager();
         this.stateManager = this.app.getStateManager();
         this.inputManager = this.app.getInputManager();
@@ -67,7 +67,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         this.guiViewPort = this.app.getGuiViewPort();
         this.audioRenderer = this.app.getAudioRenderer();
         
-        this.app.getNifty().fromXml("Interface/XML/MainGameScreen.xml", "mainGame", this);
+        MainApplication.app.getNifty().fromXml("Interface/XML/MainGameScreen.xml", "mainGame", this);
     }
 
     /**========================================================================================================================== 

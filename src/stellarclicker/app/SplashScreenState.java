@@ -34,7 +34,7 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     
     private Nifty nifty;
     private Screen screen;
-    private MainApplication app;
+    private Application app;
     private AssetManager assetManager;
     private AppStateManager stateManager;
     private InputManager inputManager;
@@ -59,7 +59,7 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     public void initialize(AppStateManager stateManager, Application app)
     {
         super.initialize(stateManager, app);
-        this.app = (MainApplication) app;
+        this.app = app;
         this.assetManager = this.app.getAssetManager();
         this.stateManager = this.app.getStateManager();
         this.inputManager = this.app.getInputManager();
@@ -70,7 +70,7 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
         this.app.setPauseOnLostFocus(false);
         this.inputManager.setCursorVisible(true);
         
-        this.app.getNifty().fromXml("Interface/XML/SplashScreen.xml", "splash");
+        MainApplication.app.getNifty().fromXml("Interface/XML/SplashScreen.xml", "splash");
     }
 
     /**========================================================================================================================== 
@@ -180,7 +180,7 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
      */
     public void quitGame()
     {
-        app.stop();
+        MainApplication.app.stop();
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
