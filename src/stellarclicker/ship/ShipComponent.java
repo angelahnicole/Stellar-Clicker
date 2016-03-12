@@ -13,12 +13,13 @@ package stellarclicker.ship;
  * @description This class defines a ship component for the ship 
  * 
  */
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import stellarclicker.util.BigNumber;
-import java.util.concurrent.*;
-public class ShipComponent implements Runnable{
+import stellarclicker.util.Timer;
+
+
+public class ShipComponent{
     
     public int NUM_SHIP_STAT_COMPONENETS;
     
@@ -33,93 +34,28 @@ public class ShipComponent implements Runnable{
     protected int nextLevelExp;
     protected boolean isEnabled;
     protected int expGain;
-    protected long expTimer;
+    protected long expTime;
     //protected ShipStatEnum[] shipStatCompUnlocksIdx;
     protected int[][] shipStatUnlocks;
     
-    //threading
-    private ScheduledExecutorService executor;
-    private ScheduledFuture<?> task;
+    protected Timer expTimer;
+    
+    
    //Constructor 
     public ShipComponent()
     {
         System.out.println("Constructing component");
         
-        initialize();
+        this.expTimer = new Timer();
         
     }
     
-    @Override //threading
-    public void run()
-    {
-        
-        
-    }
-    
-    final Runnable startExpGain = new Runnable () {
-        
-        public void run() {
-            System.out.println("Starting experience of component");
-            gainExp();
-        }
-    };
-    
-    /* Load a component at game start and setup appropriate 
-     * data for the component.
-     * 
-     * Load the type and then load what the user save data is.
-     * 
-     * 
-     */
-    public void initialize()
-    {
-        this.isEnabled = true; // TODO: create triggers to enable and disable 
-        if (this.isEnabled)
-        {
-            //start thread 
-            executor = Executors.newScheduledThreadPool(1);
-            
-            //start worker to gain experience. Initially, a 0 second delay to start with expTimer second period in between. 
-            //This will change when we nail down specifics for balance, reasons.
-            //also, note that this needs to be cleaned up upon disable of experience gain or closure of the game.
-            executor.scheduleAtFixedRate(startExpGain, 0, expTimer, TimeUnit.SECONDS);
-            
-        }
-        
-        
-    }
-    
-    public void closeThreads()
-    {
-        if (this.task != null)
-        {
-            this.task.cancel(true);
-        }
-    }
-    
-    //change the time it takes to gain 
-    public void changeThreadInterval(long time)
-    {
-        if (time > 0)
-        {
-            if (this.task != null)
-            {
-                this.task.cancel(true);
-            }
-            this.task = executor.scheduleAtFixedRate(startExpGain, time, time, TimeUnit.DAYS);
-        }
-    }
     /*
      * Public Methods
      */
-    public void update()
+    public void update(double gameTime)
     {
-        System.out.println("Updating Component");
-    }
-    
-    public void gainExp()
-    {
-        System.out.println("Gaining xp");
+        
     }
     
     public void degradeComponent()

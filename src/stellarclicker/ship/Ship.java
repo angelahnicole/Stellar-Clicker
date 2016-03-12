@@ -1,6 +1,7 @@
 
 package stellarclicker.ship;
 
+import stellarclicker.util.Timer;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -14,6 +15,7 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
 import stellarclicker.util.BigNumber;
 
 public class Ship {
@@ -21,7 +23,7 @@ public class Ship {
     /*
      * Private variable for the ship
      */
-    private ShipComponent[] shipComponenets;
+    private ShipComponent[] shipComponents;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
     private BigNumber officers;
@@ -29,9 +31,10 @@ public class Ship {
     private BigNumber moneyPerSecond;
     
     // Ship Constructor
-    Ship()
+    public Ship()
     {
         System.out.println("You created a ship");
+        
     }
     
     /*
@@ -41,17 +44,28 @@ public class Ship {
     //Update method
     public void update(float tpf)
     {
-        System.out.println("Updating!");
+        
     }
+    
     
     public void purchaseComponentRepair()
     {
         System.out.println("Repair Comp");
     }
     
-    public void purchaseComponenetExperience()
+    
+    public void initializeComponents()
+    {
+        
+    }
+    
+    public void purchaseComponentExperience(int Component)
     {
         System.out.println("Experienceing Components");
+        
+        
+        
+        
     }
     
     public void purchaseSeniorStaff()

@@ -27,6 +27,7 @@ import com.jme3.renderer.ViewPort;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 
+import stellarclicker.ship.Ship;
 public class MainApplication extends SimpleApplication
 {
     
@@ -36,6 +37,7 @@ public class MainApplication extends SimpleApplication
     public static MainApplication app;
     protected EAppState changeState;
     protected AppState currentState;
+    
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -134,6 +136,8 @@ public class MainApplication extends SimpleApplication
         
         // Go back to not changing state
         changeState = EAppState.STAY_STATE;
+        
+        
     }
 
     /**
