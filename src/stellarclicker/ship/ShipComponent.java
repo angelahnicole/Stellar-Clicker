@@ -56,7 +56,8 @@ public class ShipComponent
 {
   
     public int NUM_SHIP_STAT_COMPONENETS;
-    
+    protected String name;
+    private SeniorStaff assignedOfficer;
     protected int MAX_DURABILITY;
     protected int MAX_LEVEL;
     protected float BASE_RANK;
@@ -86,13 +87,15 @@ public class ShipComponent
     //whether the component is managed by an officer.
     protected boolean managed;
    //Constructor 
-    public ShipComponent()
+    public ShipComponent(String name)
     {
-        System.out.println("Constructing component");
-        
+        this.name = name;
         this.expTimer = new Timer();
         this.repairTimer = new Timer();
+        this.isEnabled = false;
         
+     System.out.println("Constructing component " + this.name);
+       
     }
     
     /**========================================================================================================================== 

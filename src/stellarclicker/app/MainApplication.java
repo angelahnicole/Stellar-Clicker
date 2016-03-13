@@ -63,7 +63,7 @@ public class MainApplication extends SimpleApplication
     public static MainApplication app;
     protected EAppState changeState;
     protected AppState currentState;
-    
+    public Ship myShip;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -96,6 +96,8 @@ public class MainApplication extends SimpleApplication
     {
         System.out.println("Initializing...");
 
+        myShip = new Ship();
+        
         // initializing the nifty GUI
         niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
         nifty = niftyDisplay.getNifty();

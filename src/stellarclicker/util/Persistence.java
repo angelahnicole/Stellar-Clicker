@@ -39,19 +39,19 @@ public class Persistence extends SimpleApplication {
     public void simpleInitApp() {
 
         //node that is used to store player data
-        Node myPlayer = new Node();
-        myPlayer.setName("PlayerNode");
-        myPlayer.setUserData("name", "Mario");
-        myPlayer.setUserData("health", 100.0f);
-        myPlayer.setUserData("points", 0);
+        Node myShip = new Node();
+        myShip.setName("PlayerNode");
+        myShip.setUserData("name", "Mario");
+        myShip.setUserData("health", 100.0f);
+        myShip.setUserData("points", 0);
 
         //the actual model would be attached to this node
         Spatial model = (Spatial) assetManager.loadModel("Models/Oto/Oto.mesh.xml");
-        myPlayer.attachChild(model);
+        myShip.attachChild(model);
 
         //before saving the game, the model should be detached so its not saved along with the node
-        myPlayer.detachAllChildren();
-        SaveGame.saveGame("mycompany/mygame", "savegame_001", myPlayer);
+        myShip.detachAllChildren();
+        SaveGame.saveGame("mycompany/mygame", "savegame_001", myShip);
 
         //later the game is loaded again
         Node player = (Node) SaveGame.loadGame("mycompany/mygame", "savegame_001");

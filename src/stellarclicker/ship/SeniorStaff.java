@@ -23,6 +23,7 @@ public class SeniorStaff
     
     protected ShipComponent managedComponent;
     protected EShipStat[] shipStatComponentBoostIdx;
+    protected EShipStat shipStatComponentBoost;
     protected int[] shipStatBoost;
     protected double purchasedCost;
     protected boolean isPurchased;
@@ -31,6 +32,7 @@ public class SeniorStaff
     SeniorStaff()
     {
         System.out.println("construct things");
+        
     }
     /*
      * Public methods
