@@ -1,18 +1,47 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stellarclicker.ship;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * @file ShipComponenet.java
- * 
+/**========================================================================================================================== 
+ * @file MainApplication.java
+ * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
- * 
+ * --------------------------------------------------------------------------------------------------------------------------
  * @description This class defines a ship component for the ship 
- * 
- */
+ * --------------------------------------------------------------------------------------------------------------------------
+    JME LICENSE
+    ******************************************************************************
+    Copyright (c) 2003-2016 jMonkeyEngine
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+
+    * Neither the name of 'jMonkeyEngine' nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+    PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *///========================================================================================================================
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -25,8 +54,7 @@ import stellarclicker.util.EShipStat;
 
 public class ShipComponent
 {
-
-    
+  
     public int NUM_SHIP_STAT_COMPONENETS;
     
     protected int MAX_DURABILITY;
@@ -67,9 +95,13 @@ public class ShipComponent
         
     }
     
-    /*
-     * Public Methods
-     */
+    /**========================================================================================================================== 
+    * @name UPDATE
+    * 
+    * @description Runs the components update cycle 
+    * 
+    * @param gameTime The main game time state
+    *///=========================================================================================================================
     public void update(double gameTime)
     {
         
@@ -85,8 +117,7 @@ public class ShipComponent
         {
             
         }
-        
-        
+         
         //check if leveled up
         
         if (this.currentExp > this.nextLevelExp)
@@ -95,8 +126,27 @@ public class ShipComponent
             
         }
     }
-    
-    
+    /**========================================================================================================================== 
+    * @name GETCOMPONENTSTATE
+    * 
+    * @description Returns the state of the component and all variables 
+    * 
+    *///=========================================================================================================================
+
+    public String[] getComponentState()
+    {
+        
+            return new String[0];
+    }
+      
+     /**========================================================================================================================== 
+    * @name EXPERIENCETIMER
+    * 
+    * @description Starts exp timer for this component  
+    * 
+    * @param gameTime The main application time
+    *///=========================================================================================================================
+   
     public double experienceTimerPercent(double gameTime)
     {
         return this.expTimer.getPercentComplete(gameTime);
@@ -115,6 +165,13 @@ public class ShipComponent
         System.out.println("this is degrading");
     }
     
+    /**========================================================================================================================== 
+    * @name repairComponent
+    * 
+    * @description Sets the repair state 
+    * 
+    *///=========================================================================================================================
+
     public void repairComponent()
     {
         System.out.println("repair");
@@ -122,6 +179,14 @@ public class ShipComponent
         
     }
     
+    /**========================================================================================================================== 
+    * @name damageComponent
+    * 
+    * @description Reduces the components durability 
+    * 
+    * @param amount the amount to damage by
+    *///=========================================================================================================================
+
     public void damageComponent(int amount)
     {
         this.durability = this.durability - amount;
@@ -133,40 +198,80 @@ public class ShipComponent
         }
     }
     
-    public void isBroken()
+    /**========================================================================================================================== 
+    * @name isBroken
+    * 
+    * @description Returns wheather the compnnent is in a broken state 
+    * 
+    *///=========================================================================================================================
+
+    public boolean isBroken()
     {
+        if(this.durability <= 0)
+        {
         System.out.println("yep it is");
+        return true;
+        }
+        else
+            return false;
     }
     
     
-    
+    /**========================================================================================================================== 
+    * @name getShipstatistic
+    * 
+    * @description Get the Statistic 
+    * 
+    *///=========================================================================================================================
+
     public void getShipStatistic()
     {
         System.out.println("get stuff");
     }
     
+    /**========================================================================================================================== 
+    * @name enable
+    * 
+    * @description Put this component in the enabled state 
+    * 
+    *///=========================================================================================================================
+
     public void enable()
     {
         
         this.isEnabled = true;
     }
     
-    
+    /**========================================================================================================================== 
+    * @name GainExperience
+    * 
+    * @description Add exp to this  
+    * 
+    *///=========================================================================================================================
+
     public void gainExperience()
     {
         this.currentExp += this.expGain;
-        
-        
+          
     }
-    
+    /**========================================================================================================================== 
+    * @name getLevel
+    * 
+    * @description Returns the current level of this 
+    * 
+    *///=========================================================================================================================
      public int getLevel()
     {
         return this.level;
     }
-     
-     /*
-     * Private Methods
-     */
+    
+    /**========================================================================================================================== 
+    * @name levelUp
+    * 
+    * @description Increases the level of this 
+    * 
+    *///=========================================================================================================================
+
     private void levelUp()
     {
         this.level += 1;
@@ -174,6 +279,13 @@ public class ShipComponent
         
     }
     
+    /**========================================================================================================================== 
+    * @name breakComponent
+    * 
+    * @description Sets the state to broken and the durability to 0 
+    * 
+    *///=========================================================================================================================
+
    private void breakComponent()
     {
         this.isEnabled = false;
