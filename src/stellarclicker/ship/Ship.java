@@ -16,6 +16,7 @@ import stellarclicker.util.Timer;
 
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipComponent;
+import stellarclicker.util.ESeniorStaff;
 
 public class Ship 
 {
@@ -32,79 +33,128 @@ public class Ship
     private double moneyPerSecond;
     private EShipComponent componentEnum;
     
-    // Ship Constructor
-    public Ship()
+ /**========================================================================================================================== 
+    * @name Ship Constructor
+    * 
+    * @description Creates and calls initailize functions for the components 
+    * 
+    *///=========================================================================================================================
+       public Ship()
     {
-     shipComponents = new ShipComponent[COMPONENT_NUM];
-     int i = 0;
-       for(EShipComponent m : EShipComponent.values()) { 
-        shipComponents[i] = new ShipComponent(m.name());
-        i++;
-     }
-
-//     EShipComponent ret;
-//     ret = EShipComponent.valueOf("HULL"); 
-//     System.out.println("Selected : " + ret);                              
-//   }
-     
+     this.initializeComponents();
      
     }
     
-    /*
-     * Public Methods
-     */
-    
-    //Update method
+     /**========================================================================================================================== 
+    * @name UPDATE
+    * 
+    * @description Runs the components update cycle 
+    * 
+    * @param tpf The main game time state
+    *///=========================================================================================================================
+   
     public void update(float tpf)
     {
         
     }
     
-    
-    public void purchaseComponentRepair()
+     /**========================================================================================================================== 
+    * @name purchaseComponentRepair
+    * 
+    * @description Calls repair method on component  
+    * 
+    * @param component the component to repair Enum type
+    *///=========================================================================================================================
+   
+    public void purchaseComponentRepair(EShipComponent component)
     {
-        System.out.println("Repair Comp");
+        System.out.println("Repair Comp" + component.name());
+        
     }
     
-    
+    /**========================================================================================================================== 
+    * @name initializeComponents
+    * 
+    * @description Initializes component array and creates new components from Enum  
+    * 
+    *///=========================================================================================================================
+     
     public void initializeComponents()
     {
-        
+        // Initializes the component array 
+     shipComponents = new ShipComponent[COMPONENT_NUM];
+     
+     int i = 0; //index for component 
+     
+     // This for each creates a new component and places it in the array at the index
+       for(EShipComponent m : EShipComponent.values()) { 
+        shipComponents[i] = new ShipComponent(m.name());
+        i++;
+     }
+
     }
-    
-    public void purchaseComponentExperience(int Component)
+        /**========================================================================================================================== 
+    * @name purchaseComponentExperience
+    * 
+    * @description Allows user to purchase more experience for a component  
+    * 
+    * @param component the component to Upgrade Enum type
+    *///=========================================================================================================================
+ 
+    public void purchaseComponentExperience(EShipComponent component)
     {
-        System.out.println("Experienceing Components");
-        
-        
-        
-        
+        System.out.println("Experienceing Components " + component.name());
     }
-    
-    public void purchaseSeniorStaff()
+    /**========================================================================================================================== 
+    * @name purchaseSeniorStaff
+    * 
+    * @description Allows user to purchase staff officer for a component  
+    * 
+    * @param component the Officer Enum type
+    *///=========================================================================================================================
+   
+    public void purchaseSeniorStaff(ESeniorStaff officer)
     {
-        System.out.println("Purchasing people");
+        System.out.println("Purchasing people " + officer.name());
     }
-    
+    /**========================================================================================================================== 
+    * @name resetShip
+    * 
+    * @description Allows user to reset the ship
+    *///=========================================================================================================================
     public void resetShip()
     {
         System.out.println("Resetting all the things");
     }
-    
-    /*
-     * Private Methods
-     */
-    
-    private void earnMoney()
+    /**========================================================================================================================== 
+    * @name earnMoney
+    * 
+    * @description Allows user to generate ca$h money  
+    * 
+    * @param moneyPerSecond amount to increase by
+    *///=========================================================================================================================
+    private void earnMoney(double moneyPerSecond)
     {
-        System.out.println("Cash Money");
+        this.money += moneyPerSecond;
+        System.out.println("Ca$h Money: " + this.money);
     }
     
+    /**========================================================================================================================== 
+    * @name calcMoneyPerSecond
+    * 
+    * @description calculates the amount of ca$h money to give the player  
+    *///=========================================================================================================================
+
     private void calcMoneyPerSecond()
     {
         System.out.println("Count that cash");
     }
-    
+    /**========================================================================================================================== 
+    * @name claimOfficers
+    * 
+    * @description not exactly sure what this will be for yet?  
+    *///=========================================================================================================================
+   
     private void claimOfficers()
     {
         System.out.println("Gather the people");
