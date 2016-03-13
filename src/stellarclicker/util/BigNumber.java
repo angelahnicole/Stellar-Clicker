@@ -17,9 +17,11 @@ package stellarclicker.util;
  *///========================================================================================================================
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+import java.text.DecimalFormat;
 
 public class BigNumber 
 {
+   static DecimalFormat numFormat = new DecimalFormat( "###,###,###,###,###,##0.00" );
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     private static String[] numberSuffixes =
@@ -51,7 +53,11 @@ public class BigNumber
     };
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    public static double formatCurrency(double money)
+    { 
+        double temp = new Double(numFormat.format(money)).doubleValue();
+        return temp;
+    }
     
     public static String getNumberString(double number)
     {
@@ -63,7 +69,7 @@ public class BigNumber
         number /= Math.pow(10, suffixIndex * 3);
         
         // return the number
-        return number + " " + numberSuffix;
+        return formatCurrency(number) + " " + numberSuffix;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
