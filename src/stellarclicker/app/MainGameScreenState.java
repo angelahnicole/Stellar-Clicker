@@ -40,7 +40,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     private ViewPort viewPort;
     private ViewPort guiViewPort;
     private AudioRenderer audioRenderer;
-   // private float percent = 0.0f;
+    //private float percent = 0.0f;
+    //private int level = 1;
     
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,16 +110,26 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         // Prototype code to get a ship component's bar and move it 
         /*if(this.screen != null)
         {
-            if(percent < 1)
-                percent += 0.01f;
-            else
-                percent = 0.0f;
-
             ShipComponentUIController weapon = this.screen.findControl(EShipComponent.WEAPONS.toString(), ShipComponentUIController.class);
+            
+            if(percent < 1)
+            {
+                percent += 0.01f;
+            }
+            else
+            {
+                percent = 0.0f;
+                level++;
+                
+                if(weapon != null)
+                {
+                    weapon.updateLevel(level);
+                }
+            }
 
             if(weapon != null)
             {
-                weapon.updateProgressBar(percent, "#redBar");
+                weapon.updateProgressBar(percent, ShipComponentUIController.RED_BAR_ID);
             }
         }*/
     }

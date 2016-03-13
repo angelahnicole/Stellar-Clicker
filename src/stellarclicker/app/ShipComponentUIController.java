@@ -16,6 +16,7 @@ package stellarclicker.app;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
 import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.input.NiftyInputEvent;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.tools.SizeValue;
@@ -28,6 +29,11 @@ import stellarclicker.util.EShipComponent;
 public class ShipComponentUIController implements Controller
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    public static final String GREEN_BAR_ID = "#greenBar";
+    public static final String RED_BAR_ID = "#redBar";
+    public static final String LEVEL_TEXT_ID = "#level";
+    public static final String LEVEL_TEXT_ATTR = "compLevel";
     
     private Nifty nifty;
     private Screen screen;
@@ -120,11 +126,42 @@ public class ShipComponentUIController implements Controller
     *///=========================================================================================================================
     public void gainExp()
     {
+        if(shipCompElem.isEnabled())
+        {
+            System.out.println("Gaining experience with " + shipCompElem.getId());
 
-        System.out.println("Gaining experience with " + shipCompElem.getId());
-        disableComponent();
-        
-        updateProgressBar(1.0, "#greenBar");
+            // move the experience (green) progress bar
+            updateProgressBar(1.0, GREEN_BAR_ID); 
+            
+            // disable the component when we're finished
+            disableComponent();
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE LEVEL
+    * 
+    * @description 
+    * 
+    * @param newLevel The level
+    *///=========================================================================================================================
+    public void updateLevel(int newLevel)
+    {
+        if(shipCompElem.isEnabled())
+        {
+            String levelText = String.valueOf(newLevel);
+            
+            // update compLevel attribute
+            controlDefinitionAttributes.set(LEVEL_TEXT_ATTR, levelText);
+            
+            // update level text control
+            Element levelTextElem = shipCompElem.findElementByName(LEVEL_TEXT_ID);
+            if(levelTextElem != null)
+            {
+                levelTextElem.getRenderer(TextRenderer.class).setText(levelText);
+            }
+            
+        }
     }
     
     /**========================================================================================================================== 
@@ -137,7 +174,7 @@ public class ShipComponentUIController implements Controller
     {
         System.out.println("Reparing " + shipCompElem.getId());
         
-        updateProgressBar(1.0, "#redBar");
+        updateProgressBar(1.0, RED_BAR_ID);
     }
     
     /**========================================================================================================================== 
@@ -151,7 +188,7 @@ public class ShipComponentUIController implements Controller
     public void updateProgressBar(double percentComplete, String progressBarID)
     {
         // convert to a whole number percentage
-        percentComplete = percentComplete*100;
+        percentComplete = percentComplete * 100;
         
         // convert to the proper x percentage needed for updating the progress bar
         double progressBarPercent = -100.0 + percentComplete;
@@ -175,8 +212,8 @@ public class ShipComponentUIController implements Controller
     private void reenableComponent()
     {
         shipCompElem.enable();
-        shipCompElem.findElementByName("#greenBar").setConstraintX(new SizeValue("-100%"));
-        shipCompElem.findElementByName("#redBar").setConstraintX(new SizeValue("-100%"));
+        shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-100%"));
+        shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-100%"));
     }
     
     /**========================================================================================================================== 
