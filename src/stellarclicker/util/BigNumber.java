@@ -5,7 +5,6 @@ package stellarclicker.util;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import java.util.HashMap;
 
 
 /**========================================================================================================================== 
@@ -37,7 +36,18 @@ public class BigNumber
       "Octillion",
       "Nonillion",
       "Decillion",
-      "Undecillion"
+      "Undecillion",
+      "Duodecillion",	
+      "Tredecillion",	
+      "Quattuordecillion",
+      "Quindecillion",	
+      "Sexdecillion", 
+      "Septendecillion",	
+      "Octodecillion",	
+      "Novemdecillion", 
+      "Vigintillion",	
+      "Centillion"	
+
     };
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
