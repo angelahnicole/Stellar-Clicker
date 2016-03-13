@@ -3,7 +3,6 @@ package stellarclicker.ship;
 
 import stellarclicker.util.Timer;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**
  * @file Ship.java
  * 
@@ -12,30 +11,35 @@ import stellarclicker.util.Timer;
  * @description This is the ship class that defines the ship object
  * 
  */
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 import stellarclicker.util.BigNumber;
+import stellarclicker.util.EShipComponent;
 
 public class Ship 
 {
     
     /*
-     * Private variable for the ship
+     * Private variables for the ship
      */
+    private final int COMPONENT_NUM = 7; 
     private ShipComponent[] shipComponents;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
     private double officers;
     private double money;
     private double moneyPerSecond;
+    private EShipComponent componentEnum;
     
     // Ship Constructor
     public Ship()
     {
-        System.out.println("You created a ship");
-        
+     shipComponents = new ShipComponent[COMPONENT_NUM];
+     
+     for(int i=0; i < COMPONENT_NUM;i++)
+        shipComponents[i] = new ShipComponent();
+     
     }
     
     /*
