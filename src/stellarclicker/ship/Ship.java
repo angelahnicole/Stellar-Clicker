@@ -36,9 +36,17 @@ public class Ship
     public Ship()
     {
      shipComponents = new ShipComponent[COMPONENT_NUM];
+     int i = 0;
+       for(EShipComponent m : EShipComponent.values()) { 
+        shipComponents[i] = new ShipComponent(m.name());
+        i++;
+     }
+
+//     EShipComponent ret;
+//     ret = EShipComponent.valueOf("HULL"); 
+//     System.out.println("Selected : " + ret);                              
+//   }
      
-     for(int i=0; i < COMPONENT_NUM;i++)
-        shipComponents[i] = new ShipComponent();
      
     }
     
