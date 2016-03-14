@@ -50,7 +50,7 @@
             <panel id="rightPanel" width="25%" height="100%" childLayout="vertical">
                 
                 <control id="money" name="money-div" height="17%"/>
-                <control id="hull" name="ship-component-div" compEnum="HULL" compImage="Interface/Images/UI/squareGreen.png" compLevel="1" height="17%"/>
+                <control id="HULL" name="ship-component-div" compImage="Interface/Images/UI/squareGreen.png" compLevel="1" height="17%"/>
                 
                 <panel id="controlPanel" width="100%" height="60%" childLayout="vertical">
                     

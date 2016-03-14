@@ -205,17 +205,22 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             
             if(shipComp != null)
             {
-                // get associated enum
+                // get associated enum and get element from GUI
                 EShipComponent shipEnum = EShipComponent.values()[i];
-                
-                // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
+                
+                // get percentage complete and update bar
+                // TODO: need to actually determine whether or not it is being repaired or gaining experience
+                double percentComplete = shipComp.timerPercent();
+                
+                // if(shipComp.currState == EShipComponentState.GAINING_EXP)
+                shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
+                // if(shipComp.currState == EShipComponentState.REPAIRING)
+                // shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
+                
+                // discard element
+                activeComponents[i] = null;
             }
-            
-            
-            
-            // discard element
-            activeComponents[i] = null;
         }
     }
     
@@ -256,8 +261,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     /**========================================================================================================================== 
     * @name UPDATE BROKEN SHIP COMPONENTS
     * 
-    * @description Grabs a list of the broken ship components from the Ship and, if the components aren't disabled and showing
-    * the user that its broken, then we disable them.
+    * @description Grabs a list of the broken ship components from the Ship and, if the component isn't showing the user that it
+    * is broken, then we show them that it is.
     *///=========================================================================================================================
     private void updateBrokenShipComponents()
     {
@@ -275,8 +280,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // make it appear broken and disable it
-                if(!shipElem.isElementEnabled())
+                // make it appear broken
+                if(!shipElem.appearsBroken())
                 {
                     shipElem.breakComponent();
                 }

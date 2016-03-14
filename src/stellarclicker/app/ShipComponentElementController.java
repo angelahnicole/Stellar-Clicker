@@ -54,6 +54,7 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.tools.SizeValue;
 import de.lessvoid.xml.xpp3.Attributes;
 import java.util.Properties;
+import stellarclicker.ship.ShipComponent;
 import stellarclicker.util.EShipComponent;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +74,7 @@ public class ShipComponentElementController implements Controller
     private Screen screen;
     private Element shipCompElem;
     private Attributes controlDefinitionAttributes;
+    private boolean appearsBroken;
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -110,6 +112,8 @@ public class ShipComponentElementController implements Controller
     public void init(Properties parameter, Attributes controlDefinitionAttributes)
     {
         System.out.println("init() called for element: " + shipCompElem);
+        
+        appearsBroken = false;
     }
 
     /**========================================================================================================================== 
@@ -160,7 +164,15 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void interact()
     {
-        
+        // TODO: Should probably use EShipComponentState for this one, but this is just a fix for now.
+        if(!appearsBroken)
+        {
+            gainExp();
+        }
+        else
+        {
+            repair();
+        }
     }
 
     /**========================================================================================================================== 
@@ -171,20 +183,71 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void gainExp()
     {
-        System.out.println("Try to gain experience with " + shipCompElem.getId());
-        
-        // TODO: This needs to actually kick off the gaining experience events
-        if(shipCompElem.isEnabled())
+        if(this.shipCompElem.isEnabled())
         {
-            System.out.println("Successfully gaining experience with " + shipCompElem.getId());
-
-            // move the experience (green) progress bar
-            updateProgressBar(1.0, GREEN_BAR_ID); 
+            System.out.println("Starting to gain experience with " + shipCompElem.getId());
             
-            // break the component when we're finished (just for fun)
-            breakComponent();
-            //disableComponent();
+            // start to gain experience and set off timing events
+            EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+            //MainApplication.app.myShip.gainComponentExperience(shipEnum);
+
+            disableComponent();
         }
+    }
+    
+    /**========================================================================================================================== 
+    * @name PURCHASE LEVEL
+    * 
+    * @description Method called when the "Buy" button is clicked. Instantly levels a component up
+    *///=========================================================================================================================
+    public void purchaseLevel()
+    {
+        if(this.shipCompElem.isEnabled())
+        {
+            System.out.println("Buying a new level " + shipCompElem.getId());
+            
+            // purchase a level instantly
+            EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+            MainApplication.app.myShip.purchaseComponentExperience(shipEnum);
+            
+            // update level
+            int newLevel = MainApplication.app.myShip.getComponent(shipEnum).getLevel();
+            updateLevel(newLevel);
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name REPAIR
+    * 
+    * @description Method called when a component is broken and needs to be repaired. Disables the component and will update the
+    * progress bar as progress is being made.
+    *///=========================================================================================================================
+    public void repair()
+    {
+        System.out.println("Starting to repair " + shipCompElem.getId());
+        
+        // purchase experience and set off timing events
+        EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+        //MainApplication.app.myShip.repairComponent(shipEnum);
+        
+        disableComponent();
+    }
+    
+     /**========================================================================================================================== 
+    * @name PURCHASE REPAIR
+    * 
+    * @description Method called when a component is broken and needs to be repaired. Instantly repairs the component.
+    *///=========================================================================================================================
+    public void purchaseRepair()
+    {
+        System.out.println("Starting to repair " + shipCompElem.getId());
+        
+        // purchase experience and set off timing events
+        EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+        MainApplication.app.myShip.purchaseComponentRepair(shipEnum);
+        
+        // make component appear fixed
+        fixComponent();
     }
     
     /**========================================================================================================================== 
@@ -211,19 +274,6 @@ public class ShipComponentElementController implements Controller
             }
             
         }
-    }
-    
-    /**========================================================================================================================== 
-    * @name REPAIR
-    * 
-    * @description Method called when a component is broken and needs to be repaired. Disables the component and will update the
-    * progress bar as progress is being made.
-    *///=========================================================================================================================
-    public void repair()
-    {
-        System.out.println("Reparing " + shipCompElem.getId());
-        
-        updateProgressBar(1.0, RED_BAR_ID);
     }
     
     /**========================================================================================================================== 
@@ -262,18 +312,44 @@ public class ShipComponentElementController implements Controller
     public void breakComponent()
     {
         // show the broken icon
-        Element brokenImage = shipCompElem.findElementByName(BROKEN_IMAGE_ID);
+        Element brokenImage = this.shipCompElem.findElementByName(BROKEN_IMAGE_ID);
         if(brokenImage != null)
         {
             brokenImage.setVisible(true);
         }
         
         // disable buy button
-        Element buyButton = shipCompElem.findElementByName(BUY_BUTTON_ID);
+        Element buyButton = this.shipCompElem.findElementByName(BUY_BUTTON_ID);
         if(buyButton != null)
         {
             buyButton.disable();
         }
+        
+        this.appearsBroken = true;
+    }
+    
+    /**========================================================================================================================== 
+    * @name FIX COMPONENT
+    * 
+    * @description Hides the broken icon and enables the buy button.
+    *///=========================================================================================================================
+    public void fixComponent()
+    {
+        // hide the broken icon
+        Element brokenImage = this.shipCompElem.findElementByName(BROKEN_IMAGE_ID);
+        if(brokenImage != null)
+        {
+            brokenImage.setVisible(false);
+        }
+        
+        // enable buy button
+        Element buyButton = shipCompElem.findElementByName(BUY_BUTTON_ID);
+        if(buyButton != null)
+        {
+            buyButton.enable();
+        }
+        
+        this.appearsBroken = false;
     }
     
     /**========================================================================================================================== 
@@ -295,9 +371,9 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void reenableComponent()
     {
-        shipCompElem.enable();
-        shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-100%"));
-        shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-100%"));
+        this.shipCompElem.enable();
+        this.shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-100%"));
+        this.shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-100%"));
     }
     
     /**========================================================================================================================== 
@@ -316,6 +392,11 @@ public class ShipComponentElementController implements Controller
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // HELPER METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    public boolean appearsBroken()
+    {
+        return this.appearsBroken;
+    }
 
     /**========================================================================================================================== 
     * @name STRING TO ENUM
