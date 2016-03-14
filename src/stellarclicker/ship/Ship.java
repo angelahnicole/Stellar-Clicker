@@ -60,22 +60,30 @@ public class Ship
     {
         
         
-        //sync gameTime across game objects
-        //update components
+        
         for (int i = 0; i < shipComponents.length; i++)
         {
             shipComponents[i].update(gameTime);
         }
-        //update staff
+        
         for (int i = 0; i < seniorStaff.length; i++)
         {
             seniorStaff[i].update(gameTime);
         }
-        //if staff available to manage component && 
         
        
     }
     
+    public void gainComponentExperience(EShipComponent shipComponent)
+    {
+        String component = shipComponent.toString();
+        
+        
+        shipComponents[shipComponent.ordinal()].initExperienceTimer();
+        //shipComponents[shipComponent.ordinal()].managed = true;
+        
+        
+    }
      /**========================================================================================================================== 
     * @name purchaseComponentRepair
     * 
