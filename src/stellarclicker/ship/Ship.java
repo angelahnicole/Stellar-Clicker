@@ -24,7 +24,6 @@ public class Ship
     /*
      * Private variables for the ship
      */
-    private final int COMPONENT_NUM = 7; 
     private ShipComponent[] shipComponents;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
@@ -99,8 +98,8 @@ public class Ship
     public void initializeComponents()
     {
         // Initializes the component array 
-     shipComponents = new ShipComponent[COMPONENT_NUM];
-     seniorStaff = new SeniorStaff[COMPONENT_NUM];
+     shipComponents = new ShipComponent[EShipComponent.values().length];
+     seniorStaff = new SeniorStaff[EShipComponent.values().length];
      int i = 0; //index for component 
      
      // This for each creates a new component and places it in the array at the index
