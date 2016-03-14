@@ -93,7 +93,9 @@ public class ShipComponent
         this.name = name;
         this.timer = new Timer();
         this.isEnabled = false;
-        
+        this.expTime = 5;
+        this.repairTime =3;
+        this.durability = 100;
      System.out.println("Constructing component " + this.name);
        
     }
@@ -111,10 +113,9 @@ public class ShipComponent
         
         this.gameTime = gameTime;
         
-        //see if timers need to be restarted
+        
         manageTimers();
         
-        //check if leveled up
         
         if (this.currentExp > this.nextLevelExp)
         {
@@ -147,12 +148,14 @@ public class ShipComponent
         {
             //experience gain
             gainExperience();
+            System.out.println("Stopping timer for " + this.name);
             
             if (this.managed)
             {
                  //start a new expTimer
                 this.timer.cancelTimer();
                 this.timer.set(gameTime, this.expTime);
+                System.out.println("Resetting timer for " + this.name);
             }
             
         }  
@@ -187,6 +190,7 @@ public class ShipComponent
     {
         
         this.timer.set(this.gameTime, this.expTime);
+        System.out.println("Starting timer for " + this.name);
     }
     
     
@@ -255,7 +259,7 @@ public class ShipComponent
     {
         if(this.durability <= 0)
         {
-        System.out.println("yep it is");
+        
         return true;
         }
         else

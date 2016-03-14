@@ -189,7 +189,7 @@ public class ShipComponentElementController implements Controller
             
             // start to gain experience and set off timing events
             EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
-            //MainApplication.app.myShip.gainComponentExperience(shipEnum);
+            MainApplication.app.myShip.gainComponentExperience(shipEnum);
 
             disableComponent();
         }
