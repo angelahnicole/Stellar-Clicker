@@ -111,23 +111,8 @@ public class ShipComponent
         
         this.gameTime = gameTime;
         
-        //Matt:  if statement seems messy.  I'd like a better way but can't think at the moment.
-        if ( this.managed && !isBroken())
-        {
-            //check for completion of timers
-        if (this.timer.checkCompletion(gameTime))
-        {
-            //experience gain
-            gainExperience();
-            //start a new expTimer
-            this.timer.cancelTimer();
-            this.timer.set(gameTime, this.expTime);
-        
-        }   
-            
-            
-        }
-        
+        //see if timers need to be restarted
+        manageTimers();
         
         //check if leveled up
         
@@ -150,6 +135,32 @@ public class ShipComponent
             return new String[0];
     }
       
+    
+    public void manageTimers()
+    {
+        
+        //Matt:  if statement seems messy.  I'd like a better way but can't think at the moment.
+        if (!isBroken())
+        {
+        //check for completion of timers
+        if (this.timer.checkCompletion(gameTime))
+        {
+            //experience gain
+            gainExperience();
+            
+            if (this.managed)
+            {
+                 //start a new expTimer
+                this.timer.cancelTimer();
+                this.timer.set(gameTime, this.expTime);
+            }
+            
+        }  
+           
+        }
+       
+        
+    }
      /**========================================================================================================================== 
     * @name TIMERPERCENT
     * 
