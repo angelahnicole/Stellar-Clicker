@@ -24,6 +24,8 @@ public class Ship
     /*
      * Private variables for the ship
      */
+    private ShipComponent[] brokenComponents; 
+    private ShipComponent[] activeComponents;  
     private ShipComponent[] inactiveComponents;
     private ShipComponent[] shipComponents;
     private SeniorStaff[] seniorStaff;
@@ -31,9 +33,8 @@ public class Ship
     private double officers;
     private double money;
     private double moneyPerSecond;
-    private EShipComponent componentEnum;
     
- /**========================================================================================================================== 
+    /**========================================================================================================================== 
     * @name Ship Constructor
     * 
     * @description Creates and calls initailize functions for the components 
@@ -102,6 +103,9 @@ public class Ship
      shipComponents = new ShipComponent[EShipComponent.values().length];
      seniorStaff = new SeniorStaff[EShipComponent.values().length];
      inactiveComponents =  new ShipComponent[EShipComponent.values().length]; 
+     activeComponents =  new ShipComponent[EShipComponent.values().length];
+     brokenComponents =  new ShipComponent[EShipComponent.values().length];
+   
      
      // This for each creates a new component and places it in the array at the index
        for(EShipComponent m : EShipComponent.values()) { 
@@ -140,14 +144,15 @@ public class Ship
     
     public ShipComponent[] getActiveComponents()
     {
-        ShipComponent[] activeComponents =  new ShipComponent[EShipComponent.values().length];
-   
+        
        for(EShipComponent m : EShipComponent.values()) 
        {
            if(shipComponents[m.ordinal()].isEnabled)
            {
              activeComponents[m.ordinal()] = shipComponents[m.ordinal()];
            }
+           else
+               activeComponents[m.ordinal()] = null;
        }
         return activeComponents;
     }
@@ -160,14 +165,15 @@ public class Ship
    
     public ShipComponent[] getBrokenComponents()
     {
-        ShipComponent[] brokenComponents =  new ShipComponent[EShipComponent.values().length];
-   
+     
        for(EShipComponent m : EShipComponent.values()) 
        { 
         if(shipComponents[m.ordinal()].isBroken())
         {   
         brokenComponents[m.ordinal()] = shipComponents[m.ordinal()];
         }
+        else
+            brokenComponents[m.ordinal()] = null;
        }
         return brokenComponents;
     }
