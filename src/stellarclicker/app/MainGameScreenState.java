@@ -138,8 +138,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     @Override
     public void update(float tpf)
     {
-        
-
+        updateActiveShipComponents();
+        updateInactiveShipComponents();
+        updateBrokenShipComponents();
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
