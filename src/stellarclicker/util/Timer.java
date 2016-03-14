@@ -18,10 +18,10 @@ package stellarclicker.util;
 
 public class Timer {
     private Boolean isActive;
-    private double start;
-    private double stop;
+    private float start;
+    private float stop;
     public Boolean isDone;
-    double percent;
+    float percent;
     
     
     public Timer()
@@ -38,7 +38,7 @@ public class Timer {
             return isActive;
     }
         //starts the timer
-    public void set(double gametime, float seconds)
+    public void set(float gametime, float seconds)
     {
         this.isActive = true;
         this.start = gametime;
@@ -47,7 +47,7 @@ public class Timer {
 
     }
 
-    public Boolean checkCompletion(double gametime)
+    public Boolean checkCompletion(float gametime)
     {
         if (isActive && gametime > this.stop)
         {
@@ -60,7 +60,7 @@ public class Timer {
         return false;
     }
    
-    public double getPercentComplete(double gametime)
+    public float getPercentComplete(float gametime)
     {
         
         if (isActive)
@@ -75,6 +75,8 @@ public class Timer {
     public void cancelTimer()
     {
         this.isActive = false;
+        this.start = 0;
+        this.stop = 0;
     }
     
 }

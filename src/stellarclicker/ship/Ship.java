@@ -52,11 +52,27 @@ public class Ship
     * @description Runs the components update cycle 
     * 
     * @param tpf The main game time state
+    * @param gameTime The main game time in total seconds
     *///=========================================================================================================================
    
-    public void update(float tpf)
+    public void update(float tpf, float gameTime)
     {
         
+        
+        //sync gameTime across game objects
+        //update components
+        for (int i = 0; i < shipComponents.length; i++)
+        {
+            shipComponents[i].update(gameTime);
+        }
+        //update staff
+        for (int i = 0; i < seniorStaff.length; i++)
+        {
+            seniorStaff[i].update(gameTime);
+        }
+        //if staff available to manage component && 
+        
+       
     }
     
      /**========================================================================================================================== 
@@ -84,7 +100,7 @@ public class Ship
     {
         // Initializes the component array 
      shipComponents = new ShipComponent[COMPONENT_NUM];
-     
+     seniorStaff = new SeniorStaff[COMPONENT_NUM];
      int i = 0; //index for component 
      
      // This for each creates a new component and places it in the array at the index
@@ -92,7 +108,12 @@ public class Ship
         shipComponents[i] = new ShipComponent(m.name());
         i++;
      }
-
+       
+       //creates the senior staff which match the number of components
+        for (int j = 0; j < seniorStaff.length; j++)
+        {
+            seniorStaff[j] = new SeniorStaff();
+        }
     }
         /**========================================================================================================================== 
     * @name purchaseComponentExperience
