@@ -17,6 +17,7 @@ public enum EShipComponentState
 {
     GAINING_EXP,
     REPAIRING,
+    BROKEN,
     INACTIVE
 }
 
