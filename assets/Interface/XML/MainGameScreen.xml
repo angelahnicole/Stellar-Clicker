@@ -65,9 +65,10 @@
                     <panel height="5%"></panel>
                     <panel height="30%" childLayout="horizontal">
                         
-                        <control name="screen-button"/>
-                        <control name="screen-button"/>
-                        <control name="screen-button"/>
+                        <control name="screen-button" buttonText="Officer" onClickMethod="openOfficerWindow()"/>
+                        <control name="screen-button" buttonText="Staff" onClickMethod="openSeniorStaffWindow()"/>
+                        <control name="screen-button" buttonText="Unlocks" onClickMethod="openUnlocksWindow()"/>
+                        <control name="screen-button" buttonText="Travel" onClickMethod="openTravelWindow()"/>
 
                     </panel>
                     
@@ -85,10 +86,10 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <!-- Officers Window -->
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
-        <layer id="officerUI" childLayout="absolute" visible="false">
+        <layer id="officerUI" childLayout="absolute">
             
-            <control id="officerWindow" name="window" title="Officers" width="65%" height="65%" valign="center" align="center">
-                <control name="scrollPanel" horizontal="false" height="100%">
+            <control id="officerWindow" name="window" title="Officers" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
+                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
                     
                     <panel childLayout="vertical">
                         
@@ -105,10 +106,10 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <!-- Senior Staff Window -->
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
-        <layer id="seniorStaffUI" childLayout="absolute" visible="false">
+        <layer id="seniorStaffUI" childLayout="absolute">
             
-            <control id="seniorStaffWindow" name="window" title="Senior Staff" width="65%" height="65%" valign="center" align="center">
-                <control name="scrollPanel" horizontal="false" height="100%">
+            <control id="seniorStaffWindow" name="window" title="Senior Staff" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
+                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
                     
                     <panel childLayout="vertical">
                         
@@ -125,10 +126,10 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <!-- Unlocks Window -->
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
-        <layer id="unlocksUI" childLayout="absolute" visible="false">
+        <layer id="unlocksUI" childLayout="absolute">
             
-            <control id="unlocksWindow" name="window" title="Unlocks" width="65%" height="65%" valign="center" align="center">
-                <control name="scrollPanel" horizontal="false" height="100%">
+            <control id="unlocksWindow" name="window" title="Unlocks" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
+                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
                     
                     <panel childLayout="vertical">
                         
@@ -145,10 +146,10 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <!-- Travelling Window -->
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
-        <layer id="travelUI" childLayout="absolute" visible="false">
+        <layer id="travelUI" childLayout="absolute">
             
-            <control id="travelWindow" name="window" title="Travel" width="65%" height="65%" valign="center" align="center">
-                <control name="scrollPanel" horizontal="false" height="100%">
+            <control id="travelWindow" name="window" title="Travel" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
+                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
                     
                     <panel childLayout="vertical">
                         

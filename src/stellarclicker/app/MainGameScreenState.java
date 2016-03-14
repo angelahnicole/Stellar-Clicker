@@ -53,6 +53,7 @@ import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.ViewPort;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import stellarclicker.ship.ShipComponent;
@@ -63,6 +64,15 @@ import stellarclicker.util.EShipComponent;
 public class MainGameScreenState extends AbstractAppState implements ScreenController
 {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    public static final String OFFICER_LAYER_ID = "officerUI";
+    public static final String OFFICER_WINDOW_ID = "officerWindow";
+    public static final String SENIOR_STAFF_LAYER_ID = "seniorStaff";
+    public static final String SENIOR_STAFF_WINDOW_ID = "seniorStaffWindow";
+    public static final String UNLOCKS_LAYER_ID = "unlocksUI";
+    public static final String UNLOCKS_WINDOW_ID = "unlocksWindow";
+    public static final String TRAVEL_LAYER_ID = "travelUI";
+    public static final String TRAVEL_WINDOW_ID = "travelWindow";
     
     private Nifty nifty;
     private Screen screen;
@@ -294,13 +304,51 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name OPEN STAFF WINDOW
+    * @name OPEN OFFICER WINDOW
     * 
-    * @description Opens the staff window in the main screen
+    * @description Opens the officer window in the main screen
     *///=========================================================================================================================
-    public void openStaffWindow()
+    public void openOfficerWindow()
     {
-        System.out.println("Staff Window Opened");       
+        System.out.println("Officer Window Opened"); 
+        
+        Element window = this.screen.findElementByName(OFFICER_WINDOW_ID);
+        if(window != null)
+        {
+            window.setVisible(true);
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name OPEN SENIOR STAFF WINDOW
+    * 
+    * @description Opens the senior staff window in the main screen
+    *///=========================================================================================================================
+    public void openSeniorStaffWindow()
+    {
+        System.out.println("Staff Window Opened");   
+        
+        Element window = this.screen.findElementByName(SENIOR_STAFF_WINDOW_ID);
+        if(window != null)
+        {
+            window.setVisible(true);
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name OPEN UNLOCKS WINDOW
+    * 
+    * @description Opens the unlocks window in the main screen
+    *///=========================================================================================================================
+    public void openUnlocksWindow()
+    {
+        System.out.println("Unlock Screen Window Opened");
+        
+        Element window = this.screen.findElementByName(UNLOCKS_WINDOW_ID);
+        if(window != null)
+        {
+            window.setVisible(true);
+        }
     }
 
     /**========================================================================================================================== 
@@ -310,28 +358,14 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     public void openTravelWindow()
     {
-        System.out.println("Travel Window Opened");        
+        System.out.println("Travel Window Opened");
+        
+        Element window = this.screen.findElementByName(TRAVEL_WINDOW_ID);
+        if(window != null)
+        {
+            window.setVisible(true);
+        }
     }
  
-     /**========================================================================================================================== 
-    * @name OPEN OFFICER WINDOW
-    * 
-    * @description Opens the officer window in the main screen
-    *///=========================================================================================================================
-    public void openOfficerWindow()
-    {
-        System.out.println("Officer Window Opened");        
-    }
-
-     /**========================================================================================================================== 
-    * @name OPEN UNLOCK WINDOW
-    * 
-    * @description Opens the unlock window in the main screen
-    *///=========================================================================================================================
-    public void openUnlockWindow()
-    {
-        System.out.println("Unlock Screen");        
-    }
-
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 }

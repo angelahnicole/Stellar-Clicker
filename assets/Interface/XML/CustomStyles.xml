@@ -23,6 +23,10 @@
             <onClick name="imageSizePulsate" startSize="100%" endSize="110%" length="250" pulsator="SinusPulsator"/>
         </effect>
     </style>
+    
+    <style id="scroll">
+        <attributes childLayout="center"/>
+    </style>
    
   
     <style id="number-picker#upButton">

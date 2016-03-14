@@ -37,7 +37,7 @@
                     
                     <panel childLayout="center" padding="2px">
                         <panel backgroundImage="Interface/Images/UI/glassPanel_darker.png" style="glassPanel" childLayout="horizontal" height="100%" padding="10px">
-                            <interact onClick="purchaseLevel()"></interact>
+                            <interact onClick="purchaseLevel()"/>
                             <control id="#buyButton" name="button" label="Buy" width="*"/>
                         </panel>
                     </panel>
@@ -86,7 +86,9 @@
 
         <panel childLayout="center" padding="5px">
 
-            <panel style="nifty-panel-no-shadow" width="100%" childLayout="center"></panel>
+            <control name="button" label="$buttonText" width="100%">
+                <interact onClick="$onClickMethod"/>
+            </control>
 
         </panel>
     
