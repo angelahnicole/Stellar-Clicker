@@ -114,7 +114,17 @@ public class Ship
             seniorStaff[j] = new SeniorStaff();
         }
     }
-    
+        /**========================================================================================================================== 
+    * @name getComponent
+    * 
+    * @description Returns a component based on enum value  
+    *///=========================================================================================================================
+   
+    public ShipComponent getComponent(EShipComponent value )
+    {   
+        return shipComponents[value.ordinal()];
+    }
+        
         /**========================================================================================================================== 
     * @name getActiveComponents
     * 
