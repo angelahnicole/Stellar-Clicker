@@ -80,7 +80,7 @@ public class Ship
         
         
         shipComponents[shipComponent.ordinal()].initExperienceTimer();
-        //shipComponents[shipComponent.ordinal()].managed = true;
+        shipComponents[shipComponent.ordinal()].enable();
         
         
     }
@@ -189,10 +189,10 @@ public class Ship
     /**========================================================================================================================== 
     * @name getInactiveComponents
     * 
-    * @description Allows user to purchase staff officer for a component  
+    * @description 
     *///=========================================================================================================================
    
-    public ShipComponent[] getInactiveComponents(ESeniorStaff officer)
+    public ShipComponent[] getInactiveComponents()
     {
        for(EShipComponent m : EShipComponent.values()) 
        { 

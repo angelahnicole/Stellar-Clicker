@@ -371,9 +371,16 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void reenableComponent()
     {
+        System.out.println("Re-enabled  " + shipCompElem.getId());
+        
         this.shipCompElem.enable();
+        
+        // move back the bar
         this.shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-100%"));
         this.shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-100%"));
+        
+        // layout the elements
+        shipCompElem.layoutElements();
     }
     
     /**========================================================================================================================== 

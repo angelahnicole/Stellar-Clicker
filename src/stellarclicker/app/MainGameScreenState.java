@@ -57,6 +57,7 @@ import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import stellarclicker.ship.ShipComponent;
+import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponent;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,9 +149,12 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     @Override
     public void update(float tpf)
     {
-        updateActiveShipComponents();
-        updateInactiveShipComponents();
-        updateBrokenShipComponents();
+        if(this.screen != null)
+        {
+            updateActiveShipComponents();
+            updateInactiveShipComponents();
+            updateBrokenShipComponents();
+        }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -173,6 +177,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         
         this.nifty = nifty;
         this.screen = screen;
+        
+        // need the screen to be non-null
+        initShipComponents();
     }
 
     /**========================================================================================================================== 
@@ -200,6 +207,36 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // MAIN SCREEN CONTROLLER METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    /**========================================================================================================================== 
+    * @name INIT SHIP COMPONENTS    
+    * 
+    * @description Grabs a list of inactive ship components from the Ship and updates the level text
+    *///=========================================================================================================================
+    private void initShipComponents()
+    {
+        ShipComponent[] inactiveComponents = MainApplication.app.myShip.getInactiveComponents();
+        
+        for(int i = 0; i < inactiveComponents.length; i++)
+        {
+            ShipComponent shipComp = inactiveComponents[i];
+            
+            if(shipComp != null)
+            {
+                // get associated enum
+                EShipComponent shipEnum = EShipComponent.values()[i];
+                
+                // get ship element from GUI
+                ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
+                
+                // update the level text
+                shipElem.updateLevel(shipComp.getLevel());
+            }
+            
+            // discard element
+            inactiveComponents[i] = null;
+        }
+    }
     
     /**========================================================================================================================== 
     * @name UPDATE ACTIVE SHIP COMPONENTS
@@ -243,7 +280,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     private void updateInactiveShipComponents()
     {
-        ShipComponent[] inactiveComponents = MainApplication.app.myShip.getActiveComponents();
+        ShipComponent[] inactiveComponents = MainApplication.app.myShip.getInactiveComponents();
         
         for(int i = 0; i < inactiveComponents.length; i++)
         {
@@ -258,9 +295,10 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
                 // enable it if it needs it
-                if(shipElem.isElementEnabled())
+                if(!shipElem.isElementEnabled())
                 {
                     shipElem.reenableComponent();
+                    shipElem.updateLevel(shipComp.getLevel());
                 }
             }
             
@@ -277,7 +315,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     private void updateBrokenShipComponents()
     {
-        ShipComponent[] brokenComponents = MainApplication.app.myShip.getActiveComponents();
+        ShipComponent[] brokenComponents = MainApplication.app.myShip.getBrokenComponents();
         
         for(int i = 0; i < brokenComponents.length; i++)
         {

@@ -147,8 +147,9 @@ public class ShipComponent
         if (this.timer.checkCompletion(gameTime))
         {
             //experience gain
-            gainExperience();
+            levelUp();
             System.out.println("Stopping timer for " + this.name);
+            isEnabled = false;
             
             if (this.managed)
             {
