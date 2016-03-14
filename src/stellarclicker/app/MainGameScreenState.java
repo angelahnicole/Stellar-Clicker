@@ -164,6 +164,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 weapon.updateProgressBar(percent, ShipComponentUIController.RED_BAR_ID);
             }
         }*/
+
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -215,13 +216,35 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name QUIT GAME
+    * @name UPDATE ACTIVE SHIP COMPONENTS
     * 
-    * @description Stops the application
+    * @description Grabs a list of active ship components from the Ship and updates each of their progress bars accordingly.
     *///=========================================================================================================================
-    public void quitGame()
+    private void updateActiveShipComponents()
     {
-        app.stop();
+        
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE INACTIVE SHIP COMPONENTS
+    * 
+    * @description Grabs a list of inactive ship components from the Ship and, if the components aren't already enabled again,
+    * we enable them.
+    *///=========================================================================================================================
+    private void updateInactiveShipComponents()
+    {
+        
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE BROKEN SHIP COMPONENTS
+    * 
+    * @description Grabs a list of the broken ship components from the Ship and, if the components aren't disabled and showing
+    * the user that its broken, then we disable them.
+    *///=========================================================================================================================
+    private void updateBrokenShipComponents()
+    {
+        
     }
     
     /**========================================================================================================================== 
