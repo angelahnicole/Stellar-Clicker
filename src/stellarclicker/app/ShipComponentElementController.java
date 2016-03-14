@@ -64,8 +64,10 @@ public class ShipComponentElementController implements Controller
     
     public static final String GREEN_BAR_ID = "#greenBar";
     public static final String RED_BAR_ID = "#redBar";
-    public static final String LEVEL_TEXT_ID = "#level";
+    public static final String LEVEL_TEXT_ID = "#levelText";
     public static final String LEVEL_TEXT_ATTR = "compLevel";
+    public static final String BROKEN_IMAGE_ID = "#brokenImage";
+    public static final String BUY_BUTTON_ID = "#buyButton";
     
     private Nifty nifty;
     private Screen screen;
@@ -149,6 +151,17 @@ public class ShipComponentElementController implements Controller
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // ELEMENT SPECIFIC METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    /**========================================================================================================================== 
+    * @name INTERACT
+    * 
+    * @description Method called when the ship component's circle is clicked. If the component is broken, then clicking the 
+    * circle will repair it. If the component isn't broken, then clicking the circle will allow it to gain experience.
+    *///=========================================================================================================================
+    public void interact()
+    {
+        
+    }
 
     /**========================================================================================================================== 
     * @name GAIN EXP
@@ -158,24 +171,28 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void gainExp()
     {
+        System.out.println("Try to gain experience with " + shipCompElem.getId());
+        
+        // TODO: This needs to actually kick off the gaining experience events
         if(shipCompElem.isEnabled())
         {
-            System.out.println("Gaining experience with " + shipCompElem.getId());
+            System.out.println("Successfully gaining experience with " + shipCompElem.getId());
 
             // move the experience (green) progress bar
             updateProgressBar(1.0, GREEN_BAR_ID); 
             
-            // disable the component when we're finished
-            disableComponent();
+            // break the component when we're finished (just for fun)
+            breakComponent();
+            //disableComponent();
         }
     }
     
     /**========================================================================================================================== 
     * @name UPDATE LEVEL
     * 
-    * @description 
+    * @description Updates the level text of the ship component
     * 
-    * @param newLevel The level
+    * @param newLevel The new level of the ship component
     *///=========================================================================================================================
     public void updateLevel(int newLevel)
     {
@@ -234,14 +251,49 @@ public class ShipComponentElementController implements Controller
         
         // layout the elements
         shipCompElem.layoutElements();
-        
     }
+    
+    /**========================================================================================================================== 
+    * @name BREAK COMPONENT
+    * 
+    * @description Overlays a broken icon to indicate to the user that it is broken along with disallowing the user to buy any
+    * levels.
+    *///=========================================================================================================================
+    public void breakComponent()
+    {
+        // show the broken icon
+        Element brokenImage = shipCompElem.findElementByName(BROKEN_IMAGE_ID);
+        if(brokenImage != null)
+        {
+            brokenImage.setVisible(true);
+        }
+        
+        // disable buy button
+        Element buyButton = shipCompElem.findElementByName(BUY_BUTTON_ID);
+        if(buyButton != null)
+        {
+            buyButton.disable();
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name IS ENABLED
+    * 
+    * @description Returns whether or not the element is enabled
+    * 
+    * @return boolean Whether or not the element is enabled
+    *///=========================================================================================================================
+    public boolean isElementEnabled()
+    {
+        return shipCompElem.isEnabled();
+    }
+    
     /**========================================================================================================================== 
     * @name REENABLE COMPONENT
     * 
     * @description Re-enables the component by resetting the progress bar, making 
     *///=========================================================================================================================
-    private void reenableComponent()
+    public void reenableComponent()
     {
         shipCompElem.enable();
         shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-100%"));
@@ -249,12 +301,11 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name REPAIR
+    * @name DISABLE COMPONENT
     * 
-    * @description Method called when a component is broken and needs to be repaired. Disables the component and will update the
-    * progress bar as progress is being made.
+    * @description 
     *///=========================================================================================================================
-    private void disableComponent()
+    public void disableComponent()
     {
         shipCompElem.disable();
     }

@@ -4,7 +4,7 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <!-- SHIP COMPONENT DIV -->
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
-    <controlDefinition name="ship-component-div" controller="stellarclicker.app.ShipComponentUIController">
+    <controlDefinition name="ship-component-div" controller="stellarclicker.app.ShipComponentElementController">
 
         <panel width="100%" childLayout="horizontal" padding="5px">
 
@@ -14,11 +14,12 @@
                 <panel backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" padding="10px" style="componentButton">
                     <interact onClick="gainExp()"></interact>
                     <image filename="$compImage" width="100%" height="100%"/>
+                    <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_white.png" width="100%" height="100%" visible="false"/>
                 </panel>
                 
                 <!-- SHIP COMPONENT LEVEL BANNER -->
                 <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
-                    <text id="#level" text="$compLevel" style="font16" color="#000000"/>
+                    <text id="#levelText" text="$compLevel" style="font16" color="#000000"/>
                 </panel>
 
             </panel>

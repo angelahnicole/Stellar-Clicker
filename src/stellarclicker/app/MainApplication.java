@@ -46,7 +46,6 @@ package stellarclicker.app;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
-import stellarclicker.app.*;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
 import stellarclicker.util.EAppState;
@@ -58,9 +57,10 @@ public class MainApplication extends SimpleApplication
 {  
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    public static MainApplication app;
+    
     private Nifty nifty;
     private NiftyJmeDisplay niftyDisplay;
-    public static MainApplication app;
     protected EAppState changeState;
     protected AppState currentState;
     public Ship myShip;
