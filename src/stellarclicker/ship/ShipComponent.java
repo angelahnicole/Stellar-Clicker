@@ -57,12 +57,11 @@ public class ShipComponent
   
     public int NUM_SHIP_STAT_COMPONENETS;
     protected String name;
-    private SeniorStaff assignedOfficer;
     protected int MAX_DURABILITY;
     protected int MAX_LEVEL;
     protected float BASE_RANK;
     protected double levelCost;
-    protected double repairCost;
+    protected double repairCost;    
     protected int durability;
     protected int level;
     protected int currentExp;
@@ -79,10 +78,11 @@ public class ShipComponent
 
     protected int[][] shipStatUnlocks;
     
+    //Timers to change components.
     protected long expTime;
     protected long repairTime;
-    protected Timer expTimer;
-    protected Timer repairTimer;
+    protected Timer timer;
+    
     
     //whether the component is managed by an officer.
     protected boolean managed;
@@ -90,8 +90,7 @@ public class ShipComponent
     public ShipComponent(String name)
     {
         this.name = name;
-        this.expTimer = new Timer();
-        this.repairTimer = new Timer();
+        this.timer = new Timer();
         this.isEnabled = false;
         
      System.out.println("Constructing component " + this.name);
@@ -105,22 +104,9 @@ public class ShipComponent
     * 
     * @param gameTime The main game time state
     *///=========================================================================================================================
-    public void update(double gameTime)
+    public void update(float gameTime)
     {
-        
-        //check for completion of timers
-        if (this.expTimer.checkCompletion(gameTime))
-        {
-            //start a new expTimer
-            this.expTimer.cancelTimer();
-            this.expTimer.set(gameTime, this.expTime);
-        
-        }
-        if (this.repairTimer.checkCompletion(gameTime))
-        {
-            
-        }
-         
+      
         //check if leveled up
         
         if (this.currentExp > this.nextLevelExp)
@@ -150,18 +136,12 @@ public class ShipComponent
     * @param gameTime The main application time
     *///=========================================================================================================================
    
-    public double experienceTimerPercent(double gameTime)
+    public double timerPercent(float gameTime)
     {
-        return this.expTimer.getPercentComplete(gameTime);
+        return this.timer.getPercentComplete(gameTime);
         
     }
     
-    public double repairTimerPercent(double gameTime)
-    {
-        
-        
-        return this.repairTimer.getPercentComplete(gameTime);
-    }
     
     public void degradeComponent()
     {

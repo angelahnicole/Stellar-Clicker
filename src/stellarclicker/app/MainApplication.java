@@ -65,6 +65,8 @@ public class MainApplication extends SimpleApplication
     protected AppState currentState;
     public Ship myShip;
     
+    private float gameTime;
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
@@ -123,6 +125,7 @@ public class MainApplication extends SimpleApplication
 
         // update and render the current state
         float tpf = timer.getTimePerFrame();
+        gameTime = timer.getTimeInSeconds();
         stateManager.update(tpf);
         stateManager.render(renderManager);
         rootNode.updateLogicalState(tpf);
@@ -169,6 +172,9 @@ public class MainApplication extends SimpleApplication
         
         // ensure that we don't constantly change states
         changeState = EAppState.STAY_STATE;
+        
+        //update time across game
+        myShip.update(tpf, gameTime);
         
         
     }

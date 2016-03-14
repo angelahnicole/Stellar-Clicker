@@ -37,8 +37,11 @@ public class SeniorStaff
     /*
      * Public methods
      */
-    public void update()
+    public void update(float gameTime)
     {
+        
+        //manage ship component by checking to see if component is idle.
+        
     }
     
     public void purchase()
@@ -52,6 +55,8 @@ public class SeniorStaff
     private void repair()
     {
         System.out.println("repair stuff");
+        //call component to repair stuff
+        
     }
     
     private void gainExp()
