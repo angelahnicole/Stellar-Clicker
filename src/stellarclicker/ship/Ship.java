@@ -115,6 +115,68 @@ public class Ship
             seniorStaff[j] = new SeniorStaff();
         }
     }
+    
+        /**========================================================================================================================== 
+    * @name getActiveComponents
+    * 
+    * @description Allows user to purchase staff officer for a component  
+    *///=========================================================================================================================
+   
+    public ShipComponent[] getActiveComponents()
+    {
+        ShipComponent[] activeComponents =  new ShipComponent[EShipComponent.values().length];
+   
+       for(EShipComponent m : EShipComponent.values()) 
+       {
+           if(shipComponents[m.ordinal()].isEnabled)
+           {
+             activeComponents[m.ordinal()] = shipComponents[m.ordinal()];
+           }
+       }
+        return activeComponents;
+    }
+    
+    /**========================================================================================================================== 
+    * @name getActiveComponents
+    * 
+    * @description Allows user to purchase staff officer for a component  
+    *///=========================================================================================================================
+   
+    public ShipComponent[] getBrokenComponents()
+    {
+        ShipComponent[] brokenComponents =  new ShipComponent[EShipComponent.values().length];
+   
+       for(EShipComponent m : EShipComponent.values()) 
+       { 
+        if(shipComponents[m.ordinal()].isBroken())
+        {   
+        brokenComponents[m.ordinal()] = shipComponents[m.ordinal()];
+        }
+       }
+        return brokenComponents;
+    }
+    
+    /**========================================================================================================================== 
+    * @name getInactiveComponents
+    * 
+    * @description Allows user to purchase staff officer for a component  
+    *///=========================================================================================================================
+   
+    public ShipComponent[] getInactiveComponents(ESeniorStaff officer)
+    {
+        ShipComponent[] inactiveComponents =  new ShipComponent[EShipComponent.values().length];
+   
+       for(EShipComponent m : EShipComponent.values()) 
+       { 
+        if(!shipComponents[m.ordinal()].isEnabled)
+        {   
+        inactiveComponents[m.ordinal()] = shipComponents[m.ordinal()];
+        }
+       }
+        return inactiveComponents;
+    }
+    
+    
         /**========================================================================================================================== 
     * @name purchaseComponentExperience
     * 
