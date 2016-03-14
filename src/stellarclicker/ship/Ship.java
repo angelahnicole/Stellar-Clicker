@@ -24,6 +24,7 @@ public class Ship
     /*
      * Private variables for the ship
      */
+    private ShipComponent[] inactiveComponents;
     private ShipComponent[] shipComponents;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
@@ -100,27 +101,43 @@ public class Ship
         // Initializes the component array 
      shipComponents = new ShipComponent[EShipComponent.values().length];
      seniorStaff = new SeniorStaff[EShipComponent.values().length];
-     int i = 0; //index for component 
+     inactiveComponents =  new ShipComponent[EShipComponent.values().length]; 
      
      // This for each creates a new component and places it in the array at the index
        for(EShipComponent m : EShipComponent.values()) { 
-        shipComponents[i] = new ShipComponent(m.name());
-        i++;
+        shipComponents[m.ordinal()] = new ShipComponent(m.name());
+        
      }
        
-       //creates the senior staff which match the number of components
-        for (int j = 0; j < seniorStaff.length; j++)
+//       //creates the senior staff which match the number of components
+//       for(ESeniorStaff i : ESeniorStaff.values()) { 
+//        seniorStaff[i.ordinal()] = new SeniorStaff();
+//        
+//     }
+
+       for (int j = 0; j < seniorStaff.length; j++)
         {
             seniorStaff[j] = new SeniorStaff();
         }
     }
-    
-        /**========================================================================================================================== 
+
+    /**========================================================================================================================== 
+    * @name getComponent
+    * 
+    * @description Returns a component based on enum value  
+    *///=========================================================================================================================
+   
+    public ShipComponent getComponent(EShipComponent value )
+    {   
+        return shipComponents[value.ordinal()];
+    }
+        
+    /**========================================================================================================================== 
     * @name getActiveComponents
     * 
     * @description Allows user to purchase staff officer for a component  
     *///=========================================================================================================================
-   
+    
     public ShipComponent[] getActiveComponents()
     {
         ShipComponent[] activeComponents =  new ShipComponent[EShipComponent.values().length];
@@ -163,20 +180,19 @@ public class Ship
    
     public ShipComponent[] getInactiveComponents(ESeniorStaff officer)
     {
-        ShipComponent[] inactiveComponents =  new ShipComponent[EShipComponent.values().length];
-   
        for(EShipComponent m : EShipComponent.values()) 
        { 
         if(!shipComponents[m.ordinal()].isEnabled)
         {   
         inactiveComponents[m.ordinal()] = shipComponents[m.ordinal()];
         }
+        else
+            inactiveComponents[m.ordinal()] = null;
        }
         return inactiveComponents;
     }
     
-    
-        /**========================================================================================================================== 
+    /**========================================================================================================================== 
     * @name purchaseComponentExperience
     * 
     * @description Allows user to purchase more experience for a component  
@@ -188,6 +204,7 @@ public class Ship
     {
         System.out.println("Experienceing Components " + component.name());
     }
+    
     /**========================================================================================================================== 
     * @name purchaseSeniorStaff
     * 
@@ -200,15 +217,18 @@ public class Ship
     {
         System.out.println("Purchasing people " + officer.name());
     }
+    
     /**========================================================================================================================== 
     * @name resetShip
     * 
     * @description Allows user to reset the ship
     *///=========================================================================================================================
+    
     public void resetShip()
     {
         System.out.println("Resetting all the things");
     }
+    
     /**========================================================================================================================== 
     * @name earnMoney
     * 
@@ -216,6 +236,7 @@ public class Ship
     * 
     * @param moneyPerSecond amount to increase by
     *///=========================================================================================================================
+    
     private void earnMoney(double moneyPerSecond)
     {
         this.money += moneyPerSecond;
@@ -232,6 +253,7 @@ public class Ship
     {
         System.out.println("Count that cash");
     }
+    
     /**========================================================================================================================== 
     * @name claimOfficers
     * 
@@ -241,5 +263,10 @@ public class Ship
     private void claimOfficers()
     {
         System.out.println("Gather the people");
+    }
+
+    private String getCurrentMoney()
+    {
+       return BigNumber.getNumberString(money);
     }
 }

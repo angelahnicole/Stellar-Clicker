@@ -83,6 +83,7 @@ public class ShipComponent
     protected long repairTime;
     protected Timer timer;
     
+    protected float gameTime;
     
     //whether the component is managed by an officer.
     protected boolean managed;
@@ -106,7 +107,13 @@ public class ShipComponent
     *///=========================================================================================================================
     public void update(float gameTime)
     {
-      
+        
+        
+        this.gameTime = gameTime;
+        
+        //see if timers need to be restarted
+        manageTimers();
+        
         //check if leveled up
         
         if (this.currentExp > this.nextLevelExp)
@@ -128,19 +135,75 @@ public class ShipComponent
             return new String[0];
     }
       
+    
+    public void manageTimers()
+    {
+        
+        //Matt:  if statement seems messy.  I'd like a better way but can't think at the moment.
+        if (!isBroken())
+        {
+        //check for completion of timers
+        if (this.timer.checkCompletion(gameTime))
+        {
+            //experience gain
+            gainExperience();
+            
+            if (this.managed)
+            {
+                 //start a new expTimer
+                this.timer.cancelTimer();
+                this.timer.set(gameTime, this.expTime);
+            }
+            
+        }  
+           
+        }
+       
+        
+    }
      /**========================================================================================================================== 
-    * @name EXPERIENCETIMER
+    * @name TIMERPERCENT
     * 
-    * @description Starts exp timer for this component  
+    * @description Returns the percent of the timer completion 
     * 
     * @param gameTime The main application time
     *///=========================================================================================================================
    
-    public double timerPercent(float gameTime)
+    public double timerPercent()
     {
         return this.timer.getPercentComplete(gameTime);
         
     }
+    
+     /**========================================================================================================================== 
+    * @name INITEXPERIENCETIMER
+    * 
+    * @description Starts exp timer for this component
+    * 
+    * 
+    *///=========================================================================================================================
+   
+    public void initExperienceTimer()
+    {
+        
+        this.timer.set(this.gameTime, this.expTime);
+    }
+    
+    
+      /**========================================================================================================================== 
+    * @name INITREPAIRTIMER
+    * 
+    * @description Starts repair timer for this component
+    * 
+    * 
+    *///=========================================================================================================================
+   
+    public void initRepairTimer()
+    {
+        
+        this.timer.set(this.gameTime, this.repairTime);
+    }
+    
     
     
     public void degradeComponent()
@@ -234,6 +297,8 @@ public class ShipComponent
 
     public void gainExperience()
     {
+        
+        
         this.currentExp += this.expGain;
           
     }
