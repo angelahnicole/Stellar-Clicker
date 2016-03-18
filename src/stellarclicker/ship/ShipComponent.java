@@ -47,7 +47,7 @@ package stellarclicker.ship;
 
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
-
+import stellarclicker.util.EShipComponentState;
 
 import stellarclicker.util.EShipStat;
 
@@ -67,6 +67,7 @@ public class ShipComponent
     protected int currentExp;
     protected int nextLevelExp;
     protected boolean isEnabled;
+    protected EShipComponentState currentState;
     
     protected EShipStat[] shipStatCompUnlocksIdx;
     
@@ -96,6 +97,7 @@ public class ShipComponent
         this.expTime = 5;
         this.repairTime =3;
         this.durability = 100;
+        this.currentState = EShipComponentState.INACTIVE;
      System.out.println("Constructing component " + this.name);
        
     }
@@ -126,16 +128,22 @@ public class ShipComponent
     /**========================================================================================================================== 
     * @name GETCOMPONENTSTATE
     * 
-    * @description Returns the state of the component and all variables 
+    * @description Returns the state of the component 
     * 
     *///=========================================================================================================================
 
-    public String[] getComponentState()
+    public Enum getComponentState()
     {
         
-            return new String[0];
+            return this.currentState;
     }
       
+    /**========================================================================================================================== 
+    * @name manageTimers
+    * 
+    * @description Self explanatory  
+    * 
+    *///=========================================================================================================================
     
     public void manageTimers()
     {
@@ -227,6 +235,7 @@ public class ShipComponent
     {
         System.out.println("repair");
         this.durability = 100;
+        this.currentState = EShipComponentState.ACTIVE;
         
     }
     
@@ -291,6 +300,7 @@ public class ShipComponent
     {
         
         this.isEnabled = true;
+        this.currentState = EShipComponentState.ACTIVE;
     }
     
     /**========================================================================================================================== 
@@ -305,6 +315,7 @@ public class ShipComponent
         
         
         this.currentExp += this.expGain;
+        this.currentState = EShipComponentState.GAINING_EXP;
           
     }
     /**========================================================================================================================== 
@@ -329,7 +340,7 @@ public class ShipComponent
     {
         this.level += 1;
         this.currentExp = this.currentExp - this.nextLevelExp;
-        
+        this.currentState = EShipComponentState.ACTIVE;
     }
     
     /**========================================================================================================================== 
@@ -343,5 +354,6 @@ public class ShipComponent
     {
         this.isEnabled = false;
         this.durability = 0;
+        this.currentState = EShipComponentState.BROKEN;
     }
 }
