@@ -143,7 +143,20 @@ public class Ship
     {   
         return shipComponents[value.ordinal()];
     }
-        
+    
+    
+    /**========================================================================================================================== 
+    * @name getComponent
+    * 
+    * @description Returns a component based on enum value  
+    *///=========================================================================================================================
+   
+    public Enum getComponentState(EShipComponent value )
+    {   
+        return shipComponents[value.ordinal()].getComponentState();
+    }
+     
+    
     /**========================================================================================================================== 
     * @name getActiveComponents
     * 
