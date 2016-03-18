@@ -79,4 +79,11 @@ public class Timer {
         this.stop = 0;
     }
     
+    
+    public void getTime()
+    {
+      float current = this.stop - this.start;
+      
+    }
+    
 }

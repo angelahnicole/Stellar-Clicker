@@ -59,19 +59,18 @@ public class Ship
     public void update(float tpf, float gameTime)
     {
         
+        // This for each creates a new component and places it in the array at the index
+       for(EShipComponent m : EShipComponent.values()) { 
+        shipComponents[m.ordinal()].update(gameTime);
         
+     }
+
+       //creates the senior staff which match the number of components
+       for(ESeniorStaff i : ESeniorStaff.values()) { 
+        seniorStaff[i.ordinal()].update(gameTime);
+       }
         
-        for (int i = 0; i < shipComponents.length; i++)
-        {
-            shipComponents[i].update(gameTime);
-        }
-        
-        for (int i = 0; i < seniorStaff.length; i++)
-        {
-            seniorStaff[i].update(gameTime);
-        }
-        
-       
+    
     }
     
     public void gainComponentExperience(EShipComponent shipComponent)
@@ -121,16 +120,11 @@ public class Ship
         
      }
        
-//       //creates the senior staff which match the number of components
-//       for(ESeniorStaff i : ESeniorStaff.values()) { 
-//        seniorStaff[i.ordinal()] = new SeniorStaff();
-//        
-//     }
+       //creates the senior staff which match the number of components
+       for(ESeniorStaff i : ESeniorStaff.values()) { 
+        seniorStaff[i.ordinal()] = new SeniorStaff();
+       }
 
-       for (int j = 0; j < seniorStaff.length; j++)
-        {
-            seniorStaff[j] = new SeniorStaff();
-        }
     }
 
     /**========================================================================================================================== 
@@ -143,8 +137,7 @@ public class Ship
     {   
         return shipComponents[value.ordinal()];
     }
-    
-    
+        
     /**========================================================================================================================== 
     * @name getComponent
     * 
