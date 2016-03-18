@@ -35,7 +35,7 @@
                     <image id="#redBar" filename="Interface/Images/UI/barHorizontal_red.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
                 </panel>
                 
-                <!-- SHIP COMPONENT PROGRESS TIME LEFT -->
+                <!-- SHIP COMPONENT PROGRESS TIME LEFT AND BUY BUTTON -->
                 <panel height="50%" childLayout="horizontal">
                     
                     <control name="hover-text-button" mainText=" $1500" hoverText="BUY LEVEL" onClickMethod="purchase()"/>

@@ -330,9 +330,10 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
                 // make it appear broken
+                // TODO: need to get the actual repair cost
                 if(!shipElem.appearsBroken())
                 {
-                    shipElem.breakComponent();
+                    shipElem.breakComponent(" $999");
                 }
             }
             

@@ -69,6 +69,11 @@ public class ShipComponentElementController implements Controller
     public static final String LEVEL_TEXT_ATTR = "compLevel";
     public static final String BROKEN_IMAGE_ID = "#brokenImage";
     public static final String BUY_BUTTON_ID = "#buyButton";
+    public static final String MAIN_TEXT_ID = "#mainText";
+    public static final String HOVER_TEXT_ID = "#hoverText";
+    
+    public static final String HOVER_LEVEL_TEXT = "BUY LEVEL";
+    public static final String HOVER_REPAIR_TEXT = "BUY REPAIR";
     
     private Nifty nifty;
     private Screen screen;
@@ -174,6 +179,24 @@ public class ShipComponentElementController implements Controller
             repair();
         }
     }
+    
+    /**========================================================================================================================== 
+    * @name PURCHASE
+    * 
+    * @description Method called when the ship component's buy button is clicked. If the component is broken, then clicking this 
+    * will purchase a repair. If the component isn't broken, then clicking it will purchase a level.
+    *///=========================================================================================================================
+    public void purchase()
+    {
+        if(!appearsBroken)
+        {
+            purchaseLevel();
+        }
+        else
+        {
+            purchaseRepair();
+        }
+    }
 
     /**========================================================================================================================== 
     * @name GAIN EXP
@@ -247,7 +270,8 @@ public class ShipComponentElementController implements Controller
         MainApplication.app.myShip.purchaseComponentRepair(shipEnum);
         
         // make component appear fixed
-        fixComponent();
+        // TODO: need to add actual cost
+        fixComponent("$999");
     }
     
     /**========================================================================================================================== 
@@ -262,9 +286,6 @@ public class ShipComponentElementController implements Controller
         if(shipCompElem.isEnabled())
         {
             String levelText = String.valueOf(newLevel);
-            
-            // update compLevel attribute
-            controlDefinitionAttributes.set(LEVEL_TEXT_ATTR, levelText);
             
             // update level text control
             Element levelTextElem = shipCompElem.findElementByName(LEVEL_TEXT_ID);
@@ -308,8 +329,10 @@ public class ShipComponentElementController implements Controller
     * 
     * @description Overlays a broken icon to indicate to the user that it is broken along with disallowing the user to buy any
     * levels.
+    * 
+    * @param repairCost Formatted cost to repair the component
     *///=========================================================================================================================
-    public void breakComponent()
+    public void breakComponent(String repairCost)
     {
         // show the broken icon
         Element brokenImage = this.shipCompElem.findElementByName(BROKEN_IMAGE_ID);
@@ -318,11 +341,13 @@ public class ShipComponentElementController implements Controller
             brokenImage.setVisible(true);
         }
         
-        // disable buy button
-        Element buyButton = this.shipCompElem.findElementByName(BUY_BUTTON_ID);
-        if(buyButton != null)
+        // change buy button to show repair info
+        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
+        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
+        if(mainText != null && hoverText != null)
         {
-            buyButton.disable();
+            mainText.getRenderer(TextRenderer.class).setText(repairCost);
+            hoverText.getRenderer(TextRenderer.class).setText(HOVER_REPAIR_TEXT);
         }
         
         this.appearsBroken = true;
@@ -332,8 +357,10 @@ public class ShipComponentElementController implements Controller
     * @name FIX COMPONENT
     * 
     * @description Hides the broken icon and enables the buy button.
+    * 
+    * @param repairCost Formatted cost to level the component
     *///=========================================================================================================================
-    public void fixComponent()
+    public void fixComponent(String levelCost)
     {
         // hide the broken icon
         Element brokenImage = this.shipCompElem.findElementByName(BROKEN_IMAGE_ID);
@@ -342,11 +369,13 @@ public class ShipComponentElementController implements Controller
             brokenImage.setVisible(false);
         }
         
-        // enable buy button
-        Element buyButton = shipCompElem.findElementByName(BUY_BUTTON_ID);
-        if(buyButton != null)
+        // change buy button to show level info
+        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
+        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
+        if(mainText != null && hoverText != null)
         {
-            buyButton.enable();
+            mainText.getRenderer(TextRenderer.class).setText(levelCost);
+            hoverText.getRenderer(TextRenderer.class).setText(HOVER_LEVEL_TEXT);
         }
         
         this.appearsBroken = false;
