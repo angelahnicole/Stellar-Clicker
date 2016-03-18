@@ -22,12 +22,30 @@
             <panel id="leftPanel" width="25%" height="100%" childLayout="vertical">
                 
                 <!-- SHIP COMPONENTS: IDs will match their ship component enumeration -->
-                <control id="LIFE_SUPPORT" name="ship-component-div" compImage="Interface/Images/UI/squareRed.png" compLevel="1" />
-                <control id="SHIELDS" name="ship-component-div" compImage="Interface/Images/UI/squareGreen.png" compLevel="1"/>
-                <control id="WEAPONS" name="ship-component-div" compImage="Interface/Images/UI/squareYellow.png" compLevel="1"/>
-                <control id="ENGINES" name="ship-component-div" compImage="Interface/Images/UI/squareRed.png" compLevel="1"/>
-                <control id="HOLODECKS" name="ship-component-div" compImage="Interface/Images/UI/squareGreen.png" compLevel="1"/>
-                <control id="REPLICATORS" name="ship-component-div" compImage="Interface/Images/UI/squareRed.png" compLevel="1"/>
+                <control id="LIFE_SUPPORT" name="ship-component-div" 
+                         compName="LIFE SUPPORT" 
+                         compImage="Textures/ShipComponents/lifeSupportComponent1.png" 
+                         compLevel="1" />
+                <control id="SHIELDS" name="ship-component-div" 
+                         compName="SHIELDS" 
+                         compImage="Textures/ShipComponents/shieldComponent1.png" 
+                         compLevel="1"/>
+                <control id="WEAPONS" name="ship-component-div" 
+                         compName="WEAPONS" 
+                         compImage="Textures/ShipComponents/weaponComponent1.png"
+                         compLevel="1"/>
+                <control id="ENGINES" name="ship-component-div" 
+                         compName="ENGINES" 
+                         compImage="Textures/ShipComponents/engineComponent1.png" 
+                         compLevel="1"/>
+                <control id="HOLODECKS" name="ship-component-div" 
+                         compName="HOLODECKS" 
+                         compImage="Textures/ShipComponents/holodeckComponent1.png" 
+                         compLevel="1"/>
+                <control id="REPLICATORS" name="ship-component-div" 
+                         compName="REPLICATORS" 
+                         compImage="Textures/ShipComponents/replicatorComponent1.png" 
+                         compLevel="1"/>
                
             </panel>
             
@@ -50,7 +68,10 @@
             <panel id="rightPanel" width="25%" height="100%" childLayout="vertical">
                 
                 <control id="money" name="money-div" height="17%"/>
-                <control id="HULL" name="ship-component-div" compImage="Interface/Images/UI/squareGreen.png" compLevel="1" height="17%"/>
+                <control id="HULL" name="ship-component-div" height="17%" 
+                         compName="HULL"
+                         compImage="Textures/ShipComponents/hullComponent1.png" 
+                         compLevel="1"/>
                 
                 <panel id="controlPanel" width="100%" height="60%" childLayout="vertical">
                     
@@ -65,10 +86,10 @@
                     <panel height="5%"></panel>
                     <panel height="30%" childLayout="horizontal">
                         
-                        <control name="screen-button" buttonText="Officer" onClickMethod="openOfficerWindow()"/>
-                        <control name="screen-button" buttonText="Staff" onClickMethod="openSeniorStaffWindow()"/>
-                        <control name="screen-button" buttonText="Unlocks" onClickMethod="openUnlocksWindow()"/>
-                        <control name="screen-button" buttonText="Travel" onClickMethod="openTravelWindow()"/>
+                        <control id="officerButton" name="icon-button" text="Officer" onClickMethod="openOfficerWindow()"/>
+                        <control id="seniorStaffButton" name="icon-button" text="Staff" onClickMethod="openSeniorStaffWindow()"/>
+                        <control id="unlocksButton" name="icon-button" text="Unlocks" onClickMethod="openUnlocksWindow()"/>
+                        <control id="travelButton" name="icon-button" text="Travel" onClickMethod="openTravelWindow()"/>
 
                     </panel>
                     

@@ -9,6 +9,26 @@
         <attributes font="Interface/Fonts/PoiretOne_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
+    <style id="font24">
+        <attributes font="Interface/Fonts/PoiretOne_24.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
+    <style id="rubik_font12">
+        <attributes font="Interface/Fonts/RubikMonoOne_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
+    <style id="titillium_font10">
+        <attributes font="Interface/Fonts/Titillium_10.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
+    <style id="titillium_font12">
+        <attributes font="Interface/Fonts/Titillium_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
+    <style id="titillium_font14">
+        <attributes font="Interface/Fonts/Titillium_14.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
     <style id="horizontalBar">
         <attributes imageMode="resize:10,175,10,8,10,175,10,10,10,175,10,8" width="100%"/>
     </style>
@@ -20,6 +40,9 @@
     <style id="componentButton">
         <effect>
             <onHover name="fade" start="#FFFFFF" end="#B3FFFF"/>
+            <onDisabled name="fade" start="#FFFFFF" end="#B3FFFF"/>
+            <onHover name="show" targetElement="#namePanel"/>
+            <onEndHover name="hide" targetElement="#namePanel"/>
             <onClick name="imageSizePulsate" startSize="100%" endSize="110%" length="250" pulsator="SinusPulsator"/>
         </effect>
     </style>
@@ -27,22 +50,33 @@
     <style id="scroll">
         <attributes childLayout="center"/>
     </style>
-   
-  
-    <style id="number-picker#upButton">
-        <attributes backgroundImage="Interface/UI/Buttons/Button_ArrowUp.png" imageMode="sprite:18,18,0" childLayout="center" visibleToMouse="true" focusable="false"  width="18px" height="18px" />
+    
+    <style id="hover-text">
         <effect>
-            <onHover name="imageOverlay" filename="Interface/UI/Buttons/Button_ArrowUp.png" imageMode="sprite:18,18,1" post="true" />
-            <onClick name="imageOverlay" filename="Interface/UI/Buttons/Button_ArrowUp.png" imageMode="sprite:18,18,2" post="true" />
+            <onHover name="fade" start="#FFFFFF" end="#B3FFFF" inherit="true"/>
+            <onHover name="hide" targetElement="#mainText"/>
+            <onHover name="show" targetElement="#hoverText"/>
+            <onEndHover name="hide" targetElement="#hoverText"/>
+            <onEndHover name="show" targetElement="#mainText"/>
+            <onClick name="fade" start="#FFFFFF" end="#B3FFFF" inherit="true"/>
+            <onDisabled name="fade" start="#FFFFFF" end="#B3FFFF" inherit="true"/>
         </effect>
     </style>
-  
-    <style id="number-picker#downButton">
-        <attributes backgroundImage="Interface/UI/Buttons/Button_ArrowDown.png" imageMode="sprite:18,18,0" childLayout="center" visibleToMouse="true" focusable="false" width="18px" height="18px" />
+    
+    <!--<style id="hover-text#mainText">
+        
         <effect>
-            <onHover name="imageOverlay" filename="Interface/UI/Buttons/Button_ArrowDown.png" imageMode="sprite:18,18,1" post="true" />
-            <onClick name="imageOverlay" filename="Interface/UI/Buttons/Button_ArrowDown.png" imageMode="sprite:18,18,2" post="true" />
+            <onHover name="hide" targetElement="#mainText"/>
         </effect>
+        
     </style>
+    
+    <style id="hover-text#hoverText">
+        
+        <effect>
+            <onEndHover name="hide" targetElement="#hoverText"/>
+        </effect>
+        
+    </style>-->
   
 </nifty-styles>
