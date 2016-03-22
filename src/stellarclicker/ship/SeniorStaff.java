@@ -16,7 +16,7 @@ package stellarclicker.ship;
 
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipStat;
-
+import stellarclicker.util.ESeniorStaff;
 
 public class SeniorStaff 
 {
@@ -29,9 +29,10 @@ public class SeniorStaff
     protected boolean isPurchased;
     
     // Constructor
-    SeniorStaff()
+    SeniorStaff(ESeniorStaff officerType)
     {
-        System.out.println("construct things");
+        this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
+        System.out.println("Created Officer " + officerType + " Component Boost " + this.shipStatComponentBoost);
         
     }
     /*

@@ -122,7 +122,7 @@ public class Ship
        
        //creates the senior staff which match the number of components
        for(ESeniorStaff i : ESeniorStaff.values()) { 
-        seniorStaff[i.ordinal()] = new SeniorStaff();
+        seniorStaff[i.ordinal()] = new SeniorStaff(i);
        }
 
     }
