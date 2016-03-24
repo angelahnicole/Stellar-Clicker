@@ -48,12 +48,14 @@ package stellarclicker.app;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
 import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.input.NiftyInputEvent;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.tools.SizeValue;
 import de.lessvoid.xml.xpp3.Attributes;
 import java.util.Properties;
+import de.lessvoid.nifty.tools.Color;
 import stellarclicker.ship.ShipComponent;
 import stellarclicker.util.EShipComponent;
 
@@ -71,9 +73,13 @@ public class ShipComponentElementController implements Controller
     public static final String BUY_BUTTON_ID = "#buyButton";
     public static final String MAIN_TEXT_ID = "#mainText";
     public static final String HOVER_TEXT_ID = "#hoverText";
+    public static final String MAIN_PANEL_ID = "#mainPanel";
     
     public static final String HOVER_LEVEL_TEXT = "BUY LEVEL";
     public static final String HOVER_REPAIR_TEXT = "BUY REPAIR";
+    
+    public static final String COLOR_NAVY_HEX = "#00008050";
+    public static final String COLOR_GREEN_HEX = "#18B81250";
     
     private Nifty nifty;
     private Screen screen;
@@ -350,6 +356,14 @@ public class ShipComponentElementController implements Controller
             hoverText.getRenderer(TextRenderer.class).setText(HOVER_REPAIR_TEXT);
         }
         
+        // change buy button to have a navy overlay
+        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
+        if(mainPanel != null)
+        {
+            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_NAVY_HEX));
+        }
+        
+        
         this.appearsBroken = true;
     }
     
@@ -376,6 +390,13 @@ public class ShipComponentElementController implements Controller
         {
             mainText.getRenderer(TextRenderer.class).setText(levelCost);
             hoverText.getRenderer(TextRenderer.class).setText(HOVER_LEVEL_TEXT);
+        }
+        
+        // change buy button to have a green overlay
+        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
+        if(mainPanel != null)
+        {
+            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_GREEN_HEX));
         }
         
         this.appearsBroken = false;

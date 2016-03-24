@@ -59,6 +59,7 @@ import de.lessvoid.nifty.screen.ScreenController;
 import stellarclicker.ship.ShipComponent;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponent;
+import stellarclicker.util.EShipComponentState;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -230,6 +231,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
                 // update the level text
+                // TODO: Need to get level up cost
                 shipElem.updateLevel(shipComp.getLevel());
             }
             
@@ -258,13 +260,17 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
                 // get percentage complete and update bar
-                // TODO: need to actually determine whether or not it is being repaired or gaining experience
                 double percentComplete = shipComp.timerPercent();
                 
-                // if(shipComp.currState == EShipComponentState.GAINING_EXP)
-                shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
-                // if(shipComp.currState == EShipComponentState.REPAIRING)
-                // shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
+                // update bar (color depends on which activity)
+                if(shipComp.getComponentState() == EShipComponentState.GAINING_EXP)
+                {
+                    shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
+                }
+                else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
+                {
+                    shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
+                }
                 
                 // discard element
                 activeComponents[i] = null;

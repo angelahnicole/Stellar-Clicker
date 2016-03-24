@@ -14,7 +14,7 @@
                 <panel backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" padding="10px" style="componentButton">
                     <interact onClick="interact()"></interact>
                     <image filename="$compImage" width="100%" height="100%"/>
-                    <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_white.png" width="100%" height="100%" visible="false"/>
+                    <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_red.png" width="100%" height="100%" visible="false"/>
                     <panel id="#namePanel" childLayout="center" style="componentText" visible="false">
                         <text width="100%" id="#nameText" text="$compName" style="titillium_font14" color="#FFFFFF" wrap="true"/>
                     </panel>
@@ -92,7 +92,7 @@
     <controlDefinition name="hover-text-button">
         
         <panel childLayout="center" padding="2px" style="hover-text">
-            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
+            <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
 
                 <text id="#mainText" text="$mainText" style="font16" color="#FFFFFF"/>
                 <text id="#hoverText" text="$hoverText" style="font16" color="#FFFFFF" visible="false"/>
