@@ -16,7 +16,7 @@
     <style id="rubik_font12">
         <attributes font="Interface/Fonts/RubikMonoOne_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
-    
+
     <style id="titillium_font10">
         <attributes font="Interface/Fonts/Titillium_10.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
@@ -27,6 +27,13 @@
     
     <style id="titillium_font14">
         <attributes font="Interface/Fonts/Titillium_14.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
+    <style id="whiteBorder">
+        <effect>
+            <onStartScreen name="border" border="1px" neverStopRendering="true"/>
+        </effect>
+        
     </style>
     
     <style id="horizontalBar">
@@ -63,20 +70,6 @@
         </effect>
     </style>
     
-    <!--<style id="hover-text#mainText">
-        
-        <effect>
-            <onHover name="hide" targetElement="#mainText"/>
-        </effect>
-        
-    </style>
     
-    <style id="hover-text#hoverText">
-        
-        <effect>
-            <onEndHover name="hide" targetElement="#hoverText"/>
-        </effect>
-        
-    </style>-->
   
 </nifty-styles>
