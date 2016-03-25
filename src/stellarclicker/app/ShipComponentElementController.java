@@ -74,6 +74,10 @@ public class ShipComponentElementController implements Controller
     public static final String MAIN_TEXT_ID = "#mainText";
     public static final String HOVER_TEXT_ID = "#hoverText";
     public static final String MAIN_PANEL_ID = "#mainPanel";
+    public static final String STAT_IMAGE_ID = "#statImage";
+    public static final String STAT_NAME_ID = "#statName";
+    public static final String STAT_VALUE_ID = "#statValue";
+    
     
     public static final String HOVER_LEVEL_TEXT = "BUY LEVEL";
     public static final String HOVER_REPAIR_TEXT = "BUY REPAIR";

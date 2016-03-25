@@ -22,7 +22,7 @@
                 
                 <!-- SHIP COMPONENT LEVEL BANNER -->
                 <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
-                    <text id="#levelText" text="$compLevel" style="font16" color="#000000"/>
+                    <text id="#levelText" text="$compLevel" style="font24" color="#000000"/>
                 </panel>
 
             </panel>
@@ -75,11 +75,19 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <controlDefinition name="ship-statistic-text" style="" controller="">
 
-        <panel width="100%" childLayout="horizontal" padding="5px">
+        <panel width="100%" childLayout="horizontal" padding="8px">
 
-            <panel style="nifty-panel-no-shadow" width="20%" childLayout="center"></panel>
-            <panel style="nifty-panel-red-no-shadow" width="50%" childLayout="center"></panel>
-            <panel style="nifty-panel-no-shadow" width="30%" childLayout="center"></panel>
+            <panel width="35px" height="35px" childLayout="center" style="whiteBorder" backgroundColor="#00000070">
+                <image id="#statImage" filename="$statImagePath" height="30px" width="30px"/>
+            </panel>
+            
+            <panel width="60%" childLayout="vertical" padding="0px,5px">
+                <text id="#statName" text="$statName" style="font24" color="#000000" textHAlign="left"/>
+            </panel>
+            
+            <panel width="30%" childLayout="vertical">
+                <text id="#statValue" text="$statValue" style="font24" color="#6102A1" textHAlign="right" textVAlign="bottom"/>
+            </panel>
 
         </panel>
     
