@@ -60,7 +60,7 @@ public class ShipComponent
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     // ship-specific "constants"
-    protected int BASE_EXP_TIME;
+    protected int BASE_TIME;
     protected int MAX_DURABILITY;
     protected int MIN_LEVEL;
     protected int MAX_LEVEL; 
@@ -94,7 +94,7 @@ public class ShipComponent
         
         // TODO: should have all of these values be passed in via the constructor
         
-        this.BASE_EXP_TIME = 10;
+        this.BASE_TIME = 10;
         this.MAX_DURABILITY = 100;
         this.MIN_LEVEL = 1;
         this.MAX_LEVEL = 999; 
@@ -332,7 +332,7 @@ public class ShipComponent
     *///=========================================================================================================================
     private void updateTimeTaken()
     {
-        this.expTime = this.BASE_EXP_TIME / this.level;
+        this.expTime = this.BASE_TIME / this.level;
         this.repairTime = this.expTime / 10;
     }
     
