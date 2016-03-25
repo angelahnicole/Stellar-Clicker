@@ -13,6 +13,10 @@
         <attributes font="Interface/Fonts/PoiretOne_24.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
+    <style id="font20">
+        <attributes font="Interface/Fonts/PoiretOne_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
     <style id="rubik_font12">
         <attributes font="Interface/Fonts/RubikMonoOne_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
@@ -31,9 +35,14 @@
     
     <style id="whiteBorder">
         <effect>
-            <onStartScreen name="border" border="1px" neverStopRendering="true"/>
+            <onStartScreen name="border" color="#FFF" border="1px" neverStopRendering="true"/>
         </effect>
-        
+    </style>
+    
+    <style id="grayBorder">
+        <effect>
+            <onStartScreen name="border" color="#AAA" border="1px" neverStopRendering="true"/>
+        </effect>
     </style>
     
     <style id="horizontalBar">

@@ -82,7 +82,7 @@
             </panel>
             
             <panel width="60%" childLayout="vertical" padding="0px,5px">
-                <text id="#statName" text="$statName" style="font24" color="#000000" textHAlign="left"/>
+                <text id="#statName" text="$statName" style="font20" color="#444444" textHAlign="left"/>
             </panel>
             
             <panel width="30%" childLayout="vertical">

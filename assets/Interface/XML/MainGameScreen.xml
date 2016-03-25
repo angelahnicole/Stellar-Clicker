@@ -67,28 +67,34 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <panel id="rightPanel" width="25%" height="100%" childLayout="vertical">
                 
+                <!-- MONEY SUMMARY -->
                 <control id="money" name="money-div" height="17%"/>
+                
+                <!-- HULL COMPONENT: IDs will match their ship component enumeration -->
                 <control id="HULL" name="ship-component-div" height="17%" 
                          compName="HULL"
                          compImage="Textures/ShipComponents/hullComponent1.png" 
                          compLevel="1"/>
                 
-                <panel id="controlPanel" backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" width="100%" height="60%" childLayout="vertical" padding="10px">
+                <panel id="controlPanel" backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" width="100%" height="50%" childLayout="vertical" padding="10px">
                     
-                    <panel height="5%"></panel>
+                    <panel height="1%"/>
                     
-                    <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" height="80%" childLayout="vertical" padding="10%, 2%" valign="center" align="center">
-                        <control id="hullHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="0001"/>
-                        <control id="shieldHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="0001"/>
-                        <control id="engineSpeed" name="ship-statistic-text" statImagePath="Interface/Images/Icons/engineSpeed.png" statName="ENGINE SPEED" statValue="0001"/>
-                        <control id="weaponDamage" name="ship-statistic-text" statImagePath="Interface/Images/Icons/weaponDamage.png" statName="WEAPON DAMAGE" statValue="0001"/>
-                        <control id="officerHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/officerHealth.png" statName="OFFICER HEALTH" statValue="0001"/>
-                        <control id="officerHappiness" name="ship-statistic-text" statImagePath="Interface/Images/Icons/officerHappiness.png" statName="OFFICER HAPPINESS" statValue="0001"/>
+                    <!-- SHIP STATISTICS -->
+                    <panel backgroundColor="#FFFFFF80" style="grayBorder" height="90%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
+                        <control id="hullHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="001"/>
+                        <control id="shieldHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="001"/>
+                        <control id="engineSpeed" name="ship-statistic-text" statImagePath="Interface/Images/Icons/engineSpeed.png" statName="ENGINE SPEED" statValue="001"/>
+                        <control id="weaponDamage" name="ship-statistic-text" statImagePath="Interface/Images/Icons/weaponDamage.png" statName="WEAPON DAMAGE" statValue="001"/>
+                        <control id="officerHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/officerHealth.png" statName="OFFICER HEALTH" statValue="001"/>
+                        <control id="officerHappiness" name="ship-statistic-text" statImagePath="Interface/Images/Icons/officerHappiness.png" statName="OFFICER HAPPINESS" statValue="001"/>
                     </panel>
                     
-                    <panel height="5%"></panel>
-                    <panel height="10%" childLayout="horizontal">
+                    <panel height="1%"/>
+                    
+                    <panel height="7%" childLayout="horizontal" padding="2px,5px">
                         
+                        <!-- WINDOW BUTTONS -->
                         <control id="officerButton" name="icon-button" text="Officer" onClickMethod="openOfficerWindow()"/>
                         <control id="seniorStaffButton" name="icon-button" text="Staff" onClickMethod="openSeniorStaffWindow()"/>
                         <control id="unlocksButton" name="icon-button" text="Unlocks" onClickMethod="openUnlocksWindow()"/>
@@ -96,9 +102,13 @@
 
                     </panel>
                     
+                    <panel height="1%"/>
+                    
                     
                     
                 </panel>
+                
+                <panel height="3%"/>
                 
                 <panel style="nifty-panel-no-shadow" padding="5px">
                 </panel>
