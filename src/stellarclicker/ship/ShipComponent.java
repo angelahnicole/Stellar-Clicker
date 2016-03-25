@@ -60,21 +60,22 @@ public class ShipComponent
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     // ship-specific "constants"
-    protected int BASE_EXP_TIME = 5;
-    protected int MAX_DURABILITY = 100;
-    protected int MAX_LEVEL = 999; 
+    protected int BASE_EXP_TIME;
+    protected int MAX_DURABILITY;
+    protected int MIN_LEVEL;
+    protected int MAX_LEVEL; 
     protected int NUM_SHIP_STATS;
     
     protected String name;
-    protected int durability = MAX_DURABILITY;
-    protected int level = 1;
-    protected EShipComponentState currentState = EShipComponentState.INACTIVE;
+    protected int durability;
+    protected int level;
+    protected EShipComponentState currentState;
     
     // money related 
     protected double levelCost;
     protected double repairCost;    
     
-    //Timers to change components.
+    // timers to change components.
     protected long expTime;
     protected long repairTime;
     protected Timer timer;
@@ -90,14 +91,23 @@ public class ShipComponent
     // --------------------------------------------------------------------------------------------------------------------------------------------
     public ShipComponent(String name)
     {
+        
+        // TODO: should have all of these values be passed in via the constructor
+        
         this.BASE_EXP_TIME = 5;
         this.MAX_DURABILITY = 100;
+        this.MIN_LEVEL = 1;
         this.MAX_LEVEL = 999; 
         this.NUM_SHIP_STATS = 1;
 
         this.name = name;
+        this.durability = MAX_DURABILITY;
+        this.level = MIN_LEVEL;
+        this.currentState = EShipComponentState.INACTIVE;
+        
         this.levelCost = 100.0f;
         this.repairCost = this.levelCost * 0.1f;
+        
         updateTimeTaken();
         this.timer = new Timer();
 
