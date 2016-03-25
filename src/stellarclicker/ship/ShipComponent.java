@@ -48,59 +48,67 @@ package stellarclicker.ship;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 import stellarclicker.util.EShipComponentState;
-
 import stellarclicker.util.EShipStat;
 
 
 public class ShipComponent
 {
-  
-    public int NUM_SHIP_STAT_COMPONENETS;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // ATTRIBUTES
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    // ship-specific "constants"
+    protected int BASE_EXP_TIME = 5;
+    protected int MAX_DURABILITY = 100;
+    protected int MAX_LEVEL = 999; 
+    protected int NUM_SHIP_STATS;
+    
     protected String name;
-    protected int MAX_DURABILITY;
-    protected int MAX_LEVEL;
-    protected float BASE_RANK;
+    protected int durability = MAX_DURABILITY;
+    protected int level = 1;
+    protected EShipComponentState currentState = EShipComponentState.INACTIVE;
+    
+    // money related 
     protected double levelCost;
     protected double repairCost;    
-    protected int durability;
-    protected int level;
-    protected int currentExp;
-    protected int nextLevelExp;
-    protected boolean isEnabled;
-    protected EShipComponentState currentState;
-    
-    protected EShipStat[] shipStatCompUnlocksIdx;
-    
-    //rate at which a component upgrades per experience gain
-    protected int expGain;
-
-    
-    //protected ShipStatEnum[] shipStatCompUnlocksIdx;
-
-    protected int[][] shipStatUnlocks;
     
     //Timers to change components.
     protected long expTime;
     protected long repairTime;
     protected Timer timer;
-    
     protected float gameTime;
-    
-    //whether the component is managed by an officer.
+
+    // whether the component is managed by an officer.
     protected boolean managed;
-   //Constructor 
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // CONSTRUCTOR
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     public ShipComponent(String name)
     {
+        this.BASE_EXP_TIME = 5;
+        this.MAX_DURABILITY = 100;
+        this.MAX_LEVEL = 999; 
+        this.NUM_SHIP_STATS = 1;
+
         this.name = name;
+        this.levelCost = 100.0f;
+        this.repairCost = this.levelCost * 0.1f;
+        updateTimeTaken();
         this.timer = new Timer();
-        this.isEnabled = false;
-        this.expTime = 5;
-        this.repairTime =3;
-        this.durability = 100;
-        this.currentState = EShipComponentState.INACTIVE;
-     System.out.println("Constructing component " + this.name);
-       
+
+        System.out.println("Constructing component " + this.name);
     }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // MAIN LIFECYCLE METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
     * @name UPDATE
@@ -111,146 +119,101 @@ public class ShipComponent
     *///=========================================================================================================================
     public void update(float gameTime)
     {
-        
-        
         this.gameTime = gameTime;
-        
-        
-        manageTimers();
-        
-        
-        if (this.currentExp > this.nextLevelExp)
-        {
-            levelUp();
-            
-        }
-    }
-    /**========================================================================================================================== 
-    * @name GETCOMPONENTSTATE
-    * 
-    * @description Returns the state of the component 
-    * 
-    *///=========================================================================================================================
 
-    public Enum getComponentState()
-    {
-        
-            return this.currentState;
+        manageTimers();
     }
-      
-    /**========================================================================================================================== 
-    * @name manageTimers
-    * 
-    * @description Self explanatory  
-    * 
-    *///=========================================================================================================================
     
+    /**========================================================================================================================== 
+    * @name MANAGE TIMERS
+    * 
+    * @description 
+    *///=========================================================================================================================
     public void manageTimers()
     {
-        
-        //Matt:  if statement seems messy.  I'd like a better way but can't think at the moment.
-        if (!isBroken())
+        // Matt:  if statement seems messy.  I'd like a better way but can't think at the moment.
+        if (this.currentState != EShipComponentState.BROKEN)
         {
-        //check for completion of timers
-        if (this.timer.checkCompletion(gameTime))
-        {
-            //experience gain
-            levelUp();
-            System.out.println("Stopping timer for " + this.name);
-            isEnabled = false;
-            
-            if (this.managed)
+            // check for completion of timers
+            if (this.timer.checkCompletion(gameTime))
             {
-                 //start a new expTimer
-                this.timer.cancelTimer();
-                this.timer.set(gameTime, this.expTime);
-                System.out.println("Resetting timer for " + this.name);
-            }
-            
-        }  
+                if(this.currentState == EShipComponentState.GAINING_EXP)
+                {
+                    levelUp();
+                }
+                else if(this.currentState == EShipComponentState.REPAIRING)
+                {
+                    repairComponent();
+                }
+                
+                System.out.println("Stopping timer for " + this.name);
+                
+
+                if (this.managed)
+                {
+                     // start a new expTimer
+                    this.timer.cancelTimer();
+                    this.timer.set(gameTime, this.expTime);
+                    System.out.println("Resetting timer for " + this.name);
+                }
+
+            }  
            
         }
-       
-        
-    }
-     /**========================================================================================================================== 
-    * @name TIMERPERCENT
-    * 
-    * @description Returns the percent of the timer completion 
-    * 
-    * @param gameTime The main application time
-    *///=========================================================================================================================
-   
-    public double timerPercent()
-    {
-        return this.timer.getPercentComplete(gameTime);
-        
     }
     
-     /**========================================================================================================================== 
-    * @name INITEXPERIENCETIMER
+    /**========================================================================================================================== 
+    * @name GAIN EXPERIENCE
     * 
-    * @description Starts exp timer for this component
-    * 
+    * @description Start experience timer and set component state to GAINING EXP
     * 
     *///=========================================================================================================================
-   
-    public void initExperienceTimer()
+    public void gainExperience()
     {
-        
         this.timer.set(this.gameTime, this.expTime);
         System.out.println("Starting timer for " + this.name);
+        
+        this.currentState = EShipComponentState.GAINING_EXP; 
     }
     
-    
-      /**========================================================================================================================== 
-    * @name INITREPAIRTIMER
+    /**========================================================================================================================== 
+    * @name levelUp
     * 
-    * @description Starts repair timer for this component
-    * 
+    * @description Increases the level of this component, updates the time taken to repair and gain experience, and sets its 
+    * state to inactive.
     * 
     *///=========================================================================================================================
-   
-    public void initRepairTimer()
+    private void levelUp()
     {
+        this.level += 1;
+        updateTimeTaken();
         
+        this.currentState = EShipComponentState.INACTIVE;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GAIN REPAIR
+    * 
+    * @description Starts the repair component timer and set its component state to repairing 
+    *///=========================================================================================================================
+    public void gainRepair()
+    {
         this.timer.set(this.gameTime, this.repairTime);
-    }
-    
-    
-    
-    public void degradeComponent()
-    {
-        System.out.println("this is degrading");
-    }
-    
-    /**========================================================================================================================== 
-    * @name repairComponent
-    * 
-    * @description Sets the repair state 
-    * 
-    *///=========================================================================================================================
-
-    public void repairComponent()
-    {
-        System.out.println("repair");
-        this.durability = 100;
-        this.currentState = EShipComponentState.ACTIVE;
+        System.out.println("Starting timer for " + this.name);
         
+        this.currentState = EShipComponentState.REPAIRING; 
     }
     
     /**========================================================================================================================== 
-    * @name damageComponent
+    * @name DEGRADE COMPONENT
     * 
     * @description Reduces the components durability 
     * 
     * @param amount the amount to damage by
     *///=========================================================================================================================
-
-    public void damageComponent(int amount)
+    public void degradeComponent(int amount)
     {
         this.durability = this.durability - amount;
-        //check if broken
         
         if (this.durability < 0)
         {
@@ -259,67 +222,66 @@ public class ShipComponent
     }
     
     /**========================================================================================================================== 
-    * @name isBroken
+    * @name REPAIR COMPONENT
     * 
-    * @description Returns wheather the compnnent is in a broken state 
-    * 
+    * @description Repairs the component by setting its durability to the max and sets it component state to inactive
     *///=========================================================================================================================
-
-    public boolean isBroken()
+    private void repairComponent()
     {
-        if(this.durability <= 0)
-        {
+        this.durability = this.MAX_DURABILITY;
         
-        return true;
-        }
-        else
-            return false;
+        this.currentState = EShipComponentState.INACTIVE;
     }
     
+    /**========================================================================================================================== 
+    * @name breakComponent
+    * 
+    * @description Sets the state to broken and the durability to 0 
+    *///=========================================================================================================================
+    private void breakComponent()
+    {
+        this.durability = 0;
+        this.currentState = EShipComponentState.BROKEN;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // GETTERS/SETTERS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name getShipstatistic
+    * @name GET FORMATTED LEVEL COST
+    * 
+    * @description Returns a formatted string of the level cost
+    *///=========================================================================================================================
+    public String getFormattedLevelCost()
+    {
+        return BigNumber.getNumberString(levelCost);
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET FORMATTED REPAIR COST
+    * 
+    * @description Returns a formatted string of the repair cost
+    *///=========================================================================================================================
+    public String getFormattedRepairCost()
+    {
+        return BigNumber.getNumberString(repairCost);
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET SHIP STATISTIC
     * 
     * @description Get the Statistic 
-    * 
     *///=========================================================================================================================
-
     public void getShipStatistic()
     {
         System.out.println("get stuff");
     }
     
     /**========================================================================================================================== 
-    * @name enable
-    * 
-    * @description Put this component in the enabled state 
-    * 
-    *///=========================================================================================================================
-
-    public void enable()
-    {
-        
-        this.isEnabled = true;
-        this.currentState = EShipComponentState.ACTIVE;
-    }
-    
-    /**========================================================================================================================== 
-    * @name GainExperience
-    * 
-    * @description Add exp to this  
-    * 
-    *///=========================================================================================================================
-
-    public void gainExperience()
-    {
-        
-        
-        this.currentExp += this.expGain;
-        this.currentState = EShipComponentState.GAINING_EXP;
-          
-    }
-    /**========================================================================================================================== 
-    * @name getLevel
+    * @name GET LEVEL
     * 
     * @description Returns the current level of this 
     * 
@@ -330,30 +292,60 @@ public class ShipComponent
     }
     
     /**========================================================================================================================== 
-    * @name levelUp
+    * @name GET TIMER PERCENT
     * 
-    * @description Increases the level of this 
+    * @description Returns the percent of the timer completion 
     * 
+    * @param gameTime The main application time
     *///=========================================================================================================================
-
-    private void levelUp()
+    public double getTimerPercent()
     {
-        this.level += 1;
-        this.currentExp = this.currentExp - this.nextLevelExp;
-        this.currentState = EShipComponentState.ACTIVE;
+        return this.timer.getPercentComplete(gameTime);
+        
     }
     
     /**========================================================================================================================== 
-    * @name breakComponent
+    * @name GET COMPONENT STATE
     * 
-    * @description Sets the state to broken and the durability to 0 
+    * @description Returns the state of the component 
     * 
     *///=========================================================================================================================
-
-   private void breakComponent()
+    public EShipComponentState getComponentState()
     {
-        this.isEnabled = false;
-        this.durability = 0;
-        this.currentState = EShipComponentState.BROKEN;
+        return this.currentState;
     }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE TIME TAKEN
+    * 
+    * @description Updates the current time taken to repair and gain experience
+    *///=========================================================================================================================
+    private void updateTimeTaken()
+    {
+        this.expTime = this.BASE_EXP_TIME / this.level;
+        this.repairTime = this.expTime / 10;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+
+    
+    
+    
+      
+    
+
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+
 }

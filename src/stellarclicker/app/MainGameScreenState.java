@@ -233,6 +233,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // update the level text
                 // TODO: Need to get level up cost
                 shipElem.updateLevel(shipComp.getLevel());
+                
             }
             
             // discard element
@@ -260,7 +261,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
                 // get percentage complete and update bar
-                double percentComplete = shipComp.timerPercent();
+                double percentComplete = shipComp.getTimerPercent();
                 
                 // update bar (color depends on which activity)
                 if(shipComp.getComponentState() == EShipComponentState.GAINING_EXP)
