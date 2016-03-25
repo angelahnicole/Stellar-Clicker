@@ -193,7 +193,7 @@ public class ShipComponent
     * state to inactive.
     * 
     *///=========================================================================================================================
-    private void levelUp()
+    public void levelUp()
     {
         this.level += 1;
         updateTimeTaken();
@@ -236,7 +236,7 @@ public class ShipComponent
     * 
     * @description Repairs the component by setting its durability to the max and sets it component state to inactive
     *///=========================================================================================================================
-    private void repairComponent()
+    public void repairComponent()
     {
         this.durability = this.MAX_DURABILITY;
         

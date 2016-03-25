@@ -235,13 +235,17 @@ public class ShipComponentElementController implements Controller
         {
             System.out.println("Buying a new level " + shipCompElem.getId());
             
-            // purchase a level instantly
             EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
-            MainApplication.app.myShip.purchaseComponentExperience(shipEnum);
+            ShipComponent shipComp = MainApplication.app.myShip.getComponent(shipEnum);
             
-            // update level
+            // purchase a level instantly
+            MainApplication.app.myShip.purchaseComponentLevel(shipEnum);
+            
+            // update level and level cost
             int newLevel = MainApplication.app.myShip.getComponent(shipEnum).getLevel();
+            String levelCost = shipComp.getFormattedLevelCost();
             updateLevel(newLevel);
+            updateCost(levelCost);
         }
     }
     

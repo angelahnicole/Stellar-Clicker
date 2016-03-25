@@ -86,18 +86,32 @@ public class Ship
         shipComponents[shipComponent.ordinal()].gainRepair();
     }
     
-     /**========================================================================================================================== 
+    /**=========================================================================================================================
+    * @name purchaseComponentLevel
+    * 
+    * @description Instantly level up the component if the user has enough money 
+    * 
+    * @param component the component to level Enum type
+    *///=========================================================================================================================
+    public void purchaseComponentLevel(EShipComponent component)
+    {
+        System.out.println("Purchased level for Comp" + component.name());
+        
+        shipComponents[component.ordinal()].levelUp();
+    }
+    
+    /**=========================================================================================================================
     * @name purchaseComponentRepair
     * 
-    * @description Calls repair method on component  
+    * @description Instantly repairs component if the user has enough money 
     * 
     * @param component the component to repair Enum type
     *///=========================================================================================================================
-   
     public void purchaseComponentRepair(EShipComponent component)
     {
-        System.out.println("Repair Comp" + component.name());
+        System.out.println("Purchased Repair for Comp" + component.name());
         
+        shipComponents[component.ordinal()].repairComponent();
     }
     
     /**========================================================================================================================== 
