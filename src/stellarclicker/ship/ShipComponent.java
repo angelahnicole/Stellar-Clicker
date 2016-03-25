@@ -94,7 +94,7 @@ public class ShipComponent
         
         // TODO: should have all of these values be passed in via the constructor
         
-        this.BASE_EXP_TIME = 5;
+        this.BASE_EXP_TIME = 10;
         this.MAX_DURABILITY = 100;
         this.MIN_LEVEL = 1;
         this.MAX_LEVEL = 999; 
