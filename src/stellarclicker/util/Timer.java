@@ -32,12 +32,24 @@ public class Timer {
         this.percent = 0;
         
     }
-    
+        /**========================================================================================================================== 
+    * @name getActivation
+    * 
+    * @description If timer is activated
+   
+    *///=========================================================================================================================
     public Boolean getActivation()
     {
             return isActive;
     }
-        //starts the timer
+        /**========================================================================================================================== 
+    * @name Set
+    * 
+    * @description Starts timer (seconds) which is based on the current gametime.
+    * 
+    * @param gametime The current gametime
+    * @param seconds the elapsed seconds before timer is complete
+    *///=========================================================================================================================
     public void set(float gametime, float seconds)
     {
         this.isActive = true;
@@ -46,7 +58,13 @@ public class Timer {
 
 
     }
-
+        /**========================================================================================================================== 
+    * @name checkCompletion
+    * 
+    * @description Determines if a timer has elapsed.
+    * 
+    * @param gametime the current gametimes
+    *///=========================================================================================================================
     public Boolean checkCompletion(float gametime)
     {
         if (isActive && gametime > this.stop)
@@ -59,7 +77,13 @@ public class Timer {
 
         return false;
     }
-   
+       /**========================================================================================================================== 
+    * @name getPercentComplete
+    * 
+    * @description returns the percent of how complete a timer is.
+    * 
+    * @param gametime the current gametime
+    *///=========================================================================================================================
     public float getPercentComplete(float gametime)
     {
         
@@ -71,7 +95,12 @@ public class Timer {
         
         return 0;
     }
-    
+        /**========================================================================================================================== 
+    * @name cancelTimer
+    * 
+    * @description Resets the timer object to default values.
+    * 
+    *///=========================================================================================================================
     public void cancelTimer()
     {
         this.isActive = false;
