@@ -62,7 +62,7 @@ public class BigNumber
     public static String getNumberString(double number)
     {
         // get the index used for the number suffix
-        int suffixIndex = (int)Math.log(number) / 3;
+        int suffixIndex = (int)Math.log10(number) / 3;
         String numberSuffix = numberSuffixes[suffixIndex];
 
         // get a truncated version of the number

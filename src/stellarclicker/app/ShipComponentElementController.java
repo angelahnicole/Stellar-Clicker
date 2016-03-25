@@ -257,7 +257,7 @@ public class ShipComponentElementController implements Controller
         
         // purchase experience and set off timing events
         EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
-        //MainApplication.app.myShip.repairComponent(shipEnum);
+        MainApplication.app.myShip.gainComponentRepair(shipEnum);
         
         disableComponent();
     }
@@ -273,11 +273,11 @@ public class ShipComponentElementController implements Controller
         
         // purchase experience and set off timing events
         EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+        ShipComponent shipComp =  MainApplication.app.myShip.getComponent(shipEnum);
         MainApplication.app.myShip.purchaseComponentRepair(shipEnum);
         
-        // make component appear fixed
-        // TODO: need to add actual cost
-        fixComponent("$999");
+        // make component appear fixed and update text
+        fixComponent(shipComp.getFormattedLevelCost());
     }
     
     /**========================================================================================================================== 
@@ -300,6 +300,19 @@ public class ShipComponentElementController implements Controller
                 levelTextElem.getRenderer(TextRenderer.class).setText(levelText);
             }
             
+        }
+    }
+    
+    public void updateCost(String newCost)
+    {
+        if(shipCompElem.isEnabled())
+        {
+            // update cost text control
+            Element costTextElem = shipCompElem.findElementByName(MAIN_TEXT_ID);
+            if(costTextElem != null)
+            {
+                costTextElem.getRenderer(TextRenderer.class).setText(newCost);
+            }
         }
     }
     
@@ -372,7 +385,7 @@ public class ShipComponentElementController implements Controller
     * 
     * @description Hides the broken icon and enables the buy button.
     * 
-    * @param repairCost Formatted cost to level the component
+    * @param levelCost Formatted cost to level the component
     *///=========================================================================================================================
     public void fixComponent(String levelCost)
     {

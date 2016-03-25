@@ -105,7 +105,7 @@ public class ShipComponent
         this.level = MIN_LEVEL;
         this.currentState = EShipComponentState.INACTIVE;
         
-        this.levelCost = 100.0f;
+        this.levelCost = 10000000.0f;
         this.repairCost = this.levelCost * 0.1f;
         
         updateTimeTaken();

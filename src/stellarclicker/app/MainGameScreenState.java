@@ -230,10 +230,12 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // update the level text
-                // TODO: Need to get level up cost
+                // update the level text and ship level up cost
                 shipElem.updateLevel(shipComp.getLevel());
+                shipElem.updateCost(shipComp.getFormattedLevelCost());
                 
+                // break component initially
+                shipElem.breakComponent(shipComp.getFormattedRepairCost());
             }
             
             // discard element
@@ -301,11 +303,12 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // enable it if it needs it
+                // enable it if it needs it (and fixes it if it needs it)
                 if(!shipElem.isElementEnabled())
                 {
                     shipElem.reenableComponent();
                     shipElem.updateLevel(shipComp.getLevel());
+                    shipElem.fixComponent(shipComp.getFormattedLevelCost());
                 }
             }
             
@@ -340,7 +343,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // TODO: need to get the actual repair cost
                 if(!shipElem.appearsBroken())
                 {
-                    shipElem.breakComponent(" $999");
+                    shipElem.breakComponent(shipComp.getFormattedRepairCost());
                 }
             }
             
