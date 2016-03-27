@@ -82,6 +82,7 @@ public class ShipComponent
     protected float gameTime;
 
     // whether the component is managed by an officer.
+    // TODO: use ship component state instead of this bool
     protected boolean managed;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
