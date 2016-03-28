@@ -99,7 +99,21 @@ public class Ship
         
         shipComponents[component.ordinal()].levelUp();
     }
-    
+
+        /**=========================================================================================================================
+    * @name getShipComponentLevel
+    * 
+    * @description Instantly level up the component if the user has enough money 
+    * 
+    * @param component the component to level from
+    *///=========================================================================================================================
+    public int getShipComponentLevel(EShipComponent component)
+    {
+        System.out.println("level for Comp" + component.name());
+        
+        return shipComponents[component.ordinal()].getLevel();
+    }
+
     /**=========================================================================================================================
     * @name purchaseComponentRepair
     * 
@@ -113,6 +127,63 @@ public class Ship
         
         shipComponents[component.ordinal()].repairComponent();
     }
+    
+//        /**=========================================================================================================================
+//    * @name getShipComponentState
+//    * 
+//    * @description Instantly level up the component if the user has enough money 
+//    * 
+//    * @param component the component state
+//    *///=========================================================================================================================
+//    public EShipComponentState getComponentState(EShipComponent component)
+//    {   
+//        return shipComponents[component.ordinal()].getComponentState();
+//    }
+    /**=========================================================================================================================
+    * @name getRepairCost
+    * 
+    * @description Instantly level up the component if the user has enough money 
+    * 
+    * @param component the component to level Enum type
+    *///=========================================================================================================================
+    public double getInstantRepairCost(EShipComponent component)
+    {
+        return shipComponents[component.ordinal()].getRepairCost();
+    }
+ /**=========================================================================================================================
+    * @name getLevelCost
+    * 
+    * @description Instantly level up the component if the user has enough money 
+    * 
+    * @param component the component to level Enum type
+    *///=========================================================================================================================
+    public double getInstantLevelCost(EShipComponent component)
+    {
+        return shipComponents[component.ordinal()].getLevelCost();
+    }
+/**=========================================================================================================================
+    * @name getLevelCost
+    * 
+    * @description Instantly level up the component if the user has enough money 
+    * 
+    * @param component the component to level Enum type
+    *///=========================================================================================================================
+    public double getTimerPercent(EShipComponent component)
+    {
+        return shipComponents[component.ordinal()].getTimerPercent();
+    }
+
+//    /**=========================================================================================================================
+//    * @name getTimeRemaining
+//    * 
+//    * @description Instantly level up the component if the user has enough money 
+//    * 
+//    * @param component the component to level Enum type
+//    *///=========================================================================================================================
+//    public double getTimeRemaining(EShipComponent component)
+//    {
+//        return shipComponents[component.ordinal()].getTimeRemaining();
+//    }
     
     /**========================================================================================================================== 
     * @name initializeComponents

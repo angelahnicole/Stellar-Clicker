@@ -280,7 +280,24 @@ public class ShipComponent
     {
         return BigNumber.getNumberString(repairCost);
     }
-    
+    /**========================================================================================================================== 
+    * @name GET REPAIR COST
+    * 
+    * @description Returns a formatted string of the repair cost
+    *///=========================================================================================================================
+    public double getRepairCost()
+    {
+        return this.repairCost;
+    }
+       /**========================================================================================================================== 
+    * @name GET LEVEL COST
+    * 
+    * @description Returns a formatted string of the repair cost
+    *///=========================================================================================================================
+    public double getLevelCost()
+    {
+        return this.levelCost;
+    }
     /**========================================================================================================================== 
     * @name GET SHIP STATISTIC
     * 
@@ -341,22 +358,4 @@ public class ShipComponent
     
 
     
-    
-    
-      
-    
-
-    
-    
-    
-    
-    
-    
-   
-    
-    
-    
-    
-    
-
 }
