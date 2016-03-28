@@ -79,37 +79,42 @@
                          compImage="Textures/ShipComponents/hullComponent1.png" 
                          compLevel="1"/>
                 
-                <panel id="controlPanel" backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" width="99%" childLayout="vertical" padding="10px">
-                    
-                    <panel height="1%"/>
-                    
-                    <!-- SHIP STATISTICS -->
-                    <panel backgroundColor="#FFFFFF80" style="grayBorder" height="80%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
-                        <control id="hullHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="001"/>
-                        <control id="shieldHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="001"/>
-                        <control id="engineSpeed" name="ship-statistic-text" statImagePath="Interface/Images/Icons/engineSpeed.png" statName="ENGINE SPEED" statValue="001"/>
-                        <control id="weaponDamage" name="ship-statistic-text" statImagePath="Interface/Images/Icons/weaponDamage.png" statName="WEAPON DAMAGE" statValue="001"/>
-                        <control id="officerHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/officerHealth.png" statName="OFFICER HEALTH" statValue="001"/>
-                        <control id="officerHappiness" name="ship-statistic-text" statImagePath="Interface/Images/Icons/officerHappiness.png" statName="OFFICER HAPPINESS" statValue="001"/>
-                    </panel>
-                    
-                    <panel height="1%"/>
-                    
-                    <panel height="18%" childLayout="horizontal">
-                        
-                        <!-- WINDOW BUTTONS -->
-                        <control id="officerButton" name="icon-button" iconImagePath="Interface/Images/Icons/officerIcon.png" hoverText="Officers" onClickMethod="openOfficerWindow()"/>
-                        <control id="seniorStaffButton" name="icon-button" iconImagePath="Interface/Images/Icons/seniorStaffIcon.png" hoverText="Staff" onClickMethod="openSeniorStaffWindow()"/>
-                        <control id="unlocksButton" name="icon-button" iconImagePath="Interface/Images/Icons/unlocksIcon.png" hoverText="Unlocks" onClickMethod="openUnlocksWindow()"/>
-                        <control id="travelButton" name="icon-button" iconImagePath="Interface/Images/Icons/travelsIcon.png" hoverText="Travel" onClickMethod="openTravelWindow()"/>
+                <panel padding="7px" childLayout="center" width="100%">
+                    <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" width="100%" childLayout="vertical" padding="5px">
+
+                        <panel height="1%"/>
+
+                        <!-- SHIP STATISTICS -->
+                        <panel height="80%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
+                            
+                            <control id="hullHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="001"/>
+                            <control id="shieldHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="001"/>
+                            <control id="engineSpeed" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/engineSpeed.png" statName="ENGINE SPEED" statValue="001"/>
+                            <control id="weaponDamage" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/weaponDamage.png" statName="WEAPON DMG" statValue="001"/>
+                            <control id="officerHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/officerHealth.png" statName="OFFICER HEALTH" statValue="001"/>
+                            <control id="officerHappiness" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/officerHappiness.png" statName="OFFICER HAPPINESS" statValue="001"/>
+                            
+                        </panel>
+
+                        <panel height="1%"/>
+
+                        <panel height="18%" childLayout="horizontal">
+
+                            <!-- WINDOW BUTTONS -->
+                            <control id="officerButton" name="icon-button" iconImagePath="Interface/Images/Icons/officerIcon.png" hoverText="Officers" onClickMethod="openOfficerWindow()"/>
+                            <control id="seniorStaffButton" name="icon-button" iconImagePath="Interface/Images/Icons/seniorStaffIcon.png" hoverText="Staff" onClickMethod="openSeniorStaffWindow()"/>
+                            <control id="unlocksButton" name="icon-button" iconImagePath="Interface/Images/Icons/unlocksIcon.png" hoverText="Unlocks" onClickMethod="openUnlocksWindow()"/>
+                            <control id="travelButton" name="icon-button" iconImagePath="Interface/Images/Icons/travelsIcon.png" hoverText="Travel" onClickMethod="openTravelWindow()"/>
+
+                        </panel>
 
                     </panel>
+
+                    <panel height="1%"/>
 
                 </panel>
                 
-                <panel height="1%"/>
-               
-            </panel>
+            </panel> <!-- /RIGHT PANEL -->
             
         </layer>
         

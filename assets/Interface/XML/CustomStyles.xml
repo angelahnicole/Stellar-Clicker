@@ -17,8 +17,8 @@
         <attributes font="Interface/Fonts/PoiretOne_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
-    <style id="lato_20">
-        <attributes font="Interface/Fonts/LatoLight_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    <style id="rubik_font10">
+        <attributes font="Interface/Fonts/RubikMonoOne_10.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
     <style id="rubik_font12">
@@ -71,8 +71,8 @@
     
     <style id="componentButton">
         <effect>
-            <onHover name="fade" start="#FFFFFF" end="#78FFFF"/>
-            <onDisabled name="fade" start="#FFFFFF" end="#78FFFF"/>
+            <onHover name="fade" start="#FFFFFF" end="#90FFFF"/>
+            <onDisabled name="fade" start="#FFFFFF" end="#90FFFF"/>
             <onHover name="show" targetElement="#namePanel"/>
             <onEndHover name="hide" targetElement="#namePanel"/>
             <onClick name="imageSizePulsate" startSize="100%" endSize="110%" length="250" pulsator="SinusPulsator"/>
@@ -83,13 +83,6 @@
         <effect>
             <onHover name="show" targetElement="#namePanel"/>
             <onEndHover name="hide" targetElement="#namePanel"/>
-        </effect>
-    </style>
-    
-    <style id="namePanel">
-        <effect>
-            <onStartScreen name="border" color="#FFFFFF80" border="1px" neverStopRendering="true"/>
-            <onShow name="border" color="#FFFFFF80" border="1px" neverStopRendering="true"/>
         </effect>
     </style>
     
@@ -117,7 +110,6 @@
             <onEndHover name="hide" targetElement="#hoverText"/>
             <onEndHover name="show" targetElement="#iconImage"/>
             <onClick name="fade" start="#FFFFFF" end="#B3FFFF"/>
-            <onClick name="pulsate" startSize="100%" endSize="110%" length="250" pulsator="SinusPulsator"/>
             <onDisabled name="imageOverlay" filename="Interface/Images/UI/glassPanel_red.png" imageMode="resize:10,80,10,10,10,80,10,80,10,80,10,10" post="true" overlay="true"/>
         </effect>
     </style>

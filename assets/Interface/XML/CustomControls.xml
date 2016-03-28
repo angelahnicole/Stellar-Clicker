@@ -6,50 +6,59 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <controlDefinition name="ship-component-div" controller="stellarclicker.app.ShipComponentElementController">
 
-        <panel width="100%" childLayout="horizontal" padding="5px">
+        <panel padding="7px" childLayout="center" width="100%">
+            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" width="100%" childLayout="horizontal" padding="5px">
 
-            <panel width="30%" childLayout="vertical">
-                
-                <!-- SHIP COMPONENT IMAGE / BUTTON -->
-                <panel backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" padding="10px" style="componentButton">
-                    <interact onClick="interact()"></interact>
-                    <image filename="$compImage" width="100%" height="100%"/>
-                    <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_red.png" width="100%" height="100%" visible="false"/>
-                    <panel id="#namePanel" childLayout="center" style="whiteBorder" visible="false" backgroundColor="#00000070">
-                        <text width="100%" id="#nameText" text="$compName" style="titillium_font14" color="#FFFFFF" wrap="true"/>
-                    </panel>
-                </panel>
-                
-                <!-- SHIP COMPONENT LEVEL BANNER -->
-                <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
-                    <text id="#levelText" text="$compLevel" style="font24" color="#000000"/>
-                </panel>
+                <panel width="30%" childLayout="vertical">
 
-            </panel>
-            
-            <panel backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" width="70%" childLayout="vertical" padding="5px" >
-                
-                <!-- SHIP COMPONENT PROGRESS BAR -->
-                <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" style="horizontalBar" height="50%" childClip="true" childLayout="absolute" padding="5px,0px">
-                    <image id="#greenBar" filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
-                    <image id="#redBar" filename="Interface/Images/UI/barHorizontal_red.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
-                </panel>
-                
-                <!-- SHIP COMPONENT PROGRESS TIME LEFT AND BUY BUTTON -->
-                <panel height="50%" childLayout="horizontal">
-                    
-                    <control name="hover-text-button" mainText=" $1500" hoverText="BUY LEVEL" onClickMethod="purchase()"/>
-                    
-                    <panel childLayout="center" padding="2px">
-                        <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px">
-                            <text id="#timeLeft" text="00:00:00" style="rubik_font12" color="#00000080"/>
+                    <!-- SHIP COMPONENT IMAGE / BUTTON -->
+                    <panel backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" padding="10px" style="componentButton">
+                        
+                        <interact onClick="interact()"></interact>
+                        
+                        <image filename="$compImage" width="100%" height="100%"/>
+                        <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_red.png" width="100%" height="100%" visible="false"/>
+                        <panel id="#namePanel" childLayout="center" style="whiteBorder" visible="false" backgroundColor="#FFFFFF80" width="150%">
+                            <text width="100%" id="#nameText" text="$compName" style="rubik_font10" color="#000000" wrap="true"/>
                         </panel>
+                        
+                    </panel>
+
+                    <!-- SHIP COMPONENT LEVEL BANNER -->
+                    <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
+                        <text id="#levelText" text="$compLevel" style="font24" color="#000000"/>
+                    </panel>
+
+                </panel>
+
+                <panel width="70%" childLayout="vertical" padding="5px">
+
+                    <!-- SHIP COMPONENT PROGRESS BAR -->
+                    <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" style="horizontalBar" width="100%" height="49%" childClip="true" childLayout="absolute" padding="5px,0px">
+                        <image id="#greenBar" filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
+                        <image id="#redBar" filename="Interface/Images/UI/barHorizontal_red.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
                     </panel>
                     
-                </panel>
-                
-            </panel>
+                    <panel height="2%"/>
 
+                    <!-- SHIP COMPONENT PROGRESS TIME LEFT AND BUY BUTTON -->
+                    <panel height="50%" width="100%" childLayout="horizontal">
+                        
+                        
+                        <control name="hover-text-button" mainText=" $1500" hoverText="BUY LEVEL" onClickMethod="purchase()"/>
+                        
+
+                        <panel childLayout="center" padding="2px">
+                            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#F2F5D550">
+                                <text id="#timeLeft" text="00:00:00" style="rubik_font10" color="#00000080"/>
+                            </panel>
+                        </panel>
+
+                    </panel>
+
+                </panel>
+
+            </panel>
         </panel>
     
     
@@ -67,16 +76,16 @@
                 <!-- MONEY COMPONENT IMAGE -->
                 <panel backgroundImage="Interface/Images/UI/moneyComponentSquare_tealBlack.png" childLayout="center" padding="10px" style="moneyComponent">
                     <image filename="$compImage" width="100%" height="100%"/>
-                    <panel id="#namePanel" childLayout="center" style="namePanel" visible="false" backgroundColor="#00000080">
-                        <text width="100%" id="#compName" text="$compName" style="titillium_font14" color="#B5F0FF90" wrap="true"/>
+                    <panel id="#namePanel" childLayout="center" style="namePanel" visible="false" backgroundColor="#00000080" width="120%">
+                        <text width="100%" id="#compName" text="$compName" style="rubik_font10" color="#00E5FF" wrap="true"/>
                     </panel>
                 </panel>
                 
             </panel>
             
             <!-- MONEY COMPONENT TEXT -->
-            <panel backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" width="65%" height="90%" childLayout="center" valign="center">
-                <text width="100%" id="#compMoney" text="$compMoney" style="rubik_font20" color="#FFFFFF95" wrap="true"/>
+            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" width="65%" height="90%" childLayout="center" valign="center">
+                <text width="100%" id="#compMoney" text="$compMoney" style="rubik_font20" color="#00000095" wrap="true"/>
             </panel>
 
         </panel>
@@ -89,18 +98,18 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <controlDefinition name="ship-statistic-text" style="" controller="">
 
-        <panel width="100%" childLayout="horizontal" padding="8px">
+        <panel height="$statHeight" width="100%" childLayout="horizontal" padding="8px">
 
             <panel width="35px" height="35px" childLayout="center" style="whiteBorder" backgroundColor="#00000070">
                 <image id="#statImage" filename="$statImagePath" height="30px" width="30px"/>
             </panel>
             
-            <panel width="60%" childLayout="vertical" padding="0px,5px">
+            <panel width="60%" height="100%" childLayout="horizontal" padding="0px,5px">
                 <text id="#statName" text="$statName" style="font24" color="#444444" textHAlign="left"/>
             </panel>
             
-            <panel width="30%" childLayout="vertical">
-                <text id="#statValue" text="$statValue" style="rubik_font12" color="#6102A1" textHAlign="right" textVAlign="center"/>
+            <panel width="30%" height="100%" childLayout="horizontal" valign="center">
+                <text id="#statValue" text="$statValue" style="rubik_font12" color="#39916E" textHAlign="right" textVAlign="center"/>
             </panel>
 
         </panel>
@@ -113,7 +122,7 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <controlDefinition name="hover-text-button">
         
-        <panel childLayout="center" padding="2px" style="hover-text">
+        <panel childLayout="center" padding="2px" style="hover-text" height="100%">
             <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
 
                 <text width="100%" id="#mainText" text="$mainText" style="rubik_font12" color="#FFFFFF80" wrap="true"/>
@@ -133,7 +142,8 @@
 
         <panel padding="5px" childLayout="center" style="hover-icon">
             
-            <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%">
+            <panel id="#iconPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%">
+                <effect><onClick name="imageSizePulsate" startSize="100%" endSize="130%" length="250" pulsator="SinusPulsator"/></effect>
 
                 <image id="#iconImage" filename="$iconImagePath" valign="center" halign="center" height="80%"/>
                 <text width="100%" id="#hoverText" text="$hoverText" style="font16" color="#000000" visible="false" wrap="true"/>
@@ -152,9 +162,9 @@
     <controlDefinition name="splash-button">
         
         <panel childLayout="center" padding="2px" style="splash-btn">
-            <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
+            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
 
-                <text width="100%" id="#mainText" text="$mainText" style="rubik_font12" color="#FFFFFF80" wrap="true"/>
+                <text width="100%" text="$mainText" style="rubik_font12" color="#FFFFFF80" wrap="true"/>
                 <interact onClick="$onClickMethod"/>
 
             </panel>
