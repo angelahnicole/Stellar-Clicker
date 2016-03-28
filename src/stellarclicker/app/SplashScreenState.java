@@ -167,7 +167,7 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     /**========================================================================================================================== 
     * @name START GAME
     * 
-    * @description Switches the application
+    * @description Switches the application to the starting state
     *///=========================================================================================================================
     public void startGame()
     {
@@ -175,9 +175,11 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     }
 
     
-    /**
-     * 
-     */
+    /**========================================================================================================================== 
+    * @name QUIT GAME
+    * 
+    * @description Terminates the application
+    *///=========================================================================================================================
     public void quitGame()
     {
         MainApplication.app.stop();
