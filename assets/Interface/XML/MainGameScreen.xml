@@ -68,7 +68,10 @@
             <panel id="rightPanel" width="25%" height="100%" childLayout="vertical">
                 
                 <!-- MONEY SUMMARY -->
-                <control id="money" name="money-div" height="17%"/>
+                <control id="money" name="money-component-div" height="17%"
+                         compName="CLATINUM"
+                         compImage="Interface/Images/Icons/clatinum.png" 
+                         compMoney="20.0 K"/>
                 
                 <!-- HULL COMPONENT: IDs will match their ship component enumeration -->
                 <control id="HULL" name="ship-component-div" height="17%" 
@@ -76,12 +79,12 @@
                          compImage="Textures/ShipComponents/hullComponent1.png" 
                          compLevel="1"/>
                 
-                <panel id="controlPanel" backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" width="100%" height="50%" childLayout="vertical" padding="10px">
+                <panel id="controlPanel" backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" width="99%" childLayout="vertical" padding="10px">
                     
                     <panel height="1%"/>
                     
                     <!-- SHIP STATISTICS -->
-                    <panel backgroundColor="#FFFFFF80" style="grayBorder" height="90%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
+                    <panel backgroundColor="#FFFFFF80" style="grayBorder" height="80%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
                         <control id="hullHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="001"/>
                         <control id="shieldHealth" name="ship-statistic-text" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="001"/>
                         <control id="engineSpeed" name="ship-statistic-text" statImagePath="Interface/Images/Icons/engineSpeed.png" statName="ENGINE SPEED" statValue="001"/>
@@ -92,26 +95,19 @@
                     
                     <panel height="1%"/>
                     
-                    <panel height="7%" childLayout="horizontal" padding="2px,5px">
+                    <panel height="18%" childLayout="horizontal">
                         
                         <!-- WINDOW BUTTONS -->
-                        <control id="officerButton" name="icon-button" text="Officer" onClickMethod="openOfficerWindow()"/>
-                        <control id="seniorStaffButton" name="icon-button" text="Staff" onClickMethod="openSeniorStaffWindow()"/>
-                        <control id="unlocksButton" name="icon-button" text="Unlocks" onClickMethod="openUnlocksWindow()"/>
-                        <control id="travelButton" name="icon-button" text="Travel" onClickMethod="openTravelWindow()"/>
+                        <control id="officerButton" name="icon-button" iconImagePath="Interface/Images/Icons/officerIcon.png" hoverText="Officers" onClickMethod="openOfficerWindow()"/>
+                        <control id="seniorStaffButton" name="icon-button" iconImagePath="Interface/Images/Icons/seniorStaffIcon.png" hoverText="Staff" onClickMethod="openSeniorStaffWindow()"/>
+                        <control id="unlocksButton" name="icon-button" iconImagePath="Interface/Images/Icons/unlocksIcon.png" hoverText="Unlocks" onClickMethod="openUnlocksWindow()"/>
+                        <control id="travelButton" name="icon-button" iconImagePath="Interface/Images/Icons/travelsIcon.png" hoverText="Travel" onClickMethod="openTravelWindow()"/>
 
                     </panel>
-                    
-                    <panel height="1%"/>
-                    
-                    
-                    
+
                 </panel>
                 
-                <panel height="3%"/>
-                
-                <panel style="nifty-panel-no-shadow" padding="5px">
-                </panel>
+                <panel height="1%"/>
                
             </panel>
             

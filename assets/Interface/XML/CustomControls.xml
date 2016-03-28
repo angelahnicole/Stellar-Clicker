@@ -15,7 +15,7 @@
                     <interact onClick="interact()"></interact>
                     <image filename="$compImage" width="100%" height="100%"/>
                     <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_red.png" width="100%" height="100%" visible="false"/>
-                    <panel id="#namePanel" childLayout="center" style="componentText" visible="false">
+                    <panel id="#namePanel" childLayout="center" style="whiteBorder" visible="false" backgroundColor="#00000070">
                         <text width="100%" id="#nameText" text="$compName" style="titillium_font14" color="#FFFFFF" wrap="true"/>
                     </panel>
                 </panel>
@@ -42,7 +42,7 @@
                     
                     <panel childLayout="center" padding="2px">
                         <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px">
-                            <text id="#timeLeft" text="00:00:00" style="font12" color="#000000"/>
+                            <text id="#timeLeft" text="00:00:00" style="rubik_font12" color="#00000080"/>
                         </panel>
                     </panel>
                     
@@ -56,14 +56,28 @@
     </controlDefinition>
     
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
-    <!-- MONEY DIV -->
+    <!-- MONEY COMPONENT -->
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
-    <controlDefinition name="money-div" style="" controller="">
+    <controlDefinition name="money-component-div">
 
         <panel width="100%" childLayout="horizontal" padding="5px">
-
-            <panel style="nifty-panel-no-shadow" width="30%" childLayout="center"></panel>
-            <panel style="nifty-panel-red-no-shadow" width="70%" childLayout="center"></panel>
+            
+            <panel width="35%" childLayout="vertical">
+                
+                <!-- MONEY COMPONENT IMAGE -->
+                <panel backgroundImage="Interface/Images/UI/moneyComponentSquare_tealBlack.png" childLayout="center" padding="10px" style="moneyComponent">
+                    <image filename="$compImage" width="100%" height="100%"/>
+                    <panel id="#namePanel" childLayout="center" style="namePanel" visible="false" backgroundColor="#00000080">
+                        <text width="100%" id="#compName" text="$compName" style="titillium_font14" color="#B5F0FF90" wrap="true"/>
+                    </panel>
+                </panel>
+                
+            </panel>
+            
+            <!-- MONEY COMPONENT TEXT -->
+            <panel backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" width="65%" height="90%" childLayout="center" valign="center">
+                <text width="100%" id="#compMoney" text="$compMoney" style="rubik_font20" color="#FFFFFF95" wrap="true"/>
+            </panel>
 
         </panel>
     
@@ -82,11 +96,11 @@
             </panel>
             
             <panel width="60%" childLayout="vertical" padding="0px,5px">
-                <text id="#statName" text="$statName" style="font20" color="#444444" textHAlign="left"/>
+                <text id="#statName" text="$statName" style="font24" color="#444444" textHAlign="left"/>
             </panel>
             
             <panel width="30%" childLayout="vertical">
-                <text id="#statValue" text="$statValue" style="font24" color="#6102A1" textHAlign="right" textVAlign="bottom"/>
+                <text id="#statValue" text="$statValue" style="rubik_font12" color="#6102A1" textHAlign="right" textVAlign="center"/>
             </panel>
 
         </panel>
@@ -102,8 +116,8 @@
         <panel childLayout="center" padding="2px" style="hover-text">
             <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
 
-                <text id="#mainText" text="$mainText" style="font16" color="#FFFFFF"/>
-                <text id="#hoverText" text="$hoverText" style="font16" color="#FFFFFF" visible="false"/>
+                <text width="100%" id="#mainText" text="$mainText" style="rubik_font12" color="#FFFFFF80" wrap="true"/>
+                <text width="100%" id="#hoverText" text="$hoverText" style="font16" color="#FFFFFF" visible="false" wrap="true"/>
                 <interact onClick="$onClickMethod"/>
 
             </panel>
@@ -115,14 +129,35 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <!-- ICON BUTTON -->
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
-    <controlDefinition name="icon-button" style="">
+    <controlDefinition name="icon-button">
 
-        <panel backgroundImage="Interface/Images/UI/glassPanel.png" style="glassPanel" childLayout="center" padding="5px">
+        <panel padding="5px" childLayout="center" style="hover-icon">
+            
+            <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%">
 
-            <control id="#iconButton" name="button" label="$text" width="100%">
+                <image id="#iconImage" filename="$iconImagePath" valign="center" halign="center" height="80%"/>
+                <text width="100%" id="#hoverText" text="$hoverText" style="font16" color="#000000" visible="false" wrap="true"/>
                 <interact onClick="$onClickMethod"/>
-            </control>
 
+            </panel>
+            
+        </panel>
+    
+    
+    </controlDefinition>
+    
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- SPLASH BUTTON -->
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <controlDefinition name="splash-button">
+        
+        <panel childLayout="center" padding="2px" style="splash-btn">
+            <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
+
+                <text width="100%" id="#mainText" text="$mainText" style="rubik_font12" color="#FFFFFF80" wrap="true"/>
+                <interact onClick="$onClickMethod"/>
+
+            </panel>
         </panel>
     
     
