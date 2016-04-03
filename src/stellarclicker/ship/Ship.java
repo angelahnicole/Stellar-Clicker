@@ -207,13 +207,7 @@ public class Ship
            seniorStaff[i.ordinal()] = new SeniorStaff(i);
        }
 
-       //TESTING. ERASE LATER.
-       for (int i=0;i<seniorStaff.length-1;i++)
-       {
-           System.out.println(i);
-           shipComponents[i].repairComponent();
-           seniorStaff[i].purchase(shipComponents[i]);
-       }
+       
        
     }
 
@@ -320,7 +314,7 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentExperience(EShipComponent component)
     {
-        System.out.println("Experienceing Components " + component.name());
+        
     }
     
     /**========================================================================================================================== 
@@ -335,7 +329,7 @@ public class Ship
         
         seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()]);
         
-        System.out.println("Purchasing people " + officer.name());
+        
     }
     
     /**========================================================================================================================== 
@@ -345,7 +339,7 @@ public class Ship
     *///=========================================================================================================================
     public void resetShip()
     {
-        System.out.println("Resetting all the things");
+        
     }
     
     /**========================================================================================================================== 
@@ -358,7 +352,7 @@ public class Ship
     private void earnMoney(double moneyPerSecond)
     {
         this.money += moneyPerSecond;
-        System.out.println("Ca$h Money: " + this.money);
+        
     }
     
     /**========================================================================================================================== 
@@ -368,7 +362,7 @@ public class Ship
     *///=========================================================================================================================
     private void calcMoneyPerSecond()
     {
-        System.out.println("Count that cash");
+       
     }
     
     /**========================================================================================================================== 
@@ -378,7 +372,7 @@ public class Ship
     *///=========================================================================================================================
     private void claimOfficers()
     {
-        System.out.println("Gather the people");
+        
     }
 
     private String getCurrentMoney()

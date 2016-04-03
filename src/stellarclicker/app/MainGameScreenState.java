@@ -272,6 +272,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 }
                 else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
                 {
+                    
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
                 }
                 

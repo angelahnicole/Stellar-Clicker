@@ -20,7 +20,7 @@ public class Timer {
     private Boolean isActive;
     private float start;
     private float stop;
-    public Boolean isDone;
+    
     float percent;
     
     

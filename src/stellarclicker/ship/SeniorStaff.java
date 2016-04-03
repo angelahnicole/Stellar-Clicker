@@ -32,7 +32,6 @@ public class SeniorStaff
     SeniorStaff(ESeniorStaff officerType)
     {
         this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
-        System.out.println("Created Officer " + officerType + " Component Boost " + this.shipStatComponentBoost);
         
     }
      /**========================================================================================================================== 
@@ -45,15 +44,7 @@ public class SeniorStaff
    
     public void update(float gameTime)
     {
-        if (this.managedComponent != null)
-        {
-            //manage ship component by checking to see if component is idle.
-        if (this.managedComponent.currentState == EShipComponentState.INACTIVE)
-        {
-            this.managedComponent.gainExperience();
-        }
-        }
-        
+       manageComponent();
     }
      /**========================================================================================================================== 
     * @name purchase
@@ -69,21 +60,36 @@ public class SeniorStaff
         this.managedComponent = component;
         
     }
+    /**========================================================================================================================== 
+    * @name manageComponent()
+    * 
     
-    /*
-     * Private methods
-     */
-    private void repair()
+    * 
+    * @description manages component timer based on current state
+    *///=========================================================================================================================
+   
+    public void manageComponent()
     {
-        System.out.println("repair stuff");
-        //call component to repair stuff
+         if (this.managedComponent != null)
+        {
+            //manage ship component by checking to see if component is idle.
+        if (this.managedComponent.currentState == EShipComponentState.INACTIVE)
+        {
+            this.managedComponent.gainExperience();
+        }
         
+        else if (this.managedComponent.currentState == EShipComponentState.BROKEN)
+        {
+            this.managedComponent.gainRepair();
+            
+        }
+        }
     }
     
-    private void gainExp()
-    {
-        System.out.println("X-P");
-    }
+    
+   
+    
+    
     
 }
 

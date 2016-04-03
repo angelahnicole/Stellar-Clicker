@@ -112,7 +112,7 @@ public class ShipComponent
         updateTimeTaken();
         this.timer = new Timer();
 
-        System.out.println("Constructing component " + this.name);
+        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,7 +142,7 @@ public class ShipComponent
     *///=========================================================================================================================
     public void manageTimers()
     {
-        // Matt:  if statement seems messy.  I'd like a better way but can't think at the moment.
+        
         if (this.currentState != EShipComponentState.BROKEN)
         {
             // check for completion of timers
@@ -153,11 +153,15 @@ public class ShipComponent
                     levelUp();
                     this.timer.cancelTimer();
                     
+                    //degrade component
+                    degradeComponent(50);
+                    System.out.println(this.durability);
                 }
                 else if(this.currentState == EShipComponentState.REPAIRING)
                 {
                     repairComponent();
                     this.timer.cancelTimer();
+                    
                 }
                 
             }
@@ -173,11 +177,13 @@ public class ShipComponent
     *///=========================================================================================================================
     public void gainExperience()
     {
-        this.timer.set(this.gameTime, this.expTime);
-        System.out.println("Starting timer for " + this.name);
+        //prevent experience gain if gaining experience.
+        if (this.currentState != EShipComponentState.BROKEN)
+        {this.timer.set(this.gameTime, this.expTime);
+        
         
         this.currentState = EShipComponentState.GAINING_EXP;
-         
+        }
         
     }
     
@@ -204,7 +210,7 @@ public class ShipComponent
     public void gainRepair()
     {
         this.timer.set(this.gameTime, this.repairTime);
-        System.out.println("Starting timer for " + this.name);
+        
         
         this.currentState = EShipComponentState.REPAIRING; 
     }
@@ -300,7 +306,7 @@ public class ShipComponent
     *///=========================================================================================================================
     public void getShipStatistic()
     {
-        System.out.println("get stuff");
+        
     }
     
     /**========================================================================================================================== 
@@ -345,7 +351,7 @@ public class ShipComponent
     *///=========================================================================================================================
     private void updateTimeTaken()
     {
-        this.expTime = this.BASE_TIME / this.level;
+        this.expTime = this.BASE_TIME / ((this.level/10)+1);
         this.repairTime = this.expTime / 10;
     }
     
