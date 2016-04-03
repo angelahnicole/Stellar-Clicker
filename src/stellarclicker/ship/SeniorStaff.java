@@ -17,7 +17,7 @@ package stellarclicker.ship;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipStat;
 import stellarclicker.util.ESeniorStaff;
-
+import stellarclicker.util.EShipComponentState;
 public class SeniorStaff 
 {
     
@@ -35,19 +35,39 @@ public class SeniorStaff
         System.out.println("Created Officer " + officerType + " Component Boost " + this.shipStatComponentBoost);
         
     }
-    /*
-     * Public methods
-     */
+     /**========================================================================================================================== 
+    * @name update
+    * 
+    * @param gameTime updates gametime for officer.
+    * 
+    * @description checks components for inactive state and manages them. 
+    *///=========================================================================================================================
+   
     public void update(float gameTime)
     {
-        
-        //manage ship component by checking to see if component is idle.
+        if (this.managedComponent != null)
+        {
+            //manage ship component by checking to see if component is idle.
+        if (this.managedComponent.currentState == EShipComponentState.INACTIVE)
+        {
+            this.managedComponent.gainExperience();
+        }
+        }
         
     }
-    
-    public void purchase()
+     /**========================================================================================================================== 
+    * @name purchase
+    * 
+    * @param component the shipComponent to manage
+    * 
+    * @description Purchases a component for management to operate 
+    *///=========================================================================================================================
+   
+    public void purchase(ShipComponent component)
     {
-        System.out.println("Buy me!");
+        this.isPurchased = true;
+        this.managedComponent = component;
+        
     }
     
     /*

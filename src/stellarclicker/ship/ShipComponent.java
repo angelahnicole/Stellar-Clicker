@@ -151,25 +151,17 @@ public class ShipComponent
                 if(this.currentState == EShipComponentState.GAINING_EXP)
                 {
                     levelUp();
+                    this.timer.cancelTimer();
+                    
                 }
                 else if(this.currentState == EShipComponentState.REPAIRING)
                 {
                     repairComponent();
-                }
-                
-                System.out.println("Stopping timer for " + this.name);
-                
-
-                if (this.managed)
-                {
-                     // start a new expTimer
                     this.timer.cancelTimer();
-                    this.timer.set(gameTime, this.expTime);
-                    System.out.println("Resetting timer for " + this.name);
                 }
-
-            }  
-           
+                
+            }
+            
         }
     }
     
@@ -184,7 +176,9 @@ public class ShipComponent
         this.timer.set(this.gameTime, this.expTime);
         System.out.println("Starting timer for " + this.name);
         
-        this.currentState = EShipComponentState.GAINING_EXP; 
+        this.currentState = EShipComponentState.GAINING_EXP;
+         
+        
     }
     
     /**========================================================================================================================== 
@@ -243,7 +237,7 @@ public class ShipComponent
         
         this.currentState = EShipComponentState.INACTIVE;
     }
-    
+     
     /**========================================================================================================================== 
     * @name breakComponent
     * 
@@ -254,6 +248,7 @@ public class ShipComponent
         this.durability = 0;
         this.currentState = EShipComponentState.BROKEN;
     }
+    
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     

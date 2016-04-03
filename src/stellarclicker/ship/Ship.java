@@ -59,21 +59,17 @@ public class Ship
     * @param gameTime The main game time in total seconds
     *///=========================================================================================================================
     public void update(float tpf, float gameTime)
-    {
-        
+    {  
         // calls each components' update methods
         for(EShipComponent m : EShipComponent.values()) 
         {
             shipComponents[m.ordinal()].update(gameTime);
-
         }
-
         // calls each senior staffs' update methods
         for(ESeniorStaff i : ESeniorStaff.values()) 
         { 
             seniorStaff[i.ordinal()].update(gameTime);
         }
-
     }
     
     public void gainComponentExperience(EShipComponent shipComponent)
@@ -211,6 +207,14 @@ public class Ship
            seniorStaff[i.ordinal()] = new SeniorStaff(i);
        }
 
+       //TESTING. ERASE LATER.
+       for (int i=0;i<seniorStaff.length-1;i++)
+       {
+           System.out.println(i);
+           shipComponents[i].repairComponent();
+           seniorStaff[i].purchase(shipComponents[i]);
+       }
+       
     }
 
     /**========================================================================================================================== 
@@ -328,6 +332,9 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseSeniorStaff(ESeniorStaff officer)
     {
+        
+        seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()]);
+        
         System.out.println("Purchasing people " + officer.name());
     }
     
