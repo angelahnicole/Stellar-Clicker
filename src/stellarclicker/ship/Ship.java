@@ -173,17 +173,17 @@ public class Ship
         return shipComponents[component.ordinal()].getTimerPercent();
     }
 
-//    /**=========================================================================================================================
-//    * @name getTimeRemaining
-//    * 
-//    * @description Instantly level up the component if the user has enough money 
-//    * 
-//    * @param component the component to level Enum type
-//    *///=========================================================================================================================
-//    public double getTimeRemaining(EShipComponent component)
-//    {
-//        return shipComponents[component.ordinal()].getTimeRemaining();
-//    }
+    /**=========================================================================================================================
+    * @name getTimeLeft
+    * 
+    * @description  
+    * 
+    * @param component the component to get from
+    *///=========================================================================================================================
+    public String getTimeLeft(EShipComponent component)
+    {
+        return shipComponents[component.ordinal()].getTimeRemaining();
+    }
     
     /**========================================================================================================================== 
     * @name initializeComponents
@@ -377,9 +377,9 @@ public class Ship
     }
 
     /**========================================================================================================================== 
-    * @name claimOfficers
+    * @name getCurrentMoney
     * 
-    * @description not exactly sure what this will be for yet?  
+    * @description returns money value  
     *///=========================================================================================================================
     private String getCurrentMoney()
     {
