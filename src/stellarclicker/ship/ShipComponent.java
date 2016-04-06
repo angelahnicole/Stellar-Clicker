@@ -334,6 +334,20 @@ public class ShipComponent
     }
     
     /**========================================================================================================================== 
+    * @name GET TIMER PERCENT
+    * 
+    * @description Returns the percent of the timer completion 
+    * 
+    * @param gameTime The main application time
+    *///=========================================================================================================================
+    public String getTimeRemaining()
+    {
+        //return (String) this.timer.getPercentComplete(gameTime);
+        Float time = this.timer.getTimeRemaining(gameTime);
+        return time.toString();
+    }
+    
+    /**========================================================================================================================== 
     * @name GET COMPONENT STATE
     * 
     * @description Returns the state of the component 

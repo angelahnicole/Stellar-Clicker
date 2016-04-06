@@ -43,8 +43,7 @@ public class Ship
     // CONSTRUCTOR
     // --------------------------------------------------------------------------------------------------------------------------------------------
     public Ship()
-    {
-        
+    {    
         this.initializeComponents();
     }
     
@@ -72,12 +71,26 @@ public class Ship
         }
     }
     
+    /**=========================================================================================================================
+    * @name gainComponentExperience
+    * 
+    * @description  
+    * 
+    * @param component the component to gain experience
+    *///=========================================================================================================================   
     public void gainComponentExperience(EShipComponent shipComponent)
     {
         shipComponents[shipComponent.ordinal()].gainExperience();
     }
     
-    public void gainComponentRepair(EShipComponent shipComponent)
+    /**=========================================================================================================================
+    * @name gainComponentRepair
+    * 
+    * @description Instantly repair component 
+    * 
+    * @param component the component to repair
+    *///=========================================================================================================================
+     public void gainComponentRepair(EShipComponent shipComponent)
     {
         shipComponents[shipComponent.ordinal()].gainRepair();
     }
@@ -96,7 +109,7 @@ public class Ship
         shipComponents[component.ordinal()].levelUp();
     }
 
-        /**=========================================================================================================================
+    /**=========================================================================================================================
     * @name getShipComponentLevel
     * 
     * @description Instantly level up the component if the user has enough money 
@@ -124,17 +137,6 @@ public class Ship
         shipComponents[component.ordinal()].repairComponent();
     }
     
-//        /**=========================================================================================================================
-//    * @name getShipComponentState
-//    * 
-//    * @description Instantly level up the component if the user has enough money 
-//    * 
-//    * @param component the component state
-//    *///=========================================================================================================================
-//    public EShipComponentState getComponentState(EShipComponent component)
-//    {   
-//        return shipComponents[component.ordinal()].getComponentState();
-//    }
     /**=========================================================================================================================
     * @name getRepairCost
     * 
@@ -146,7 +148,8 @@ public class Ship
     {
         return shipComponents[component.ordinal()].getRepairCost();
     }
- /**=========================================================================================================================
+    
+    /**=========================================================================================================================
     * @name getLevelCost
     * 
     * @description Instantly level up the component if the user has enough money 
@@ -157,12 +160,13 @@ public class Ship
     {
         return shipComponents[component.ordinal()].getLevelCost();
     }
-/**=========================================================================================================================
-    * @name getLevelCost
+   
+    /**=========================================================================================================================
+    * @name getTimerPercent
     * 
-    * @description Instantly level up the component if the user has enough money 
+    * @description  
     * 
-    * @param component the component to level Enum type
+    * @param component the component to get from Enum type
     *///=========================================================================================================================
     public double getTimerPercent(EShipComponent component)
     {
@@ -326,10 +330,7 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseSeniorStaff(ESeniorStaff officer)
     {
-        
         seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()]);
-        
-        
     }
     
     /**========================================================================================================================== 
@@ -375,6 +376,11 @@ public class Ship
         
     }
 
+    /**========================================================================================================================== 
+    * @name claimOfficers
+    * 
+    * @description not exactly sure what this will be for yet?  
+    *///=========================================================================================================================
     private String getCurrentMoney()
     {
        return BigNumber.getNumberString(money);
