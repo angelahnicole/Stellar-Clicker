@@ -1,6 +1,7 @@
 
 package stellarclicker.ship;
 
+
 import stellarclicker.util.Timer;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -18,6 +19,7 @@ import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipComponent;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
+import java.math.RoundingMode;
 
 public class Ship 
 {
@@ -104,7 +106,7 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentLevel(EShipComponent component)
     {
-        System.out.println("Purchased level for Comp" + component.name());
+        
         
         shipComponents[component.ordinal()].levelUp();
     }
@@ -118,7 +120,7 @@ public class Ship
     *///=========================================================================================================================
     public int getShipComponentLevel(EShipComponent component)
     {
-        System.out.println("level for Comp" + component.name());
+        
         
         return shipComponents[component.ordinal()].getLevel();
     }
@@ -132,7 +134,7 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentRepair(EShipComponent component)
     {
-        System.out.println("Purchased Repair for Comp" + component.name());
+        
         
         shipComponents[component.ordinal()].repairComponent();
     }
@@ -205,10 +207,19 @@ public class Ship
            shipComponents[m.ordinal()] = new ShipComponent(m.name());
        }
 
+       int initialCost = 100;
+       
+       
        //creates the senior staff which match the number of components
        for(ESeniorStaff i : ESeniorStaff.values()) 
        { 
            seniorStaff[i.ordinal()] = new SeniorStaff(i);
+           
+           seniorStaff[i.ordinal()].setPurchaseCost(initialCost);
+           
+           initialCost = Math.round(initialCost*10);
+           
+           
        }
 
        
@@ -326,11 +337,13 @@ public class Ship
     * 
     * @description Allows user to purchase staff officer for a component  
     * 
+    * 
     * @param component the Officer Enum type
+    * @param money the current clatinum the player has.
     *///=========================================================================================================================
-    public void purchaseSeniorStaff(ESeniorStaff officer)
+    public void purchaseSeniorStaff(ESeniorStaff officer, double money)
     {
-        seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()]);
+        seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()], money);
     }
     
     /**========================================================================================================================== 
@@ -369,7 +382,7 @@ public class Ship
     /**========================================================================================================================== 
     * @name claimOfficers
     * 
-    * @description not exactly sure what this will be for yet?  
+    * @description Increases the amount of officers joined to the ship.
     *///=========================================================================================================================
     private void claimOfficers()
     {

@@ -32,6 +32,8 @@ public class SeniorStaff
     SeniorStaff(ESeniorStaff officerType)
     {
         this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
+        //officers default at 100 clatinum
+        this.purchasedCost = 100;
         
     }
      /**========================================================================================================================== 
@@ -50,16 +52,29 @@ public class SeniorStaff
     * @name purchase
     * 
     * @param component the shipComponent to manage
+    * @param money the current amount of clatinum the user has. 
     * 
     * @description Purchases a component for management to operate 
     *///=========================================================================================================================
    
-    public void purchase(ShipComponent component)
+    public String purchase(ShipComponent component, double money)
     {
-        this.isPurchased = true;
-        this.managedComponent = component;
+        if (money > this.purchasedCost)
+        {
+            this.isPurchased = true;
+            this.managedComponent = component;
+            return "Welcome to the crew!";
+        }
+        
+        else
+        {
+            return "You do not have enough clatinum to purchase this staff member.";
+        }
+        
+        
         
     }
+    
     /**========================================================================================================================== 
     * @name manageComponent()
     * 
@@ -86,6 +101,17 @@ public class SeniorStaff
         }
     }
     
+    
+    public double getPurchaseCost()
+    {
+        
+        return this.purchasedCost;
+    }
+    
+    public void setPurchaseCost(double cost)
+    {
+        this.purchasedCost = cost;
+    }
     
    
     
