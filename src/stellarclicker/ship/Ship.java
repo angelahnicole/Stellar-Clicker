@@ -19,6 +19,7 @@ import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipComponent;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
+import stellarclicker.util.EShipStat;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -34,6 +35,7 @@ public class Ship
     private ShipComponent[] activeComponents;  
     private ShipComponent[] inactiveComponents;
     private ShipComponent[] shipComponents;
+    private ShipStatistics[] shipStats;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
     private double officers;
@@ -199,6 +201,7 @@ public class Ship
     public void initializeComponents()
     {
         // Initializes the component array 
+        shipStats = new ShipStatistics[EShipStat.values().length];
         shipComponents = new ShipComponent[EShipComponent.values().length];
         seniorStaff = new SeniorStaff[EShipComponent.values().length];
         inactiveComponents =  new ShipComponent[EShipComponent.values().length]; 
@@ -213,6 +216,12 @@ public class Ship
 
        int initialCost = 100;
        
+       
+        // This for each creates ship stats 
+       for(EShipStat m : EShipStat.values()) 
+       {
+           shipStats[m.ordinal()] = new ShipStatistics();
+       }
        
        //creates the senior staff which match the number of components
        for(ESeniorStaff i : ESeniorStaff.values()) 
