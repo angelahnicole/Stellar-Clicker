@@ -20,6 +20,7 @@ import stellarclicker.util.EShipComponent;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class Ship 
 {
@@ -341,11 +342,42 @@ public class Ship
     * @param component the Officer Enum type
     * @param money the current clatinum the player has.
     *///=========================================================================================================================
-    public void purchaseSeniorStaff(ESeniorStaff officer, double money)
+    public void purchaseSeniorStaff(ESeniorStaff officer)
     {
-        seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()], money);
+        seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()], this.money);
     }
     
+    /**========================================================================================================================== 
+    * @name getSeniorStaffCost
+    * 
+    * @description reports the cost of a staff member
+    * 
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public String getSeniorStaffCost(ESeniorStaff officer)
+    {
+        double cost = seniorStaff[officer.ordinal()].getPurchaseCost();
+        DecimalFormat moneyFormat = new DecimalFormat("$0.00");
+        
+        return moneyFormat.format(cost);
+    }
+    
+    /**========================================================================================================================== 
+    * @name getSeniorStaffName
+    * 
+    * @description reports the name of the senior staff member
+    * 
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public String getSeniorStaffName(ESeniorStaff officer)
+    {
+        String name = seniorStaff[officer.ordinal()].getName();
+        
+        
+        return name;
+    }
     /**========================================================================================================================== 
     * @name resetShip
     * 
