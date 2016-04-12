@@ -71,6 +71,9 @@ public class Ship
         { 
             seniorStaff[i.ordinal()].update(gameTime);
         }
+        
+        //testing remaining time method
+     //   System.out.println(getTimeLeft(EShipComponent.HULL));
     }
     
     /**=========================================================================================================================

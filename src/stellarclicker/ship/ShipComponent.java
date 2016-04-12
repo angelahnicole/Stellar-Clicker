@@ -95,7 +95,7 @@ public class ShipComponent
         
         // TODO: should have all of these values be passed in via the constructor
         
-        this.BASE_TIME = 10;
+        this.BASE_TIME = 1000;
         this.MAX_DURABILITY = 100;
         this.MIN_LEVEL = 1;
         this.MAX_LEVEL = 999; 
@@ -334,7 +334,7 @@ public class ShipComponent
     }
     
     /**========================================================================================================================== 
-    * @name GET TIMER PERCENT
+    * @name GET TIME Remaining
     * 
     * @description Returns the percent of the timer completion 
     * 
@@ -342,9 +342,12 @@ public class ShipComponent
     *///=========================================================================================================================
     public String getTimeRemaining()
     {
-        //return (String) this.timer.getPercentComplete(gameTime);
+        
         Float time = this.timer.getTimeRemaining(gameTime);
-        return time.toString();
+        int hours = (int) ((time/60)/60);
+        int minutes = (int) ((time-(hours*60))/60);
+        int seconds = (int) ((time-(hours*60)-(minutes*60)));
+        return hours + ":" + minutes + ":" + seconds;
     }
     
     /**========================================================================================================================== 
