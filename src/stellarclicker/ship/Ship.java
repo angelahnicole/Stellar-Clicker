@@ -21,8 +21,9 @@ import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.io.*;
 
-public class Ship 
+public class Ship implements Serializable
 {
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -72,6 +73,9 @@ public class Ship
         { 
             seniorStaff[i.ordinal()].update(gameTime);
         }
+        
+        this.money += 1;
+        
     }
     
     /**=========================================================================================================================
@@ -395,7 +399,7 @@ public class Ship
     * 
     * @param moneyPerSecond amount to increase by
     *///=========================================================================================================================
-    private void earnMoney(double moneyPerSecond)
+    public void earnMoney(double moneyPerSecond)
     {
         this.money += moneyPerSecond;
         
@@ -406,7 +410,7 @@ public class Ship
     * 
     * @description calculates the amount of ca$h money to give the player  
     *///=========================================================================================================================
-    private void calcMoneyPerSecond()
+    public void calcMoneyPerSecond()
     {
        
     }
@@ -416,9 +420,11 @@ public class Ship
     * 
     * @description Increases the amount of officers joined to the ship.
     *///=========================================================================================================================
-    private void claimOfficers()
+    public void claimOfficers()
     {
+        //based on current officer happiness.
         
+        this.officers += 0;
     }
 
     /**========================================================================================================================== 
@@ -426,7 +432,7 @@ public class Ship
     * 
     * @description returns money value  
     *///=========================================================================================================================
-    private String getCurrentMoney()
+    public String getCurrentMoney()
     {
        return BigNumber.getNumberString(money);
     }

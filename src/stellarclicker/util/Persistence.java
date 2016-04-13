@@ -12,60 +12,49 @@ package stellarclicker.util;
  *///========================================================================================================================
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+import java.io.*;
 import com.jme3.app.SimpleApplication;
 import com.jme3.light.AmbientLight;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import jme3tools.savegame.SaveGame;
-
-
+import com.jme3.export.Savable;
+import stellarclicker.ship.*;
+import stellarclicker.util.Timer;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //ALL OF THIS IS EXAMPLE JME CODE FOR THE SAVABLE INTERFACE  
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public class Persistence extends SimpleApplication {
+public class Persistence {
 
-    public static void main(String[] args) {
-
-//        TestSaveGame app = new TestSaveGame();
-//        app.start();
-    }
-
-    @Override
-    public void simpleUpdate(float tpf) {
-    }
-
-    public void simpleInitApp() {
-
-        //node that is used to store player data
-        Node myShip = new Node();
-        myShip.setName("PlayerNode");
-        myShip.setUserData("name", "Mario");
-        myShip.setUserData("health", 100.0f);
-        myShip.setUserData("points", 0);
-
-        //the actual model would be attached to this node
-        Spatial model = (Spatial) assetManager.loadModel("Models/Oto/Oto.mesh.xml");
-        myShip.attachChild(model);
-
-        //before saving the game, the model should be detached so its not saved along with the node
-        myShip.detachAllChildren();
-        SaveGame.saveGame("mycompany/mygame", "savegame_001", myShip);
-
-        //later the game is loaded again
-        Node player = (Node) SaveGame.loadGame("mycompany/mygame", "savegame_001");
-        player.attachChild(model);
-        rootNode.attachChild(player);
-
-        //and the data is available
-        System.out.println("Name: " + player.getUserData("name"));
-        System.out.println("Health: " + player.getUserData("health"));
-        System.out.println("Points: " + player.getUserData("points"));
-
-        AmbientLight al = new AmbientLight();
-        rootNode.addLight(al);
+    //constructor
+    public Persistence()
+    {
         
-        //note you can also implement your own classes that implement the Savable interface.
+
+    
     }
+    
+    public void saveGame(Object o, File file) throws IOException, ClassNotFoundException
+    {
+        try(ObjectOutputStream oos = new ObjectOutputStream(
+                    new FileOutputStream(file))) {
+                // no need to specify members individually
+                oos.writeObject(o);
+                oos.close();
+            }
+    }
+    
+    public Object loadGame(File file) throws IOException, ClassNotFoundException
+    {
+        if (!file.exists())
+            return null;
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+        Object playerData = in.readObject();
+        
+        in.close();
+        return playerData;
+    }
+    
+    
 }

@@ -14,11 +14,12 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import java.io.Serializable;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipStat;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
-public class SeniorStaff 
+public class SeniorStaff implements Serializable
 {
     
     protected ShipComponent managedComponent;
@@ -28,6 +29,7 @@ public class SeniorStaff
     protected double purchasedCost;
     protected boolean isPurchased;
     protected String name;
+    protected String description;
     // Constructor
     SeniorStaff(ESeniorStaff officerType)
     {
@@ -35,6 +37,7 @@ public class SeniorStaff
         //officers default at 100 clatinum
         this.purchasedCost = 100;
         this.name = "Senior Staff Member";
+        this.description = "";
     }
      /**========================================================================================================================== 
     * @name update
@@ -123,7 +126,10 @@ public class SeniorStaff
         return this.name;
     }
     
-    
+    public String getDescription()
+    {
+        return this.description;
+    }
     
 }
 

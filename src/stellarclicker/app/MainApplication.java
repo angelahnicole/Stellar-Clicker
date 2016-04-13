@@ -49,6 +49,9 @@ import com.jme3.app.state.AppState;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
 import stellarclicker.util.EAppState;
+import stellarclicker.util.Persistence;
+import java.io.*;
+import java.util.logging.*;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -67,6 +70,8 @@ public class MainApplication extends SimpleApplication
     
     private float gameTime;
     
+    Persistence persister = new Persistence();
+    private static final Logger log= Logger.getLogger( MainApplication.class.getName() );
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
@@ -111,6 +116,8 @@ public class MainApplication extends SimpleApplication
         // set stats views to default off
         setDisplayFps(false);
         setDisplayStatView(false);
+        
+        loadGame("stellar.bin");
     }
 
     /**========================================================================================================================== 
@@ -122,10 +129,17 @@ public class MainApplication extends SimpleApplication
     public void update()
     {
         super.update();
-
+        
         // update and render the current state
         float tpf = timer.getTimePerFrame();
         gameTime = timer.getTimeInSeconds();
+        boolean save = false;
+        if (gameTime >= 10 && save == false)
+        {
+            saveGame("myfile.bin");
+            save = true;
+            
+        }
         stateManager.update(tpf);
         stateManager.render(renderManager);
         rootNode.updateLogicalState(tpf);
@@ -220,5 +234,29 @@ public class MainApplication extends SimpleApplication
         return nifty;
     }
     
+    public void saveGame(String File)
+    {
+        try {
+        persister = new Persistence();
+        persister.saveGame(myShip,new File("stellar.bin"));
+        
+        } catch (Throwable ex)
+        {
+           System.out.println(ex.toString());
+        }
+    }   
+    
+    public void loadGame(String file)
+    {
+        try {
+        persister = new Persistence();
+        this.myShip = (Ship)persister.loadGame(new File(file));
+        
+        } catch (Throwable ex)
+        {
+            System.out.println(ex.toString());
+        }
+        
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

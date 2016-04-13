@@ -45,13 +45,14 @@ package stellarclicker.ship;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+import java.io.Serializable;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 import stellarclicker.util.EShipComponentState;
 import stellarclicker.util.EShipStat;
 
 
-public class ShipComponent
+public class ShipComponent implements Serializable
 {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -65,7 +66,7 @@ public class ShipComponent
     protected int MIN_LEVEL;
     protected int MAX_LEVEL; 
     protected int NUM_SHIP_STATS;
-    
+    protected int durabilityRange;
     protected String name;
     protected int durability;
     protected int level;
@@ -97,6 +98,7 @@ public class ShipComponent
         
         this.BASE_TIME = 10;
         this.MAX_DURABILITY = 100;
+        this.durabilityRange = 25;
         this.MIN_LEVEL = 1;
         this.MAX_LEVEL = 999; 
         this.NUM_SHIP_STATS = 1;
