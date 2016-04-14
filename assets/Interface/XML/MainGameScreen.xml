@@ -19,7 +19,7 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <!-- Left Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
-            <panel id="leftPanel" width="25%" height="100%" childLayout="vertical">
+            <panel id="leftPanel" width="30%" height="100%" childLayout="vertical">
                 
                 <!-- SHIP COMPONENTS: IDs will match their ship component enumeration -->
                 <control id="LIFE_SUPPORT" name="ship-component-div" 
@@ -52,20 +52,20 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <!-- Middle Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
-            <panel id="middlePanel" width="50%" height="100%" childLayout="vertical">
+            <panel id="middlePanel" width="40%" height="100%" childLayout="vertical">
                 
-                <panel height="20%"></panel>
+                <panel height="10%"></panel>
                 
-                <panel height="60%" backgroundImage="Textures/Ships/mainShip_1.png"></panel>
+                <panel backgroundImage="Textures/Ships/mainShip_1.png"></panel>
                 
-                <panel height="20%"></panel>
+                <panel height="10%"></panel>
 
             </panel>
             
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <!-- Right Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
-            <panel id="rightPanel" width="25%" height="100%" childLayout="vertical">
+            <panel id="rightPanel" width="30%" height="100%" childLayout="vertical">
                 
                 <!-- MONEY SUMMARY -->
                 <control id="money" name="money-component-div" height="17%"
@@ -85,7 +85,7 @@
                         <panel height="1%"/>
 
                         <!-- SHIP STATISTICS -->
-                        <panel height="80%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
+                        <panel height="68%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
                             
                             <control id="hullHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="001"/>
                             <control id="shieldHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="001"/>
@@ -98,13 +98,20 @@
 
                         <panel height="1%"/>
 
-                        <panel height="18%" childLayout="horizontal">
+                        <panel height="30%" childLayout="vertical">
 
                             <!-- WINDOW BUTTONS -->
-                            <control id="officerButton" name="icon-button" iconImagePath="Interface/Images/Icons/officerIcon.png" hoverText="Officers" onClickMethod="openOfficerWindow()"/>
-                            <control id="seniorStaffButton" name="icon-button" iconImagePath="Interface/Images/Icons/seniorStaffIcon.png" hoverText="Staff" onClickMethod="openSeniorStaffWindow()"/>
-                            <control id="unlocksButton" name="icon-button" iconImagePath="Interface/Images/Icons/unlocksIcon.png" hoverText="Unlocks" onClickMethod="openUnlocksWindow()"/>
-                            <control id="travelButton" name="icon-button" iconImagePath="Interface/Images/Icons/travelsIcon.png" hoverText="Travel" onClickMethod="openTravelWindow()"/>
+                            
+                            <panel height="50%" childLayout="horizontal">
+                                <control id="officerButton" name="icon-button" iconImagePath="Interface/Images/Icons/officerIcon.png" hoverText="Officers" onClickMethod="openOfficerWindow()"/>
+                                <control id="seniorStaffButton" name="icon-button" iconImagePath="Interface/Images/Icons/seniorStaffIcon.png" hoverText="Staff" onClickMethod="openSeniorStaffWindow()"/>
+                            </panel>
+                            
+                            <panel height="50%" childLayout="horizontal">
+                                <control id="unlocksButton" name="icon-button" iconImagePath="Interface/Images/Icons/unlocksIcon.png" hoverText="Unlocks" onClickMethod="openUnlocksWindow()"/>
+                                <control id="travelButton" name="icon-button" iconImagePath="Interface/Images/Icons/travelsIcon.png" hoverText="Travel" onClickMethod="openTravelWindow()"/>
+                                <control id="audioButton" name="icon-button" iconImagePath="Interface/Images/Icons/audioOnIcon.png" hoverText="Toggle" onClickMethod=""/>
+                            </panel>
 
                         </panel>
 

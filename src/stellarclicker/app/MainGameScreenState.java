@@ -264,18 +264,22 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 
                 // get percentage complete and update bar
                 double percentComplete = shipComp.getTimerPercent();
-                //String timeLeft = 
-                
+
                 // update bar (color depends on which activity)
                 if(shipComp.getComponentState() == EShipComponentState.GAINING_EXP)
                 {
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
+                    
                 }
                 else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
                 {
                     
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
                 }
+                
+                // update time left
+                String timeLeft = MainApplication.app.myShip.getTimeLeft(shipEnum);
+                shipElem.updateTimeLeft(timeLeft);
                 
                 // discard element
                 activeComponents[i] = null;

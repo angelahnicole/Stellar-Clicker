@@ -105,11 +105,11 @@
             </panel>
             
             <panel width="60%" height="100%" childLayout="horizontal" padding="0px,5px">
-                <text id="#statName" text="$statName" style="rubik_font12" color="#444444" textHAlign="left"/>
+                <text id="#statName" text="$statName" style="rubik_font14" color="#444444" textHAlign="left"/>
             </panel>
             
             <panel width="30%" height="100%" childLayout="horizontal" valign="center">
-                <text id="#statValue" text="$statValue" style="rubik_font10" color="#39916E" textHAlign="right" textVAlign="center"/>
+                <text id="#statValue" text="$statValue" style="rubik_font12" color="#39916E" textHAlign="right" textVAlign="center"/>
             </panel>
 
         </panel>
@@ -145,7 +145,7 @@
             <panel id="#iconPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%">
                 <effect><onClick name="imageSizePulsate" startSize="100%" endSize="130%" length="250" pulsator="SinusPulsator"/></effect>
 
-                <image id="#iconImage" filename="$iconImagePath" valign="center" halign="center" height="80%"/>
+                <image id="#iconImage" filename="$iconImagePath" valign="center" halign="center" height="40px" width="40px"/>
                 <text width="100%" id="#hoverText" text="$hoverText" style="rubik_font10" color="#000000" visible="false" wrap="true"/>
                 <interact onClick="$onClickMethod"/>
 

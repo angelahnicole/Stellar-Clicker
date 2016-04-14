@@ -9,6 +9,10 @@
         <attributes font="Interface/Fonts/RubikMonoOne_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
+    <style id="rubik_font14">
+        <attributes font="Interface/Fonts/RubikMonoOne_14.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
     <style id="rubik_font20">
         <attributes font="Interface/Fonts/RubikMonoOne_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
