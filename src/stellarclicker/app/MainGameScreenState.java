@@ -340,6 +340,13 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
+                // enable it if it needs it
+                if(!shipElem.isElementEnabled())
+                {
+                    shipElem.reenableComponent();
+                    shipElem.updateLevel(shipComp.getLevel());
+                }
+                
                 // make it appear broken
                 // TODO: need to get the actual repair cost
                 if(!shipElem.appearsBroken())
