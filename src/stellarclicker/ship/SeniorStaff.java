@@ -17,7 +17,7 @@ package stellarclicker.ship;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipStat;
 import stellarclicker.util.ESeniorStaff;
-
+import stellarclicker.util.EShipComponentState;
 public class SeniorStaff 
 {
     
@@ -27,43 +27,103 @@ public class SeniorStaff
     protected int[] shipStatBoost;
     protected double purchasedCost;
     protected boolean isPurchased;
-    
+    protected String name;
     // Constructor
     SeniorStaff(ESeniorStaff officerType)
     {
         this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
-        System.out.println("Created Officer " + officerType + " Component Boost " + this.shipStatComponentBoost);
-        
+        //officers default at 100 clatinum
+        this.purchasedCost = 100;
+        this.name = "Senior Staff Member";
     }
-    /*
-     * Public methods
-     */
+     /**========================================================================================================================== 
+    * @name update
+    * 
+    * @param gameTime updates gametime for officer.
+    * 
+    * @description checks components for inactive state and manages them. 
+    *///=========================================================================================================================
+   
     public void update(float gameTime)
     {
+       manageComponent();
+    }
+     /**========================================================================================================================== 
+    * @name purchase
+    * 
+    * @param component the shipComponent to manage
+    * @param money the current amount of clatinum the user has. 
+    * 
+    * @description Purchases a component for management to operate 
+    *///=========================================================================================================================
+   
+    public String purchase(ShipComponent component, double money)
+    {
+        if (money > this.purchasedCost)
+        {
+            this.isPurchased = true;
+            this.managedComponent = component;
+            return "Welcome to the crew!";
+        }
         
-        //manage ship component by checking to see if component is idle.
+        else
+        {
+            return "You do not have enough clatinum to purchase this staff member.";
+        }
+        
+        
         
     }
     
-    public void purchase()
-    {
-        System.out.println("Buy me!");
-    }
+    /**========================================================================================================================== 
+    * @name manageComponent()
+    * 
     
-    /*
-     * Private methods
-     */
-    private void repair()
+    * 
+    * @description manages component timer based on current state
+    *///=========================================================================================================================
+   
+    public void manageComponent()
     {
-        System.out.println("repair stuff");
-        //call component to repair stuff
+         if (this.managedComponent != null)
+        {
+            //manage ship component by checking to see if component is idle.
+        if (this.managedComponent.currentState == EShipComponentState.INACTIVE)
+        {
+            this.managedComponent.gainExperience();
+        }
         
+        else if (this.managedComponent.currentState == EShipComponentState.BROKEN)
+        {
+            this.managedComponent.gainRepair();
+            
+        }
+        }
     }
     
-    private void gainExp()
+    
+    public double getPurchaseCost()
     {
-        System.out.println("X-P");
+        
+        return this.purchasedCost;
     }
+    
+    public void setPurchaseCost(double cost)
+    {
+        this.purchasedCost = cost;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    
     
 }
 

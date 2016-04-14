@@ -1,6 +1,7 @@
 
 package stellarclicker.ship;
 
+
 import stellarclicker.util.Timer;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -18,6 +19,9 @@ import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipComponent;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
+import stellarclicker.util.EShipStat;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class Ship 
 {
@@ -31,6 +35,7 @@ public class Ship
     private ShipComponent[] activeComponents;  
     private ShipComponent[] inactiveComponents;
     private ShipComponent[] shipComponents;
+    private ShipStatistics[] shipStats;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
     private double officers;
@@ -43,8 +48,7 @@ public class Ship
     // CONSTRUCTOR
     // --------------------------------------------------------------------------------------------------------------------------------------------
     public Ship()
-    {
-        
+    {    
         this.initializeComponents();
     }
     
@@ -59,29 +63,42 @@ public class Ship
     * @param gameTime The main game time in total seconds
     *///=========================================================================================================================
     public void update(float tpf, float gameTime)
-    {
-        
+    {  
         // calls each components' update methods
         for(EShipComponent m : EShipComponent.values()) 
         {
             shipComponents[m.ordinal()].update(gameTime);
-
         }
-
         // calls each senior staffs' update methods
         for(ESeniorStaff i : ESeniorStaff.values()) 
         { 
             seniorStaff[i.ordinal()].update(gameTime);
         }
-
+        
+        //testing remaining time method
+     //   System.out.println(getTimeLeft(EShipComponent.HULL));
     }
     
+    /**=========================================================================================================================
+    * @name gainComponentExperience
+    * 
+    * @description  
+    * 
+    * @param component the component to gain experience
+    *///=========================================================================================================================   
     public void gainComponentExperience(EShipComponent shipComponent)
     {
         shipComponents[shipComponent.ordinal()].gainExperience();
     }
     
-    public void gainComponentRepair(EShipComponent shipComponent)
+    /**=========================================================================================================================
+    * @name gainComponentRepair
+    * 
+    * @description Instantly repair component 
+    * 
+    * @param component the component to repair
+    *///=========================================================================================================================
+     public void gainComponentRepair(EShipComponent shipComponent)
     {
         shipComponents[shipComponent.ordinal()].gainRepair();
     }
@@ -95,12 +112,12 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentLevel(EShipComponent component)
     {
-        System.out.println("Purchased level for Comp" + component.name());
+        
         
         shipComponents[component.ordinal()].levelUp();
     }
 
-        /**=========================================================================================================================
+    /**=========================================================================================================================
     * @name getShipComponentLevel
     * 
     * @description Instantly level up the component if the user has enough money 
@@ -109,7 +126,7 @@ public class Ship
     *///=========================================================================================================================
     public int getShipComponentLevel(EShipComponent component)
     {
-        System.out.println("level for Comp" + component.name());
+        
         
         return shipComponents[component.ordinal()].getLevel();
     }
@@ -123,22 +140,11 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentRepair(EShipComponent component)
     {
-        System.out.println("Purchased Repair for Comp" + component.name());
+        
         
         shipComponents[component.ordinal()].repairComponent();
     }
     
-//        /**=========================================================================================================================
-//    * @name getShipComponentState
-//    * 
-//    * @description Instantly level up the component if the user has enough money 
-//    * 
-//    * @param component the component state
-//    *///=========================================================================================================================
-//    public EShipComponentState getComponentState(EShipComponent component)
-//    {   
-//        return shipComponents[component.ordinal()].getComponentState();
-//    }
     /**=========================================================================================================================
     * @name getRepairCost
     * 
@@ -150,7 +156,8 @@ public class Ship
     {
         return shipComponents[component.ordinal()].getRepairCost();
     }
- /**=========================================================================================================================
+    
+    /**=========================================================================================================================
     * @name getLevelCost
     * 
     * @description Instantly level up the component if the user has enough money 
@@ -161,29 +168,30 @@ public class Ship
     {
         return shipComponents[component.ordinal()].getLevelCost();
     }
-/**=========================================================================================================================
-    * @name getLevelCost
+   
+    /**=========================================================================================================================
+    * @name getTimerPercent
     * 
-    * @description Instantly level up the component if the user has enough money 
+    * @description  
     * 
-    * @param component the component to level Enum type
+    * @param component the component to get from Enum type
     *///=========================================================================================================================
     public double getTimerPercent(EShipComponent component)
     {
         return shipComponents[component.ordinal()].getTimerPercent();
     }
 
-//    /**=========================================================================================================================
-//    * @name getTimeRemaining
-//    * 
-//    * @description Instantly level up the component if the user has enough money 
-//    * 
-//    * @param component the component to level Enum type
-//    *///=========================================================================================================================
-//    public double getTimeRemaining(EShipComponent component)
-//    {
-//        return shipComponents[component.ordinal()].getTimeRemaining();
-//    }
+    /**=========================================================================================================================
+    * @name getTimeLeft
+    * 
+    * @description  
+    * 
+    * @param component the component to get from
+    *///=========================================================================================================================
+    public String getTimeLeft(EShipComponent component)
+    {
+        return shipComponents[component.ordinal()].getTimeRemaining();
+    }
     
     /**========================================================================================================================== 
     * @name initializeComponents
@@ -193,6 +201,7 @@ public class Ship
     public void initializeComponents()
     {
         // Initializes the component array 
+        shipStats = new ShipStatistics[EShipStat.values().length];
         shipComponents = new ShipComponent[EShipComponent.values().length];
         seniorStaff = new SeniorStaff[EShipComponent.values().length];
         inactiveComponents =  new ShipComponent[EShipComponent.values().length]; 
@@ -205,12 +214,29 @@ public class Ship
            shipComponents[m.ordinal()] = new ShipComponent(m.name());
        }
 
+       int initialCost = 100;
+       
+       
+        // This for each creates ship stats 
+       for(EShipStat m : EShipStat.values()) 
+       {
+           shipStats[m.ordinal()] = new ShipStatistics();
+       }
+       
        //creates the senior staff which match the number of components
        for(ESeniorStaff i : ESeniorStaff.values()) 
        { 
            seniorStaff[i.ordinal()] = new SeniorStaff(i);
+           
+           seniorStaff[i.ordinal()].setPurchaseCost(initialCost);
+           
+           initialCost = Math.round(initialCost*10);
+           
+           
        }
 
+       
+       
     }
 
     /**========================================================================================================================== 
@@ -316,7 +342,7 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentExperience(EShipComponent component)
     {
-        System.out.println("Experienceing Components " + component.name());
+        
     }
     
     /**========================================================================================================================== 
@@ -324,13 +350,46 @@ public class Ship
     * 
     * @description Allows user to purchase staff officer for a component  
     * 
+    * 
     * @param component the Officer Enum type
+    * @param money the current clatinum the player has.
     *///=========================================================================================================================
     public void purchaseSeniorStaff(ESeniorStaff officer)
     {
-        System.out.println("Purchasing people " + officer.name());
+        seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()], this.money);
     }
     
+    /**========================================================================================================================== 
+    * @name getSeniorStaffCost
+    * 
+    * @description reports the cost of a staff member
+    * 
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public String getSeniorStaffCost(ESeniorStaff officer)
+    {
+        double cost = seniorStaff[officer.ordinal()].getPurchaseCost();
+        DecimalFormat moneyFormat = new DecimalFormat("$0.00");
+        
+        return moneyFormat.format(cost);
+    }
+    
+    /**========================================================================================================================== 
+    * @name getSeniorStaffName
+    * 
+    * @description reports the name of the senior staff member
+    * 
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public String getSeniorStaffName(ESeniorStaff officer)
+    {
+        String name = seniorStaff[officer.ordinal()].getName();
+        
+        
+        return name;
+    }
     /**========================================================================================================================== 
     * @name resetShip
     * 
@@ -338,7 +397,7 @@ public class Ship
     *///=========================================================================================================================
     public void resetShip()
     {
-        System.out.println("Resetting all the things");
+        
     }
     
     /**========================================================================================================================== 
@@ -351,7 +410,7 @@ public class Ship
     private void earnMoney(double moneyPerSecond)
     {
         this.money += moneyPerSecond;
-        System.out.println("Ca$h Money: " + this.money);
+        
     }
     
     /**========================================================================================================================== 
@@ -361,19 +420,24 @@ public class Ship
     *///=========================================================================================================================
     private void calcMoneyPerSecond()
     {
-        System.out.println("Count that cash");
+       
     }
     
     /**========================================================================================================================== 
     * @name claimOfficers
     * 
-    * @description not exactly sure what this will be for yet?  
+    * @description Increases the amount of officers joined to the ship.
     *///=========================================================================================================================
     private void claimOfficers()
     {
-        System.out.println("Gather the people");
+        
     }
 
+    /**========================================================================================================================== 
+    * @name getCurrentMoney
+    * 
+    * @description returns money value  
+    *///=========================================================================================================================
     private String getCurrentMoney()
     {
        return BigNumber.getNumberString(money);

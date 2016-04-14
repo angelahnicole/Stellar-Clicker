@@ -20,7 +20,7 @@ public class Timer {
     private Boolean isActive;
     private float start;
     private float stop;
-    public Boolean isDone;
+    
     float percent;
     
     
@@ -95,7 +95,25 @@ public class Timer {
         
         return 0;
     }
-        /**========================================================================================================================== 
+
+    /**========================================================================================================================== 
+    * @name getTimeRemaining
+    * 
+    * @description returns how complete a timer is.
+    * 
+    * @param gametime the current gametime
+    *///=========================================================================================================================
+    public float getTimeRemaining(float gametime)
+    {
+        if (isActive)
+        {
+         return this.stop - gametime;
+        }   
+        return 0;
+    }
+
+    
+    /**========================================================================================================================== 
     * @name cancelTimer
     * 
     * @description Resets the timer object to default values.

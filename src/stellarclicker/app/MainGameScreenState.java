@@ -273,6 +273,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 }
                 else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
                 {
+                    
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
                 }
                 
@@ -339,6 +340,13 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
+                
+                // enable it if it needs it
+                if(!shipElem.isElementEnabled())
+                {
+                    shipElem.reenableComponent();
+                    shipElem.updateLevel(shipComp.getLevel());
+                }
                 
                 // make it appear broken
                 if(!shipElem.appearsBroken())
