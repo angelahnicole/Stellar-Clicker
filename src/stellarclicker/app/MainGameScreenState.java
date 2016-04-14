@@ -264,6 +264,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 
                 // get percentage complete and update bar
                 double percentComplete = shipComp.getTimerPercent();
+                //String timeLeft = 
                 
                 // update bar (color depends on which activity)
                 if(shipComp.getComponentState() == EShipComponentState.GAINING_EXP)
@@ -340,7 +341,6 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
                 // make it appear broken
-                // TODO: need to get the actual repair cost
                 if(!shipElem.appearsBroken())
                 {
                     shipElem.breakComponent(shipComp.getFormattedRepairCost());

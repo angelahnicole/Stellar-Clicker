@@ -22,6 +22,7 @@ import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.ViewPort;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import stellarclicker.util.EAppState;
@@ -31,6 +32,9 @@ import stellarclicker.util.EAppState;
 public class SplashScreenState extends AbstractAppState implements ScreenController
 {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    public static final String CREDITS_LAYER_ID = "creditsUI";
+    public static final String CREDITS_WINDOW_ID = "creditsWindow";
     
     private Nifty nifty;
     private Screen screen;
@@ -172,6 +176,22 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     public void startGame()
     {
         MainApplication.app.changeState(EAppState.GAME_STATE);
+    }
+    
+    /**========================================================================================================================== 
+    * @name OPEN CREDITS WINDOW
+    * 
+    * @description Opens the credits window in the main screen
+    *///=========================================================================================================================
+    public void openCreditsWindow()
+    {
+        System.out.println("Credits Window Opened"); 
+        
+        Element window = this.screen.findElementByName(CREDITS_WINDOW_ID);
+        if(window != null)
+        {
+            window.setVisible(true);
+        }
     }
 
     

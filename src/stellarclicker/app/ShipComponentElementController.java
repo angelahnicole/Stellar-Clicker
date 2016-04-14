@@ -77,13 +77,13 @@ public class ShipComponentElementController implements Controller
     public static final String STAT_IMAGE_ID = "#statImage";
     public static final String STAT_NAME_ID = "#statName";
     public static final String STAT_VALUE_ID = "#statValue";
-    
+    public static final String TIME_LEFT_TEXT_ID = "#timeLeft";
     
     public static final String HOVER_LEVEL_TEXT = "BUY LEVEL";
     public static final String HOVER_REPAIR_TEXT = "BUY REPAIR";
     
-    public static final String COLOR_NAVY_HEX = "#00008050";
-    public static final String COLOR_GREEN_HEX = "#18B81250";
+    public static final String COLOR_RED_HEX = "#B8121270";
+    public static final String COLOR_GREEN_HEX = "#18B81270";
     
     private Nifty nifty;
     private Screen screen;
@@ -311,6 +311,30 @@ public class ShipComponentElementController implements Controller
         }
     }
     
+    /**========================================================================================================================== 
+    * @name UPDATE TIME LEFT
+    * 
+    * @description Updates the time remaining when repairing/gaining experience
+    * 
+    * @param newTimeLeft A formatted string hh:mm:ss for the time remaining
+    *///=========================================================================================================================
+    public void updateTimeLeft(String newTimeLeft)
+    {
+        // update time left text control
+        Element timeTextElem = shipCompElem.findElementByName(TIME_LEFT_TEXT_ID);
+        if(timeTextElem != null)
+        {
+            timeTextElem.getRenderer(TextRenderer.class).setText(newTimeLeft);
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE COST
+    * 
+    * @description Updates the new cost of the ship component
+    * 
+    * @param newCost The new cost of the ship component
+    *///=========================================================================================================================
     public void updateCost(String newCost)
     {
         if(shipCompElem.isEnabled())
@@ -381,7 +405,7 @@ public class ShipComponentElementController implements Controller
         Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
         if(mainPanel != null)
         {
-            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_NAVY_HEX));
+            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_RED_HEX));
         }
         
         

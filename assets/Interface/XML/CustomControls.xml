@@ -26,7 +26,7 @@
 
                     <!-- SHIP COMPONENT LEVEL BANNER -->
                     <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
-                        <text id="#levelText" text="$compLevel" style="font24" color="#000000"/>
+                        <text id="#levelText" text="$compLevel" style="rubik_font20" color="#000000"/>
                     </panel>
 
                 </panel>
@@ -105,11 +105,11 @@
             </panel>
             
             <panel width="60%" height="100%" childLayout="horizontal" padding="0px,5px">
-                <text id="#statName" text="$statName" style="font24" color="#444444" textHAlign="left"/>
+                <text id="#statName" text="$statName" style="rubik_font12" color="#444444" textHAlign="left"/>
             </panel>
             
             <panel width="30%" height="100%" childLayout="horizontal" valign="center">
-                <text id="#statValue" text="$statValue" style="rubik_font12" color="#39916E" textHAlign="right" textVAlign="center"/>
+                <text id="#statValue" text="$statValue" style="rubik_font10" color="#39916E" textHAlign="right" textVAlign="center"/>
             </panel>
 
         </panel>
@@ -126,7 +126,7 @@
             <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
 
                 <text width="100%" id="#mainText" text="$mainText" style="rubik_font12" color="#FFFFFF80" wrap="true"/>
-                <text width="100%" id="#hoverText" text="$hoverText" style="font16" color="#FFFFFF" visible="false" wrap="true"/>
+                <text width="100%" id="#hoverText" text="$hoverText" style="rubik_font12" color="#FFFFFF" visible="false" wrap="true"/>
                 <interact onClick="$onClickMethod"/>
 
             </panel>
@@ -146,7 +146,7 @@
                 <effect><onClick name="imageSizePulsate" startSize="100%" endSize="130%" length="250" pulsator="SinusPulsator"/></effect>
 
                 <image id="#iconImage" filename="$iconImagePath" valign="center" halign="center" height="80%"/>
-                <text width="100%" id="#hoverText" text="$hoverText" style="font16" color="#000000" visible="false" wrap="true"/>
+                <text width="100%" id="#hoverText" text="$hoverText" style="rubik_font10" color="#000000" visible="false" wrap="true"/>
                 <interact onClick="$onClickMethod"/>
 
             </panel>
@@ -162,9 +162,9 @@
     <controlDefinition name="splash-button">
         
         <panel childLayout="center" padding="2px" style="splash-btn">
-            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
+            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="$backgroundColor">
 
-                <text width="100%" text="$mainText" style="rubik_font12" color="#FFFFFF80" wrap="true"/>
+                <text width="100%" text="$mainText" style="rubik_font12" color="$color" wrap="true"/>
                 <interact onClick="$onClickMethod"/>
 
             </panel>

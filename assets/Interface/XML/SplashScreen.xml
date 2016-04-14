@@ -14,6 +14,9 @@
             <image filename="Textures/Backgrounds/spaceBackground.png"></image>
         </layer>
         
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <!-- Main Menu Window -->
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="foreground" childLayout="vertical">
             
             <panel id="panel_top" height="75%" width="75%" align="center" childLayout="center">
@@ -22,16 +25,42 @@
             
             <panel id="panel_bottom" height="25%" width="75%" align="center" childLayout="horizontal" >
                 
-                <panel id="panel_bottom_left" height="50%" width="50%" valign="center" childLayout="center" padding="10px">
-                    <control name="splash-button" mainText="SPACE" onClickMethod="startGame()"/>
+                <panel id="panel_bottom_left" height="50%" width="33%" valign="center" childLayout="center" padding="10px">
+                    <control name="splash-button" mainText="SPACE" backgroundColor="#18B81250" color="#FFFFFF80" onClickMethod="startGame()"/>
                 </panel>
                 
-                <panel id="panel_bottom_right" height="50%" width="50%" valign="center" childLayout="center" padding="10px">
-                    <control name="splash-button" mainText="QUIT" onClickMethod="quitGame()"/>
+                <panel id="panel_bottom_right" height="50%" width="33%" valign="center" childLayout="center" padding="10px">
+                    <control name="splash-button" mainText="CREDITS" backgroundColor="#18B81250" color="#FFFFFF80" onClickMethod="openCreditsWindow()"/>
+                </panel>
+                
+                <panel id="panel_bottom_right" height="50%" width="33%" valign="center" childLayout="center" padding="10px">
+                    <control name="splash-button" mainText="QUIT" backgroundColor="#B8121250" color="#FFFFFF80" onClickMethod="quitGame()"/>
                 </panel>
             </panel>
             
         </layer>
+        
+        
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <!-- Credits Window -->
+        <!-- +++++++++++++++++++++++++++++++++++++++ -->
+        <layer id="creditsUI" childLayout="absolute">
+            
+            <control id="creditsWindow" name="window" title="Credits" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
+                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
+                    
+                    <panel childLayout="vertical">
+                        
+                        
+                        
+                    </panel>
+                    
+
+                </control>
+            </control>
+          
+        </layer>
+        
     </screen>
     
 </nifty>
