@@ -163,6 +163,7 @@ public class StaffElementController implements Controller
     {
         // purchase the senior staff
         ESeniorStaff staffEnum = stringToEnum(staffElem.getId());
+        System.out.println("Purchased" + staffEnum);
         MainApplication.app.myShip.purchaseSeniorStaff(staffEnum);
         
         // disable the component

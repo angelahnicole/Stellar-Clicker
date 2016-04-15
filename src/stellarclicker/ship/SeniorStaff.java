@@ -35,6 +35,7 @@ public class SeniorStaff
         //officers default at 100 clatinum
         this.purchasedCost = 100;
         this.name = "Senior Staff Member";
+        this.isPurchased = false;
     }
      /**========================================================================================================================== 
     * @name update
@@ -59,8 +60,10 @@ public class SeniorStaff
    
     public String purchase(ShipComponent component, double money)
     {
+        
         if (money > this.purchasedCost)
         {
+            System.out.println("Purhcased!");
             this.isPurchased = true;
             this.managedComponent = component;
             return "Welcome to the crew!";
@@ -99,6 +102,10 @@ public class SeniorStaff
             
         }
         }
+         
+         else if (this.isPurchased = true) {
+             //System.out.println("Not working, fool");
+         }
     }
     
     

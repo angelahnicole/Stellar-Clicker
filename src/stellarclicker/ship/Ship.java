@@ -200,6 +200,7 @@ public class Ship
     *///=========================================================================================================================
     public void initializeComponents()
     {
+        this.money = 200000000;
         // Initializes the component array 
         shipStats = new ShipStatistics[EShipStat.values().length];
         shipComponents = new ShipComponent[EShipComponent.values().length];
@@ -355,9 +356,10 @@ public class Ship
     * @param money the current clatinum the player has.
     *///=========================================================================================================================
     public void purchaseSeniorStaff(ESeniorStaff officer)
-    {
+    {System.out.println(officer.ordinal());
         seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()], this.money);
-    }
+         System.out.println(shipComponents[officer.ordinal()].name);
+    }  
     
     /**========================================================================================================================== 
     * @name getSeniorStaffCost
