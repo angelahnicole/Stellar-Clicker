@@ -217,7 +217,7 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <!-- SENIOR STAFF DIV -->
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
-    <controlDefinition name="seniorStaffDiv">
+    <controlDefinition name="seniorStaffDiv" controller="stellarclicker.app.StaffElementController">
         
         <panel childLayout="horizontal" padding="10px" width="100%">
             
@@ -254,7 +254,7 @@
 
                                 <!-- BUTTON -->
                                 <panel childLayout="center" width="30%" padding="10px">
-                                    <control name="toggle-button" mainText="Purchase" toggleText="Purchased" onClickMethod="$onClickMethod" buttonColor="#FFFFFF80"/>
+                                    <control name="toggle-button" mainText="Purchase" toggleText="Purchased" onClickMethod="purchase()" buttonColor="#FFFFFF80"/>
                                 </panel>
 
                             </panel>        
