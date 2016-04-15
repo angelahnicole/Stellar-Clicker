@@ -154,7 +154,7 @@ public class ShipComponent
                     this.timer.cancelTimer();
                     
                     //degrade component
-                    degradeComponent(50);
+                    //degradeComponent(50);
                     System.out.println(this.durability);
                 }
                 else if(this.currentState == EShipComponentState.REPAIRING)
