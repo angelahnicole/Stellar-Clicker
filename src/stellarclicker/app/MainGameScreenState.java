@@ -179,7 +179,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         this.nifty = nifty;
         this.screen = screen;
         
-        // need the screen to be non-null
+        // we initialize components here since the screen cannot be non-null
         initShipComponents();
     }
 
@@ -206,7 +206,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    // MAIN SCREEN CONTROLLER METHODS
+    // MAIN GAME SCREEN CONTROLLER METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
@@ -230,7 +230,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // update the level text and ship level up cost
+                // update basic information about the ship component
                 shipElem.updateLevel(shipComp.getLevel());
                 shipElem.updateCost(shipComp.getFormattedLevelCost());
                 
@@ -277,7 +277,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
                 }
                 
-                // update time left
+                // update time left label
                 String timeLeft = MainApplication.app.myShip.getTimeLeft(shipEnum);
                 shipElem.updateTimeLeft(timeLeft);
                 
@@ -309,7 +309,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // enable it if it needs it (and fixes it if it needs it)
+                // reinitialize the component by enabling it, updating its info, and making sure that it doesn't look broken
                 if(!shipElem.isElementEnabled())
                 {
                     shipElem.reenableComponent();
@@ -363,6 +363,12 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             brokenComponents[i] = null;
         }
     }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // WINDOW GAME SCREEN CONTROLLER METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
     * @name OPEN OFFICER WINDOW

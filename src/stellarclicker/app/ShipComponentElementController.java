@@ -179,7 +179,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void interact()
     {
-        // TODO: Should probably use EShipComponentState for this one, but this is just a fix for now.
         if(!appearsBroken)
         {
             gainExp();

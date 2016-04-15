@@ -11,7 +11,19 @@
     <screen id="mainGame" controller="stellarclicker.app.MainGameScreenState">
         
         <layer id="background" childLayout="center">
-            <image filename="Textures/Backgrounds/planetsBackground.png" width="100%" height="100%"></image>
+            <image id="backgroundImage" filename="Textures/Backgrounds/planetsBackground.png" width="100%" height="100%"></image>
+            
+            <panel childLayout="horizontal">
+                
+                <panel width="20%"/>
+                
+                <panel width="60%" childLayout="center" padding="30%">
+                    <image id="mainShipImage" filename="Textures/Ships/mainShip_1.png" width="100%" height="100%"/>
+                </panel>
+                
+                <panel width="20%"/>
+            </panel>
+            
         </layer>
         
         <layer id="mainUI" childLayout="horizontal">
@@ -53,12 +65,6 @@
             <!-- Middle Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <panel id="middlePanel" width="40%" height="100%" childLayout="vertical">
-                
-                <panel height="10%"></panel>
-                
-                <panel backgroundImage="Textures/Ships/mainShip_1.png"></panel>
-                
-                <panel height="10%"></panel>
 
             </panel>
             
@@ -130,17 +136,50 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="officerUI" childLayout="absolute">
             
-            <control id="officerWindow" name="window" title="Officers" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
-                    
-                    <panel childLayout="vertical">
+            <control id="officerWindow" name="scrollPanelWindow" windowTitle="Officers" panelHeight="100%">
+
+                    <panel childLayout="vertical" height="100%" padding="5px">
                         
+                        <panel childLayout="horizontal" width="100%" height="40%">
+                            
+                            <control name="centeredHeadingDiv" headingText="OFFICERS CLAIMED">
+                                <panel height="20%"/>
+                                <text width="60%" id="#officersClaimedText" text="0.0 K" style="rubik_font20" color="#000000" wrap="true" textVAlign="center"/>
+                                <panel height="20%"/>
+                            </control>
+
+                            <control name="centeredHeadingDiv" headingText="OFFICERS ATTRACTED">
+                                <panel height="20%"/>
+                                <text width="60%" id="#officersAttractedText" text="0.0 K" style="rubik_font20" color="#000000" wrap="true" textVAlign="center"/>
+                                <panel height="20%"/>
+                            </control>
+                            
+                        </panel>
                         
+                        <panel childLayout="horizontal" width="100%" padding="5px" height="20%">
+                            <image filename="Interface/Images/Icons/ensigns.png" width="33%" height="100%"/>
+                            <control name="hover-text-button" mainText="CLAIM ATTRACTED OFFICERS" hoverText="CLAIM!" onClickMethod="" padding="10px" width="33%"/>
+                            <image filename="Interface/Images/Icons/ensigns.png" width="33%" height="100%"/>
+                        </panel>
+                        
+                        <panel childLayout="horizontal" width="100%" height="40%">
+                            
+                            <control name="centeredHeadingDiv" headingText="CLATINUM MULTIPLIER">
+                                <panel height="20%"/>
+                                <text height="60%" width="100%" id="#clatinumMultiplierText" text="0.0 K" style="rubik_font20" color="#000000" wrap="true" textVAlign="center"/>
+                                <panel height="20%"/>
+                            </control>
+
+                            <control name="centeredHeadingDiv" headingText="CLATINUM PER SECOND">
+                                <panel height="20%"/>
+                                <text height="60%" width="100%" id="#clatinumPerSecondText" text="0.0 K" style="rubik_font20" color="#000000" wrap="true" textVAlign="center"/>
+                                <panel height="20%"/>
+                            </control>
+                            
+                        </panel>
                         
                     </panel>
-                    
 
-                </control>
             </control>
           
         </layer>
@@ -150,17 +189,8 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="seniorStaffUI" childLayout="absolute">
             
-            <control id="seniorStaffWindow" name="window" title="Senior Staff" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
-                    
-                    <panel childLayout="vertical">
-                        
-                        
-                        
-                    </panel>
-                    
-
-                </control>
+            <control id="seniorStaffWindow" name="scrollPanelWindow" windowTitle="Senior Staff" panelHeight="1000px">
+                
             </control>
           
         </layer>
@@ -170,17 +200,8 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="unlocksUI" childLayout="absolute">
             
-            <control id="unlocksWindow" name="window" title="Unlocks" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
-                    
-                    <panel childLayout="vertical">
-                        
-                        
-                        
-                    </panel>
-                    
-
-                </control>
+            <control id="unlocksWindow" name="scrollPanelWindow" windowTitle="Unlocks" panelHeight="1000px">
+                
             </control>
           
         </layer>
@@ -190,19 +211,10 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="travelUI" childLayout="absolute">
             
-            <control id="travelWindow" name="window" title="Travel" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
-                    
-                    <panel childLayout="vertical">
-                        
-                        
-                        
-                    </panel>
-                    
-
-                </control>
+            <control id="travelWindow" name="scrollPanelWindow" windowTitle="Travel" panelHeight="1000px">
+                
             </control>
-          
+            
         </layer>
         
         

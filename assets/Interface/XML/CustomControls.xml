@@ -172,18 +172,44 @@
     
     
     </controlDefinition>
-  
     
-    <controlDefinition name="senior-staff-div" style="" controller="">
-      
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- CENTERED HEADING DIV -->
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <controlDefinition name="centeredHeadingDiv" childRootId="#div-content">
+        
+        <panel childLayout="center" padding="5px">
+            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="vertical" height="100%" padding="10px">
+
+                <panel id="#heading" childLayout="vertical">
+                    <text text="$headingText" style="rubik_font20" color="#000000"/>
+                    <panel childLayout="center" backgroundColor="#FFFFFF60" height="2px"/>
+                </panel>
+
+                <panel padding="2px" id="#div-content" childLayout="center"/>
+
+            </panel>
+        </panel>
     
     
     </controlDefinition>
+    
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- SCROLL PANEL WINDOW -->
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <controlDefinition name="scrollPanelWindow" childRootId="#window-content">
+        
+        <control name="window" title="$windowTitle" x="5%" y="5%" width="85%" height="85%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
+            <panel childLayout="vertical" x="0" y="0" width="100%" height="100%">
+                <control name="scrollPanel" horizontal="false" height="100%" style="scroll" stepSizeY="100" pageSizeY="100">
+                    <panel id="#window-content" childLayout="vertical" x="0" y="0" width="100%" height="$panelHeight" padding="5px"/>
+                </control>
+            </panel>
+        </control>
   
-    <controlDefinition name="unlocks-div" style="" controller="">
-      
-    
-    
     </controlDefinition>
+  
+    
+    
   
 </nifty-controls>
