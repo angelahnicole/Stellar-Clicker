@@ -78,6 +78,7 @@ public class ShipComponentElementController implements Controller
     public static final String STAT_NAME_ID = "#statName";
     public static final String STAT_VALUE_ID = "#statValue";
     public static final String TIME_LEFT_TEXT_ID = "#timeLeft";
+    public static final String NAME_TEXT_ID = "#namePanel";
     
     public static final String HOVER_LEVEL_TEXT = "BUY LEVEL";
     public static final String HOVER_REPAIR_TEXT = "BUY REPAIR";
@@ -472,6 +473,9 @@ public class ShipComponentElementController implements Controller
         // move back the bar
         this.shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-100%"));
         this.shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-100%"));
+        
+        // hide the name text
+        this.shipCompElem.findElementByName(NAME_TEXT_ID).hide();
         
         // layout the elements
         shipCompElem.layoutElements();
