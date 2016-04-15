@@ -123,7 +123,7 @@
     <controlDefinition name="hover-text-button">
         
         <panel childLayout="center" padding="2px" style="hover-text" height="100%">
-            <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#18B81250">
+            <panel id="#mainPanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#C9A32650">
 
                 <text width="100%" id="#mainText" text="$mainText" style="rubik_font12" color="#FFFFFF80" wrap="true"/>
                 <text width="100%" id="#hoverText" text="$hoverText" style="rubik_font12" color="#FFFFFF" visible="false" wrap="true"/>
@@ -147,6 +147,26 @@
 
                 <image id="#iconImage" filename="$iconImagePath" valign="center" halign="center" height="40px" width="40px"/>
                 <text width="100%" id="#hoverText" text="$hoverText" style="rubik_font10" color="#000000" visible="false" wrap="true"/>
+                <interact onClick="$onClickMethod"/>
+
+            </panel>
+            
+        </panel>
+    
+    
+    </controlDefinition>
+    
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- TOGGLE BUTTON -->
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <controlDefinition name="toggle-button">
+
+            <panel padding="5px" childLayout="center" style="toggle-btn">
+            
+            <panel id="#togglePanel" backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="center" height="100%" padding="10px" backgroundColor="#0C912050">
+
+                <text width="100%" id="#mainText" text="$mainText" style="rubik_font14" color="$buttonColor" visible="true" wrap="true"/>
+                <text width="100%" id="#toggleText" text="$toggleText" style="rubik_font14" color="$buttonColor" visible="false" wrap="true"/>
                 <interact onClick="$onClickMethod"/>
 
             </panel>
@@ -188,6 +208,61 @@
 
                 <panel padding="2px" id="#div-content" childLayout="center"/>
 
+            </panel>
+        </panel>
+    
+    
+    </controlDefinition>
+    
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- SENIOR STAFF DIV -->
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <controlDefinition name="seniorStaffDiv">
+        
+        <panel childLayout="horizontal" padding="10px" width="100%">
+            
+            <!-- SENIOR STAFF IMAGE -->
+            <panel childLayout="center" width="33%" padding="3px" backgroundColor="#FFFFFF">
+                <image filename="$staffImage" width="100%" height="100%"/>
+            </panel>
+            
+            <panel childLayout="horizontal" padding="0px,0px,0px,10px" width="100%">
+                <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="horizontal" width="66%" height="100%" padding="10px">
+
+                    <panel childLayout="vertical">
+
+                        <!-- SENIOR STAFF HEADING -->
+                        <panel id="#heading" childLayout="vertical">
+                            <panel childLayout="horizontal">
+                                <text width="50%" text="$staffName" style="rubik_font20" color="#000000" textHAlign="left" textVAlign="top"/>
+                                <text width="50%" text="$staffTitle" style="rubik_font20" color="#000000" textHAlign="right" textVAlign="top"/>
+                            </panel>
+                            <panel childLayout="center" backgroundColor="#FFFFFF60" height="2px"/>
+                        </panel>
+
+                        <!-- SENIOR STAFF TEXT -->
+                        <panel padding="2px" childLayout="center">
+
+                            <panel childLayout="horizontal" padding="5px">
+
+                                <!-- DESCRIPTION -->
+                                <panel childLayout="vertical" width="70%" padding="10px">
+                                    <text text="$staffCost" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
+                                    <text text="$staffDescription" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
+                                    <text text="$staffOnPurchase" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
+                                </panel>
+
+                                <!-- BUTTON -->
+                                <panel childLayout="center" width="30%" padding="10px">
+                                    <control name="toggle-button" mainText="Purchase" toggleText="Purchased" onClickMethod="$onClickMethod" buttonColor="#FFFFFF80"/>
+                                </panel>
+
+                            </panel>        
+                        </panel>
+
+                    </panel>
+
+                </panel>
             </panel>
         </panel>
     

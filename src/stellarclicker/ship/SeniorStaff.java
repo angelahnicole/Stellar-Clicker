@@ -31,7 +31,7 @@ public class SeniorStaff
     // Constructor
     SeniorStaff(ESeniorStaff officerType)
     {
-        this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
+        //this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
         //officers default at 100 clatinum
         this.purchasedCost = 100;
         this.name = "Senior Staff Member";

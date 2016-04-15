@@ -203,7 +203,7 @@ public class Ship
         // Initializes the component array 
         shipStats = new ShipStatistics[EShipStat.values().length];
         shipComponents = new ShipComponent[EShipComponent.values().length];
-        seniorStaff = new SeniorStaff[EShipComponent.values().length];
+        seniorStaff = new SeniorStaff[ESeniorStaff.values().length];
         inactiveComponents =  new ShipComponent[EShipComponent.values().length]; 
         activeComponents =  new ShipComponent[EShipComponent.values().length];
         brokenComponents =  new ShipComponent[EShipComponent.values().length];
