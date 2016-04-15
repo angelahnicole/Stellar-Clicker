@@ -256,7 +256,13 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="unlocksUI" childLayout="absolute">
             
-            <control id="unlocksWindow" name="scrollPanelWindow" windowTitle="Unlocks" panelHeight="1000px">
+            <control id="unlocksWindow" name="scrollPanelWindow" windowTitle="Unlocks" panelHeight="100%">
+                
+                <panel childLayout="vertical" padding="5px">
+                    
+                    <text text="Coming Soon!" style="rubik_font36" color="#000000" textHAlign="center" wrap="true"/>
+                    
+                </panel>
                 
             </control>
           
@@ -267,7 +273,9 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="travelUI" childLayout="absolute">
             
-            <control id="travelWindow" name="scrollPanelWindow" windowTitle="Travel" panelHeight="1000px">
+            <control id="travelWindow" name="scrollPanelWindow" windowTitle="Travel" panelHeight="100%">
+                
+                <text text="Coming Soon!" style="rubik_font36" color="#000000" textHAlign="center" wrap="true"/>
                 
             </control>
             
