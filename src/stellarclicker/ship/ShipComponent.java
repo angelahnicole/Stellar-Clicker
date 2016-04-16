@@ -114,7 +114,30 @@ public class ShipComponent
 
         
     }
-    
+    public ShipComponent(String name,int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, float LEVEL_COST)
+    {
+        
+        // TODO: should have all of these values be passed in via the constructor
+        
+        this.BASE_TIME = BASE_TIME;
+        this.MAX_DURABILITY = MAX_DUR;
+        this.MIN_LEVEL = MIN_LEVEL;
+        this.MAX_LEVEL = MAX_LEVEL; 
+        this.NUM_SHIP_STATS = NUM_STATS;
+
+        this.name = name;
+        this.durability = MAX_DURABILITY;
+        this.level = MIN_LEVEL;
+        this.currentState = EShipComponentState.INACTIVE;
+        
+        this.levelCost = LEVEL_COST;
+        this.repairCost = this.levelCost * 0.1f;
+        
+        updateTimeTaken();
+        this.timer = new Timer();
+
+        
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------

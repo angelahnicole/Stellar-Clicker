@@ -214,7 +214,8 @@ public class Ship
         // This for each creates a new component and places it in the array at the index
        for(EShipComponent m : EShipComponent.values()) 
        {
-           shipComponents[m.ordinal()] = new ShipComponent(m.name());
+           shipComponents[m.ordinal()] = compFactory.buildComponent(m);
+           //shipComponents[m.ordinal()] = new ShipComponent(m.name());
        }
 
        int initialCost = 100;
