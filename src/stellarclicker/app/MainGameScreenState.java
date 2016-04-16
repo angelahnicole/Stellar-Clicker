@@ -270,13 +270,16 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 {
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
                     shipElem.disableComponent();
+                    shipElem.updateProgressBar(0, ShipComponentElementController.RED_BAR_ID);
                 }
                 else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
                 {
                     
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
                     shipElem.disableComponent();
+                    shipElem.updateProgressBar(0, ShipComponentElementController.GREEN_BAR_ID);
                 }
+                shipElem.updateLevel(shipComp.getLevel());
                 
                 // update time left label
                 String timeLeft = MainApplication.app.myShip.getTimeLeft(shipEnum);
@@ -314,9 +317,10 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 if(!shipElem.isElementEnabled())
                 {
                     shipElem.reenableComponent();
-                    shipElem.updateLevel(shipComp.getLevel());
+                    
                     shipElem.fixComponent(shipComp.getFormattedLevelCost());
                 }
+                shipElem.updateLevel(shipComp.getLevel());
             }
             
             // discard element

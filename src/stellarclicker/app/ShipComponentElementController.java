@@ -296,18 +296,17 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void updateLevel(int newLevel)
     {
-        if(shipCompElem.isEnabled())
+        
+        String levelText = String.valueOf(newLevel);
+
+        // update level text control
+        Element levelTextElem = shipCompElem.findElementByName(LEVEL_TEXT_ID);
+        if(levelTextElem != null)
         {
-            String levelText = String.valueOf(newLevel);
-            
-            // update level text control
-            Element levelTextElem = shipCompElem.findElementByName(LEVEL_TEXT_ID);
-            if(levelTextElem != null)
-            {
-                levelTextElem.getRenderer(TextRenderer.class).setText(levelText);
-            }
-            
+            levelTextElem.getRenderer(TextRenderer.class).setText(levelText);
         }
+            
+        
     }
     
     /**========================================================================================================================== 

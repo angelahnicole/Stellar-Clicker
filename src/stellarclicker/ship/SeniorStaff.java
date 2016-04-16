@@ -29,7 +29,7 @@ public class SeniorStaff
     protected double purchasedCost;
     protected boolean isPurchased;
     protected String name;
-    protected Timer timer;
+    
     
     // Constructor
     SeniorStaff(ESeniorStaff officerType)
@@ -39,7 +39,7 @@ public class SeniorStaff
         this.purchasedCost = 100;
         this.name = "Senior Staff Member";
         this.isPurchased = false;
-        this.timer = new Timer();
+        
     }
      /**========================================================================================================================== 
     * @name update
@@ -95,26 +95,21 @@ public class SeniorStaff
    
     public void manageComponent(float gameTime)
     {
-        if (this.timer.getActivation() == false && this.managedComponent.currentState == EShipComponentState.INACTIVE)
-        {
-            System.out.println("Activating");
-            //activate a pause
-            this.timer.set(gameTime, 1);
-        }
+        
         
          if (this.managedComponent != null)
         {
             //manage ship component by checking to see if component is idle.
-        if (this.managedComponent.currentState == EShipComponentState.INACTIVE && this.timer.checkCompletion(gameTime))
+        if (this.managedComponent.currentState == EShipComponentState.INACTIVE)
         {
             this.managedComponent.gainExperience();
-            this.timer.cancelTimer();
+            
         }
         
-        else if (this.managedComponent.currentState == EShipComponentState.BROKEN && this.timer.checkCompletion(gameTime))
+        else if (this.managedComponent.currentState == EShipComponentState.BROKEN)
         {
             this.managedComponent.gainRepair();
-            this.timer.cancelTimer();
+            
         }
         }
          
