@@ -41,6 +41,16 @@ public class SeniorStaff
         this.isPurchased = false;
         
     }
+    // Constructor
+   public SeniorStaff(String name)
+    {
+        //this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
+        //officers default at 100 clatinum
+        this.purchasedCost = 100;
+        this.name = name;
+        this.isPurchased = false;
+        
+    }
      /**========================================================================================================================== 
     * @name update
     * 

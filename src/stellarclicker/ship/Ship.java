@@ -23,6 +23,7 @@ import stellarclicker.util.EShipStat;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import stellarclicker.util.ComponentFactory;
+import stellarclicker.util.StaffFactory;
 
 public class Ship 
 {
@@ -43,6 +44,7 @@ public class Ship
     private double money;
     private double moneyPerSecond;
     private ComponentFactory compFactory;
+    private StaffFactory staffFactory;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -52,6 +54,7 @@ public class Ship
     public Ship()      
     {    
         compFactory = new ComponentFactory();
+        staffFactory = new StaffFactory();
         this.initializeComponents();
     }
     
@@ -231,7 +234,8 @@ public class Ship
        //creates the senior staff which match the number of components
        for(ESeniorStaff i : ESeniorStaff.values()) 
        { 
-           seniorStaff[i.ordinal()] = new SeniorStaff(i);
+           //seniorStaff[i.ordinal()] = new SeniorStaff(i);
+           seniorStaff[i.ordinal()] = staffFactory.buildStaff(i);
            
            seniorStaff[i.ordinal()].setPurchaseCost(initialCost);
            

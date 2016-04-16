@@ -35,14 +35,11 @@ public class JsonReader {
         return myComponents;
     }
     
-    public JSONArray readStaff(){
+    public JSONObject readStaff(){
         String path = "staff.cfg";
-        JSONArray myArray = new JSONArray();
         JSONObject myStaff = readFile(path);
-        for(EShipComponent x : EShipComponent.values()){           
-            myArray.add((JSONObject) myStaff.get(x.toString()));
-        }
-        return myArray;
+       
+        return myStaff;
     }
     public JSONObject readFile(String path){
     
