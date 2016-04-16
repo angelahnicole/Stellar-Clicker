@@ -194,52 +194,52 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="seniorStaffUI" childLayout="absolute">
             
-            <control id="seniorStaffWindow" name="scrollPanelWindow" windowTitle="Senior Staff" panelHeight="160%">
-                <panel childLayout="vertical" height="100%" padding="5px">
+            <control id="seniorStaffWindow" name="scrollPanelWindow" windowTitle="Senior Staff" panelHeight="200%">
+                <panel childLayout="vertical" padding="5px">
                     
-                    <control height="20%" name="seniorStaffDiv" id="CHIEF_MEDICAL_OFFICER"
+                    <control name="seniorStaffDiv" id="CHIEF_MEDICAL_OFFICER"
                              staffImage="Textures/Staff/chiefMedicalOfficer.png" 
                              staffName="Dr. Kvork Cain" staffTitle="Chief Medical Officer" 
                              staffCost="0 K" 
                              staffDescription="Repairs and upgrades LIFE SUPPORT" 
                              staffOnPurchase="x5 to OFFICER HEALTH on purchase"/>
                     
-                    <control height="20%" name="seniorStaffDiv" id="SHIELDS_ENGINEER"
+                    <control name="seniorStaffDiv" id="SHIELDS_ENGINEER"
                              staffImage="Textures/Staff/shieldsEngineer.png" 
                              staffName="Hairy Pepper" staffTitle="Shields Engineer" 
                              staffCost="0 K" 
                              staffDescription="Repairs and upgrades SHIELDS" 
                              staffOnPurchase="x5 to SHIELD HEALTH on purchase"/>
                     
-                    <control height="20%" name="seniorStaffDiv" id="TACTICAL_OFFICER"
+                    <control name="seniorStaffDiv" id="TACTICAL_OFFICER"
                              staffImage="Textures/Staff/tacticalOfficer.png" 
                              staffName="Gazorp Zadorp" staffTitle="Tactical Officer" 
                              staffCost="0 K" 
                              staffDescription="Repairs and upgrades WEAPONS" 
                              staffOnPurchase="x5 to WEAPON DAMAGE on purchase"/>
                     
-                    <control height="20%" name="seniorStaffDiv" id="WARP_ENGINEER"
+                    <control name="seniorStaffDiv" id="WARP_ENGINEER"
                              staffImage="Textures/Staff/warpEngineer.png" 
                              staffName="Fred Swan" staffTitle="Warp Engineer" 
                              staffCost="0 K" 
                              staffDescription="Repairs and upgrades ENGINES" 
                              staffOnPurchase="x5 to ENGINE SPEED on purchase"/>
                     
-                    <control height="20%" name="seniorStaffDiv" id="HOLODECK_PROGRAMMER"
+                    <control name="seniorStaffDiv" id="HOLODECK_PROGRAMMER"
                              staffImage="Textures/Staff/holodeckEngineer.png" 
                              staffName="Klaatu" staffTitle="Holodeck Programmer" 
                              staffCost="0 K" 
                              staffDescription="Repairs and upgrades HOLODECKS" 
                              staffOnPurchase="x5 to OFFICER HAPPINESS on purchase"/>
                     
-                    <control height="20%" name="seniorStaffDiv" id="BARKEEP"
+                    <control name="seniorStaffDiv" id="BARKEEP"
                              staffImage="Textures/Staff/barkeep.png" 
                              staffName="Lloyd Torrance" staffTitle="Barkeep" 
                              staffCost="0 K" 
                              staffDescription="Repairs and upgrades REPLICATORS" 
                              staffOnPurchase="x5 to OFFICER HEALTH and HAPPINESS on purchase"/>
                     
-                    <control height="20%" name="seniorStaffDiv" id="HULL_ENGINEER"
+                    <control name="seniorStaffDiv" id="HULL_ENGINEER"
                              staffImage="Textures/Staff/hullEngineer.png" 
                              staffName="Flrrrp Flurp" staffTitle="Hull Engineer" 
                              staffCost="0 K" 
@@ -256,7 +256,13 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="unlocksUI" childLayout="absolute">
             
-            <control id="unlocksWindow" name="scrollPanelWindow" windowTitle="Unlocks" panelHeight="1000px">
+            <control id="unlocksWindow" name="scrollPanelWindow" windowTitle="Unlocks" panelHeight="100%">
+                
+                <panel childLayout="vertical" padding="5px">
+                    
+                    <text text="Coming Soon!" style="rubik_font36" color="#000000" textHAlign="center" wrap="true"/>
+                    
+                </panel>
                 
             </control>
           
@@ -267,7 +273,9 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="travelUI" childLayout="absolute">
             
-            <control id="travelWindow" name="scrollPanelWindow" windowTitle="Travel" panelHeight="1000px">
+            <control id="travelWindow" name="scrollPanelWindow" windowTitle="Travel" panelHeight="100%">
+                
+                <text text="Coming Soon!" style="rubik_font36" color="#000000" textHAlign="center" wrap="true"/>
                 
             </control>
             

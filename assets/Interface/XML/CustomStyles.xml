@@ -16,6 +16,10 @@
     <style id="rubik_font20">
         <attributes font="Interface/Fonts/RubikMonoOne_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
+    
+    <style id="rubik_font36">
+        <attributes font="Interface/Fonts/RubikMonoOne_36.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
 
     <style id="titillium_font10">
         <attributes font="Interface/Fonts/Titillium_10.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>

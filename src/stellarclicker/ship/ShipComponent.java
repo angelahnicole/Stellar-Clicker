@@ -173,19 +173,25 @@ public class ShipComponent
             {
                 if(this.currentState == EShipComponentState.GAINING_EXP)
                 {
-                    levelUp();
                     this.timer.cancelTimer();
+                    levelUp();
+                    
                     
                     //degrade component
                     degradeComponent(50);
-                    System.out.println(this.durability);
+                    
                 }
                 else if(this.currentState == EShipComponentState.REPAIRING)
                 {
-                    repairComponent();
                     this.timer.cancelTimer();
+                    repairComponent();
+                    
                     
                 }
+                
+                
+                
+                
                 
             }
             

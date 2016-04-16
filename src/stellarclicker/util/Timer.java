@@ -40,7 +40,7 @@ public class Timer {
     *///=========================================================================================================================
     public Boolean getActivation()
     {
-            return isActive;
+            return this.isActive;
     }
         /**========================================================================================================================== 
     * @name Set
@@ -124,6 +124,7 @@ public class Timer {
         this.isActive = false;
         this.start = 0;
         this.stop = 0;
+        this.percent = 0;
     }
     
     
