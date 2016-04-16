@@ -22,6 +22,7 @@ import stellarclicker.util.EShipComponentState;
 import stellarclicker.util.EShipStat;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import stellarclicker.util.ComponentFactory;
 
 public class Ship 
 {
@@ -41,14 +42,16 @@ public class Ship
     private double officers;
     private double money;
     private double moneyPerSecond;
+    private ComponentFactory compFactory;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // CONSTRUCTOR
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    public Ship()
+    public Ship()      
     {    
+        compFactory = new ComponentFactory();
         this.initializeComponents();
     }
     
