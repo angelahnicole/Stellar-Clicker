@@ -18,6 +18,7 @@ import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipStat;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
+import stellarclicker.util.Timer;
 public class SeniorStaff 
 {
     
@@ -28,6 +29,8 @@ public class SeniorStaff
     protected double purchasedCost;
     protected boolean isPurchased;
     protected String name;
+    protected Timer timer;
+    
     // Constructor
     SeniorStaff(ESeniorStaff officerType)
     {
@@ -36,6 +39,7 @@ public class SeniorStaff
         this.purchasedCost = 100;
         this.name = "Senior Staff Member";
         this.isPurchased = false;
+        this.timer = new Timer();
     }
      /**========================================================================================================================== 
     * @name update
@@ -47,7 +51,10 @@ public class SeniorStaff
    
     public void update(float gameTime)
     {
-       manageComponent();
+       if (this.isPurchased)
+       {
+       manageComponent(gameTime);
+       }
     }
      /**========================================================================================================================== 
     * @name purchase
@@ -63,7 +70,7 @@ public class SeniorStaff
         
         if (money > this.purchasedCost)
         {
-            System.out.println("Purhcased!");
+            
             this.isPurchased = true;
             this.managedComponent = component;
             return "Welcome to the crew!";
@@ -86,26 +93,32 @@ public class SeniorStaff
     * @description manages component timer based on current state
     *///=========================================================================================================================
    
-    public void manageComponent()
+    public void manageComponent(float gameTime)
     {
+        if (this.timer.getActivation() == false && this.managedComponent.currentState == EShipComponentState.INACTIVE)
+        {
+            System.out.println("Activating");
+            //activate a pause
+            this.timer.set(gameTime, 1);
+        }
+        
          if (this.managedComponent != null)
         {
             //manage ship component by checking to see if component is idle.
-        if (this.managedComponent.currentState == EShipComponentState.INACTIVE)
+        if (this.managedComponent.currentState == EShipComponentState.INACTIVE && this.timer.checkCompletion(gameTime))
         {
             this.managedComponent.gainExperience();
+            this.timer.cancelTimer();
         }
         
-        else if (this.managedComponent.currentState == EShipComponentState.BROKEN)
+        else if (this.managedComponent.currentState == EShipComponentState.BROKEN && this.timer.checkCompletion(gameTime))
         {
             this.managedComponent.gainRepair();
-            
+            this.timer.cancelTimer();
         }
         }
          
-         else if (this.isPurchased = true) {
-             //System.out.println("Not working, fool");
-         }
+        
     }
     
     

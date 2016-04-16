@@ -150,19 +150,25 @@ public class ShipComponent
             {
                 if(this.currentState == EShipComponentState.GAINING_EXP)
                 {
-                    levelUp();
                     this.timer.cancelTimer();
+                    levelUp();
+                    
                     
                     //degrade component
-                    //degradeComponent(50);
-                    System.out.println(this.durability);
+                    degradeComponent(50);
+                    
                 }
                 else if(this.currentState == EShipComponentState.REPAIRING)
                 {
-                    repairComponent();
                     this.timer.cancelTimer();
+                    repairComponent();
+                    
                     
                 }
+                
+                
+                
+                
                 
             }
             
@@ -369,7 +375,7 @@ public class ShipComponent
     private void updateTimeTaken()
     {
         this.expTime = this.BASE_TIME / ((this.level/10)+1);
-        this.repairTime = this.expTime / 10;
+        this.repairTime = this.expTime / 1000;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

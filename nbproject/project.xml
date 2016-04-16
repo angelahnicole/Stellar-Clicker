@@ -18,6 +18,7 @@
             </source-roots>
             <test-roots>
                 <root id="test.Tests.dir"/>
+                <root id="test.Tests.dir"/>
             </test-roots>
         </data>
     </configuration>

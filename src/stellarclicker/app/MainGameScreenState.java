@@ -269,12 +269,13 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 if(shipComp.getComponentState() == EShipComponentState.GAINING_EXP)
                 {
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
-                    
+                    shipElem.disableComponent();
                 }
                 else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
                 {
                     
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
+                    shipElem.disableComponent();
                 }
                 
                 // update time left label
