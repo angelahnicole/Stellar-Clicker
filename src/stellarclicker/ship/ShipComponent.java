@@ -373,10 +373,12 @@ public class ShipComponent
     {
         
         Float time = this.timer.getTimeRemaining(gameTime);
-        int hours = (int) ((time/60)/60);
-        int minutes = (int) ((time-(hours*60))/60);
-        int seconds = (int) ((time-(hours*60)-(minutes*60)));
-        return hours + ":" + minutes + ":" + seconds;
+        int hours = (int) (time / 3600);
+        int remainder = (int) (time - hours * 3600);
+        int mins = remainder / 60;
+        remainder = remainder - mins * 60;
+        int sec = remainder;
+        return hours + ":" + mins + ":" + sec;
     }
     
     /**========================================================================================================================== 
