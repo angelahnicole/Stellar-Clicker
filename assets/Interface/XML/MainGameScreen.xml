@@ -86,7 +86,7 @@
                          compLevel="1"/>
                 
                 <panel padding="7px" childLayout="center" width="100%">
-                    <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" width="100%" childLayout="vertical" padding="5px">
+                    <panel backgroundImage="Interface/Images/UI/glassPanel_light_lowAlpha.png" style="glassPanel" width="100%" childLayout="vertical" padding="5px">
 
                         <panel height="1%"/>
 

@@ -7,7 +7,8 @@
     <controlDefinition name="ship-component-div" controller="stellarclicker.app.ShipComponentElementController">
 
         <panel padding="7px" childLayout="center" width="100%">
-            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" width="100%" childLayout="horizontal" padding="5px">
+            <panel backgroundImage="Interface/Images/UI/glassPanel_light_lowAlpha.png" style="glassPanel" width="100%" childLayout="horizontal" padding="5px">
+
 
                 <panel width="30%" childLayout="vertical">
 
@@ -94,8 +95,8 @@
             </panel>
             
             <!-- MONEY COMPONENT TEXT -->
-            <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" width="65%" height="90%" childLayout="center" valign="center">
-                <text width="100%" id="#compMoney" text="$compMoney" style="rubik_font20" color="#00000095" wrap="true"/>
+            <panel backgroundImage="Interface/Images/UI/glassPanel_light_lowAlpha.png" style="glassPanel" width="65%" height="90%" childLayout="center" valign="center">
+                <text width="100%" id="#compMoney" text="$compMoney" style="rubik_font20" color="#000000" wrap="true"/>
             </panel>
 
         </panel>
@@ -108,18 +109,18 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <controlDefinition name="ship-statistic-text" style="" controller="">
 
-        <panel height="$statHeight" width="100%" childLayout="horizontal" padding="8px">
+        <panel height="$statHeight" width="100%" childLayout="horizontal" padding="3px">
 
-            <panel width="35px" height="35px" childLayout="center" style="whiteBorder" backgroundColor="#00000070">
+            <panel width="10%" height="100%" childLayout="center" backgroundColor="#00000070">
                 <image id="#statImage" filename="$statImagePath" height="30px" width="30px"/>
             </panel>
             
-            <panel width="60%" height="100%" childLayout="horizontal" padding="0px,5px">
-                <text id="#statName" text="$statName" style="rubik_font14" color="#444444" textHAlign="left"/>
+            <panel width="80%" height="100%" childLayout="horizontal" padding="0px,5px" backgroundColor="#FFFFFF80">
+                <text id="#statName" text="$statName" style="rubik_font14" color="#000000" textHAlign="left"/>
             </panel>
             
-            <panel width="30%" height="100%" childLayout="horizontal" valign="center">
-                <text id="#statValue" text="$statValue" style="rubik_font12" color="#39916E" textHAlign="right" textVAlign="center"/>
+            <panel width="10%" height="100%" childLayout="horizontal" valign="center" padding="5px" backgroundColor="#00000090">
+                <text id="#statValue" text="$statValue" style="rubik_font12" color="#FFF" textHAlign="right" textVAlign="center"/>
             </panel>
 
         </panel>
