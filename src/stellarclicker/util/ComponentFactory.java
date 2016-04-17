@@ -105,15 +105,15 @@ public class ComponentFactory
       
         newComponent = new ShipComponent
         (  
-                (String) temp.get("NAME"), 
-                Integer.parseInt( (String)temp.get("BASE_TIME") ), 
-                Integer.parseInt( (String)temp.get("MAX_DUR") ), 
-                Integer.parseInt( (String)temp.get("MIN_LEVEL") ), 
-                Integer.parseInt( (String)temp.get("MAX_LEVEL") ), 
-                Integer.parseInt( (String)temp.get("NUM_STATS") ), 
-                Float.parseFloat( (String)temp.get("LEVEL_COST") ),
-                levelTiers,
-                (String) temp.get("BASE_PICTURE_NAME")
+            (String) temp.get("NAME"), 
+            Integer.parseInt( (String)temp.get("BASE_TIME") ), 
+            Integer.parseInt( (String)temp.get("MAX_DUR") ), 
+            Integer.parseInt( (String)temp.get("MIN_LEVEL") ), 
+            Integer.parseInt( (String)temp.get("MAX_LEVEL") ), 
+            Integer.parseInt( (String)temp.get("NUM_STATS") ), 
+            Float.parseFloat( (String)temp.get("LEVEL_COST") ),
+            levelTiers,
+            (String) temp.get("BASE_PICTURE_NAME")
         );
         
         return newComponent;
