@@ -45,14 +45,18 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import com.jme3.asset.AssetKey;
+import com.jme3.texture.Image;
 import de.lessvoid.nifty.EndNotify;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
 import de.lessvoid.nifty.effects.EffectEventId;
 import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.input.NiftyInputEvent;
+import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.tools.SizeValue;
 import de.lessvoid.xml.xpp3.Attributes;
@@ -71,6 +75,7 @@ public class ShipComponentElementController implements Controller
     public static final String RED_BAR_ID = "#redBar";
     public static final String LEVEL_TEXT_ID = "#levelText";
     public static final String LEVEL_TEXT_ATTR = "compLevel";
+    public static final String SHIP_COMP_IMAGE_ID = "#compImage";
     public static final String BROKEN_IMAGE_ID = "#brokenImage";
     public static final String BUY_BUTTON_ID = "#buyButton";
     public static final String LEVEL_BUTTON_ID = "#levelButton";
@@ -117,6 +122,9 @@ public class ShipComponentElementController implements Controller
         this.shipCompElem = element;
         this.controlDefinitionAttributes = controlDefinitionAttributes;
         System.out.println("bind() called for element: " + element);
+        
+        this.nifty = nifty;
+        this.screen = screen;
     }
     
     /**========================================================================================================================== 
@@ -299,7 +307,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void updateLevel(int newLevel)
     {
-        
         String levelText = String.valueOf(newLevel);
 
         // update level text control
@@ -308,8 +315,16 @@ public class ShipComponentElementController implements Controller
         {
             levelTextElem.getRenderer(TextRenderer.class).setText(levelText);
         }
-            
         
+        // updates the photo tier
+        if(this.nifty != null && this.screen != null)
+        {
+            EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+            String compPictureName = MainApplication.app.myShip.getShipComponentCurrentPictureName(shipEnum);
+            NiftyImage newImage = this.nifty.getRenderEngine().createImage(this.screen, "Textures/ShipComponents/" + compPictureName, false);
+            Element compImage = this.shipCompElem.findElementByName(SHIP_COMP_IMAGE_ID);
+            compImage.getRenderer(ImageRenderer.class).setImage(newImage);
+        }
     }
     
     /**========================================================================================================================== 

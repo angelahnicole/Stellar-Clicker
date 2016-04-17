@@ -1,4 +1,3 @@
-
 package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +66,7 @@ public class Ship
     
     // The ship's level tiers that corresponds to the different pictures it can upgrade to. 
     // All of its ship components will have to be at the level for each tier for it to upgrade
-    private final int[] allLevelTiers = { 1, 10, 100, 500, 1000 };
+    private final int[] allLevelTiers = { 1, 5, 10, 15, 20 };
     private final String basePictureName = "mainShip_%s.png";
     
     private ShipComponent[] brokenComponents; 
@@ -345,6 +344,18 @@ public class Ship
     {
         return shipComponents[component.ordinal()].getLevel();
     }
+    
+    /**=========================================================================================================================
+    * @name GET SHIP COMPONENT CURRENT PICTURE NAME
+    * 
+    * @description Returns the name of the picture based on its tier of the ship component
+    * 
+    * @param component The ship component enum that describes the desired ship component
+    *///=========================================================================================================================
+    public String getShipComponentCurrentPictureName(EShipComponent component)
+    {
+        return shipComponents[component.ordinal()].getCurrentPictureName();
+    }
    
     /**=========================================================================================================================
     * @name GET TIMER PERCENT
@@ -504,6 +515,64 @@ public class Ship
     private String getCurrentMoney()
     {
        return BigNumber.getNumberString(money);
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET SHIP CURRENT PICTURE NAME
+    * 
+    * @description Returns the name of the picture based on its tier
+    *///=========================================================================================================================
+    public String getShipCurrentPictureName()
+    {
+        return String.format(this.basePictureName, getShipCurrentTier());
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET SHIP CURRENT TIER
+    * 
+    * @description Returns the smallest tier of all of the ship components (which is the ship's current tier)
+    *///=========================================================================================================================
+    private int getShipCurrentTier()
+    {
+        int minTier = 6; // only 5 tiers, so basically infinity
+
+        for(ShipComponent shipComp : shipComponents) 
+        {
+            int shipTier = this.getCurrentTier(shipComp.getLevel());
+            
+            if(shipTier < minTier)
+            {
+                minTier = shipTier;
+            }
+        }
+        
+        return minTier;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET CURRENT TIER
+    * 
+    * @description Returns the current tier from the ship's tiers based on the given level
+    * 
+    * @param level The level of the ship component we want to check against
+    *///=========================================================================================================================
+    private int getCurrentTier(int level)
+    {
+        int currentTier = 1;
+        
+        for(int i = 0; i < allLevelTiers.length; i++)
+        {
+            if(level >= allLevelTiers[i])
+            {
+                currentTier = i + 1;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        return currentTier;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

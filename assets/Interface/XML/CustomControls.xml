@@ -26,7 +26,7 @@
                         </panel>
                         
                         <panel id="#compPanel" childLayout="center" padding="10px">
-                            <image filename="$compImage" width="100%" height="100%"/>
+                            <image id="#compImage" filename="$compImage" width="100%" height="100%"/>
                             <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_white.png" width="100%" height="100%" visible="false"/>
                         </panel>
 

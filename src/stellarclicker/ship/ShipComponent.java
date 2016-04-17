@@ -123,6 +123,7 @@ public class ShipComponent
         this.rand = new Random();
         this.durabilityLossRange = 25;
     }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,12 +170,8 @@ public class ShipComponent
                 {
                     this.timer.cancelTimer();
                     repairComponent();
-                    
-                    
                 }
-                
             }
-            
         }
     }
     
@@ -182,7 +179,6 @@ public class ShipComponent
     * @name GAIN EXPERIENCE
     * 
     * @description Start experience timer and set component state to GAINING EXP
-    * 
     *///=========================================================================================================================
     public void gainExperience()
     {
@@ -197,11 +193,10 @@ public class ShipComponent
     }
     
     /**========================================================================================================================== 
-    * @name levelUp
+    * @name LEVEL UP
     * 
     * @description Increases the level of this component, updates the time taken to repair and gain experience, and sets its 
     * state to inactive.
-    * 
     *///=========================================================================================================================
     public void levelUp()
     {
@@ -228,8 +223,6 @@ public class ShipComponent
     * @name DEGRADE COMPONENT
     * 
     * @description Reduces the components durability 
-    * 
-    
     *///=========================================================================================================================
     public void degradeComponent()
     {
@@ -258,7 +251,7 @@ public class ShipComponent
     }
      
     /**========================================================================================================================== 
-    * @name breakComponent
+    * @name BREAK COMPONENT
     * 
     * @description Sets the state to broken and the durability to 0 
     *///=========================================================================================================================
@@ -294,6 +287,7 @@ public class ShipComponent
     {
         return BigNumber.getNumberString(repairCost);
     }
+    
     /**========================================================================================================================== 
     * @name GET REPAIR COST
     * 
@@ -303,7 +297,8 @@ public class ShipComponent
     {
         return this.repairCost;
     }
-       /**========================================================================================================================== 
+    
+    /**========================================================================================================================== 
     * @name GET LEVEL COST
     * 
     * @description Returns a formatted string of the repair cost
@@ -355,7 +350,6 @@ public class ShipComponent
     *///=========================================================================================================================
     public String getTimeRemaining()
     {
-        
         Float time = this.timer.getTimeRemaining(gameTime);
         int hours = (int) (time / 3600);
         int remainder = (int) (time - hours * 3600);
@@ -386,9 +380,13 @@ public class ShipComponent
         
         for(int i = 0; i < levelTiers.length; i++)
         {
-            if(this.level <= levelTiers[i])
+            if(this.level >= levelTiers[i])
             {
                 currentTier = i + 1;
+            }
+            else
+            {
+                break;
             }
         }
         
@@ -417,7 +415,5 @@ public class ShipComponent
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-
     
 }

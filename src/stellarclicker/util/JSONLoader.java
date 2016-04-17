@@ -89,12 +89,14 @@ public class JSONLoader implements AssetLoader
         InputStream is = assetInfo.openStream(); 
         JSONObject data = null; 
         BufferedReader bufferedReader = null; 
-        StringBuilder stringBuilder = new StringBuilder(); 
+        StringBuilder stringBuilder = new StringBuilder();
+        
         try 
         { 
             bufferedReader = new BufferedReader(new InputStreamReader(is)); 
             String s; 
-            while ((s = bufferedReader.readLine()) != null) { 
+            while ((s = bufferedReader.readLine()) != null) 
+            { 
                     stringBuilder.append(s); 
             } 
             data = (JSONObject) parser.parse(stringBuilder.toString()); 

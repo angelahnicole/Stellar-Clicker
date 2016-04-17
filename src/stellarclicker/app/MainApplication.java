@@ -180,8 +180,7 @@ public class MainApplication extends SimpleApplication
         
         //update time across game
         myShip.update(tpf, gameTime);
-        
-        
+
     }
 
     /**========================================================================================================================== 

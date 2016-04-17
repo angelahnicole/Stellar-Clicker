@@ -52,12 +52,15 @@ import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.ViewPort;
+
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+
 import stellarclicker.ship.ShipComponent;
-import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponent;
 import stellarclicker.util.EShipComponentState;
 
@@ -75,6 +78,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public static final String UNLOCKS_WINDOW_ID = "unlocksWindow";
     public static final String TRAVEL_LAYER_ID = "travelUI";
     public static final String TRAVEL_WINDOW_ID = "travelWindow";
+    public static final String SHIP_IMAGE_ID = "mainShipImage";
     
     private Nifty nifty;
     private Screen screen;
@@ -234,6 +238,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 shipElem.updateLevel(shipComp.getLevel());
                 shipElem.updateCost(shipComp.getFormattedLevelCost());
                 
+                updateShipTier();
+                
                 // break component initially
                 shipElem.breakComponent(shipComp.getFormattedRepairCost());
             }
@@ -283,6 +289,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 shipElem.updateLevel(shipComp.getLevel());
                 shipElem.updateTimeLeft(timeLeft);
                 
+                updateShipTier();
+                
                 // disable the component and discard element from list
                 shipElem.disableLevelButton();
                 activeComponents[i] = null;
@@ -322,6 +330,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // update the level and time left labels
                 shipElem.updateLevel(shipComp.getLevel());
                 shipElem.updateTimeLeft("00:00:00");
+                
+                updateShipTier();
             }
             
             // discard element
@@ -356,6 +366,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 {
                     shipElem.reenableComponent();
                     shipElem.updateLevel(shipComp.getLevel());
+                    
+                    updateShipTier();
                 }
                 
                 // make it appear broken
@@ -367,6 +379,23 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             
             // discard element
             brokenComponents[i] = null;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE SHIP TIER
+    * 
+    * @description Updates the ship's tier based on the ship components' tiers
+    *///=========================================================================================================================
+    private void updateShipTier()
+    {
+        // updates the photo tier of the ship
+        if(this.nifty != null && this.screen != null)
+        {
+            String shipPictureName = MainApplication.app.myShip.getShipCurrentPictureName();
+            NiftyImage newImage = this.nifty.getRenderEngine().createImage(this.screen, "Textures/Ships/" + shipPictureName, false);
+            Element shipImage = this.screen.findElementByName(SHIP_IMAGE_ID);
+            shipImage.getRenderer(ImageRenderer.class).setImage(newImage);
         }
     }
     
