@@ -12,16 +12,23 @@
                 <panel width="30%" childLayout="vertical">
 
                     <!-- SHIP COMPONENT IMAGE / BUTTON -->
-                    <panel backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" padding="10px" style="componentButton">
+                    <panel id="#levelButton" backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" style="componentButton">
                         
                         <interact onClick="interact()"></interact>
                         
-                        <image filename="$compImage" width="100%" height="100%"/>
-                        <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_red.png" width="100%" height="100%" visible="false"/>
-                        <panel id="#namePanel" childLayout="center" style="whiteBorder" visible="false" backgroundColor="#FFFFFF80" width="150%">
-                            <text width="100%" id="#nameText" text="$compName" style="rubik_font10" color="#000000" wrap="true"/>
+                        <panel id="#bgPanel" childLayout="center">
+                            <image id="#hoverBG" filename="Interface/Images/UI/shipComponentCircle_whiteGreen.png" width="100%" height="100%" visible="false"/>
+                            <image id="#inactiveBG" filename="Interface/Images/UI/shipComponentCircle_whiteBlack.png" width="100%" height="100%"/>
+                            <image id="#activeBG" filename="Interface/Images/UI/shipComponentCircle_whitePurple.png" width="100%" height="100%" visible="false"/>
+                            <image id="#brokenBG" filename="Interface/Images/UI/shipComponentCircle_whiteRed.png" width="100%" height="100%" visible="false"/>
+                            
                         </panel>
                         
+                        <panel id="#compPanel" childLayout="center" padding="10px">
+                            <image filename="$compImage" width="100%" height="100%"/>
+                            <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_white.png" width="100%" height="100%" visible="false"/>
+                        </panel>
+
                     </panel>
 
                     <!-- SHIP COMPONENT LEVEL BANNER -->
@@ -35,8 +42,11 @@
 
                     <!-- SHIP COMPONENT PROGRESS BAR -->
                     <panel backgroundImage="Interface/Images/UI/barHorizontal_gray.png" style="horizontalBar" width="100%" height="49%" childClip="true" childLayout="absolute" padding="5px,0px">
-                        <image id="#greenBar" filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
-                        <image id="#redBar" filename="Interface/Images/UI/barHorizontal_red.png" style="horizontalBar" width="100%" height="100%" x="-100%" y ="0"/>
+                        <image id="#greenBar" filename="Interface/Images/UI/barHorizontal_green.png" style="horizontalBar" width="120%" height="100%" x="-120%" y ="0"/>
+                        <image id="#redBar" filename="Interface/Images/UI/barHorizontal_red.png" style="horizontalBar" width="120%" height="100%" x="-120%" y ="0"/>
+                        <panel id="#namePanel" childLayout="center" width="100%" height="100%" x="0" y="0">
+                            <text width="100%" id="#nameText" text="$compName" style="rubik_font20" color="#00000070" wrap="true"/>
+                        </panel>
                     </panel>
                     
                     <panel height="2%"/>
@@ -45,7 +55,7 @@
                     <panel height="50%" width="100%" childLayout="horizontal">
                         
                         
-                        <control name="hover-text-button" mainText=" $1500" hoverText="BUY LEVEL" onClickMethod="purchase()"/>
+                        <control id="#buyButton" name="hover-text-button" mainText=" $1500" hoverText="BUY LEVEL" onClickMethod="purchase()"/>
                         
 
                         <panel childLayout="center" padding="2px">

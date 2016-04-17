@@ -45,8 +45,10 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import de.lessvoid.nifty.EndNotify;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
+import de.lessvoid.nifty.effects.EffectEventId;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
@@ -71,6 +73,7 @@ public class ShipComponentElementController implements Controller
     public static final String LEVEL_TEXT_ATTR = "compLevel";
     public static final String BROKEN_IMAGE_ID = "#brokenImage";
     public static final String BUY_BUTTON_ID = "#buyButton";
+    public static final String LEVEL_BUTTON_ID = "#levelButton";
     public static final String MAIN_TEXT_ID = "#mainText";
     public static final String HOVER_TEXT_ID = "#hoverText";
     public static final String MAIN_PANEL_ID = "#mainPanel";
@@ -223,7 +226,7 @@ public class ShipComponentElementController implements Controller
             EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
             MainApplication.app.myShip.gainComponentExperience(shipEnum);
 
-            disableComponent();
+            disableLevelButton();
         }
     }
     
@@ -266,7 +269,7 @@ public class ShipComponentElementController implements Controller
         EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
         MainApplication.app.myShip.gainComponentRepair(shipEnum);
         
-        disableComponent();
+        disableLevelButton();
     }
     
      /**========================================================================================================================== 
@@ -360,7 +363,7 @@ public class ShipComponentElementController implements Controller
         percentComplete = percentComplete * 100;
         
         // convert to the proper x percentage needed for updating the progress bar
-        double progressBarPercent = -100.0 + percentComplete;
+        double progressBarPercent = -120.0 + percentComplete;
         
         // update the progress bar
         Element progressBar = shipCompElem.findElementByName(progressBarID);
@@ -383,12 +386,8 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void breakComponent(String repairCost)
     {
-        // show the broken icon
-        Element brokenImage = this.shipCompElem.findElementByName(BROKEN_IMAGE_ID);
-        if(brokenImage != null)
-        {
-            brokenImage.setVisible(true);
-        }
+        // start fix component event
+        this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).startEffect(EffectEventId.onCustom, new BreakComp(), "breakComp");
         
         // change buy button to show repair info
         Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
@@ -419,12 +418,8 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void fixComponent(String levelCost)
     {
-        // hide the broken icon
-        Element brokenImage = this.shipCompElem.findElementByName(BROKEN_IMAGE_ID);
-        if(brokenImage != null)
-        {
-            brokenImage.setVisible(false);
-        }
+        // start fix component event
+        this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).startEffect(EffectEventId.onCustom, new FixComp(), "fixComp");
         
         // change buy button to show level info
         Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
@@ -446,7 +441,7 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name IS ENABLED
+    * @name IS ELEMENT ENABLED
     * 
     * @description Returns whether or not the element is enabled
     * 
@@ -454,7 +449,31 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public boolean isElementEnabled()
     {
-        return shipCompElem.isEnabled();
+        return this.shipCompElem.isEnabled();
+    }
+    
+    /**========================================================================================================================== 
+    * @name IS LEVEL BUTTON ENABLED
+    * 
+    * @description Returns whether or not the level button element is enabled
+    * 
+    * @return boolean Whether or not the element is enabled
+    *///=========================================================================================================================
+    public boolean isLevelButtonEnabled()
+    {
+        return this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).isEnabled();
+    }
+    
+    /**========================================================================================================================== 
+    * @name IS BUY BUTTON ENABLED
+    * 
+    * @description Returns whether or not the buy button element is enabled
+    * 
+    * @return boolean Whether or not the element is enabled
+    *///=========================================================================================================================
+    public boolean isBuyButtonEnabled()
+    {
+        return this.shipCompElem.findElementByName(BUY_BUTTON_ID).isEnabled();
     }
     
     /**========================================================================================================================== 
@@ -467,28 +486,35 @@ public class ShipComponentElementController implements Controller
         System.out.println("Re-enabled  " + shipCompElem.getId());
         
         this.shipCompElem.enable();
+        this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).enable();
         
         // move back the bar
-        this.shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-100%"));
-        this.shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-100%"));
-        
-        // hide the name text
-        this.shipCompElem.findElementByName(NAME_TEXT_ID).hide();
+        this.shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-120%"));
+        this.shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-120%"));
         
         // layout the elements
         shipCompElem.layoutElements();
     }
     
     /**========================================================================================================================== 
-    * @name DISABLE COMPONENT
+    * @name DISABLE LEVEL BUTTON
     * 
-    * @description Disables the component
+    * @description Disables the level button of the component
     *///=========================================================================================================================
-    public void disableComponent()
+    public void disableLevelButton()
     {
-        shipCompElem.disable();
+        this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).disable();
     }
     
+    /**========================================================================================================================== 
+    * @name DISABLE BUY BUTTON
+    * 
+    * @description Disables the buy button of the component
+    *///=========================================================================================================================
+    public void disableBuyButton()
+    {
+        this.shipCompElem.findElementByName(BUY_BUTTON_ID).disable();
+    }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -555,4 +581,32 @@ public class ShipComponentElementController implements Controller
     }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // CUSTOM EVENTS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+     class FixComp implements EndNotify 
+     {
+
+        @Override
+        public void perform()
+        {
+            System.out.println("FixComp has ended.");
+        }
+         
+     }
+     
+     class BreakComp implements EndNotify 
+     {
+
+        @Override
+        public void perform()
+        {
+            System.out.println("BreakComp has ended.");
+        }
+         
+     }
+     
+     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

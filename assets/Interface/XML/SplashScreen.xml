@@ -29,13 +29,14 @@
                     <control name="splash-button" mainText="SPACE" backgroundColor="#18B81250" color="#FFFFFF80" onClickMethod="startGame()"/>
                 </panel>
                 
-                <panel id="panel_bottom_right" height="50%" width="33%" valign="center" childLayout="center" padding="10px">
+                <panel id="panel_bottom_mid" height="50%" width="33%" valign="center" childLayout="center" padding="10px">
                     <control name="splash-button" mainText="CREDITS" backgroundColor="#18B81250" color="#FFFFFF80" onClickMethod="openCreditsWindow()"/>
                 </panel>
                 
                 <panel id="panel_bottom_right" height="50%" width="33%" valign="center" childLayout="center" padding="10px">
                     <control name="splash-button" mainText="QUIT" backgroundColor="#B8121250" color="#FFFFFF80" onClickMethod="quitGame()"/>
                 </panel>
+                
             </panel>
             
         </layer>

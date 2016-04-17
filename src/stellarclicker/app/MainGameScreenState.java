@@ -262,30 +262,29 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 EShipComponent shipEnum = EShipComponent.values()[i];
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // get percentage complete and update bar
+                // get percentage complete and time left
                 double percentComplete = shipComp.getTimerPercent();
+                String timeLeft = MainApplication.app.myShip.getTimeLeft(shipEnum);
 
                 // update bar (color depends on which activity)
                 if(shipComp.getComponentState() == EShipComponentState.GAINING_EXP)
                 {
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
-                    shipElem.disableComponent();
                     shipElem.updateProgressBar(0, ShipComponentElementController.RED_BAR_ID);
                 }
                 else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
                 {
                     
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
-                    shipElem.disableComponent();
                     shipElem.updateProgressBar(0, ShipComponentElementController.GREEN_BAR_ID);
                 }
-                shipElem.updateLevel(shipComp.getLevel());
                 
-                // update time left label
-                String timeLeft = MainApplication.app.myShip.getTimeLeft(shipEnum);
+                // update the level and time left labels
+                shipElem.updateLevel(shipComp.getLevel());
                 shipElem.updateTimeLeft(timeLeft);
                 
-                // discard element
+                // disable the component and discard element from list
+                shipElem.disableLevelButton();
                 activeComponents[i] = null;
             }
         }
@@ -314,7 +313,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
                 // reinitialize the component by enabling it, updating its info, and making sure that it doesn't look broken
-                if(!shipElem.isElementEnabled())
+                if(!shipElem.isLevelButtonEnabled())
                 {
                     shipElem.reenableComponent();
                     
@@ -351,7 +350,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
                 // enable it if it needs it
-                if(!shipElem.isElementEnabled())
+                if(!shipElem.isLevelButtonEnabled())
                 {
                     shipElem.reenableComponent();
                     shipElem.updateLevel(shipComp.getLevel());

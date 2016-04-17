@@ -64,17 +64,25 @@
     <style id="componentButton">
         <effect>
             <onHover name="fade" start="#FFFFFF" end="#90FFFF"/>
-            <onDisabled name="fade" start="#FFFFFF" end="#90FFFF"/>
-            <onHover name="show" targetElement="#namePanel"/>
-            <onEndHover name="hide" targetElement="#namePanel"/>
             <onClick name="imageSizePulsate" startSize="100%" endSize="110%" length="250" pulsator="SinusPulsator"/>
-        </effect>
-    </style>
-    
-    <style id="moneyComponent">
-        <effect>
-            <onHover name="show" targetElement="#namePanel"/>
-            <onEndHover name="hide" targetElement="#namePanel"/>
+            <!-- ONLY SHOW INACTIVE BG ON ENABLED -->
+            <onEnabled name="show" targetElement="#bgPanel#inactiveBG"/>
+            <onEnabled name="hide" targetElement="#bgPanel#activeBG"/>
+            <!--SHOW HOVER BG ON HOVER AND HIDE IT ON END HOVER -->
+            <onHover name="show" targetElement="#bgPanel#hoverBG"/>
+            <onEndHover name="hide" targetElement="#bgPanel#hoverBG"/>
+            <!-- ONLY SHOW ACTIVE BG ON DISABLED-->
+            <onDisabled name="show" targetElement="#bgPanel#activeBG"/>
+            <onDisabled name="hide" targetElement="#bgPanel#inactiveBG"/>
+            <onDisabled name="hide" targetElement="#bgPanel#brokenBG"/>
+            <!-- ONLY SHOW BROKEN BG ON BREAK AND HIDE ON FIX -->
+            <onCustom customKey="breakComp" name="show" targetElement="#bgPanel#brokenBG"/>
+            <onCustom customKey="breakComp" name="hide" targetElement="#bgPanel#inactiveBG"/>
+            <onCustom customKey="fixComp" name="hide" targetElement="#bgPanel#brokenBG"/>
+            <!-- OVERLAY AND HIDE BROKEN GLASS -->
+            <onCustom customKey="breakComp" name="show" targetElement="#compPanel#brokenImage"/>
+            <onCustom customKey="fixComp" name="hide" targetElement="#compPanel#brokenImage"/>
+            
         </effect>
     </style>
     
