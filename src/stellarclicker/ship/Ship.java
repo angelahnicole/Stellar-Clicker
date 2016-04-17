@@ -40,7 +40,8 @@ public class Ship
     private ShipStatistics[] shipStats;
     private SeniorStaff[] seniorStaff;
     private int[] shipStatistics;
-    private double officers;
+    private int officers;
+    private int claimableOfficers;
     private double money;
     private double moneyPerSecond;
     private ComponentFactory compFactory;
@@ -206,6 +207,7 @@ public class Ship
     *///=========================================================================================================================
     public void initializeComponents()
     {
+        //TODO: THIS SHOULDN'T BE STARTING MONEY
         this.money = 200000000;
         // Initializes the component array 
         shipStats = new ShipStatistics[EShipStat.values().length];
@@ -214,7 +216,7 @@ public class Ship
         inactiveComponents =  new ShipComponent[EShipComponent.values().length]; 
         activeComponents =  new ShipComponent[EShipComponent.values().length];
         brokenComponents =  new ShipComponent[EShipComponent.values().length];
-     
+        this.officers = 0;
         // This for each creates a new component and places it in the array at the index
        for(EShipComponent m : EShipComponent.values()) 
        {
@@ -440,9 +442,20 @@ public class Ship
     *///=========================================================================================================================
     private void claimOfficers()
     {
-        
+        //check component levels
+        this.officers += this.claimableOfficers;
     }
 
+     
+    /**========================================================================================================================== 
+    * @name claimOfficers
+    * 
+    * @description Increases the amount of officers joined to the ship.
+    *///=========================================================================================================================
+    public void increaseClaimableOfficers(int count)
+    {
+        this.claimableOfficers += count;
+    }
     /**========================================================================================================================== 
     * @name getCurrentMoney
     * 

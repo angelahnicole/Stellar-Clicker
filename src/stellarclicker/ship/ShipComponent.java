@@ -45,10 +45,10 @@ package stellarclicker.ship;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+import java.util.Random;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 import stellarclicker.util.EShipComponentState;
-import stellarclicker.util.EShipStat;
 
 
 public class ShipComponent
@@ -68,6 +68,7 @@ public class ShipComponent
     
     protected String name;
     protected int durability;
+    protected int durabilityLossRange;
     protected int level;
     protected EShipComponentState currentState;
     
@@ -84,6 +85,8 @@ public class ShipComponent
     // whether the component is managed by an officer.
     // TODO: use ship component state instead of this bool
     protected boolean managed;
+    
+    protected Random rand;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -112,6 +115,8 @@ public class ShipComponent
         updateTimeTaken();
         this.timer = new Timer();
 
+        this.rand = new Random();
+        this.durabilityLossRange = 25;
         
     }
     public ShipComponent(String name,int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, float LEVEL_COST)
@@ -136,6 +141,8 @@ public class ShipComponent
         updateTimeTaken();
         this.timer = new Timer();
 
+        this.rand = new Random();
+        this.durabilityLossRange = 25;
         
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -176,9 +183,8 @@ public class ShipComponent
                     this.timer.cancelTimer();
                     levelUp();
                     
-                    
                     //degrade component
-                    degradeComponent(50);
+                    degradeComponent();
                     
                 }
                 else if(this.currentState == EShipComponentState.REPAIRING)
@@ -188,10 +194,6 @@ public class ShipComponent
                     
                     
                 }
-                
-                
-                
-                
                 
             }
             
@@ -249,12 +251,16 @@ public class ShipComponent
     * 
     * @description Reduces the components durability 
     * 
-    * @param amount the amount to damage by
+    
     *///=========================================================================================================================
-    public void degradeComponent(int amount)
+    public void degradeComponent()
     {
-        this.durability = this.durability - amount;
+        this.durability = this.durability - (rand.nextInt(this.durabilityLossRange) + 1);
         
+        if (this.level % 20 == 0 && this.durabilityLossRange > 1)
+        {
+            this.durabilityLossRange = this.durabilityLossRange - 1;
+        }
         if (this.durability < 0)
         {
             breakComponent();
@@ -400,7 +406,7 @@ public class ShipComponent
     private void updateTimeTaken()
     {
         this.expTime = this.BASE_TIME / ((this.level/10)+1);
-        this.repairTime = this.expTime / 10;
+        this.repairTime = this.expTime * 2;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
