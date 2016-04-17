@@ -86,6 +86,13 @@
         </effect>
     </style>
     
+    <style id="moneyComponent">
+        <effect>
+            <onHover name="show" targetElement="#namePanel"/>
+            <onEndHover name="hide" targetElement="#namePanel"/>
+        </effect>
+    </style>
+    
     <style id="scroll">
         <attributes childLayout="center"/>
     </style>
