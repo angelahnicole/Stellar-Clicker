@@ -33,6 +33,11 @@ public class Ship
     // ATTRIBUTES
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
+    // The ship's level tiers that corresponds to the different pictures it can upgrade to. 
+    // All of its ship components will have to be at the level for each tier for it to upgrade
+    private final int[] allLevelTiers = { 0, 10, 100, 500, 1000 };
+    private final String basePictureName = "mainShip_{0}.png";
+    
     private ShipComponent[] brokenComponents; 
     private ShipComponent[] activeComponents;  
     private ShipComponent[] inactiveComponents;
@@ -368,7 +373,7 @@ public class Ship
     public void purchaseSeniorStaff(ESeniorStaff officer)
     {System.out.println(officer.ordinal());
         seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()], this.money);
-         System.out.println(shipComponents[officer.ordinal()].name);
+         System.out.println(shipComponents[officer.ordinal()].NAME);
     }  
     
     /**========================================================================================================================== 
@@ -390,7 +395,7 @@ public class Ship
     /**========================================================================================================================== 
     * @name getSeniorStaffName
     * 
-    * @description reports the name of the senior staff member
+    * @description reports the NAME of the senior staff member
     * 
     * 
     * @param officer the enumerated officer

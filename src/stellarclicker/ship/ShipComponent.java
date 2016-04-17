@@ -1,5 +1,6 @@
 
 package stellarclicker.ship;
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**========================================================================================================================== 
@@ -25,7 +26,7 @@ package stellarclicker.ship;
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
 
-    * Neither the name of 'jMonkeyEngine' nor the names of its contributors
+    * Neither the NAME of 'jMonkeyEngine' nor the names of its contributors
       may be used to endorse or promote products derived from this software
       without specific prior written permission.
 
@@ -59,14 +60,18 @@ public class ShipComponent
     // ATTRIBUTES
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
+    //  The ship component's level tiers that corresponds with the different pictures it can upgrade to.
+    protected int[] levelTiers;
+    protected String basePictureName;
+    
     // ship-specific "constants"
+    protected String NAME;
     protected int BASE_TIME;
     protected int MAX_DURABILITY;
     protected int MIN_LEVEL;
     protected int MAX_LEVEL; 
     protected int NUM_SHIP_STATS;
     
-    protected String name;
     protected int durability;
     protected int durabilityLossRange;
     protected int level;
@@ -93,44 +98,18 @@ public class ShipComponent
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // CONSTRUCTOR
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    public ShipComponent(String name)
+    public ShipComponent(String NAME, int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, float LEVEL_COST, int[] levelTiers, String basePictureName)
     {
+        this.levelTiers = levelTiers;
+        this.basePictureName = basePictureName;
         
-        // TODO: should have all of these values be passed in via the constructor
-        
-        this.BASE_TIME = 10;
-        this.MAX_DURABILITY = 100;
-        this.MIN_LEVEL = 1;
-        this.MAX_LEVEL = 999; 
-        this.NUM_SHIP_STATS = 1;
-
-        this.name = name;
-        this.durability = MAX_DURABILITY;
-        this.level = MIN_LEVEL;
-        this.currentState = EShipComponentState.INACTIVE;
-        
-        this.levelCost = 10000000.0f;
-        this.repairCost = this.levelCost * 0.1f;
-        
-        updateTimeTaken();
-        this.timer = new Timer();
-
-        this.rand = new Random();
-        this.durabilityLossRange = 25;
-        
-    }
-    public ShipComponent(String name,int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, float LEVEL_COST)
-    {
-        
-        // TODO: should have all of these values be passed in via the constructor
-        
+        this.NAME = NAME;
         this.BASE_TIME = BASE_TIME;
         this.MAX_DURABILITY = MAX_DUR;
         this.MIN_LEVEL = MIN_LEVEL;
         this.MAX_LEVEL = MAX_LEVEL; 
         this.NUM_SHIP_STATS = NUM_STATS;
 
-        this.name = name;
         this.durability = MAX_DURABILITY;
         this.level = MIN_LEVEL;
         this.currentState = EShipComponentState.INACTIVE;
@@ -143,7 +122,6 @@ public class ShipComponent
 
         this.rand = new Random();
         this.durabilityLossRange = 25;
-        
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     

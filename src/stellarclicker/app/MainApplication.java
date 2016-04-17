@@ -53,6 +53,7 @@ import stellarclicker.util.EAppState;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import stellarclicker.ship.Ship;
+import stellarclicker.util.JSONLoader;
 public class MainApplication extends SimpleApplication
 {  
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,6 +98,9 @@ public class MainApplication extends SimpleApplication
     public void simpleInitApp()
     {
         System.out.println("Initializing...");
+        
+        // Adding JSON loader so we can read JSON files
+        assetManager.registerLoader(JSONLoader.class, "json");
 
         myShip = new Ship();
         

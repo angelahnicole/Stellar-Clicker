@@ -1,13 +1,11 @@
 package stellarclicker.util;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**========================================================================================================================== 
- * @file ComponentFactory.java
+ * @file JSONLoader.java
  * --------------------------------------------------------------------------------------------------------------------------
- * @author Angela Gross, Matthew Dolan, Alex Dunn
+ * @author https://github.com/MultiverseKing/MultiverseKing_JME
  * --------------------------------------------------------------------------------------------------------------------------
- * @description Builds ship components by reading in JSON
+ * @description Helps load JSON files through the jMonkeyEngine asset manager
  * --------------------------------------------------------------------------------------------------------------------------
     JME LICENSE
     ******************************************************************************
@@ -44,93 +42,90 @@ package stellarclicker.util;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import stellarclicker.ship.ShipComponent;
-import stellarclicker.util.JSONReader;
+import com.jme3.asset.AssetInfo; 
+import com.jme3.asset.AssetLoader; 
+import java.io.BufferedReader; 
+import java.io.IOException; 
+import java.io.InputStream; 
+import java.io.InputStreamReader; 
+import java.util.logging.Level; 
+import java.util.logging.Logger; 
+import org.json.simple.JSONObject; 
+import org.json.simple.parser.JSONParser; 
+import org.json.simple.parser.ParseException;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-public class ComponentFactory 
-{
+ 
+/**
+ * @todo Use for game configuration 
+ * @author roah 
+ */ 
+public class JSONLoader implements AssetLoader 
+{ 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // ATTRIBUTES
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    
-    private JSONReader cfgReader = new JSONReader();
-    private JSONObject jsonComponents;
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // --------------------------------------------------------------------------------------------------------------------------------------------
-    // CONSTRUCTOR
-    // --------------------------------------------------------------------------------------------------------------------------------------------
-    public ComponentFactory()
-    {
-        jsonComponents = cfgReader.readComponents();
-        testBuild();
-    }
+ 
+    private final static JSONParser parser = new JSONParser(); 
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+ 
     /**========================================================================================================================== 
-    * @name BUILD COMPONENT
-    * 
-    * @description Builds a component based on a file that is in JSON
-    * 
-    * @param type The ship component we would like to create
-    * 
-    * @return ShipComponent The newly created ship component
-    *///=========================================================================================================================
-    public ShipComponent buildComponent(EShipComponent type)
-    {
-        ShipComponent newComponent = null;
-        
-        // create JSON object 
-        JSONObject temp = (JSONObject) jsonComponents.get(type.toString());
-        
-        // create JSON array object to get the tiers
-        JSONArray tierArray = (JSONArray) temp.get("LEVEL_TIERS");
-        int[] levelTiers = 
+     * @name READ LOAD
+     * 
+     * @description Load the file using the binary importer. 
+     * 
+     * @param assetInfo 
+     * 
+     * @return JSONObject
+     * 
+     * @throws IOException 
+     *///=========================================================================================================================
+    @Override 
+    public Object load(AssetInfo assetInfo) throws IOException 
+    { 
+        InputStream is = assetInfo.openStream(); 
+        JSONObject data = null; 
+        BufferedReader bufferedReader = null; 
+        StringBuilder stringBuilder = new StringBuilder(); 
+        try 
         { 
-            Integer.parseInt( (String)tierArray.get(0) ), 
-            Integer.parseInt( (String)tierArray.get(1) ), 
-            Integer.parseInt( (String)tierArray.get(2) ), 
-            Integer.parseInt( (String)tierArray.get(3) ), 
-            Integer.parseInt( (String)tierArray.get(4) )
-        };
-        
-      
-        newComponent = new ShipComponent
-        (  
-                (String) temp.get("NAME"), 
-                Integer.parseInt( (String)temp.get("BASE_TIME") ), 
-                Integer.parseInt( (String)temp.get("MAX_DUR") ), 
-                Integer.parseInt( (String)temp.get("MIN_LEVEL") ), 
-                Integer.parseInt( (String)temp.get("MAX_LEVEL") ), 
-                Integer.parseInt( (String)temp.get("NUM_STATS") ), 
-                Float.parseFloat( (String)temp.get("LEVEL_COST") ),
-                levelTiers,
-                (String) temp.get("BASE_PICTURE_NAME")
-        );
-        
-        return newComponent;
-    }
-    
-    /**========================================================================================================================== 
-    * @name TEST BUILD
-    * 
-    * @description Builds every component by reading in JSON
-    *///=========================================================================================================================
-    public void testBuild()
-    {
-        for(EShipComponent x : EShipComponent.values())
-        {
-            buildComponent(x);
-        }
+            bufferedReader = new BufferedReader(new InputStreamReader(is)); 
+            String s; 
+            while ((s = bufferedReader.readLine()) != null) { 
+                    stringBuilder.append(s); 
+            } 
+            data = (JSONObject) parser.parse(stringBuilder.toString()); 
+        } 
+        catch (ParseException ex) 
+        { 
+            Logger.getLogger(JSONLoader.class.getName()).log(Level.SEVERE, null, ex); 
+        } 
+        finally 
+        { 
+            if (bufferedReader != null) 
+            { 
+                try 
+                { 
+                    bufferedReader.close(); 
+                } catch (IOException ex) { 
+                    Logger.getLogger(JSONLoader.class.getName()).log(Level.SEVERE, null, ex); 
+                } 
+            } 
+            is.close(); 
+        } 
+ 
+        if (data != null) 
+        { 
+            return data; 
+        } 
+        else 
+        { 
+            Logger.getGlobal().log(Level.WARNING, "{0} : Data couldn't be loaded.", new Object[]{getClass().getName()}); 
+            return null; 
+        } 
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

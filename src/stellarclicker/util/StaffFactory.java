@@ -10,13 +10,13 @@ package stellarclicker.util;
  */
 import org.json.simple.JSONObject;
 import stellarclicker.ship.SeniorStaff;
-import stellarclicker.util.JsonReader;
+import stellarclicker.util.JSONReader;
 
 
 
 public class StaffFactory {
     
-    private JsonReader cfgReader = new JsonReader();
+    private JSONReader cfgReader = new JSONReader();
     private JSONObject jsonMembers;
     
     public StaffFactory(){

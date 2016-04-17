@@ -3,11 +3,11 @@ package stellarclicker.util;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**========================================================================================================================== 
- * @file ComponentFactory.java
+ * @file JSONReader.java
  * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * --------------------------------------------------------------------------------------------------------------------------
- * @description Builds ship components by reading in JSON
+ * @description Helps read JSON files
  * --------------------------------------------------------------------------------------------------------------------------
     JME LICENSE
     ******************************************************************************
@@ -44,94 +44,107 @@ package stellarclicker.util;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import com.jme3.asset.AssetInfo;
+import com.jme3.asset.AssetKey;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStream;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import stellarclicker.ship.ShipComponent;
-import stellarclicker.util.JSONReader;
+import org.json.simple.parser.JSONParser;
+import stellarclicker.app.MainApplication;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public class ComponentFactory 
+public class JSONReader 
 {
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // --------------------------------------------------------------------------------------------------------------------------------------------
-    // ATTRIBUTES
-    // --------------------------------------------------------------------------------------------------------------------------------------------
-    
-    private JSONReader cfgReader = new JSONReader();
-    private JSONObject jsonComponents;
-    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // CONSTRUCTOR
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    public ComponentFactory()
+    public JSONReader()
     {
-        jsonComponents = cfgReader.readComponents();
-        testBuild();
+       // createFile();
+      //  System.out.println(readComponents());
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
-    * @name BUILD COMPONENT
+    * @name READ COMPONENTS
     * 
-    * @description Builds a component based on a file that is in JSON
+    * @description Reads in the components as JSON
     * 
-    * @param type The ship component we would like to create
-    * 
-    * @return ShipComponent The newly created ship component
+    * @return JSONObject Object that has the read in components
     *///=========================================================================================================================
-    public ShipComponent buildComponent(EShipComponent type)
+    public JSONObject readComponents()
     {
-        ShipComponent newComponent = null;
-        
-        // create JSON object 
-        JSONObject temp = (JSONObject) jsonComponents.get(type.toString());
-        
-        // create JSON array object to get the tiers
-        JSONArray tierArray = (JSONArray) temp.get("LEVEL_TIERS");
-        int[] levelTiers = 
-        { 
-            Integer.parseInt( (String)tierArray.get(0) ), 
-            Integer.parseInt( (String)tierArray.get(1) ), 
-            Integer.parseInt( (String)tierArray.get(2) ), 
-            Integer.parseInt( (String)tierArray.get(3) ), 
-            Integer.parseInt( (String)tierArray.get(4) )
-        };
-        
-      
-        newComponent = new ShipComponent
-        (  
-                (String) temp.get("NAME"), 
-                Integer.parseInt( (String)temp.get("BASE_TIME") ), 
-                Integer.parseInt( (String)temp.get("MAX_DUR") ), 
-                Integer.parseInt( (String)temp.get("MIN_LEVEL") ), 
-                Integer.parseInt( (String)temp.get("MAX_LEVEL") ), 
-                Integer.parseInt( (String)temp.get("NUM_STATS") ), 
-                Float.parseFloat( (String)temp.get("LEVEL_COST") ),
-                levelTiers,
-                (String) temp.get("BASE_PICTURE_NAME")
-        );
-        
-        return newComponent;
+        String assetKey = "Configuration/components.json";
+        JSONObject myComponents = getAsset(assetKey);
+     
+        return myComponents;
     }
     
     /**========================================================================================================================== 
-    * @name TEST BUILD
+    * @name READ STAFF
     * 
-    * @description Builds every component by reading in JSON
+    * @description Reads in the staff members as JSON
+    * 
+    * @return JSONObject Object that has the read in staff members
     *///=========================================================================================================================
-    public void testBuild()
+    public JSONObject readStaff()
     {
-        for(EShipComponent x : EShipComponent.values())
+        String assetKey = "Configuration/staff.json";
+        JSONObject myStaff = getAsset(assetKey);
+       
+        return myStaff;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET ASSET
+    * 
+    * @description Returns a the asset as a file object
+    * 
+    * @return JSONObject Object that has the read in staff members
+    *///=========================================================================================================================
+    private JSONObject getAsset(String assetKey)
+    {
+        return (JSONObject) MainApplication.app.getAssetManager().loadAsset(new AssetKey<>(assetKey));
+    }
+    
+    /**========================================================================================================================== 
+    * @name READ FILE
+    * 
+    * @description Reads in the given file and tries to parse it as JSON
+    * 
+    * @param path The path to the file
+    * 
+    * @return JSONObject Object that has the retrieved JSON
+    *///=========================================================================================================================
+    private JSONObject readFile(File myFile)
+    {
+    
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = null;
+        
+        try 
         {
-            buildComponent(x);
+            Object obj = parser.parse( new FileReader(myFile) );
+ 
+            jsonObject = (JSONObject)obj;
+            
+            return jsonObject;
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
         }
+        
+        return jsonObject;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 }
