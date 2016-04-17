@@ -316,10 +316,12 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 if(!shipElem.isLevelButtonEnabled())
                 {
                     shipElem.reenableComponent();
-                    
                     shipElem.fixComponent(shipComp.getFormattedLevelCost());
                 }
+                
+                // update the level and time left labels
                 shipElem.updateLevel(shipComp.getLevel());
+                shipElem.updateTimeLeft("00:00:00");
             }
             
             // discard element

@@ -405,7 +405,6 @@ public class ShipComponentElementController implements Controller
             mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_RED_HEX));
         }
         
-        
         this.appearsBroken = true;
     }
     
