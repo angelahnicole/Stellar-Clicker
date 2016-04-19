@@ -116,7 +116,7 @@
                             <panel height="50%" childLayout="horizontal">
                                 <control id="unlocksButton" name="icon-button" iconImagePath="Interface/Images/Icons/unlocksIcon.png" hoverText="Unlocks" onClickMethod="openUnlocksWindow()"/>
                                 <control id="travelButton" name="icon-button" iconImagePath="Interface/Images/Icons/travelsIcon.png" hoverText="Travel" onClickMethod="openTravelWindow()"/>
-                                <control id="audioButton" name="icon-button" iconImagePath="Interface/Images/Icons/audioOnIcon.png" hoverText="Toggle" onClickMethod=""/>
+                                <control id="audioButton" name="icon-button" iconImagePath="Interface/Images/Icons/audioOnIcon.png" hoverText="Toggle" onClickMethod="toggleMusic()"/>
                             </panel>
 
                         </panel>

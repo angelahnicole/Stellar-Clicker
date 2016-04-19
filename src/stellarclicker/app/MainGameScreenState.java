@@ -79,6 +79,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public static final String TRAVEL_LAYER_ID = "travelUI";
     public static final String TRAVEL_WINDOW_ID = "travelWindow";
     public static final String SHIP_IMAGE_ID = "mainShipImage";
+    public static final String AUDIO_IMAGE_ID = "audioButton#iconPanel#iconImage";
     
     private Nifty nifty;
     private Screen screen;
@@ -404,6 +405,33 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // WINDOW GAME SCREEN CONTROLLER METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    /**========================================================================================================================== 
+    * @name TOGGLE MUSIC
+    * 
+    * @description Toggles the music volume on and off along with changing the icon picture
+    *///=========================================================================================================================
+    public void toggleMusic()
+    {
+        String iconKey;
+        
+        // Turns it off if it's on
+        if(MainApplication.app.isMusicOn())
+        {
+            iconKey = "Interface/Images/Icons/audioOffIcon.png";
+            MainApplication.app.setMusicVolume(true);
+        }
+        // Turns it on if it's off
+        else
+        {
+            iconKey = "Interface/Images/Icons/audioOnIcon.png";
+            MainApplication.app.setMusicVolume(false);
+        }
+        
+        NiftyImage newImage = this.nifty.getRenderEngine().createImage(this.screen, iconKey, false);
+        Element iconImage = this.screen.findElementByName(AUDIO_IMAGE_ID);
+        iconImage.getRenderer(ImageRenderer.class).setImage(newImage);
+    }
     
     /**========================================================================================================================== 
     * @name OPEN OFFICER WINDOW
