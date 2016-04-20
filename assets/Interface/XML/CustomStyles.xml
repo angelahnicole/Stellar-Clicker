@@ -17,20 +17,16 @@
         <attributes font="Interface/Fonts/RubikMonoOne_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
+    <style id="rubik_font26">
+        <attributes font="Interface/Fonts/RubikMonoOne_26.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
     <style id="rubik_font36">
         <attributes font="Interface/Fonts/RubikMonoOne_36.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
 
-    <style id="titillium_font10">
-        <attributes font="Interface/Fonts/Titillium_10.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
-    </style>
-    
-    <style id="titillium_font12">
-        <attributes font="Interface/Fonts/Titillium_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
-    </style>
-    
-    <style id="titillium_font14">
-        <attributes font="Interface/Fonts/Titillium_14.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    <style id="raleway_font20">
+        <attributes font="Interface/Fonts/Raleway_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
     <style id="whiteBorder">

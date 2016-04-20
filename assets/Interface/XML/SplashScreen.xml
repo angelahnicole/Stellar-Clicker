@@ -47,17 +47,47 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="creditsUI" childLayout="absolute">
             
-            <control id="creditsWindow" name="window" title="Credits" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
+            <control id="creditsWindow" name="scrollPanelWindow" windowTitle="Credits" panelHeight="200%">
+                <panel childLayout="vertical" padding="5px">
                     
-                    <panel childLayout="vertical">
+                     <control name="creditsDiv"
+                             creditsImage="Textures/Credits/andrea.png" 
+                             creditsName="Andrea Johnson" creditsTitle="Artist" 
+                             creditsText="Andrea lovingly created the awesome pixel art for the game."/>
+                     
+                     <control name="creditsDiv"
+                             creditsImage="Textures/Credits/alex.png" 
+                             creditsName="Alex Dunn" creditsTitle="Developer" 
+                             creditsText="Alex coded like a fiend."/>
+                     
+                     <control name="creditsDiv"
+                             creditsImage="Textures/Credits/angie.png"
+                             creditsName="Angela Gross" creditsTitle="Developer" 
+                             creditsText="Angela programmed real good like, did a few 'shops, and came up with the concept."/>
+                     
+                     <control name="creditsDiv"
+                             creditsImage="Textures/Credits/matt.png"
+                             creditsName="Matt Dolan" creditsTitle="Developer" 
+                             creditsText="Matt unleashed his code-fu."/>
+                     
+                     <control name="creditsDiv"
+                             creditsImage="Textures/Credits/jme.png"
+                             creditsName="jMonkeyEngine" creditsTitle="Game Engine" 
+                             creditsText="jMonkeyEngine provided a great cross-platform engine to work with and can be found at jmonkeyengine.org."/>
+                     
+                     <control name="creditsDiv"
+                             creditsImage="Textures/Credits/freepik.png"
+                             creditsName="Freepik" creditsTitle="Free Vector Icons" 
+                             creditsText="Vector icons from Freepik at flaticon.com"/>
+                     
+                     <control name="creditsDiv"
+                             creditsImage="Textures/Credits/audionautix.png"
+                             creditsName="AudioNautix" creditsTitle="Music" 
+                             creditsText="The background music, 'Cycles', is created by AudioNautix and can be found at audionautix.com."/>
                         
                         
                         
-                    </panel>
-                    
-
-                </control>
+                </panel>
             </control>
           
         </layer>

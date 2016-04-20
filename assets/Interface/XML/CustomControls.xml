@@ -281,6 +281,54 @@
     </controlDefinition>
     
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- CREDITS DIV -->
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <controlDefinition name="creditsDiv" controller="">
+        
+        <panel childLayout="horizontal" padding="10px" width="100%">
+            
+            <!-- CREDITS IMAGE -->
+            <panel childLayout="center" width="33%" padding="3px" backgroundColor="#FFFFFF">
+                <image filename="$creditsImage" width="100%" height="100%"/>
+            </panel>
+            
+            <panel childLayout="horizontal" padding="0px,0px,0px,10px" width="100%">
+                <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="horizontal" width="66%" height="100%" padding="10px">
+
+                    <panel childLayout="vertical">
+
+                        <!-- CREDITS HEADING -->
+                        <panel id="#heading" childLayout="vertical">
+                            <panel childLayout="horizontal">
+                                <text width="50%" text="$creditsName" style="rubik_font26" color="#000000" textHAlign="left" textVAlign="top"/>
+                                <text width="50%" text="$creditsTitle" style="rubik_font26" color="#777" textHAlign="right" textVAlign="top"/>
+                            </panel>
+                            <panel childLayout="center" backgroundColor="#FFFFFF60" height="2px"/>
+                        </panel>
+
+                        <!-- CREDITS TEXT -->
+                        <panel padding="2px" childLayout="center">
+
+                            <panel childLayout="horizontal" padding="5px">
+
+                                <!-- DESCRIPTION -->
+                                <panel childLayout="vertical" width="100%" padding="10px">
+                                    <text width="95%" text="$creditsText" style="raleway_font20" color="#111" textHAlign="left" wrap="true"/>
+                                </panel>
+
+                            </panel>        
+                        </panel>
+
+                    </panel>
+
+                </panel>
+            </panel>
+        </panel>
+    
+    
+    </controlDefinition>
+    
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <!-- SCROLL PANEL WINDOW -->
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <controlDefinition name="scrollPanelWindow" childRootId="#window-content">
