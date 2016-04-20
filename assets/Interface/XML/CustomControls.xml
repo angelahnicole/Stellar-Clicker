@@ -258,9 +258,9 @@
 
                                 <!-- DESCRIPTION -->
                                 <panel childLayout="vertical" width="70%" padding="10px">
-                                    <text text="$staffCost" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
-                                    <text text="$staffDescription" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
-                                    <text text="$staffOnPurchase" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
+                                    <text width="95%" text="$staffCost" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
+                                    <text width="95%" text="$staffDescription" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
+                                    <text width="95%" text="$staffOnPurchase" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
                                 </panel>
 
                                 <!-- BUTTON -->
