@@ -71,19 +71,24 @@
                              creditsText="Matt unleashed his code-fu."/>
                      
                      <control name="creditsDiv"
+                             creditsImage="Textures/Credits/kenney.png"
+                             creditsName="Kenney" creditsTitle="UI Pack" 
+                             creditsText="UI pack: Space extension by Kenney Vleugels (www.kenney.nl)"/>
+                     
+                     <control name="creditsDiv"
                              creditsImage="Textures/Credits/jme.png"
                              creditsName="jMonkeyEngine" creditsTitle="Game Engine" 
-                             creditsText="jMonkeyEngine provided a great cross-platform engine to work with and can be found at jmonkeyengine.org."/>
-                     
+                             creditsText="jMonkeyEngine provided a great cross-platform engine to work with (jmonkeyengine.org)"/>
+
                      <control name="creditsDiv"
                              creditsImage="Textures/Credits/freepik.png"
                              creditsName="Freepik" creditsTitle="Free Vector Icons" 
-                             creditsText="Vector icons from Freepik at flaticon.com"/>
+                             creditsText="Vector icons from Freepik (flaticon.com)"/>
                      
                      <control name="creditsDiv"
                              creditsImage="Textures/Credits/audionautix.png"
                              creditsName="AudioNautix" creditsTitle="Music" 
-                             creditsText="The background music, 'Cycles', is created by AudioNautix and can be found at audionautix.com."/>
+                             creditsText="The background music, 'Cycles', is created by AudioNautix (audionautix.com)"/>
                         
                         
                         

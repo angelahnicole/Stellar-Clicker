@@ -333,7 +333,7 @@
     <!-- +++++++++++++++++++++++++++++++++++++++ -->
     <controlDefinition name="scrollPanelWindow" childRootId="#window-content">
         
-        <control name="window" title="$windowTitle" x="5%" y="5%" width="85%" height="85%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
+        <control name="window" title="$windowTitle" x="8%" y="5%" width="85%" height="85%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
             <panel childLayout="vertical" x="0" y="0" width="100%" height="100%">
                 <control name="scrollPanel" horizontal="false" height="100%" style="scroll" stepSizeY="100" pageSizeY="100">
                     <panel id="#window-content" childLayout="vertical" x="0" y="0" width="100%" height="$panelHeight" padding="5px"/>
