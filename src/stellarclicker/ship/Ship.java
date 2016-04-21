@@ -277,6 +277,9 @@ public class Ship
     *///=========================================================================================================================
     public void resetShip()
     {
+        this.money = 0.0;
+        this.initializeComponents();
+        System.out.println("Resetting the ship");
         
     }
     
