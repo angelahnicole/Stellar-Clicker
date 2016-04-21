@@ -82,6 +82,7 @@ public class Ship
     private double moneyPerSecond;
     private ComponentFactory compFactory;
     private StaffFactory staffFactory;
+    private int previousMoneyTime;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -105,7 +106,7 @@ public class Ship
     private void initializeComponents()
     {
         //TODO: THIS SHOULDN'T BE STARTING MONEY
-        this.money = 200000000;
+        this.money = 1;
         
         // Initializes the component array 
         shipStats = new ShipStatistics[EShipStat.values().length];
@@ -143,6 +144,11 @@ public class Ship
 
            initialCost = Math.round(initialCost*10);
         }
+        
+        //money checkers
+        this.officers = 6;
+        this.previousMoneyTime = 0;
+        //money checkers
     }
     
      /**========================================================================================================================== 
@@ -166,8 +172,18 @@ public class Ship
             seniorStaff[i.ordinal()].update(gameTime);
         }
         
-        //testing remaining time method
-     //   System.out.println(getTimeLeft(EShipComponent.HULL));
+        
+        //TODO: TEST
+        //check officer happiness & update money per second
+        calcMoneyPerSecond(0);
+        
+        //increases money by money per second.
+        if ((int)gameTime > this.previousMoneyTime)
+        {
+            earnMoney(this.moneyPerSecond);
+            this.previousMoneyTime = (int)gameTime;
+            System.out.println(this.money);     
+        }
     }
     
     /**=========================================================================================================================
@@ -265,9 +281,11 @@ public class Ship
     * 
     * @description Calculates the amount of ca$h money to give the player  
     *///=========================================================================================================================
-    private void calcMoneyPerSecond()
+    private void calcMoneyPerSecond(int multiplier)
     {
-       
+        //need more statistics for this calculation.
+       int change = this.officers*multiplier;
+       this.moneyPerSecond = change;
     }
     
     /**========================================================================================================================== 
@@ -301,6 +319,21 @@ public class Ship
     {
         //check component levels
         this.officers += this.claimableOfficers;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET MONEY
+    * 
+    * @description reports cash amount in formatted string
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public String getCash()
+    {
+        
+        DecimalFormat moneyFormat = new DecimalFormat("$0.00");
+        
+        return moneyFormat.format(this.money);
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
