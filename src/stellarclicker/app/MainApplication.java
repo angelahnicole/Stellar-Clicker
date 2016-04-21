@@ -46,6 +46,8 @@ package stellarclicker.app;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
+import com.jme3.audio.AudioSource.Status;
+import com.jme3.audio.AudioNode;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
 
@@ -59,14 +61,22 @@ public class MainApplication extends SimpleApplication
 {  
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    // main application singleton
     public static MainApplication app;
     
+    // game states and nifty instances
     private Nifty nifty;
     private NiftyJmeDisplay niftyDisplay;
     protected EAppState changeState;
     protected AppState currentState;
-    public Ship myShip;
     
+    // music
+    private AudioNode audioMusic;
+    private String musicKey = "Sounds/Music/Cycles Looped.ogg";
+    private boolean musicOn = false;
+    
+    // game attributes
+    public Ship myShip;
     private float gameTime;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,10 +110,13 @@ public class MainApplication extends SimpleApplication
     {
         System.out.println("Initializing...");
         
-        // Adding JSON loader so we can read JSON files
+        // Adding JSON loader so we can read JSON files (needs to happen before ship is created)
         assetManager.registerLoader(JSONLoader.class, "json");
 
         myShip = new Ship();
+        
+        // initialize background music
+        initMusic();
         
         // initializing the nifty GUI
         niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
@@ -138,6 +151,9 @@ public class MainApplication extends SimpleApplication
 
         // render the viewports
         renderManager.render(tpf, context.isRenderable());
+        
+        // check music so we will restart it if it's done
+        checkMusic();
         
         switch(changeState)
         {
@@ -213,6 +229,125 @@ public class MainApplication extends SimpleApplication
     {
         changeState = newState;
     }
+    
+     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // SOUND MANAGEMENT METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    /**========================================================================================================================== 
+    * @name CHECK MUSIC
+    * 
+    * @description Restarts the music once it has stopped (you can't loop streamed music)
+    *///=========================================================================================================================
+    private void checkMusic()
+    {
+        if(musicOn && audioMusic.getStatus() == Status.Stopped)
+        {
+            initMusic();
+            startMusic();
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name INIT MUSIC
+    * 
+    * @description Creates a new audio node with the desired settings for background music
+    *///=========================================================================================================================
+    private void initMusic()
+    {
+        audioMusic = new AudioNode(assetManager, musicKey, true, false);
+        audioMusic.setPositional(false);
+        audioMusic.setLooping(false);
+        audioMusic.setVolume(1);
+    }
+    
+    /**========================================================================================================================== 
+    * @name START MUSIC
+    * 
+    * @description Returns whether or not the music is "on", or if the volume is on
+    *///=========================================================================================================================
+    public boolean isMusicOn()
+    {
+        return musicOn;
+    }
+    
+    /**========================================================================================================================== 
+    * @name START MUSIC
+    * 
+    * @description Starts the background music for the game
+    *///=========================================================================================================================
+    public void startMusic()
+    {
+        if(audioMusic.getStatus() != Status.Playing)
+        {
+            audioMusic.play();
+            musicOn = true;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name STOP MUSIC
+    * 
+    * @description Stops the background music for the game
+    *///=========================================================================================================================
+    public void stopMusic()
+    {
+        if(audioMusic.getStatus() != Status.Stopped)
+        {
+            audioMusic.stop();
+            musicOn = false;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name SET MUSIC VOLUME
+    * 
+    * @description Toggles the volume of the music.
+    * 
+    * @param mute Whether or not you want to mute the music
+    *///=========================================================================================================================
+    public void setMusicVolume(boolean mute)
+    {
+        if(mute)
+        {
+            audioMusic.setVolume(0);
+            musicOn = false;
+        }
+        else
+        {
+            audioMusic.setVolume(1);
+            musicOn = true;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name SET MUSIC VOLUME
+    * 
+    * @description Changes the volume of the music.
+    * 
+    * @param volume The volume of the music.
+    *///=========================================================================================================================
+    public void setMusicVolume(float volume)
+    {
+        audioMusic.setVolume(volume);
+        
+        if(volume == 0)
+        {
+            musicOn = false;
+        }
+        else
+        {
+            musicOn = true;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // GETTERS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
     * @name GET NIFTY

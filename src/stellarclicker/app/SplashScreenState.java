@@ -148,6 +148,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     public void onStartScreen()
     {
         System.out.println("onStartScreen");
+        
+        // start music
+        MainApplication.app.startMusic();
     }
 
     
