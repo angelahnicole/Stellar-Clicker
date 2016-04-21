@@ -126,6 +126,11 @@ public class SeniorStaff
         
     }
     
+    public boolean isPurchased()
+    {
+        return this.isPurchased;
+    }
+    
     
     public double getPurchaseCost()
     {

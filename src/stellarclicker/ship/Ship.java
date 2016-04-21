@@ -550,13 +550,25 @@ public class Ship
     }
     
     /**========================================================================================================================== 
+    * @name IS SENIOR STAFF PURCHASED
+    * 
+    * @description Whether or not the senior staff is purchased
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public boolean isSeniorStaffPurchased(ESeniorStaff officer)
+    {
+        return seniorStaff[officer.ordinal()].isPurchased();
+    }
+    
+    /**========================================================================================================================== 
     * @name GET CURRENT MONEY
     * 
-    * @description returns money value  
+    * @description Returns formatted money value
     *///=========================================================================================================================
-    private String getCurrentMoney()
+    public String getCurrentMoney()
     {
-       return BigNumber.getNumberString(money);
+       return BigNumber.getNumberString(this.money);
     }
     
     /**========================================================================================================================== 
