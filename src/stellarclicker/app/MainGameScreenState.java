@@ -56,6 +56,7 @@ import com.jme3.renderer.ViewPort;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -80,6 +81,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public static final String TRAVEL_WINDOW_ID = "travelWindow";
     public static final String SHIP_IMAGE_ID = "mainShipImage";
     public static final String AUDIO_IMAGE_ID = "audioButton#iconPanel#iconImage";
+    public static final String MONEY_COMP_ID = "money";
+    public static final String MONEY_TEXT_ID = "#compMoney";
     
     private Nifty nifty;
     private Screen screen;
@@ -160,6 +163,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             updateActiveShipComponents();
             updateInactiveShipComponents();
             updateBrokenShipComponents();
+            updateMoneyInfo();
         }
     }
     
@@ -398,6 +402,27 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             Element shipImage = this.screen.findElementByName(SHIP_IMAGE_ID);
             shipImage.getRenderer(ImageRenderer.class).setImage(newImage);
         }
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE MONEY INFO
+    * 
+    * @description Updates cash and buttons to reflect money
+    *///=========================================================================================================================
+    private void updateMoneyInfo()
+    {
+   
+        if(this.nifty != null && this.screen != null)
+        {
+            // update current money
+            String currentMoney = MainApplication.app.myShip.getCashFormat();
+            Element moneyCompElem = this.screen.findElementByName(MONEY_COMP_ID);
+            if(moneyCompElem != null)
+            {
+                moneyCompElem.findElementByName(MONEY_TEXT_ID).getRenderer(TextRenderer.class).setText(currentMoney);
+            }
+        }
+        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
