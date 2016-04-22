@@ -195,7 +195,7 @@
         <layer id="seniorStaffUI" childLayout="absolute">
             
             <control id="seniorStaffWindow" name="scrollPanelWindow" windowTitle="Senior Staff" panelHeight="200%">
-                <panel childLayout="vertical" padding="5px">
+                <panel id="seniorStaffPanel" childLayout="vertical" padding="5px">
                     
                     <control name="seniorStaffDiv" id="CHIEF_MEDICAL_OFFICER"
                              staffImage="Textures/Staff/chiefMedicalOfficer.png" 

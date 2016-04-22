@@ -258,14 +258,14 @@
 
                                 <!-- DESCRIPTION -->
                                 <panel childLayout="vertical" width="70%" padding="10px">
-                                    <text width="95%" text="$staffCost" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
+                                    <text id="#staffCostText" width="95%" text="$staffCost" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
                                     <text width="95%" text="$staffDescription" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
                                     <text width="95%" text="$staffOnPurchase" style="rubik_font14" color="#000000" textHAlign="left" wrap="true"/>
                                 </panel>
 
                                 <!-- BUTTON -->
                                 <panel childLayout="center" width="30%" padding="10px">
-                                    <control name="toggle-button" mainText="Purchase" toggleText="Purchased" onClickMethod="purchase()" buttonColor="#FFFFFF80"/>
+                                    <control id="#staffBuyButton" name="toggle-button" mainText="Purchase" toggleText="Purchased" onClickMethod="purchase()" buttonColor="#FFFFFF80"/>
                                 </panel>
 
                             </panel>        

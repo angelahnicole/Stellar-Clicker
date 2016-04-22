@@ -48,17 +48,12 @@ package stellarclicker.app;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
 import de.lessvoid.nifty.elements.Element;
-import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.input.NiftyInputEvent;
 import de.lessvoid.nifty.screen.Screen;
-import de.lessvoid.nifty.tools.SizeValue;
 import de.lessvoid.xml.xpp3.Attributes;
 import java.util.Properties;
-import de.lessvoid.nifty.tools.Color;
-import stellarclicker.ship.ShipComponent;
 import stellarclicker.util.ESeniorStaff;
-import stellarclicker.util.EShipComponent;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -68,10 +63,18 @@ public class StaffElementController implements Controller
     
     public static final String COLOR_RED_HEX = "#B8121270";
     public static final String COLOR_GREEN_HEX = "#18B81270";
+    public static final String STAFF_BUY_BUTTON = "#staffBuyButton";
+    public static final String MAIN_BUTTON_TEXT_ID = "#mainText";
+    public static final String TOGGLE_BUTTON_TEXT_ID = "#toggleText";
+    public static final String STAFF_COST_TEXT_ID = "#staffCostText";
+    public static final String DISABLE_BUYING_TEXT = "Not enough $$$";
+    public static final String ENABLE_BUYING_TEXT_PURCHASED = "Purchased";
+    public static final String ENABLE_BUYING_TEXT_PURCHASE = "Purchase";
     
     private Nifty nifty;
     private Screen screen;
     private Element staffElem;
+    private ESeniorStaff staffEnum;
     private Attributes controlDefinitionAttributes;
     private boolean appearsBroken;
     
@@ -121,7 +124,7 @@ public class StaffElementController implements Controller
     *///=========================================================================================================================
     public void onStartScreen()
     {
-        
+        this.staffEnum = stringToEnum(this.staffElem.getId());
     }
 
     /**========================================================================================================================== 
@@ -162,12 +165,64 @@ public class StaffElementController implements Controller
     public void purchase()
     {
         // purchase the senior staff
-        ESeniorStaff staffEnum = stringToEnum(staffElem.getId());
         System.out.println("Purchased" + staffEnum);
         MainApplication.app.myShip.purchaseSeniorStaff(staffEnum);
         
         // disable the component
         disableComponent();
+    }
+    
+    public void updateCost(String cost)
+    {   
+        // update time left text control
+        Element staffCostElem = staffElem.findElementByName(STAFF_COST_TEXT_ID);
+        if(staffCostElem != null)
+        {
+            staffCostElem.getRenderer(TextRenderer.class).setText(cost);
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name DISABLE BUYING
+    * 
+    * @description 
+    *///=========================================================================================================================
+    public void disableBuying()
+    {
+        // Only do something if it's not already purchased
+        if( !MainApplication.app.myShip.isSeniorStaffPurchased(staffEnum) && staffElem.isEnabled() )
+        {
+            Element buyButton = staffElem.findElementByName(STAFF_BUY_BUTTON);
+            if(buyButton != null)
+            {
+                buyButton.disable();
+                
+                Element toggleText = buyButton.findElementByName(TOGGLE_BUTTON_TEXT_ID);
+                toggleText.getRenderer(TextRenderer.class).setText(DISABLE_BUYING_TEXT);
+            }
+            
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name ENABLED BUYING
+    * 
+    * @description 
+    *///=========================================================================================================================
+    public void enableBuying()
+    {
+        // Only do something if it's not already purchased
+        if( !MainApplication.app.myShip.isSeniorStaffPurchased(staffEnum) && staffElem.isEnabled() )
+        {
+            Element buyButton = staffElem.findElementByName(STAFF_BUY_BUTTON);
+            if(buyButton != null)
+            {
+                buyButton.enable();
+                
+                Element toggleText = buyButton.findElementByName(TOGGLE_BUTTON_TEXT_ID);
+                toggleText.getRenderer(TextRenderer.class).setText(ENABLE_BUYING_TEXT_PURCHASED);
+            }
+        }
     }
     
     /**========================================================================================================================== 

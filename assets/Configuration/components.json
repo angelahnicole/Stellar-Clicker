@@ -7,7 +7,7 @@
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
         "NUM_STATS": "1",
-        "LEVEL_COST": "10000000.0",
+        "LEVEL_COST": "190000000.0",
         "LEVEL_TIERS": ["1", "3", "5", "10", "15"],
         "BASE_PICTURE_NAME": "hullComponent%s.png"
     },
@@ -19,7 +19,7 @@
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
         "NUM_STATS": "1",
-        "LEVEL_COST": "10000000.0",
+        "LEVEL_COST": "1000000000.0",
         "LEVEL_TIERS": ["1", "3", "5", "10", "15"],
         "BASE_PICTURE_NAME": "shieldComponent%s.png"
     },
@@ -31,7 +31,7 @@
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
         "NUM_STATS": "1",
-        "LEVEL_COST": "15000000.0",
+        "LEVEL_COST": "1500000000.0",
         "LEVEL_TIERS": ["1", "3", "5", "10", "15"],
         "BASE_PICTURE_NAME": "engineComponent%s.png"
     },
@@ -43,7 +43,7 @@
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
         "NUM_STATS": "1",
-        "LEVEL_COST": "30000000.0",
+        "LEVEL_COST": "3000000000.0",
         "LEVEL_TIERS": ["1", "3", "5", "10", "15"],
         "BASE_PICTURE_NAME": "weaponComponent%s.png"
     },
@@ -55,7 +55,7 @@
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
         "NUM_STATS": "1",
-        "LEVEL_COST": "10000000.0",
+        "LEVEL_COST": "1000000000.0",
         "LEVEL_TIERS": ["1", "3", "5", "10", "15"],
         "BASE_PICTURE_NAME": "lifeSupportComponent%s.png"
     },
@@ -67,7 +67,7 @@
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
         "NUM_STATS": "1",
-        "LEVEL_COST": "10000000.0",
+        "LEVEL_COST": "1000000000.0",
         "LEVEL_TIERS": ["1", "3", "5", "10", "15"],
         "BASE_PICTURE_NAME": "replicatorComponent%s.png"
     },
@@ -79,7 +79,7 @@
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
         "NUM_STATS": "1",
-        "LEVEL_COST": "20000000.0",
+        "LEVEL_COST": "2000000000.0",
         "LEVEL_TIERS": ["1", "3", "5", "10", "15"],
         "BASE_PICTURE_NAME": "holodeckComponent%s.png"
     }
