@@ -74,9 +74,8 @@ public class Ship
     private ShipComponent[] activeComponents;  
     private ShipComponent[] inactiveComponents;
     private ShipComponent[] shipComponents;
-    private ShipStatistics[] shipStats;
+    private ShipStatistics shipStats;
     private SeniorStaff[] seniorStaff;
-    private int[] shipStatistics;
     private int officers;
     private int claimableOfficers;
     private double money;
@@ -110,7 +109,6 @@ public class Ship
         this.money = 1.0;
         
         // Initializes the component array 
-        shipStats = new ShipStatistics[EShipStat.values().length];
         shipComponents = new ShipComponent[EShipComponent.values().length];
         seniorStaff = new SeniorStaff[ESeniorStaff.values().length];
         inactiveComponents =  new ShipComponent[EShipComponent.values().length]; 
@@ -130,10 +128,7 @@ public class Ship
 
 
         // This for each creates ship stats 
-        for(EShipStat m : EShipStat.values()) 
-        {
-           shipStats[m.ordinal()] = new ShipStatistics();
-        }
+        this.shipStats = new ShipStatistics();
 
         //creates the senior staff which match the number of components
         for(ESeniorStaff i : ESeniorStaff.values()) 
