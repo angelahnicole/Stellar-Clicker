@@ -376,6 +376,45 @@ public class Ship
     }
     
     /**=========================================================================================================================
+    * @name GET SHIP COMPONENT COST
+    * 
+    * @description Returns the cost of the ship depending on its state
+    * 
+    * @param component The ship component enum that describes the desired ship component
+    *///=========================================================================================================================
+    public double getShipComponentCost(EShipComponent component)
+    {
+        ShipComponent shipComp = shipComponents[component.ordinal()];
+        EShipComponentState shipCompState = shipComp.getComponentState();
+        double cost = Double.MAX_VALUE;
+        
+        // user can buy repairs if it's broken or repairing
+        if(shipCompState == EShipComponentState.BROKEN || shipCompState == EShipComponentState.REPAIRING)
+        {
+            cost = this.getInstantRepairCost(component);
+        }
+        // user can buy levels if it's gaining experience or inactive
+        else if(shipCompState == EShipComponentState.GAINING_EXP || shipCompState == EShipComponentState.INACTIVE)
+        {
+            cost = this.getInstantLevelCost(component);
+        }
+        
+        return cost;
+    }
+    
+    /**=========================================================================================================================
+    * @name GET SHIP COMPONENT COST STRING
+    * 
+    * @description Returns the formatted cost of the ship depending on its state
+    * 
+    * @param component The ship component enum that describes the desired ship component
+    *///=========================================================================================================================
+    public String getShipComponentCostStr(EShipComponent component)
+    {
+        return BigNumber.getNumberString( getShipComponentCost(component) );
+    }
+    
+    /**=========================================================================================================================
     * @name GET SHIP COMPONENT LEVEL
     * 
     * @description Instantly level up the component if the user has enough money 
@@ -445,6 +484,30 @@ public class Ship
     public EShipComponentState getComponentState(EShipComponent component)
     {   
         return shipComponents[component.ordinal()].getComponentState();
+    }
+    
+    /**========================================================================================================================== 
+    * @name CAN AFFORD
+    * 
+    * @description Returns whether or not the user can afford purchasing repairs or levels
+    * 
+    * @param component The ship component enum that describes the desired ship component
+    *///=========================================================================================================================
+    public boolean canAfford(EShipComponent component)
+    {
+        return getShipComponentCost(component) <= this.money;
+    }
+    
+    /**========================================================================================================================== 
+    * @name CAN AFFORD
+    * 
+    * @description Returns whether or not the user can afford purchasing senior staff
+    * 
+    * @param officer The senior staff enum that describes the desired senior staff
+    *///=========================================================================================================================
+    public boolean canAfford(ESeniorStaff officer)
+    {
+        return this.getSeniorStaffCost(officer) <= this.money;
     }
     
     /**========================================================================================================================== 
@@ -548,24 +611,31 @@ public class Ship
     *///=========================================================================================================================
     public String getSeniorStaffName(ESeniorStaff officer)
     {
-        String name = seniorStaff[officer.ordinal()].getName();
-        
-        return name;
+        return seniorStaff[officer.ordinal()].getName();
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET SENIOR STAFF COST STR
+    * 
+    * @description Reports the formatted cost of a staff member
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public String getSeniorStaffCostStr(ESeniorStaff officer)
+    {
+        return BigNumber.getNumberString( seniorStaff[officer.ordinal()].getPurchaseCost() );
     }
     
     /**========================================================================================================================== 
     * @name GET SENIOR STAFF COST
     * 
-    * @description reports the cost of a staff member
+    * @description Reports the numerical cost of a staff member
     * 
     * @param officer the enumerated officer
     *///=========================================================================================================================
-    public String getSeniorStaffCost(ESeniorStaff officer)
+    public double getSeniorStaffCost(ESeniorStaff officer)
     {
-        double cost = seniorStaff[officer.ordinal()].getPurchaseCost();
-        DecimalFormat moneyFormat = new DecimalFormat("$0.00");
-        
-        return moneyFormat.format(cost);
+        return seniorStaff[officer.ordinal()].getPurchaseCost();
     }
     
     /**========================================================================================================================== 
@@ -581,11 +651,11 @@ public class Ship
     }
     
     /**========================================================================================================================== 
-    * @name GET CURRENT MONEY
+    * @name GET CURRENT MONEY STR
     * 
     * @description Returns formatted money value
     *///=========================================================================================================================
-    public String getCurrentMoney()
+    public String getCurrentMoneyStr()
     {
        return BigNumber.getNumberString(this.money);
     }
