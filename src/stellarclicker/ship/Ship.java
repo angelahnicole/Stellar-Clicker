@@ -223,7 +223,12 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentLevel(EShipComponent component)
     {
+        double temp = shipComponents[component.ordinal()].getLevelCost();
+        if (this.money > temp)
+        {
+        this.money = this.money - temp;
         shipComponents[component.ordinal()].levelUp();
+        }
     }
 
     /**=========================================================================================================================
@@ -235,7 +240,12 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentRepair(EShipComponent component)
     {
+        double temp = shipComponents[component.ordinal()].getRepairCost();
+        if (this.money > temp)
+        {
+        this.money = this.money - temp;
         shipComponents[component.ordinal()].repairComponent();
+        }
     }
     
     /**========================================================================================================================== 
