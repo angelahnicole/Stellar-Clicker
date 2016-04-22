@@ -45,8 +45,6 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import com.jme3.asset.AssetKey;
-import com.jme3.texture.Image;
 import de.lessvoid.nifty.EndNotify;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
@@ -404,21 +402,8 @@ public class ShipComponentElementController implements Controller
         // start fix component event
         this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).startEffect(EffectEventId.onCustom, new BreakComp(), "breakComp");
         
-        // change buy button to show repair info
-        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
-        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
-        if(mainText != null && hoverText != null)
-        {
-            mainText.getRenderer(TextRenderer.class).setText(repairCost);
-            hoverText.getRenderer(TextRenderer.class).setText(HOVER_REPAIR_TEXT);
-        }
-        
-        // change buy button to have a red overlay
-        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
-        if(mainPanel != null)
-        {
-            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_RED_HEX));
-        }
+        // change color and text of button
+        switchToRepairButton(repairCost);
         
         this.appearsBroken = true;
     }
@@ -435,21 +420,8 @@ public class ShipComponentElementController implements Controller
         // start fix component event
         this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).startEffect(EffectEventId.onCustom, new FixComp(), "fixComp");
         
-        // change buy button to show level info
-        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
-        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
-        if(mainText != null && hoverText != null)
-        {
-            mainText.getRenderer(TextRenderer.class).setText(levelCost);
-            hoverText.getRenderer(TextRenderer.class).setText(HOVER_LEVEL_TEXT);
-        }
-        
-        // change buy button to have a green overlay
-        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
-        if(mainPanel != null)
-        {
-            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_GREEN_HEX));
-        }
+        // change color and text of button
+        switchToLevelButton(levelCost);
         
         this.appearsBroken = false;
     }
@@ -510,56 +482,86 @@ public class ShipComponentElementController implements Controller
         shipCompElem.layoutElements();
     }
     
+    /**========================================================================================================================== 
+    * @name DISABLE BUYING
+    * 
+    * @description Disables the buy button for the ship component
+    *///=========================================================================================================================
     public void disableBuying()
     {
-        if( this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).isEnabled() )
-        {   
-            disableBuyButton();
+        disableBuyButton();
+    }
+    
+    /**========================================================================================================================== 
+    * @name ENABLE BUYING
+    * 
+    * @description Enables the button for buying- has to make sure to have the correct color and labeling
+    * 
+    * @param cost Formatted cost
+    *///=========================================================================================================================
+    public void enableBuying(String cost)
+    {
+        if(appearsBroken)
+        {
+            switchToRepairButton(cost);
+        }
+        else
+        {
+            switchToLevelButton(cost);
+        }
+
+        enableBuyButton();
+    }
+    
+    /**========================================================================================================================== 
+    * @name SWTICH TO REPAIR BUTTON
+    * 
+    * @description Changes the buy button to have repair text and repair color
+    * 
+    * @param repairCost Formatted cost of repairing the component
+    *///=========================================================================================================================
+    private void switchToRepairButton(String repairCost)
+    {
+        // change buy button to show repair info
+        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
+        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
+        if(mainText != null && hoverText != null)
+        {
+            mainText.getRenderer(TextRenderer.class).setText(repairCost);
+            hoverText.getRenderer(TextRenderer.class).setText(HOVER_REPAIR_TEXT);
+        }
+
+        // change buy button to have a red overlay
+        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
+        if(mainPanel != null)
+        {
+            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_RED_HEX));
         }
     }
     
-    public void enableBuying(String cost)
+    /**========================================================================================================================== 
+    * @name SWTICH TO LEVEL BUTTON
+    * 
+    * @description Changes the buy button to have level text and level color
+    * 
+    * @param repairCost Formatted cost of leveling the component
+    *///=========================================================================================================================
+    private void switchToLevelButton(String levelCost)
     {
-        if( this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).isEnabled() )
+        // change buy button to show level info
+        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
+        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
+        if(mainText != null && hoverText != null)
         {
-            if(appearsBroken)
-            {
-                // change buy button to show repair info
-                Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
-                Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
-                if(mainText != null && hoverText != null)
-                {
-                    mainText.getRenderer(TextRenderer.class).setText(cost);
-                    hoverText.getRenderer(TextRenderer.class).setText(HOVER_REPAIR_TEXT);
-                }
-                
-                // change buy button to have a red overlay
-                Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
-                if(mainPanel != null)
-                {
-                    mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_RED_HEX));
-                }
-            }
-            else
-            {
-                // change buy button to show level info
-                Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
-                Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
-                if(mainText != null && hoverText != null)
-                {
-                    mainText.getRenderer(TextRenderer.class).setText(cost);
-                    hoverText.getRenderer(TextRenderer.class).setText(HOVER_LEVEL_TEXT);
-                }
-                
-                // change buy button to have a green overlay
-                Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
-                if(mainPanel != null)
-                {
-                    mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_GREEN_HEX));
-                }
-            }
-            
-            enableBuyButton();
+            mainText.getRenderer(TextRenderer.class).setText(levelCost);
+            hoverText.getRenderer(TextRenderer.class).setText(HOVER_LEVEL_TEXT);
+        }
+
+        // change buy button to have a green overlay
+        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
+        if(mainPanel != null)
+        {
+            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_GREEN_HEX));
         }
     }
     

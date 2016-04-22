@@ -160,18 +160,21 @@ public class StaffElementController implements Controller
     /**========================================================================================================================== 
     * @name PURCHASE
     * 
-    * @description 
+    * @description Purchases a senior staff and disables the component
     *///=========================================================================================================================
     public void purchase()
     {
-        // purchase the senior staff
-        System.out.println("Purchased" + staffEnum);
         MainApplication.app.myShip.purchaseSeniorStaff(staffEnum);
-        
-        // disable the component
         disableComponent();
     }
     
+    /**========================================================================================================================== 
+    * @name UPDATE COST
+    * 
+    * @description Updates the senior staff purchase cost
+    * 
+    * @param cost Formatted cost
+    *///=========================================================================================================================
     public void updateCost(String cost)
     {   
         // update time left text control
@@ -185,7 +188,7 @@ public class StaffElementController implements Controller
     /**========================================================================================================================== 
     * @name DISABLE BUYING
     * 
-    * @description 
+    * @description Disables the staff purchase button if it's not already purchased
     *///=========================================================================================================================
     public void disableBuying()
     {
@@ -205,9 +208,9 @@ public class StaffElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name ENABLED BUYING
+    * @name ENABLE BUYING
     * 
-    * @description 
+    * @description Enables the staff purchase button if it's not already purchased
     *///=========================================================================================================================
     public void enableBuying()
     {
