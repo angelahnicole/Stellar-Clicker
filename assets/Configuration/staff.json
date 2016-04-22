@@ -1,72 +1,58 @@
 {
     "HULL_ENGINEER":
     {
-        "name": "HULL_ENGINEER",
-        "BASE_TIME": "10",
-        "MAX_DUR": "100",
-        "MIN_LEVEL": "1",
-        "MAX_LEVEL": "999",
-        "NUM_STATS": "1",
-        "LEVEL_COST": "10000000.0"
+        "NAME": "Flrrrp Flurp",
+        "TITLE": "HULL_ENGINEER",
+        "DESCRIPTION": "Repairs and upgrades the HULL",
+        "ON_PURCHASE": "x 5 to HULL HEALTH on purchase",
+        "COST": "100000000.0"
     },
     "SHIELDS_ENGINEER":
     {
-        "name": "SHIELDS_ENGINEER",
-        "BASE_TIME": "10",
-        "MAX_DUR": "100",
-        "MIN_LEVEL": "1",
-        "MAX_LEVEL": "999",
-        "NUM_STATS": "1",
-        "LEVEL_COST": "10000000.0"
+        "NAME": "Hairy Pepper",
+        "TITLE": "SHIELDS_ENGINEER",
+        "DESCRIPTION": "Repairs and upgrades SHIELDS",
+        "ON_PURCHASE": "x 5 to SHIELD HEALTH on purchase",
+        "COST": "100000000.0"
     },
     "WARP_ENGINEER":
     {
-        "name": "WARP_ENGINEER",
-        "BASE_TIME": "10",
-        "MAX_DUR": "100",
-        "MIN_LEVEL": "1",
-        "MAX_LEVEL": "999",
-        "NUM_STATS": "1",
-        "LEVEL_COST": "15000000.0"
+        "NAME": "Fred Swan",
+        "TITLE": "WARP_ENGINEER",
+        "DESCRIPTION": "Repairs and upgrades ENGINES",
+        "ON_PURCHASE": "x 5 to ENGINE SPEED on purchase",
+        "COST": "100000000.0"
     },
     "TACTICAL_OFFICER":
     {
-        "name": "TACTICAL_OFFICER",
-        "BASE_TIME": "10",
-        "MAX_DUR": "100",
-        "MIN_LEVEL": "1",
-        "MAX_LEVEL": "999",
-        "NUM_STATS": "1",
-        "LEVEL_COST": "30000000.0"
+        "NAME": "Gazorp Zadorp",
+        "TITLE": "TACTICAL_OFFICER",
+        "DESCRIPTION": "Repairs and upgrades WEAPONS",
+        "ON_PURCHASE": "x 5 to WEAPON DAMAGE on purchase",
+        "COST": "100000000.0"
     },
     "CHIEF_MEDICAL_OFFICER":
     {
-        "name": "CHIEF_MEDICAL_OFFICER",
-        "BASE_TIME": "10",
-        "MAX_DUR": "100",
-        "MIN_LEVEL": "1",
-        "MAX_LEVEL": "999",
-        "NUM_STATS": "1",
-        "LEVEL_COST": "10000000.0"
+        "NAME": "Dr. Kvork Cain",
+        "TITLE": "CHIEF_MEDICAL_OFFICER",
+        "DESCRIPTION": "Repairs and upgrades LIFE SUPPORT",
+        "ON_PURCHASE": "x 5 to OFFICER HEALTH on purchase",
+        "COST": "100000000.0"
     },
     "BARKEEP":
     {
-        "name": "BARKEEP",
-        "BASE_TIME": "10",
-        "MAX_DUR": "100",
-        "MIN_LEVEL": "1",
-        "MAX_LEVEL": "999",
-        "NUM_STATS": "1",
-        "LEVEL_COST": "10000000.0"
+        "NAME": "Lloyd Torrance",
+        "TITLE": "BARKEEP",
+        "DESCRIPTION": "Repairs and upgrades REPLICATORS",
+        "ON_PURCHASE": "x 5 to OFFICER HEALTH and HAPPINESS on purchase",
+        "COST": "100000000.0"
     },
     "HOLODECK_PROGRAMMER":
     {
-        "name": "HOLODECK_PROGRAMMER",
-        "BASE_TIME": "10",
-        "MAX_DUR": "100",
-        "MIN_LEVEL": "1",
-        "MAX_LEVEL": "999",
-        "NUM_STATS": "1",
-        "LEVEL_COST": "20000000.0"
+        "NAME": "Klaatu",
+        "TITLE": "HOLODECK_PROGRAMMER",
+        "DESCRIPTION": "Repairs and upgrades HOLODECKS",
+        "ON_PURCHASE": "x 5 to OFFICER HAPPINESS on purchase",
+        "COST": "100000000.0"
     }
 }

@@ -54,6 +54,7 @@ import stellarclicker.util.StaffFactory;
 
 import java.text.DecimalFormat;
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public class Ship 
@@ -82,6 +83,7 @@ public class Ship
     private double moneyPerSecond;
     private ComponentFactory compFactory;
     private StaffFactory staffFactory;
+    private int previousMoneyTime;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -105,7 +107,7 @@ public class Ship
     private void initializeComponents()
     {
         //TODO: THIS SHOULDN'T BE STARTING MONEY
-        this.money = 200000000;
+        this.money = 1.0;
         
         // Initializes the component array 
         shipStats = new ShipStatistics[EShipStat.values().length];
@@ -115,7 +117,7 @@ public class Ship
         activeComponents =  new ShipComponent[EShipComponent.values().length];
         brokenComponents =  new ShipComponent[EShipComponent.values().length];
         
-        this.officers = 0;
+        
         
         // This for each creates a new component and places it in the array at the index
         for(EShipComponent m : EShipComponent.values()) 
@@ -143,6 +145,12 @@ public class Ship
 
            initialCost = Math.round(initialCost*10);
         }
+        
+        //money checkers
+        this.officers = 6;
+        this.previousMoneyTime = 0;
+        
+        //money checkers
     }
     
      /**========================================================================================================================== 
@@ -166,8 +174,20 @@ public class Ship
             seniorStaff[i.ordinal()].update(gameTime);
         }
         
-        //testing remaining time method
-     //   System.out.println(getTimeLeft(EShipComponent.HULL));
+        
+        //TODO: TEST
+        //check officer happiness & update money per second
+        calcMoneyPerSecond(2000000);
+        
+        //increases money by money per second.
+        if ((int)gameTime > this.previousMoneyTime)
+        {
+            earnMoney(this.moneyPerSecond);
+            this.previousMoneyTime = (int)gameTime;
+            
+            System.out.println(getCashFormat());
+                    
+        }
     }
     
     /**=========================================================================================================================
@@ -203,7 +223,12 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentLevel(EShipComponent component)
     {
+        double temp = shipComponents[component.ordinal()].getLevelCost();
+        if (this.money > temp)
+        {
+        this.money = this.money - temp;
         shipComponents[component.ordinal()].levelUp();
+        }
     }
 
     /**=========================================================================================================================
@@ -215,7 +240,12 @@ public class Ship
     *///=========================================================================================================================
     public void purchaseComponentRepair(EShipComponent component)
     {
+        double temp = shipComponents[component.ordinal()].getRepairCost();
+        if (this.money > temp)
+        {
+        this.money = this.money - temp;
         shipComponents[component.ordinal()].repairComponent();
+        }
     }
     
     /**========================================================================================================================== 
@@ -265,9 +295,11 @@ public class Ship
     * 
     * @description Calculates the amount of ca$h money to give the player  
     *///=========================================================================================================================
-    private void calcMoneyPerSecond()
+    private void calcMoneyPerSecond(int multiplier)
     {
-       
+        //need more statistics for this calculation.
+       double change = this.officers*multiplier;
+       this.moneyPerSecond = change;
     }
     
     /**========================================================================================================================== 
@@ -306,6 +338,26 @@ public class Ship
         this.officers += this.claimableOfficers;
     }
     
+    /**========================================================================================================================== 
+    * @name GET MONEY
+    * 
+    * @description reports cash amount in formatted string
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public Double getCash()
+    {
+        return this.money;
+        
+    }
+    
+    public String getCashFormat()
+    {
+        return BigNumber.getNumberString(this.money);
+    }
+   
+    
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
@@ -334,6 +386,45 @@ public class Ship
     public double getInstantLevelCost(EShipComponent component)
     {
         return shipComponents[component.ordinal()].getLevelCost();
+    }
+    
+    /**=========================================================================================================================
+    * @name GET SHIP COMPONENT COST
+    * 
+    * @description Returns the cost of the ship depending on its state
+    * 
+    * @param component The ship component enum that describes the desired ship component
+    *///=========================================================================================================================
+    public double getShipComponentCost(EShipComponent component)
+    {
+        ShipComponent shipComp = shipComponents[component.ordinal()];
+        EShipComponentState shipCompState = shipComp.getComponentState();
+        double cost = Double.MAX_VALUE;
+        
+        // user can buy repairs if it's broken or repairing
+        if(shipCompState == EShipComponentState.BROKEN || shipCompState == EShipComponentState.REPAIRING)
+        {
+            cost = this.getInstantRepairCost(component);
+        }
+        // user can buy levels if it's gaining experience or inactive
+        else if(shipCompState == EShipComponentState.GAINING_EXP || shipCompState == EShipComponentState.INACTIVE)
+        {
+            cost = this.getInstantLevelCost(component);
+        }
+        
+        return cost;
+    }
+    
+    /**=========================================================================================================================
+    * @name GET SHIP COMPONENT COST STRING
+    * 
+    * @description Returns the formatted cost of the ship depending on its state
+    * 
+    * @param component The ship component enum that describes the desired ship component
+    *///=========================================================================================================================
+    public String getShipComponentCostStr(EShipComponent component)
+    {
+        return BigNumber.getNumberString( getShipComponentCost(component) );
     }
     
     /**=========================================================================================================================
@@ -407,8 +498,41 @@ public class Ship
     {   
         return shipComponents[component.ordinal()].getComponentState();
     }
-     
     
+    /**========================================================================================================================== 
+    * @name CAN AFFORD
+    * 
+    * @description Returns whether or not the user can afford purchasing repairs or levels
+    * 
+    * @param component The ship component enum that describes the desired ship component
+    *///=========================================================================================================================
+    public boolean canAfford(EShipComponent component)
+    {
+        return getShipComponentCost(component) <= this.money;
+    }
+    
+    /**========================================================================================================================== 
+    * @name CAN AFFORD
+    * 
+    * @description Returns whether or not the user can afford purchasing senior staff
+    * 
+    * @param officer The senior staff enum that describes the desired senior staff
+    *///=========================================================================================================================
+    public boolean canAfford(ESeniorStaff officer)
+    {
+        return this.getSeniorStaffCost(officer) <= this.money;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET ALL COMPONENTS
+    * 
+    * @description Returns all ship components
+    *///=========================================================================================================================
+    public ShipComponent[] getAllComponents()
+    {
+        return shipComponents;
+    }
+     
     /**========================================================================================================================== 
     * @name GET ACTIVE COMPONENTS
     * 
@@ -482,6 +606,16 @@ public class Ship
     }
     
     /**========================================================================================================================== 
+    * @name GET ALL STAFF
+    * 
+    * @description Get all of the ship's senior staff
+    *///=========================================================================================================================
+    public SeniorStaff[] getAllStaff()
+    {
+        return seniorStaff;
+    }
+    
+    /**========================================================================================================================== 
     * @name GET SENIOR STAFF NAME
     * 
     * @description reports the NAME of the senior staff member
@@ -490,34 +624,53 @@ public class Ship
     *///=========================================================================================================================
     public String getSeniorStaffName(ESeniorStaff officer)
     {
-        String name = seniorStaff[officer.ordinal()].getName();
-        
-        return name;
+        return seniorStaff[officer.ordinal()].getName();
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET SENIOR STAFF COST STR
+    * 
+    * @description Reports the formatted cost of a staff member
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
+    public String getSeniorStaffCostStr(ESeniorStaff officer)
+    {
+        return BigNumber.getNumberString( seniorStaff[officer.ordinal()].getPurchaseCost() );
     }
     
     /**========================================================================================================================== 
     * @name GET SENIOR STAFF COST
     * 
-    * @description reports the cost of a staff member
+    * @description Reports the numerical cost of a staff member
     * 
     * @param officer the enumerated officer
     *///=========================================================================================================================
-    public String getSeniorStaffCost(ESeniorStaff officer)
+    public double getSeniorStaffCost(ESeniorStaff officer)
     {
-        double cost = seniorStaff[officer.ordinal()].getPurchaseCost();
-        DecimalFormat moneyFormat = new DecimalFormat("$0.00");
-        
-        return moneyFormat.format(cost);
+        return seniorStaff[officer.ordinal()].getPurchaseCost();
     }
     
     /**========================================================================================================================== 
-    * @name GET CURRENT MONEY
+    * @name IS SENIOR STAFF PURCHASED
     * 
-    * @description returns money value  
+    * @description Whether or not the senior staff is purchased
+    * 
+    * @param officer the enumerated officer
     *///=========================================================================================================================
-    private String getCurrentMoney()
+    public boolean isSeniorStaffPurchased(ESeniorStaff officer)
     {
-       return BigNumber.getNumberString(money);
+        return seniorStaff[officer.ordinal()].isPurchased();
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET CURRENT MONEY STR
+    * 
+    * @description Returns formatted money value
+    *///=========================================================================================================================
+    public String getCurrentMoneyStr()
+    {
+       return BigNumber.getNumberString(this.money);
     }
     
     /**========================================================================================================================== 

@@ -56,11 +56,14 @@ import com.jme3.renderer.ViewPort;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import stellarclicker.ship.SeniorStaff;
 
 import stellarclicker.ship.ShipComponent;
+import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponent;
 import stellarclicker.util.EShipComponentState;
 
@@ -80,6 +83,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public static final String TRAVEL_WINDOW_ID = "travelWindow";
     public static final String SHIP_IMAGE_ID = "mainShipImage";
     public static final String AUDIO_IMAGE_ID = "audioButton#iconPanel#iconImage";
+    public static final String MONEY_COMP_ID = "money";
+    public static final String MONEY_TEXT_ID = "#compMoney";
     
     private Nifty nifty;
     private Screen screen;
@@ -160,6 +165,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             updateActiveShipComponents();
             updateInactiveShipComponents();
             updateBrokenShipComponents();
+            updateMoneyInfo();
         }
     }
     
@@ -184,8 +190,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         this.nifty = nifty;
         this.screen = screen;
         
-        // we initialize components here since the screen cannot be non-null
+        // we initialize components and staff here since the screen cannot be non-null
         initShipComponents();
+        initSeniorStaff();
     }
 
     /**========================================================================================================================== 
@@ -240,13 +247,29 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 shipElem.updateCost(shipComp.getFormattedLevelCost());
                 
                 updateShipTier();
-                
-                // break component initially
-                shipElem.breakComponent(shipComp.getFormattedRepairCost());
             }
             
             // discard element
             inactiveComponents[i] = null;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name INIT SENIOR STAFF 
+    * 
+    * @description Grabs a list of senior staff and updates the costs
+    *///=========================================================================================================================
+    private void initSeniorStaff()
+    {
+        SeniorStaff[] seniorStaff = MainApplication.app.myShip.getAllStaff();
+        for(int i = 0; i < seniorStaff.length; i++)
+        {
+            // get staff element from GUI
+            ESeniorStaff staffEnum = ESeniorStaff.values()[i];
+            StaffElementController staffElem = this.screen.findControl(staffEnum.toString(), StaffElementController.class);
+            
+            // get and update cost
+            staffElem.updateCost( MainApplication.app.myShip.getSeniorStaffCostStr(staffEnum) );
         }
     }
     
@@ -278,12 +301,16 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 {
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
                     shipElem.updateProgressBar(0, ShipComponentElementController.RED_BAR_ID);
+                    
+                    shipElem.updateCost(shipComp.getFormattedLevelCost());
                 }
                 else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
                 {
                     
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
                     shipElem.updateProgressBar(0, ShipComponentElementController.GREEN_BAR_ID);
+                    
+                    shipElem.updateCost(shipComp.getFormattedRepairCost());
                 }
                 
                 // update the level and time left labels
@@ -398,6 +425,69 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             Element shipImage = this.screen.findElementByName(SHIP_IMAGE_ID);
             shipImage.getRenderer(ImageRenderer.class).setImage(newImage);
         }
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE MONEY INFO
+    * 
+    * @description Updates cash and buttons to reflect money
+    *///=========================================================================================================================
+    private void updateMoneyInfo()
+    {
+   
+        if(this.nifty != null && this.screen != null)
+        {
+            // update current money
+            String currentMoney = MainApplication.app.myShip.getCurrentMoneyStr();
+            Element moneyCompElem = this.screen.findElementByName(MONEY_COMP_ID);
+            if(moneyCompElem != null)
+            {
+                moneyCompElem.findElementByName(MONEY_TEXT_ID).getRenderer(TextRenderer.class).setText(currentMoney);
+            }
+            
+            // update ship component buttons
+            ShipComponent[] shipComponents = MainApplication.app.myShip.getAllComponents();
+            for(int i = 0; i < shipComponents.length; i++)
+            {
+                ShipComponent shipComp = shipComponents[i];
+                if(shipComp != null)
+                {
+                    // get ship element from GUI
+                    EShipComponent shipEnum = EShipComponent.values()[i];
+                    ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
+                    
+                    if( !MainApplication.app.myShip.canAfford(shipEnum) )
+                    {
+                        shipElem.disableBuying();
+                    }
+                    else
+                    {
+                        shipElem.enableBuying( MainApplication.app.myShip.getShipComponentCostStr(shipEnum) );
+                    }
+                }
+            }
+            
+            // update staff buttons
+            SeniorStaff[] seniorStaff = MainApplication.app.myShip.getAllStaff();
+            for(int i = 0; i < seniorStaff.length; i++)
+            {
+                // get staff element from GUI
+                ESeniorStaff staffEnum = ESeniorStaff.values()[i];
+                StaffElementController staffElem = this.screen.findControl(staffEnum.toString(), StaffElementController.class);
+                
+                if( !MainApplication.app.myShip.canAfford(staffEnum) )
+                {
+                    staffElem.disableBuying();
+                }
+                else
+                {
+                    staffElem.enableBuying();
+                }
+            }
+            
+            
+        }
+        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
