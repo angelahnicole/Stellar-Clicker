@@ -51,7 +51,7 @@ import stellarclicker.util.EShipComponentState;
 import stellarclicker.util.EShipStat;
 import stellarclicker.util.ComponentFactory;
 import stellarclicker.util.StaffFactory;
-
+import stellarclicker.util.*;
 import java.text.DecimalFormat;
 
 
@@ -124,7 +124,7 @@ public class Ship
            //shipComponents[m.ordinal()] = new ShipComponent(m.name());
         }
 
-        int initialCost = 100;
+        
 
 
         // This for each creates ship stats 
@@ -136,9 +136,8 @@ public class Ship
            //seniorStaff[i.ordinal()] = new SeniorStaff(i);
            seniorStaff[i.ordinal()] = staffFactory.buildStaff(i);
 
-           seniorStaff[i.ordinal()].setPurchaseCost(initialCost);
-
-           initialCost = Math.round(initialCost*10);
+           
+           
         }
         
         //money checkers
@@ -268,7 +267,7 @@ public class Ship
         System.out.println(officer.ordinal());
         
         seniorStaff[officer.ordinal()].purchase(shipComponents[officer.ordinal()], this.money);
-        
+        this.money = this.money - seniorStaff[officer.ordinal()].getPurchaseCost();
         System.out.println(shipComponents[officer.ordinal()].NAME);
     }  
 

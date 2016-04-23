@@ -79,6 +79,8 @@ public class MainApplication extends SimpleApplication
     public Ship myShip;
     private float gameTime;
     
+    private boolean beginTime = false;
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
@@ -91,7 +93,9 @@ public class MainApplication extends SimpleApplication
     public static void main(String[] args)
     {
         app = new MainApplication();
+        
         app.start();
+        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,7 +112,7 @@ public class MainApplication extends SimpleApplication
     @Override
     public void simpleInitApp()
     {
-        System.out.println("Initializing...");
+        
         
         // Adding JSON loader so we can read JSON files (needs to happen before ship is created)
         assetManager.registerLoader(JSONLoader.class, "json");
@@ -167,7 +171,7 @@ public class MainApplication extends SimpleApplication
                 
                 currentState = new SplashScreenState();
                 stateManager.attach(currentState);
-                
+                startShip();
                 break;
             }
             // go to the main game state
@@ -195,10 +199,13 @@ public class MainApplication extends SimpleApplication
         changeState = EAppState.STAY_STATE;
         
         //update time across game
+        if (this.beginTime == true)
+        {
         myShip.update(tpf, gameTime);
-
+        }
     }
 
+    
     /**========================================================================================================================== 
     * @name DESTROY
     * 
@@ -320,6 +327,13 @@ public class MainApplication extends SimpleApplication
             audioMusic.setVolume(1);
             musicOn = true;
         }
+    }
+    
+    public void startShip()
+    {
+        
+        this.beginTime = true;
+        
     }
     
     /**========================================================================================================================== 

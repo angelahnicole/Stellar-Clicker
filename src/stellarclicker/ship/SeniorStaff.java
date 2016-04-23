@@ -19,6 +19,7 @@ import stellarclicker.util.EShipStat;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
 import stellarclicker.util.Timer;
+import stellarclicker.util.*;
 public class SeniorStaff 
 {
     
@@ -29,8 +30,8 @@ public class SeniorStaff
     protected double purchasedCost;
     protected boolean isPurchased;
     protected String name;
-    
-    
+    protected String description;
+    protected String onPurchase;
     // Constructor
     SeniorStaff(ESeniorStaff officerType)
     {
@@ -40,6 +41,7 @@ public class SeniorStaff
         this.name = "Senior Staff Member";
         this.isPurchased = false;
         
+        this.description = "";
     }
     // Constructor
    public SeniorStaff(String name)
@@ -49,8 +51,11 @@ public class SeniorStaff
         this.purchasedCost = 100;
         this.name = name;
         this.isPurchased = false;
-        
+        this.description = "";
     }
+   
+   
+   
      /**========================================================================================================================== 
     * @name update
     * 
@@ -83,6 +88,7 @@ public class SeniorStaff
             
             this.isPurchased = true;
             this.managedComponent = component;
+            
             return "Welcome to the crew!";
         }
         
@@ -153,6 +159,25 @@ public class SeniorStaff
         return this.name;
     }
     
+    public String getDescription()
+    {
+        return this.description;
+    }
+    
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+    
+    public String getOnPurchase()
+    {
+        return this.onPurchase;
+    }
+    
+    public void setOnPurchase(String onPurchase)
+    {
+        this.onPurchase = onPurchase;
+    }
     
     
 }
