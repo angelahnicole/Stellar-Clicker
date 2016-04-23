@@ -621,6 +621,16 @@ public class Ship
         return seniorStaff[officer.ordinal()].getName();
     }
     
+    public String getSeniorStaffOnPurchase(ESeniorStaff officer)
+    {
+        return seniorStaff[officer.ordinal()].getOnPurchase();
+    }
+    
+    public String getSeniorStaffDescription(ESeniorStaff officer)
+    {
+        return seniorStaff[officer.ordinal()].getDescription();
+    }
+    
     /**========================================================================================================================== 
     * @name GET SENIOR STAFF COST STR
     * 
