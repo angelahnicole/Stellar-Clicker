@@ -620,12 +620,24 @@ public class Ship
     {
         return seniorStaff[officer.ordinal()].getName();
     }
-    
+    /**========================================================================================================================== 
+    * @name GET SENIOR STAFF ON PURCHASE
+    * 
+    * @description Reports the event On_Purchase for the officer;
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
     public String getSeniorStaffOnPurchase(ESeniorStaff officer)
     {
         return seniorStaff[officer.ordinal()].getOnPurchase();
     }
-    
+    /**========================================================================================================================== 
+    * @name GET SENIOR STAFF DESCRIPTION
+    * 
+    * @description Reports the description of the officer.
+    * 
+    * @param officer the enumerated officer
+    *///=========================================================================================================================
     public String getSeniorStaffDescription(ESeniorStaff officer)
     {
         return seniorStaff[officer.ordinal()].getDescription();

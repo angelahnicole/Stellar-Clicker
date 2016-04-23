@@ -88,18 +88,21 @@ public class StaffFactory
         JSONObject temp = ( JSONObject ) jsonMembers.get(type.toString());
        
         
-        newMember = new SeniorStaff
-        (  
-            (String) temp.get("TITLE")
-            
+        newMember = new SeniorStaff(
+                (String) temp.get("TITLE"), 
+                (String)temp.get("NAME"), 
+                (String)temp.get("DESCRIPTION"), 
+                Double.parseDouble((String)temp.get("COST")),
+                (String)temp.get("ON_PURCHASE")
+                
         );
         
         
-        newMember.setName((String)temp.get("NAME"));
-        newMember.setDescription((String)temp.get("DESCRIPTION"));
         
-        newMember.setPurchaseCost(Double.parseDouble((String)temp.get("COST")));
-        newMember.setOnPurchase((String)temp.get("ON_PURCHASE"));
+        
+        
+        
+        
         return newMember;
     }
     

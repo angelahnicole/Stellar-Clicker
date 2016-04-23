@@ -29,30 +29,21 @@ public class SeniorStaff
     protected int[] shipStatBoost;
     protected double purchasedCost;
     protected boolean isPurchased;
+    protected String staffType;
     protected String name;
     protected String description;
     protected String onPurchase;
     // Constructor
-    SeniorStaff(ESeniorStaff officerType)
+    public SeniorStaff(String officerType, String name, String description, double cost, String onPurchase)
     {
-        //this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
-        //officers default at 100 clatinum
-        this.purchasedCost = 100;
-        this.name = "Senior Staff Member";
-        this.isPurchased = false;
-        
-        this.description = "";
-    }
-    // Constructor
-   public SeniorStaff(String name)
-    {
-        //this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
-        //officers default at 100 clatinum
-        this.purchasedCost = 100;
+        this.staffType = officerType;
         this.name = name;
-        this.isPurchased = false;
-        this.description = "";
+        this.description = description;
+        this.purchasedCost = cost;
+        this.onPurchase = onPurchase;
+        
     }
+    
    
    
    
