@@ -104,7 +104,7 @@ public class ComponentFactory
       
         newComponent = new ShipComponent
         (  
-            (String) temp.get("NAME"), 
+            type.toString(), 
             Integer.parseInt( (String)temp.get("BASE_TIME") ), 
             Integer.parseInt( (String)temp.get("MAX_DUR") ), 
             Integer.parseInt( (String)temp.get("MIN_LEVEL") ), 

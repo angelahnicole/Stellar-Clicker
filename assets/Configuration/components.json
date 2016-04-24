@@ -1,7 +1,6 @@
 {
     "HULL":
     {
-        "NAME": "HULL",
         "BASE_TIME": "10",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
@@ -13,7 +12,6 @@
     },
     "SHIELDS":
     {
-        "NAME": "HULL",
         "BASE_TIME": "10",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
@@ -25,7 +23,6 @@
     },
     "ENGINES":
     {
-        "NAME": "HULL",
         "BASE_TIME": "10",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
@@ -37,7 +34,6 @@
     },
     "WEAPONS":
     {
-        "NAME": "HULL",
         "BASE_TIME": "10",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
@@ -49,7 +45,6 @@
     },
     "LIFE_SUPPORT":
     {
-        "NAME": "HULL",
         "BASE_TIME": "10",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
@@ -61,7 +56,6 @@
     },
     "REPLICATORS":
     {
-        "NAME": "HULL",
         "BASE_TIME": "10",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
@@ -73,7 +67,6 @@
     },
     "HOLODECKS":
     {
-        "NAME": "HULL",
         "BASE_TIME": "10",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
