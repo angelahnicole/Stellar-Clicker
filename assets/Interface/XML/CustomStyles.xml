@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty-styles>
     
-    <style id="font16">
-        <attributes font="Interface/Fonts/PoiretOne_16.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
-    </style>
-    
-    <style id="font12">
-        <attributes font="Interface/Fonts/PoiretOne_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
-    </style>
-    
-    <style id="font24">
-        <attributes font="Interface/Fonts/PoiretOne_24.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
-    </style>
-    
-    <style id="font20">
-        <attributes font="Interface/Fonts/PoiretOne_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
-    </style>
-    
     <style id="rubik_font10">
         <attributes font="Interface/Fonts/RubikMonoOne_10.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
@@ -25,20 +9,24 @@
         <attributes font="Interface/Fonts/RubikMonoOne_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
+    <style id="rubik_font14">
+        <attributes font="Interface/Fonts/RubikMonoOne_14.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
     <style id="rubik_font20">
         <attributes font="Interface/Fonts/RubikMonoOne_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
+    
+    <style id="rubik_font26">
+        <attributes font="Interface/Fonts/RubikMonoOne_26.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
+    
+    <style id="rubik_font36">
+        <attributes font="Interface/Fonts/RubikMonoOne_36.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    </style>
 
-    <style id="titillium_font10">
-        <attributes font="Interface/Fonts/Titillium_10.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
-    </style>
-    
-    <style id="titillium_font12">
-        <attributes font="Interface/Fonts/Titillium_12.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
-    </style>
-    
-    <style id="titillium_font14">
-        <attributes font="Interface/Fonts/Titillium_14.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
+    <style id="raleway_font20">
+        <attributes font="Interface/Fonts/Raleway_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
     <style id="whiteBorder">
@@ -72,10 +60,25 @@
     <style id="componentButton">
         <effect>
             <onHover name="fade" start="#FFFFFF" end="#90FFFF"/>
-            <onDisabled name="fade" start="#FFFFFF" end="#90FFFF"/>
-            <onHover name="show" targetElement="#namePanel"/>
-            <onEndHover name="hide" targetElement="#namePanel"/>
             <onClick name="imageSizePulsate" startSize="100%" endSize="110%" length="250" pulsator="SinusPulsator"/>
+            <!-- ONLY SHOW INACTIVE BG ON ENABLED -->
+            <onEnabled name="show" targetElement="#bgPanel#inactiveBG"/>
+            <onEnabled name="hide" targetElement="#bgPanel#activeBG"/>
+            <!--SHOW HOVER BG ON HOVER AND HIDE IT ON END HOVER -->
+            <onHover name="show" targetElement="#bgPanel#hoverBG"/>
+            <onEndHover name="hide" targetElement="#bgPanel#hoverBG"/>
+            <!-- ONLY SHOW ACTIVE BG ON DISABLED-->
+            <onDisabled name="show" targetElement="#bgPanel#activeBG"/>
+            <onDisabled name="hide" targetElement="#bgPanel#inactiveBG"/>
+            <onDisabled name="hide" targetElement="#bgPanel#brokenBG"/>
+            <!-- ONLY SHOW BROKEN BG ON BREAK AND HIDE ON FIX -->
+            <onCustom customKey="breakComp" name="show" targetElement="#bgPanel#brokenBG"/>
+            <onCustom customKey="breakComp" name="hide" targetElement="#bgPanel#inactiveBG"/>
+            <onCustom customKey="fixComp" name="hide" targetElement="#bgPanel#brokenBG"/>
+            <!-- OVERLAY AND HIDE BROKEN GLASS -->
+            <onCustom customKey="breakComp" name="show" targetElement="#compPanel#brokenImage"/>
+            <onCustom customKey="fixComp" name="hide" targetElement="#compPanel#brokenImage"/>
+            
         </effect>
     </style>
     
@@ -98,7 +101,9 @@
             <onEndHover name="hide" targetElement="#hoverText"/>
             <onEndHover name="show" targetElement="#mainText"/>
             <onClick name="fade" start="#FFFFFF" end="#B3FFFF"/>
-            <onDisabled name="imageOverlay" filename="Interface/Images/UI/glassPanel_red.png" imageMode="resize:10,80,10,10,10,80,10,80,10,80,10,10" post="true" overlay="true"/>
+            <onDisabled name="colorBar" color="#00000099" post="true" overlay="true"/>
+            <onShow name="hide" targetElement="#hoverText"/>
+            <onShow name="show" targetElement="#mainText"/>
         </effect>
     </style>
     
@@ -110,7 +115,23 @@
             <onEndHover name="hide" targetElement="#hoverText"/>
             <onEndHover name="show" targetElement="#iconImage"/>
             <onClick name="fade" start="#FFFFFF" end="#B3FFFF"/>
-            <onDisabled name="imageOverlay" filename="Interface/Images/UI/glassPanel_red.png" imageMode="resize:10,80,10,10,10,80,10,80,10,80,10,10" post="true" overlay="true"/>
+            <onDisabled name="colorBar" color="#00000099" post="true" overlay="true"/>
+            <onShow name="hide" targetElement="#hoverText"/>
+            <onShow name="show" targetElement="#iconImage"/>
+        </effect>
+    </style>
+    
+     <style id="toggle-btn">
+        <effect>
+            <onHover name="fade" start="#FFFFFF" end="#75BFBF"/>
+            <onClick name="fade" start="#FFFFFF" end="#75BFBF"/>
+            <onDisabled name="colorBar" color="#00000099" post="true" overlay="true"/>
+            <onDisabled name="hide" targetElement="#mainText"/>
+            <onDisabled name="show" targetElement="#toggleText"/>
+            <onEnabled name="hide" targetElement="#toggleText"/>
+            <onEnabled name="show" targetElement="#mainText"/>
+            <onShow name="hide" targetElement="#toggleText"/>
+            <onShow name="show" targetElement="#mainText"/>
         </effect>
     </style>
     

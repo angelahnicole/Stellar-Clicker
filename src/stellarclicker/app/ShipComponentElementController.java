@@ -45,12 +45,16 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import de.lessvoid.nifty.EndNotify;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
+import de.lessvoid.nifty.effects.EffectEventId;
 import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.PanelRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.input.NiftyInputEvent;
+import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.tools.SizeValue;
 import de.lessvoid.xml.xpp3.Attributes;
@@ -69,21 +73,24 @@ public class ShipComponentElementController implements Controller
     public static final String RED_BAR_ID = "#redBar";
     public static final String LEVEL_TEXT_ID = "#levelText";
     public static final String LEVEL_TEXT_ATTR = "compLevel";
+    public static final String SHIP_COMP_IMAGE_ID = "#compImage";
     public static final String BROKEN_IMAGE_ID = "#brokenImage";
     public static final String BUY_BUTTON_ID = "#buyButton";
+    public static final String LEVEL_BUTTON_ID = "#levelButton";
     public static final String MAIN_TEXT_ID = "#mainText";
     public static final String HOVER_TEXT_ID = "#hoverText";
     public static final String MAIN_PANEL_ID = "#mainPanel";
     public static final String STAT_IMAGE_ID = "#statImage";
     public static final String STAT_NAME_ID = "#statName";
     public static final String STAT_VALUE_ID = "#statValue";
-    
+    public static final String TIME_LEFT_TEXT_ID = "#timeLeft";
+    public static final String NAME_TEXT_ID = "#namePanel";
     
     public static final String HOVER_LEVEL_TEXT = "BUY LEVEL";
     public static final String HOVER_REPAIR_TEXT = "BUY REPAIR";
     
-    public static final String COLOR_NAVY_HEX = "#00008050";
-    public static final String COLOR_GREEN_HEX = "#18B81250";
+    public static final String COLOR_RED_HEX = "#B8121270";
+    public static final String COLOR_GREEN_HEX = "#18B81270";
     
     private Nifty nifty;
     private Screen screen;
@@ -97,7 +104,6 @@ public class ShipComponentElementController implements Controller
     // CONTROLLER METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
-    
     /**========================================================================================================================== 
     * @name BIND
     * 
@@ -114,6 +120,9 @@ public class ShipComponentElementController implements Controller
         this.shipCompElem = element;
         this.controlDefinitionAttributes = controlDefinitionAttributes;
         System.out.println("bind() called for element: " + element);
+        
+        this.nifty = nifty;
+        this.screen = screen;
     }
     
     /**========================================================================================================================== 
@@ -179,7 +188,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void interact()
     {
-        // TODO: Should probably use EShipComponentState for this one, but this is just a fix for now.
         if(!appearsBroken)
         {
             gainExp();
@@ -224,7 +232,7 @@ public class ShipComponentElementController implements Controller
             EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
             MainApplication.app.myShip.gainComponentExperience(shipEnum);
 
-            disableComponent();
+            disableLevelButton();
         }
     }
     
@@ -267,7 +275,7 @@ public class ShipComponentElementController implements Controller
         EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
         MainApplication.app.myShip.gainComponentRepair(shipEnum);
         
-        disableComponent();
+        disableLevelButton();
     }
     
      /**========================================================================================================================== 
@@ -297,20 +305,50 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void updateLevel(int newLevel)
     {
-        if(shipCompElem.isEnabled())
+        String levelText = String.valueOf(newLevel);
+
+        // update level text control
+        Element levelTextElem = shipCompElem.findElementByName(LEVEL_TEXT_ID);
+        if(levelTextElem != null)
         {
-            String levelText = String.valueOf(newLevel);
-            
-            // update level text control
-            Element levelTextElem = shipCompElem.findElementByName(LEVEL_TEXT_ID);
-            if(levelTextElem != null)
-            {
-                levelTextElem.getRenderer(TextRenderer.class).setText(levelText);
-            }
-            
+            levelTextElem.getRenderer(TextRenderer.class).setText(levelText);
+        }
+        
+        // updates the photo tier
+        if(this.nifty != null && this.screen != null)
+        {
+            EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+            String compPictureName = MainApplication.app.myShip.getShipComponentCurrentPictureName(shipEnum);
+            NiftyImage newImage = this.nifty.getRenderEngine().createImage(this.screen, "Textures/ShipComponents/" + compPictureName, false);
+            Element compImage = this.shipCompElem.findElementByName(SHIP_COMP_IMAGE_ID);
+            compImage.getRenderer(ImageRenderer.class).setImage(newImage);
         }
     }
     
+    /**========================================================================================================================== 
+    * @name UPDATE TIME LEFT
+    * 
+    * @description Updates the time remaining when repairing/gaining experience
+    * 
+    * @param newTimeLeft A formatted string hh:mm:ss for the time remaining
+    *///=========================================================================================================================
+    public void updateTimeLeft(String newTimeLeft)
+    {
+        // update time left text control
+        Element timeTextElem = shipCompElem.findElementByName(TIME_LEFT_TEXT_ID);
+        if(timeTextElem != null)
+        {
+            timeTextElem.getRenderer(TextRenderer.class).setText(newTimeLeft);
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE COST
+    * 
+    * @description Updates the new cost of the ship component
+    * 
+    * @param newCost The new cost of the ship component
+    *///=========================================================================================================================
     public void updateCost(String newCost)
     {
         if(shipCompElem.isEnabled())
@@ -338,7 +376,7 @@ public class ShipComponentElementController implements Controller
         percentComplete = percentComplete * 100;
         
         // convert to the proper x percentage needed for updating the progress bar
-        double progressBarPercent = -100.0 + percentComplete;
+        double progressBarPercent = -120.0 + percentComplete;
         
         // update the progress bar
         Element progressBar = shipCompElem.findElementByName(progressBarID);
@@ -361,29 +399,11 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void breakComponent(String repairCost)
     {
-        // show the broken icon
-        Element brokenImage = this.shipCompElem.findElementByName(BROKEN_IMAGE_ID);
-        if(brokenImage != null)
-        {
-            brokenImage.setVisible(true);
-        }
+        // start fix component event
+        this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).startEffect(EffectEventId.onCustom, new BreakComp(), "breakComp");
         
-        // change buy button to show repair info
-        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
-        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
-        if(mainText != null && hoverText != null)
-        {
-            mainText.getRenderer(TextRenderer.class).setText(repairCost);
-            hoverText.getRenderer(TextRenderer.class).setText(HOVER_REPAIR_TEXT);
-        }
-        
-        // change buy button to have a navy overlay
-        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
-        if(mainPanel != null)
-        {
-            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_NAVY_HEX));
-        }
-        
+        // change color and text of button
+        switchToRepairButton(repairCost);
         
         this.appearsBroken = true;
     }
@@ -397,34 +417,17 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void fixComponent(String levelCost)
     {
-        // hide the broken icon
-        Element brokenImage = this.shipCompElem.findElementByName(BROKEN_IMAGE_ID);
-        if(brokenImage != null)
-        {
-            brokenImage.setVisible(false);
-        }
+        // start fix component event
+        this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).startEffect(EffectEventId.onCustom, new FixComp(), "fixComp");
         
-        // change buy button to show level info
-        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
-        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
-        if(mainText != null && hoverText != null)
-        {
-            mainText.getRenderer(TextRenderer.class).setText(levelCost);
-            hoverText.getRenderer(TextRenderer.class).setText(HOVER_LEVEL_TEXT);
-        }
-        
-        // change buy button to have a green overlay
-        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
-        if(mainPanel != null)
-        {
-            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_GREEN_HEX));
-        }
+        // change color and text of button
+        switchToLevelButton(levelCost);
         
         this.appearsBroken = false;
     }
     
     /**========================================================================================================================== 
-    * @name IS ENABLED
+    * @name IS ELEMENT ENABLED
     * 
     * @description Returns whether or not the element is enabled
     * 
@@ -432,7 +435,31 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public boolean isElementEnabled()
     {
-        return shipCompElem.isEnabled();
+        return this.shipCompElem.isEnabled();
+    }
+    
+    /**========================================================================================================================== 
+    * @name IS LEVEL BUTTON ENABLED
+    * 
+    * @description Returns whether or not the level button element is enabled
+    * 
+    * @return boolean Whether or not the element is enabled
+    *///=========================================================================================================================
+    public boolean isLevelButtonEnabled()
+    {
+        return this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).isEnabled();
+    }
+    
+    /**========================================================================================================================== 
+    * @name IS BUY BUTTON ENABLED
+    * 
+    * @description Returns whether or not the buy button element is enabled
+    * 
+    * @return boolean Whether or not the element is enabled
+    *///=========================================================================================================================
+    public boolean isBuyButtonEnabled()
+    {
+        return this.shipCompElem.findElementByName(BUY_BUTTON_ID).isEnabled();
     }
     
     /**========================================================================================================================== 
@@ -445,25 +472,128 @@ public class ShipComponentElementController implements Controller
         System.out.println("Re-enabled  " + shipCompElem.getId());
         
         this.shipCompElem.enable();
+        this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).enable();
         
         // move back the bar
-        this.shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-100%"));
-        this.shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-100%"));
+        this.shipCompElem.findElementByName(GREEN_BAR_ID).setConstraintX(new SizeValue("-120%"));
+        this.shipCompElem.findElementByName(RED_BAR_ID).setConstraintX(new SizeValue("-120%"));
         
         // layout the elements
         shipCompElem.layoutElements();
     }
     
     /**========================================================================================================================== 
-    * @name DISABLE COMPONENT
+    * @name DISABLE BUYING
     * 
-    * @description 
+    * @description Disables the buy button for the ship component
     *///=========================================================================================================================
-    public void disableComponent()
+    public void disableBuying()
     {
-        shipCompElem.disable();
+        disableBuyButton();
     }
     
+    /**========================================================================================================================== 
+    * @name ENABLE BUYING
+    * 
+    * @description Enables the button for buying- has to make sure to have the correct color and labeling
+    * 
+    * @param cost Formatted cost
+    *///=========================================================================================================================
+    public void enableBuying(String cost)
+    {
+        if(appearsBroken)
+        {
+            switchToRepairButton(cost);
+        }
+        else
+        {
+            switchToLevelButton(cost);
+        }
+
+        enableBuyButton();
+    }
+    
+    /**========================================================================================================================== 
+    * @name SWTICH TO REPAIR BUTTON
+    * 
+    * @description Changes the buy button to have repair text and repair color
+    * 
+    * @param repairCost Formatted cost of repairing the component
+    *///=========================================================================================================================
+    private void switchToRepairButton(String repairCost)
+    {
+        // change buy button to show repair info
+        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
+        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
+        if(mainText != null && hoverText != null)
+        {
+            mainText.getRenderer(TextRenderer.class).setText(repairCost);
+            hoverText.getRenderer(TextRenderer.class).setText(HOVER_REPAIR_TEXT);
+        }
+
+        // change buy button to have a red overlay
+        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
+        if(mainPanel != null)
+        {
+            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_RED_HEX));
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name SWTICH TO LEVEL BUTTON
+    * 
+    * @description Changes the buy button to have level text and level color
+    * 
+    * @param repairCost Formatted cost of leveling the component
+    *///=========================================================================================================================
+    private void switchToLevelButton(String levelCost)
+    {
+        // change buy button to show level info
+        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
+        Element hoverText = this.shipCompElem.findElementByName(HOVER_TEXT_ID);
+        if(mainText != null && hoverText != null)
+        {
+            mainText.getRenderer(TextRenderer.class).setText(levelCost);
+            hoverText.getRenderer(TextRenderer.class).setText(HOVER_LEVEL_TEXT);
+        }
+
+        // change buy button to have a green overlay
+        Element mainPanel = this.shipCompElem.findElementByName(MAIN_PANEL_ID);
+        if(mainPanel != null)
+        {
+            mainPanel.getRenderer(PanelRenderer.class).setBackgroundColor(new Color(COLOR_GREEN_HEX));
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name DISABLE LEVEL BUTTON
+    * 
+    * @description Disables the level button of the component
+    *///=========================================================================================================================
+    public void disableLevelButton()
+    {
+        this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).disable();
+    }
+    
+    /**========================================================================================================================== 
+    * @name DISABLE BUY BUTTON
+    * 
+    * @description Disables the buy button of the component
+    *///=========================================================================================================================
+    public void disableBuyButton()
+    {
+        this.shipCompElem.findElementByName(BUY_BUTTON_ID).disable();
+    }
+    
+    /**========================================================================================================================== 
+    * @name ENABLE BUY BUTTON
+    * 
+    * @description Enables the buy button of the component
+    *///=========================================================================================================================
+    public void enableBuyButton()
+    {
+        this.shipCompElem.findElementByName(BUY_BUTTON_ID).enable();
+    }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -530,4 +660,32 @@ public class ShipComponentElementController implements Controller
     }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // CUSTOM EVENTS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+     class FixComp implements EndNotify 
+     {
+
+        @Override
+        public void perform()
+        {
+            System.out.println("FixComp has ended.");
+        }
+         
+     }
+     
+     class BreakComp implements EndNotify 
+     {
+
+        @Override
+        public void perform()
+        {
+            System.out.println("BreakComp has ended.");
+        }
+         
+     }
+     
+     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

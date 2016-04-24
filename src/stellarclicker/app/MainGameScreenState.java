@@ -52,10 +52,16 @@ import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.ViewPort;
+
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.elements.render.TextRenderer;
+import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import stellarclicker.ship.SeniorStaff;
+
 import stellarclicker.ship.ShipComponent;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponent;
@@ -75,6 +81,10 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public static final String UNLOCKS_WINDOW_ID = "unlocksWindow";
     public static final String TRAVEL_LAYER_ID = "travelUI";
     public static final String TRAVEL_WINDOW_ID = "travelWindow";
+    public static final String SHIP_IMAGE_ID = "mainShipImage";
+    public static final String AUDIO_IMAGE_ID = "audioButton#iconPanel#iconImage";
+    public static final String MONEY_COMP_ID = "money";
+    public static final String MONEY_TEXT_ID = "#compMoney";
     
     private Nifty nifty;
     private Screen screen;
@@ -155,6 +165,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             updateActiveShipComponents();
             updateInactiveShipComponents();
             updateBrokenShipComponents();
+            updateMoneyInfo();
         }
     }
     
@@ -179,8 +190,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         this.nifty = nifty;
         this.screen = screen;
         
-        // need the screen to be non-null
+        // we initialize components and staff here since the screen cannot be non-null
         initShipComponents();
+        initSeniorStaff();
     }
 
     /**========================================================================================================================== 
@@ -206,7 +218,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    // MAIN SCREEN CONTROLLER METHODS
+    // MAIN GAME SCREEN CONTROLLER METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
@@ -230,16 +242,34 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // update the level text and ship level up cost
+                // update basic information about the ship component
                 shipElem.updateLevel(shipComp.getLevel());
                 shipElem.updateCost(shipComp.getFormattedLevelCost());
                 
-                // break component initially
-                shipElem.breakComponent(shipComp.getFormattedRepairCost());
+                updateShipTier();
             }
             
             // discard element
             inactiveComponents[i] = null;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name INIT SENIOR STAFF 
+    * 
+    * @description Grabs a list of senior staff and updates the costs
+    *///=========================================================================================================================
+    private void initSeniorStaff()
+    {
+        SeniorStaff[] seniorStaff = MainApplication.app.myShip.getAllStaff();
+        for(int i = 0; i < seniorStaff.length; i++)
+        {
+            // get staff element from GUI
+            ESeniorStaff staffEnum = ESeniorStaff.values()[i];
+            StaffElementController staffElem = this.screen.findControl(staffEnum.toString(), StaffElementController.class);
+            
+            // get and update cost
+            staffElem.updateCost( MainApplication.app.myShip.getSeniorStaffCostStr(staffEnum) );
         }
     }
     
@@ -262,21 +292,35 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 EShipComponent shipEnum = EShipComponent.values()[i];
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // get percentage complete and update bar
+                // get percentage complete and time left
                 double percentComplete = shipComp.getTimerPercent();
-                
+                String timeLeft = MainApplication.app.myShip.getTimeLeft(shipEnum);
+
                 // update bar (color depends on which activity)
                 if(shipComp.getComponentState() == EShipComponentState.GAINING_EXP)
                 {
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.GREEN_BAR_ID);
+                    shipElem.updateProgressBar(0, ShipComponentElementController.RED_BAR_ID);
+                    
+                    shipElem.updateCost(shipComp.getFormattedLevelCost());
                 }
                 else if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
                 {
                     
                     shipElem.updateProgressBar(percentComplete, ShipComponentElementController.RED_BAR_ID);
+                    shipElem.updateProgressBar(0, ShipComponentElementController.GREEN_BAR_ID);
+                    
+                    shipElem.updateCost(shipComp.getFormattedRepairCost());
                 }
                 
-                // discard element
+                // update the level and time left labels
+                shipElem.updateLevel(shipComp.getLevel());
+                shipElem.updateTimeLeft(timeLeft);
+                
+                updateShipTier();
+                
+                // disable the component and discard element from list
+                shipElem.disableLevelButton();
                 activeComponents[i] = null;
             }
         }
@@ -304,13 +348,18 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
-                // enable it if it needs it (and fixes it if it needs it)
-                if(!shipElem.isElementEnabled())
+                // reinitialize the component by enabling it, updating its info, and making sure that it doesn't look broken
+                if(!shipElem.isLevelButtonEnabled())
                 {
                     shipElem.reenableComponent();
-                    shipElem.updateLevel(shipComp.getLevel());
                     shipElem.fixComponent(shipComp.getFormattedLevelCost());
                 }
+                
+                // update the level and time left labels
+                shipElem.updateLevel(shipComp.getLevel());
+                shipElem.updateTimeLeft("00:00:00");
+                
+                updateShipTier();
             }
             
             // discard element
@@ -340,8 +389,16 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // get ship element from GUI
                 ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
                 
+                // enable it if it needs it
+                if(!shipElem.isLevelButtonEnabled())
+                {
+                    shipElem.reenableComponent();
+                    shipElem.updateLevel(shipComp.getLevel());
+                    
+                    updateShipTier();
+                }
+                
                 // make it appear broken
-                // TODO: need to get the actual repair cost
                 if(!shipElem.appearsBroken())
                 {
                     shipElem.breakComponent(shipComp.getFormattedRepairCost());
@@ -351,6 +408,119 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             // discard element
             brokenComponents[i] = null;
         }
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE SHIP TIER
+    * 
+    * @description Updates the ship's tier based on the ship components' tiers
+    *///=========================================================================================================================
+    private void updateShipTier()
+    {
+        // updates the photo tier of the ship
+        if(this.nifty != null && this.screen != null)
+        {
+            String shipPictureName = MainApplication.app.myShip.getShipCurrentPictureName();
+            NiftyImage newImage = this.nifty.getRenderEngine().createImage(this.screen, "Textures/Ships/" + shipPictureName, false);
+            Element shipImage = this.screen.findElementByName(SHIP_IMAGE_ID);
+            shipImage.getRenderer(ImageRenderer.class).setImage(newImage);
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE MONEY INFO
+    * 
+    * @description Updates cash and buttons to reflect money
+    *///=========================================================================================================================
+    private void updateMoneyInfo()
+    {
+   
+        if(this.nifty != null && this.screen != null)
+        {
+            // update current money
+            String currentMoney = MainApplication.app.myShip.getCurrentMoneyStr();
+            Element moneyCompElem = this.screen.findElementByName(MONEY_COMP_ID);
+            if(moneyCompElem != null)
+            {
+                moneyCompElem.findElementByName(MONEY_TEXT_ID).getRenderer(TextRenderer.class).setText(currentMoney);
+            }
+            
+            // update ship component buttons
+            ShipComponent[] shipComponents = MainApplication.app.myShip.getAllComponents();
+            for(int i = 0; i < shipComponents.length; i++)
+            {
+                ShipComponent shipComp = shipComponents[i];
+                if(shipComp != null)
+                {
+                    // get ship element from GUI
+                    EShipComponent shipEnum = EShipComponent.values()[i];
+                    ShipComponentElementController shipElem = this.screen.findControl(shipEnum.toString(), ShipComponentElementController.class);
+                    
+                    if( !MainApplication.app.myShip.canAfford(shipEnum) )
+                    {
+                        shipElem.disableBuying();
+                    }
+                    else
+                    {
+                        shipElem.enableBuying( MainApplication.app.myShip.getShipComponentCostStr(shipEnum) );
+                    }
+                }
+            }
+            
+            // update staff buttons
+            SeniorStaff[] seniorStaff = MainApplication.app.myShip.getAllStaff();
+            for(int i = 0; i < seniorStaff.length; i++)
+            {
+                // get staff element from GUI
+                ESeniorStaff staffEnum = ESeniorStaff.values()[i];
+                StaffElementController staffElem = this.screen.findControl(staffEnum.toString(), StaffElementController.class);
+                
+                if( !MainApplication.app.myShip.canAfford(staffEnum) )
+                {
+                    staffElem.disableBuying();
+                }
+                else
+                {
+                    staffElem.enableBuying();
+                }
+            }
+            
+            
+        }
+        
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // WINDOW GAME SCREEN CONTROLLER METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    /**========================================================================================================================== 
+    * @name TOGGLE MUSIC
+    * 
+    * @description Toggles the music volume on and off along with changing the icon picture
+    *///=========================================================================================================================
+    public void toggleMusic()
+    {
+        String iconKey;
+        
+        // Turns it off if it's on
+        if(MainApplication.app.isMusicOn())
+        {
+            iconKey = "Interface/Images/Icons/audioOffIcon.png";
+            MainApplication.app.setMusicVolume(true);
+        }
+        // Turns it on if it's off
+        else
+        {
+            iconKey = "Interface/Images/Icons/audioOnIcon.png";
+            MainApplication.app.setMusicVolume(false);
+        }
+        
+        NiftyImage newImage = this.nifty.getRenderEngine().createImage(this.screen, iconKey, false);
+        Element iconImage = this.screen.findElementByName(AUDIO_IMAGE_ID);
+        iconImage.getRenderer(ImageRenderer.class).setImage(newImage);
     }
     
     /**========================================================================================================================== 

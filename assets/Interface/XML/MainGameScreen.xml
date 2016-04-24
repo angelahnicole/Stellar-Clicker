@@ -11,7 +11,19 @@
     <screen id="mainGame" controller="stellarclicker.app.MainGameScreenState">
         
         <layer id="background" childLayout="center">
-            <image filename="Textures/Backgrounds/planetsBackground.png" width="100%" height="100%"></image>
+            <image id="backgroundImage" filename="Textures/Backgrounds/planetsBackground.png" width="100%" height="100%"></image>
+            
+            <panel childLayout="horizontal">
+                
+                <panel width="17.5%"/>
+                
+                <panel width="65%" childLayout="center" padding="30%">
+                    <image id="mainShipImage" filename="Textures/Ships/mainShip_1.png" width="100%" height="100%"/>
+                </panel>
+                
+                <panel width="17.5%"/>
+            </panel>
+            
         </layer>
         
         <layer id="mainUI" childLayout="horizontal">
@@ -19,7 +31,7 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <!-- Left Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
-            <panel id="leftPanel" width="25%" height="100%" childLayout="vertical">
+            <panel id="leftPanel" width="30%" height="100%" childLayout="vertical">
                 
                 <!-- SHIP COMPONENTS: IDs will match their ship component enumeration -->
                 <control id="LIFE_SUPPORT" name="ship-component-div" 
@@ -52,20 +64,14 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <!-- Middle Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
-            <panel id="middlePanel" width="50%" height="100%" childLayout="vertical">
-                
-                <panel height="20%"></panel>
-                
-                <panel height="60%" backgroundImage="Textures/Ships/mainShip_1.png"></panel>
-                
-                <panel height="20%"></panel>
+            <panel id="middlePanel" width="40%" height="100%" childLayout="vertical">
 
             </panel>
             
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <!-- Right Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
-            <panel id="rightPanel" width="25%" height="100%" childLayout="vertical">
+            <panel id="rightPanel" width="30%" height="100%" childLayout="vertical">
                 
                 <!-- MONEY SUMMARY -->
                 <control id="money" name="money-component-div" height="17%"
@@ -80,12 +86,12 @@
                          compLevel="1"/>
                 
                 <panel padding="7px" childLayout="center" width="100%">
-                    <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" width="100%" childLayout="vertical" padding="5px">
+                    <panel backgroundImage="Interface/Images/UI/glassPanel_light_lowAlpha.png" style="glassPanel" width="100%" childLayout="vertical" padding="5px">
 
                         <panel height="1%"/>
 
                         <!-- SHIP STATISTICS -->
-                        <panel height="80%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
+                        <panel height="68%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
                             
                             <control id="hullHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="001"/>
                             <control id="shieldHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="001"/>
@@ -98,13 +104,20 @@
 
                         <panel height="1%"/>
 
-                        <panel height="18%" childLayout="horizontal">
+                        <panel height="30%" childLayout="vertical">
 
                             <!-- WINDOW BUTTONS -->
-                            <control id="officerButton" name="icon-button" iconImagePath="Interface/Images/Icons/officerIcon.png" hoverText="Officers" onClickMethod="openOfficerWindow()"/>
-                            <control id="seniorStaffButton" name="icon-button" iconImagePath="Interface/Images/Icons/seniorStaffIcon.png" hoverText="Staff" onClickMethod="openSeniorStaffWindow()"/>
-                            <control id="unlocksButton" name="icon-button" iconImagePath="Interface/Images/Icons/unlocksIcon.png" hoverText="Unlocks" onClickMethod="openUnlocksWindow()"/>
-                            <control id="travelButton" name="icon-button" iconImagePath="Interface/Images/Icons/travelsIcon.png" hoverText="Travel" onClickMethod="openTravelWindow()"/>
+                            
+                            <panel height="50%" childLayout="horizontal">
+                                <control id="officerButton" name="icon-button" iconImagePath="Interface/Images/Icons/officerIcon.png" hoverText="Officers" onClickMethod="openOfficerWindow()"/>
+                                <control id="seniorStaffButton" name="icon-button" iconImagePath="Interface/Images/Icons/seniorStaffIcon.png" hoverText="Staff" onClickMethod="openSeniorStaffWindow()"/>
+                            </panel>
+                            
+                            <panel height="50%" childLayout="horizontal">
+                                <control id="unlocksButton" name="icon-button" iconImagePath="Interface/Images/Icons/unlocksIcon.png" hoverText="Unlocks" onClickMethod="openUnlocksWindow()"/>
+                                <control id="travelButton" name="icon-button" iconImagePath="Interface/Images/Icons/travelsIcon.png" hoverText="Travel" onClickMethod="openTravelWindow()"/>
+                                <control id="audioButton" name="icon-button" iconImagePath="Interface/Images/Icons/audioOnIcon.png" hoverText="Toggle" onClickMethod="toggleMusic()"/>
+                            </panel>
 
                         </panel>
 
@@ -123,17 +136,55 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="officerUI" childLayout="absolute">
             
-            <control id="officerWindow" name="window" title="Officers" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
-                    
-                    <panel childLayout="vertical">
+            <control id="officerWindow" name="scrollPanelWindow" windowTitle="Officers" panelHeight="100%">
+
+                    <panel childLayout="vertical" height="100%" padding="5px">
                         
+                        <panel childLayout="horizontal" width="100%" height="40%">
+                            
+                            <!-- OFFICERS CLAIMED -->
+                            <control name="centeredHeadingDiv" headingText="OFFICERS CLAIMED">
+                                <panel height="20%"/>
+                                <text width="60%" id="#officersClaimedText" text="0.0 K" style="rubik_font20" color="#000000" wrap="true" textVAlign="center"/>
+                                <panel height="20%"/>
+                            </control>
+
+                            <!-- OFFICERS ATTRACTED -->
+                            <control name="centeredHeadingDiv" headingText="OFFICERS ATTRACTED">
+                                <panel height="20%"/>
+                                <text width="60%" id="#officersAttractedText" text="0.0 K" style="rubik_font20" color="#000000" wrap="true" textVAlign="center"/>
+                                <panel height="20%"/>
+                            </control>
+                            
+                        </panel>
                         
+                        <!-- CLAIM ATTRACTED OFFICERS BUTTON -->
+                        <panel childLayout="horizontal" width="100%" padding="5px" height="20%">
+                            <image filename="Interface/Images/Icons/ensigns.png" width="33%" height="100%"/>
+                            <control name="hover-text-button" mainText="CLAIM ATTRACTED OFFICERS" hoverText="CLAIM!" onClickMethod="" padding="10px" width="33%"/>
+                            <image filename="Interface/Images/Icons/ensigns.png" width="33%" height="100%"/>
+                        </panel>
+                        
+                        <panel childLayout="horizontal" width="100%" height="40%">
+                            
+                            <!-- CLATINUM MULTIPLIER -->
+                            <control name="centeredHeadingDiv" headingText="CLATINUM MULTIPLIER">
+                                <panel height="20%"/>
+                                <text height="60%" width="100%" id="#clatinumMultiplierText" text="0.0 K" style="rubik_font20" color="#000000" wrap="true" textVAlign="center"/>
+                                <panel height="20%"/>
+                            </control>
+
+                            <!-- CLATINUM PER SECOND -->
+                            <control name="centeredHeadingDiv" headingText="CLATINUM PER SECOND">
+                                <panel height="20%"/>
+                                <text height="60%" width="100%" id="#clatinumPerSecondText" text="0.0 K" style="rubik_font20" color="#000000" wrap="true" textVAlign="center"/>
+                                <panel height="20%"/>
+                            </control>
+                            
+                        </panel>
                         
                     </panel>
-                    
 
-                </control>
             </control>
           
         </layer>
@@ -143,17 +194,59 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="seniorStaffUI" childLayout="absolute">
             
-            <control id="seniorStaffWindow" name="window" title="Senior Staff" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
+            <control id="seniorStaffWindow" name="scrollPanelWindow" windowTitle="Senior Staff" panelHeight="200%">
+                <panel id="seniorStaffPanel" childLayout="vertical" padding="5px">
                     
-                    <panel childLayout="vertical">
-                        
-                        
-                        
-                    </panel>
+                    <control name="seniorStaffDiv" id="CHIEF_MEDICAL_OFFICER"
+                             staffImage="Textures/Staff/chiefMedicalOfficer.png" 
+                             staffName="Dr. Kvork Cain" staffTitle="Chief Medical Officer" 
+                             staffCost="0 K" 
+                             staffDescription="Repairs and upgrades LIFE SUPPORT" 
+                             staffOnPurchase="x5 to OFFICER HEALTH on purchase"/>
                     
-
-                </control>
+                    <control name="seniorStaffDiv" id="SHIELDS_ENGINEER"
+                             staffImage="Textures/Staff/shieldsEngineer.png" 
+                             staffName="Hairy Pepper" staffTitle="Shields Engineer" 
+                             staffCost="0 K" 
+                             staffDescription="Repairs and upgrades SHIELDS" 
+                             staffOnPurchase="x5 to SHIELD HEALTH on purchase"/>
+                    
+                    <control name="seniorStaffDiv" id="TACTICAL_OFFICER"
+                             staffImage="Textures/Staff/tacticalOfficer.png" 
+                             staffName="Gazorp Zadorp" staffTitle="Tactical Officer" 
+                             staffCost="0 K" 
+                             staffDescription="Repairs and upgrades WEAPONS" 
+                             staffOnPurchase="x5 to WEAPON DAMAGE on purchase"/>
+                    
+                    <control name="seniorStaffDiv" id="WARP_ENGINEER"
+                             staffImage="Textures/Staff/warpEngineer.png" 
+                             staffName="Fred Swan" staffTitle="Warp Engineer" 
+                             staffCost="0 K" 
+                             staffDescription="Repairs and upgrades ENGINES" 
+                             staffOnPurchase="x5 to ENGINE SPEED on purchase"/>
+                    
+                    <control name="seniorStaffDiv" id="HOLODECK_PROGRAMMER"
+                             staffImage="Textures/Staff/holodeckEngineer.png" 
+                             staffName="Klaatu" staffTitle="Holodeck Programmer" 
+                             staffCost="0 K" 
+                             staffDescription="Repairs and upgrades HOLODECKS" 
+                             staffOnPurchase="x5 to OFFICER HAPPINESS on purchase"/>
+                    
+                    <control name="seniorStaffDiv" id="BARKEEP"
+                             staffImage="Textures/Staff/barkeep.png" 
+                             staffName="Lloyd Torrance" staffTitle="Barkeep" 
+                             staffCost="0 K" 
+                             staffDescription="Repairs and upgrades REPLICATORS" 
+                             staffOnPurchase="x5 to OFFICER HEALTH and HAPPINESS on purchase"/>
+                    
+                    <control name="seniorStaffDiv" id="HULL_ENGINEER"
+                             staffImage="Textures/Staff/hullEngineer.png" 
+                             staffName="Flrrrp Flurp" staffTitle="Hull Engineer" 
+                             staffCost="0 K" 
+                             staffDescription="Repairs and upgrades the HULL" 
+                             staffOnPurchase="x5 to HULL HEALTH on purchase"/>
+                    
+                </panel>
             </control>
           
         </layer>
@@ -163,17 +256,14 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="unlocksUI" childLayout="absolute">
             
-            <control id="unlocksWindow" name="window" title="Unlocks" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
+            <control id="unlocksWindow" name="scrollPanelWindow" windowTitle="Unlocks" panelHeight="100%">
+                
+                <panel childLayout="vertical" padding="5px">
                     
-                    <panel childLayout="vertical">
-                        
-                        
-                        
-                    </panel>
+                    <text text="Coming Soon!" style="rubik_font36" color="#000000" textHAlign="center" wrap="true"/>
                     
-
-                </control>
+                </panel>
+                
             </control>
           
         </layer>
@@ -183,19 +273,12 @@
         <!-- +++++++++++++++++++++++++++++++++++++++ -->
         <layer id="travelUI" childLayout="absolute">
             
-            <control id="travelWindow" name="window" title="Travel" x="18%" y="15%" width="65%" height="65%" valign="center" align="center" hideOnClose="true" visible="false" backgroundColor="#FFFFFF90">
-                <control name="scrollPanel" horizontal="false" height="100%" style="scroll">
-                    
-                    <panel childLayout="vertical">
-                        
-                        
-                        
-                    </panel>
-                    
-
-                </control>
+            <control id="travelWindow" name="scrollPanelWindow" windowTitle="Travel" panelHeight="100%">
+                
+                <text text="Coming Soon!" style="rubik_font36" color="#000000" textHAlign="center" wrap="true"/>
+                
             </control>
-          
+            
         </layer>
         
         

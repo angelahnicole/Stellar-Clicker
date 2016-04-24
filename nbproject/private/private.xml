@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/ship/ShipComponent.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/ship/Ship.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/ship/SeniorStaff.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/ship/ShipStatistics.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/util/EShipComponent.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/util/ESeniorStaff.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/util/EAppState.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/util/BigNumber.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/util/Persistence.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/util/Timer.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/app/MainApplication.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/app/ShipComponentElementController.java</file>
-        <file>file:/home/matt/Desktop/git/Stellar-Clicker/src/stellarclicker/app/SplashScreenState.java</file>
-    </open-files>
 </project-private>

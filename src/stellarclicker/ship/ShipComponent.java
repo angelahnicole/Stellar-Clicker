@@ -1,9 +1,10 @@
 
 package stellarclicker.ship;
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**========================================================================================================================== 
- * @file MainApplication.java
+ * @file ShipComponent.java
  * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * --------------------------------------------------------------------------------------------------------------------------
@@ -25,7 +26,7 @@ package stellarclicker.ship;
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
 
-    * Neither the name of 'jMonkeyEngine' nor the names of its contributors
+    * Neither the NAME of 'jMonkeyEngine' nor the names of its contributors
       may be used to endorse or promote products derived from this software
       without specific prior written permission.
 
@@ -44,15 +45,14 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-import java.io.Serializable;
+import java.util.Random;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 import stellarclicker.util.EShipComponentState;
-import stellarclicker.util.EShipStat;
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public class ShipComponent implements Serializable
+public class ShipComponent
 {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -60,15 +60,20 @@ public class ShipComponent implements Serializable
     // ATTRIBUTES
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
+    //  The ship component's level tiers that corresponds with the different pictures it can upgrade to.
+    protected int[] levelTiers;
+    protected String basePictureName;
+    
     // ship-specific "constants"
+    protected String NAME;
     protected int BASE_TIME;
     protected int MAX_DURABILITY;
     protected int MIN_LEVEL;
     protected int MAX_LEVEL; 
     protected int NUM_SHIP_STATS;
-    protected int durabilityRange;
-    protected String name;
+    
     protected int durability;
+    protected int durabilityLossRange;
     protected int level;
     protected EShipComponentState currentState;
     
@@ -86,35 +91,37 @@ public class ShipComponent implements Serializable
     // TODO: use ship component state instead of this bool
     protected boolean managed;
     
+    protected Random rand;
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // CONSTRUCTOR
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    public ShipComponent(String name)
+    public ShipComponent(String NAME, int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, float LEVEL_COST, int[] levelTiers, String basePictureName)
     {
+        this.levelTiers = levelTiers;
+        this.basePictureName = basePictureName;
         
-        // TODO: should have all of these values be passed in via the constructor
-        
-        this.BASE_TIME = 10;
-        this.MAX_DURABILITY = 100;
-        this.durabilityRange = 25;
-        this.MIN_LEVEL = 1;
-        this.MAX_LEVEL = 999; 
-        this.NUM_SHIP_STATS = 1;
+        this.NAME = NAME;
+        this.BASE_TIME = BASE_TIME;
+        this.MAX_DURABILITY = MAX_DUR;
+        this.MIN_LEVEL = MIN_LEVEL;
+        this.MAX_LEVEL = MAX_LEVEL; 
+        this.NUM_SHIP_STATS = NUM_STATS;
 
-        this.name = name;
         this.durability = MAX_DURABILITY;
         this.level = MIN_LEVEL;
         this.currentState = EShipComponentState.INACTIVE;
         
-        this.levelCost = 10000000.0f;
+        this.levelCost = LEVEL_COST;
         this.repairCost = this.levelCost * 0.1f;
         
         updateTimeTaken();
         this.timer = new Timer();
 
-        
+        this.rand = new Random();
+        this.durabilityLossRange = 25;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,22 +159,19 @@ public class ShipComponent implements Serializable
             {
                 if(this.currentState == EShipComponentState.GAINING_EXP)
                 {
-                    levelUp();
                     this.timer.cancelTimer();
+                    levelUp();
                     
                     //degrade component
-                    degradeComponent(50);
-                    System.out.println(this.durability);
+                    degradeComponent();
+                    
                 }
                 else if(this.currentState == EShipComponentState.REPAIRING)
                 {
-                    repairComponent();
                     this.timer.cancelTimer();
-                    
+                    repairComponent();
                 }
-                
             }
-            
         }
     }
     
@@ -175,7 +179,6 @@ public class ShipComponent implements Serializable
     * @name GAIN EXPERIENCE
     * 
     * @description Start experience timer and set component state to GAINING EXP
-    * 
     *///=========================================================================================================================
     public void gainExperience()
     {
@@ -190,11 +193,10 @@ public class ShipComponent implements Serializable
     }
     
     /**========================================================================================================================== 
-    * @name levelUp
+    * @name LEVEL UP
     * 
     * @description Increases the level of this component, updates the time taken to repair and gain experience, and sets its 
     * state to inactive.
-    * 
     *///=========================================================================================================================
     public void levelUp()
     {
@@ -221,13 +223,15 @@ public class ShipComponent implements Serializable
     * @name DEGRADE COMPONENT
     * 
     * @description Reduces the components durability 
-    * 
-    * @param amount the amount to damage by
     *///=========================================================================================================================
-    public void degradeComponent(int amount)
+    public void degradeComponent()
     {
-        this.durability = this.durability - amount;
+        this.durability = this.durability - (rand.nextInt(this.durabilityLossRange) + 1);
         
+        if (this.level % 20 == 0 && this.durabilityLossRange > 1)
+        {
+            this.durabilityLossRange = this.durabilityLossRange - 1;
+        }
         if (this.durability < 0)
         {
             breakComponent();
@@ -247,7 +251,7 @@ public class ShipComponent implements Serializable
     }
      
     /**========================================================================================================================== 
-    * @name breakComponent
+    * @name BREAK COMPONENT
     * 
     * @description Sets the state to broken and the durability to 0 
     *///=========================================================================================================================
@@ -283,6 +287,7 @@ public class ShipComponent implements Serializable
     {
         return BigNumber.getNumberString(repairCost);
     }
+    
     /**========================================================================================================================== 
     * @name GET REPAIR COST
     * 
@@ -292,7 +297,8 @@ public class ShipComponent implements Serializable
     {
         return this.repairCost;
     }
-       /**========================================================================================================================== 
+    
+    /**========================================================================================================================== 
     * @name GET LEVEL COST
     * 
     * @description Returns a formatted string of the repair cost
@@ -336,7 +342,7 @@ public class ShipComponent implements Serializable
     }
     
     /**========================================================================================================================== 
-    * @name GET TIMER PERCENT
+    * @name GET TIME Remaining
     * 
     * @description Returns the percent of the timer completion 
     * 
@@ -344,20 +350,57 @@ public class ShipComponent implements Serializable
     *///=========================================================================================================================
     public String getTimeRemaining()
     {
-        //return (String) this.timer.getPercentComplete(gameTime);
         Float time = this.timer.getTimeRemaining(gameTime);
-        return time.toString();
+        int hours = (int) (time / 3600);
+        int remainder = (int)Math.ceil(time - hours * 3600);
+        int mins = (int)Math.ceil(remainder / 60);
+        remainder = remainder - mins * 60;
+        int sec = (int)Math.ceil(remainder);
+        return hours + ":" + mins + ":" + sec;
     }
     
     /**========================================================================================================================== 
     * @name GET COMPONENT STATE
     * 
     * @description Returns the state of the component 
-    * 
     *///=========================================================================================================================
     public EShipComponentState getComponentState()
     {
         return this.currentState;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET CURRENT TIER
+    * 
+    * @description Returns the current tier that the ship component is on
+    *///=========================================================================================================================
+    public int getCurrentTier()
+    {
+        int currentTier = 1;
+        
+        for(int i = 0; i < levelTiers.length; i++)
+        {
+            if(this.level >= levelTiers[i])
+            {
+                currentTier = i + 1;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        return currentTier;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET CURRENT PICTURE NAME
+    * 
+    * @description Returns the name of the picture based on its tier
+    *///=========================================================================================================================
+    public String getCurrentPictureName()
+    {
+        return String.format(this.basePictureName, getCurrentTier());
     }
     
     /**========================================================================================================================== 
@@ -368,11 +411,9 @@ public class ShipComponent implements Serializable
     private void updateTimeTaken()
     {
         this.expTime = this.BASE_TIME / ((this.level/10)+1);
-        this.repairTime = this.expTime / 10;
+        this.repairTime = this.expTime * 2;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-
     
 }

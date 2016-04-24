@@ -14,12 +14,13 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import java.io.Serializable;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipStat;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
-public class SeniorStaff implements Serializable
+import stellarclicker.util.Timer;
+import stellarclicker.util.*;
+public class SeniorStaff 
 {
     
     protected ShipComponent managedComponent;
@@ -28,17 +29,24 @@ public class SeniorStaff implements Serializable
     protected int[] shipStatBoost;
     protected double purchasedCost;
     protected boolean isPurchased;
+    protected String staffType;
     protected String name;
     protected String description;
+    protected String onPurchase;
     // Constructor
-    SeniorStaff(ESeniorStaff officerType)
+    public SeniorStaff(String officerType, String name, String description, double cost, String onPurchase)
     {
-        this.shipStatComponentBoost = EShipStat.values()[officerType.ordinal()];
-        //officers default at 100 clatinum
-        this.purchasedCost = 100;
-        this.name = "Senior Staff Member";
-        this.description = "";
+        this.staffType = officerType;
+        this.name = name;
+        this.description = description;
+        this.purchasedCost = cost;
+        this.onPurchase = onPurchase;
+        
     }
+    
+   
+   
+   
      /**========================================================================================================================== 
     * @name update
     * 
@@ -49,7 +57,10 @@ public class SeniorStaff implements Serializable
    
     public void update(float gameTime)
     {
-       manageComponent();
+       if (this.isPurchased)
+       {
+       manageComponent(gameTime);
+       }
     }
      /**========================================================================================================================== 
     * @name purchase
@@ -62,10 +73,13 @@ public class SeniorStaff implements Serializable
    
     public String purchase(ShipComponent component, double money)
     {
+        
         if (money > this.purchasedCost)
         {
+            
             this.isPurchased = true;
             this.managedComponent = component;
+            
             return "Welcome to the crew!";
         }
         
@@ -86,14 +100,17 @@ public class SeniorStaff implements Serializable
     * @description manages component timer based on current state
     *///=========================================================================================================================
    
-    public void manageComponent()
+    public void manageComponent(float gameTime)
     {
+        
+        
          if (this.managedComponent != null)
         {
             //manage ship component by checking to see if component is idle.
         if (this.managedComponent.currentState == EShipComponentState.INACTIVE)
         {
             this.managedComponent.gainExperience();
+            
         }
         
         else if (this.managedComponent.currentState == EShipComponentState.BROKEN)
@@ -102,6 +119,13 @@ public class SeniorStaff implements Serializable
             
         }
         }
+         
+        
+    }
+    
+    public boolean isPurchased()
+    {
+        return this.isPurchased;
     }
     
     
@@ -130,6 +154,22 @@ public class SeniorStaff implements Serializable
     {
         return this.description;
     }
+    
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+    
+    public String getOnPurchase()
+    {
+        return this.onPurchase;
+    }
+    
+    public void setOnPurchase(String onPurchase)
+    {
+        this.onPurchase = onPurchase;
+    }
+    
     
 }
 

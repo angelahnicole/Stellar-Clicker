@@ -46,32 +46,41 @@ package stellarclicker.app;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
+import com.jme3.audio.AudioSource.Status;
+import com.jme3.audio.AudioNode;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
+
 import stellarclicker.util.EAppState;
-import stellarclicker.util.Persistence;
-import java.io.*;
-import java.util.logging.*;
+import stellarclicker.ship.Ship;
+import stellarclicker.util.JSONLoader;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import stellarclicker.ship.Ship;
 public class MainApplication extends SimpleApplication
 {  
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    // main application singleton
     public static MainApplication app;
     
+    // game states and nifty instances
     private Nifty nifty;
     private NiftyJmeDisplay niftyDisplay;
     protected EAppState changeState;
     protected AppState currentState;
-    public Ship myShip;
     
+    // music
+    private AudioNode audioMusic;
+    private String musicKey = "Sounds/Music/Cycles Looped.ogg";
+    private boolean musicOn = false;
+    
+    // game attributes
+    public Ship myShip;
     private float gameTime;
     
-    Persistence persister = new Persistence();
-    private static final Logger log= Logger.getLogger( MainApplication.class.getName() );
+    private boolean beginTime = false;
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
@@ -84,7 +93,9 @@ public class MainApplication extends SimpleApplication
     public static void main(String[] args)
     {
         app = new MainApplication();
+        
         app.start();
+        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,9 +112,15 @@ public class MainApplication extends SimpleApplication
     @Override
     public void simpleInitApp()
     {
-        System.out.println("Initializing...");
+        
+        
+        // Adding JSON loader so we can read JSON files (needs to happen before ship is created)
+        assetManager.registerLoader(JSONLoader.class, "json");
 
         myShip = new Ship();
+        
+        // initialize background music
+        initMusic();
         
         // initializing the nifty GUI
         niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
@@ -116,8 +133,6 @@ public class MainApplication extends SimpleApplication
         // set stats views to default off
         setDisplayFps(false);
         setDisplayStatView(false);
-        
-        loadGame("stellar.bin");
     }
 
     /**========================================================================================================================== 
@@ -129,17 +144,10 @@ public class MainApplication extends SimpleApplication
     public void update()
     {
         super.update();
-        
+
         // update and render the current state
         float tpf = timer.getTimePerFrame();
         gameTime = timer.getTimeInSeconds();
-        boolean save = false;
-        if (gameTime >= 10 && save == false)
-        {
-            saveGame("myfile.bin");
-            save = true;
-            
-        }
         stateManager.update(tpf);
         stateManager.render(renderManager);
         rootNode.updateLogicalState(tpf);
@@ -147,6 +155,9 @@ public class MainApplication extends SimpleApplication
 
         // render the viewports
         renderManager.render(tpf, context.isRenderable());
+        
+        // check music so we will restart it if it's done
+        checkMusic();
         
         switch(changeState)
         {
@@ -160,7 +171,7 @@ public class MainApplication extends SimpleApplication
                 
                 currentState = new SplashScreenState();
                 stateManager.attach(currentState);
-                
+                startShip();
                 break;
             }
             // go to the main game state
@@ -188,11 +199,13 @@ public class MainApplication extends SimpleApplication
         changeState = EAppState.STAY_STATE;
         
         //update time across game
+        if (this.beginTime == true)
+        {
         myShip.update(tpf, gameTime);
-        
-        
+        }
     }
 
+    
     /**========================================================================================================================== 
     * @name DESTROY
     * 
@@ -224,6 +237,132 @@ public class MainApplication extends SimpleApplication
         changeState = newState;
     }
     
+     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // SOUND MANAGEMENT METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    /**========================================================================================================================== 
+    * @name CHECK MUSIC
+    * 
+    * @description Restarts the music once it has stopped (you can't loop streamed music)
+    *///=========================================================================================================================
+    private void checkMusic()
+    {
+        if(musicOn && audioMusic.getStatus() == Status.Stopped)
+        {
+            initMusic();
+            startMusic();
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name INIT MUSIC
+    * 
+    * @description Creates a new audio node with the desired settings for background music
+    *///=========================================================================================================================
+    private void initMusic()
+    {
+        audioMusic = new AudioNode(assetManager, musicKey, true, false);
+        audioMusic.setPositional(false);
+        audioMusic.setLooping(false);
+        audioMusic.setVolume(1);
+    }
+    
+    /**========================================================================================================================== 
+    * @name START MUSIC
+    * 
+    * @description Returns whether or not the music is "on", or if the volume is on
+    *///=========================================================================================================================
+    public boolean isMusicOn()
+    {
+        return musicOn;
+    }
+    
+    /**========================================================================================================================== 
+    * @name START MUSIC
+    * 
+    * @description Starts the background music for the game
+    *///=========================================================================================================================
+    public void startMusic()
+    {
+        if(audioMusic.getStatus() != Status.Playing)
+        {
+            audioMusic.play();
+            musicOn = true;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name STOP MUSIC
+    * 
+    * @description Stops the background music for the game
+    *///=========================================================================================================================
+    public void stopMusic()
+    {
+        if(audioMusic.getStatus() != Status.Stopped)
+        {
+            audioMusic.stop();
+            musicOn = false;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name SET MUSIC VOLUME
+    * 
+    * @description Toggles the volume of the music.
+    * 
+    * @param mute Whether or not you want to mute the music
+    *///=========================================================================================================================
+    public void setMusicVolume(boolean mute)
+    {
+        if(mute)
+        {
+            audioMusic.setVolume(0);
+            musicOn = false;
+        }
+        else
+        {
+            audioMusic.setVolume(1);
+            musicOn = true;
+        }
+    }
+    
+    public void startShip()
+    {
+        
+        this.beginTime = true;
+        
+    }
+    
+    /**========================================================================================================================== 
+    * @name SET MUSIC VOLUME
+    * 
+    * @description Changes the volume of the music.
+    * 
+    * @param volume The volume of the music.
+    *///=========================================================================================================================
+    public void setMusicVolume(float volume)
+    {
+        audioMusic.setVolume(volume);
+        
+        if(volume == 0)
+        {
+            musicOn = false;
+        }
+        else
+        {
+            musicOn = true;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // GETTERS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
     /**========================================================================================================================== 
     * @name GET NIFTY
     * 
@@ -234,29 +373,5 @@ public class MainApplication extends SimpleApplication
         return nifty;
     }
     
-    public void saveGame(String File)
-    {
-        try {
-        persister = new Persistence();
-        persister.saveGame(myShip,new File("stellar.bin"));
-        
-        } catch (Throwable ex)
-        {
-           System.out.println(ex.toString());
-        }
-    }   
-    
-    public void loadGame(String file)
-    {
-        try {
-        persister = new Persistence();
-        this.myShip = (Ship)persister.loadGame(new File(file));
-        
-        } catch (Throwable ex)
-        {
-            System.out.println(ex.toString());
-        }
-        
-    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

@@ -1,0 +1,58 @@
+{
+    "HULL_ENGINEER":
+    {
+        "NAME": "Flrrrp Flurp",
+        "TITLE": "HULL_ENGINEER",
+        "DESCRIPTION": "Repairs and upgrades the HULL",
+        "ON_PURCHASE": "x 5 to HULL HEALTH on purchase",
+        "COST": "100000000.0"
+    },
+    "SHIELDS_ENGINEER":
+    {
+        "NAME": "Hairy Pepper",
+        "TITLE": "SHIELDS_ENGINEER",
+        "DESCRIPTION": "Repairs and upgrades SHIELDS",
+        "ON_PURCHASE": "x 5 to SHIELD HEALTH on purchase",
+        "COST": "100000000.0"
+    },
+    "WARP_ENGINEER":
+    {
+        "NAME": "Fred Swan",
+        "TITLE": "WARP_ENGINEER",
+        "DESCRIPTION": "Repairs and upgrades ENGINES",
+        "ON_PURCHASE": "x 5 to ENGINE SPEED on purchase",
+        "COST": "100000000.0"
+    },
+    "TACTICAL_OFFICER":
+    {
+        "NAME": "Gazorp Zadorp",
+        "TITLE": "TACTICAL_OFFICER",
+        "DESCRIPTION": "Repairs and upgrades WEAPONS",
+        "ON_PURCHASE": "x 5 to WEAPON DAMAGE on purchase",
+        "COST": "100000000.0"
+    },
+    "CHIEF_MEDICAL_OFFICER":
+    {
+        "NAME": "Dr. Kvork Cain",
+        "TITLE": "CHIEF_MEDICAL_OFFICER",
+        "DESCRIPTION": "Repairs and upgrades LIFE SUPPORT",
+        "ON_PURCHASE": "x 5 to OFFICER HEALTH on purchase",
+        "COST": "100000000.0"
+    },
+    "BARKEEP":
+    {
+        "NAME": "Lloyd Torrance",
+        "TITLE": "BARKEEP",
+        "DESCRIPTION": "Repairs and upgrades REPLICATORS",
+        "ON_PURCHASE": "x 5 to OFFICER HEALTH and HAPPINESS on purchase",
+        "COST": "100000000.0"
+    },
+    "HOLODECK_PROGRAMMER":
+    {
+        "NAME": "Klaatu",
+        "TITLE": "HOLODECK_PROGRAMMER",
+        "DESCRIPTION": "Repairs and upgrades HOLODECKS",
+        "ON_PURCHASE": "x 5 to OFFICER HAPPINESS on purchase",
+        "COST": "100000000.0"
+    }
+}

@@ -15,12 +15,14 @@ package stellarclicker.util;
 
 public enum ESeniorStaff
 {
-    WARP_ENGINEER,
+    HULL_ENGINEER,
     SHIELDS_ENGINEER,
-    HOLODECK_PROGRAMMER,
+    WARP_ENGINEER,
     TACTICAL_OFFICER,
+    CHIEF_MEDICAL_OFFICER,
     BARKEEP,
-    CHIEF_MEDICAL_OFFICER
+    HOLODECK_PROGRAMMER
+    
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -42,7 +42,7 @@ public class Timer implements Serializable{
     *///=========================================================================================================================
     public Boolean getActivation()
     {
-            return isActive;
+            return this.isActive;
     }
         /**========================================================================================================================== 
     * @name Set
@@ -126,6 +126,7 @@ public class Timer implements Serializable{
         this.isActive = false;
         this.start = 0;
         this.stop = 0;
+        this.percent = 0;
     }
     
     
