@@ -157,16 +157,18 @@ public class Ship
     *///=========================================================================================================================
     public void update(float tpf, float gameTime)
     {  
-        // calls each components' update methods
-        for(EShipComponent m : EShipComponent.values()) 
-        {
-            shipComponents[m.ordinal()].update(gameTime);
-        }
         // calls each senior staffs' update methods
         for(ESeniorStaff i : ESeniorStaff.values()) 
         { 
             seniorStaff[i.ordinal()].update(gameTime);
         }
+        
+        // calls each components' update methods
+        for(EShipComponent m : EShipComponent.values()) 
+        {
+            shipComponents[m.ordinal()].update(gameTime);
+        }
+        
         
         
         //TODO: TEST
