@@ -45,6 +45,10 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
+import com.jme3.export.Savable;
+import java.io.IOException;
 import java.util.Random;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
@@ -52,7 +56,7 @@ import stellarclicker.util.EShipComponentState;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public class ShipComponent
+public class ShipComponent implements Savable
 {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -122,6 +126,22 @@ public class ShipComponent
 
         this.rand = new Random();
         this.durabilityLossRange = 25;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // PERSISTENCE METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    public void write(JmeExporter ex) throws IOException
+    {
+        
+    }
+    
+    public void read(JmeImporter im) throws IOException
+    {
+        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

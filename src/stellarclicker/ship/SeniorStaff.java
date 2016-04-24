@@ -14,15 +14,18 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
+import java.io.IOException;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipStat;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponentState;
 import stellarclicker.util.Timer;
 import stellarclicker.util.*;
+
 public class SeniorStaff 
 {
-    
     protected ShipComponent managedComponent;
     protected EShipStat[] shipStatComponentBoostIdx;
     protected EShipStat shipStatComponentBoost;
@@ -33,6 +36,7 @@ public class SeniorStaff
     protected String name;
     protected String description;
     protected String onPurchase;
+    
     // Constructor
     public SeniorStaff(String officerType, String name, String description, double cost, String onPurchase)
     {
@@ -41,8 +45,26 @@ public class SeniorStaff
         this.description = description;
         this.purchasedCost = cost;
         this.onPurchase = onPurchase;
-        
+
     }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // PERSISTENCE METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+
+    public void write(JmeExporter ex) throws IOException
+    {
+
+    }
+
+    public void read(JmeImporter im) throws IOException
+    {
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
    
    
