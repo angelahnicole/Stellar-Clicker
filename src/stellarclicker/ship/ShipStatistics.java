@@ -44,16 +44,25 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
+import com.jme3.export.OutputCapsule;
+import com.jme3.export.Savable;
+
+import java.util.Arrays;
 import java.io.IOException;
+
 import stellarclicker.util.EShipStat;
 
-public class ShipStatistics 
+public class ShipStatistics implements Savable
 {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     private ShipStat[] shipStats;
+    
+    private OutputCapsule outCapsule;
+    private InputCapsule inCapsule;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -66,7 +75,8 @@ public class ShipStatistics
     {
         this.shipStats = new ShipStat[EShipStat.values().length];
         
-        for(EShipStat x : EShipStat.values()){
+        for(EShipStat x : EShipStat.values())
+        {
             shipStats[x.ordinal()] = new ShipStat(x.name(),0);
             System.out.println(shipStats[x.ordinal()].getStatName());
         }        
@@ -80,12 +90,26 @@ public class ShipStatistics
     
     public void write(JmeExporter ex) throws IOException
     {
-        
+        outCapsule = ex.getCapsule(this);
+        outCapsule.write(shipStats, "shipStats", null);
     }
     
     public void read(JmeImporter im) throws IOException
     {
+        inCapsule = im.getCapsule(this);
         
+        Savable[] savedShipStats = inCapsule.readSavableArray("shipStats", shipStats);
+        this.shipStats = Arrays.copyOf(savedShipStats, savedShipStats.length, ShipStat[].class);
+    }
+    
+    public OutputCapsule getExporterCapsule()
+    {
+        return outCapsule;
+    }
+    
+    public InputCapsule getImporterCapsule()
+    {
+        return inCapsule;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,32 +119,46 @@ public class ShipStatistics
      * ShipStat object class
      */
     /////
-  private class ShipStat
-  {
-      
-      private String name;
-      private int stat = 0;
-      
-      ShipStat(String name, int stat)
-      {
-          this.name = name;
-          this.stat = stat;
-      }
-      
-      public int getStatValue()
-      {
+    private class ShipStat implements Savable
+    {
+
+        private String name;
+        private int stat = 0;
+
+        ShipStat(String name, int stat)
+        {
+            this.name = name;
+            this.stat = stat;
+        }
+
+        public void write(JmeExporter ex) throws IOException
+        {
+            OutputCapsule myCapsule = ex.getCapsule(this);
+            myCapsule.write(this.name, "name", "");
+            myCapsule.write(this.stat, "stat", 0);
+        }
+
+        public void read(JmeImporter im) throws IOException
+        {
+            InputCapsule myCapsule = im.getCapsule(this);
+            this.name = myCapsule.readString("name", "");
+            this.stat = myCapsule.readInt("stat", 0);
+        }
+
+        public int getStatValue()
+        {
           return stat;
-      }
-      
-      public String getStatName()
-      {
+        }
+
+        public String getStatName()
+        {
           return name;
-      }
-      
-      public void updateStat(int value)
-      {
+        }
+
+        public void updateStat(int value)
+        {
           this.stat += value;
-      }
+        }
   }
 }
 

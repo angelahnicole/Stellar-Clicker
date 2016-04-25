@@ -44,7 +44,14 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import java.io.Serializable;
+import com.jme3.export.InputCapsule;
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
+import com.jme3.export.OutputCapsule;
+import com.jme3.export.Savable;
+import java.io.IOException;
+import java.text.DateFormat;
+
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipComponent;
 import stellarclicker.util.ESeniorStaff;
@@ -53,12 +60,20 @@ import stellarclicker.util.EShipStat;
 import stellarclicker.util.ComponentFactory;
 import stellarclicker.util.StaffFactory;
 import stellarclicker.util.*;
+
+import java.util.Arrays;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public class Ship implements Serializable
+public class Ship implements Savable
 {
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -77,13 +92,16 @@ public class Ship implements Serializable
     private ShipComponent[] shipComponents;
     private ShipStatistics shipStats;
     private SeniorStaff[] seniorStaff;
-    private int officers;
-    private int claimableOfficers;
+    private double officers;
+    private double claimableOfficers;
     private double money;
     private double moneyPerSecond;
     private ComponentFactory compFactory;
     private StaffFactory staffFactory;
     private int previousMoneyTime;
+    
+    private OutputCapsule outCapsule;
+    private InputCapsule inCapsule;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -95,6 +113,80 @@ public class Ship implements Serializable
         compFactory = new ComponentFactory();
         staffFactory = new StaffFactory();
         this.initializeComponents();
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // PERSISTENCE METHODS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    public void write(JmeExporter ex) throws IOException
+    {
+        outCapsule = ex.getCapsule(this);
+        outCapsule.write(shipComponents, "shipComponents", null);
+        outCapsule.write(shipStats, "shipStats", null);
+        outCapsule.write(seniorStaff, "seniorStaff", null);
+        outCapsule.write(officers, "officers", 0);
+        outCapsule.write(claimableOfficers, "claimableOfficers", 0);
+        outCapsule.write(money, "money", 0);
+        outCapsule.write(moneyPerSecond, "moneyPerSecond", 0);
+        outCapsule.write(previousMoneyTime, "previousMoneyTime", 0);
+        outCapsule.write(new Date().toString(), "saveDate", new Date().toString());
+    }
+    
+    public void read(JmeImporter im) throws IOException
+    {
+        inCapsule = im.getCapsule(this);
+        
+        // cast savable array to ship component array
+        Savable[] savedShipComps = inCapsule.readSavableArray("shipComponents", shipComponents);
+        this.shipComponents = Arrays.copyOf(savedShipComps, savedShipComps.length, ShipComponent[].class);
+        
+        // cast savable array to senior staff array
+        Savable[] savedSeniorStaff = inCapsule.readSavableArray("seniorStaff", seniorStaff);
+        this.seniorStaff = Arrays.copyOf(savedSeniorStaff, savedSeniorStaff.length, SeniorStaff[].class);
+
+        this.shipStats = (ShipStatistics) inCapsule.readSavable("shipStats", shipStats);
+        this.officers = inCapsule.readDouble("officers", officers);
+        this.claimableOfficers = inCapsule.readDouble("claimableOfficers", claimableOfficers);
+        this.money = inCapsule.readDouble("money", money);
+        this.moneyPerSecond = inCapsule.readDouble("moneyPerSecond", moneyPerSecond);
+        this.previousMoneyTime = inCapsule.readInt("previousMoneyTime", previousMoneyTime);
+        
+        
+        String lastSave = inCapsule.readString("saveDate", "");
+        if(!lastSave.isEmpty())
+        {
+            long secondsSinceSave = getSecondsSinceSave(lastSave);
+            
+            // update ship components here
+            
+        }
+    }
+    
+    private long getSecondsSinceSave(String lastSave)
+    {
+        DateFormat df = new SimpleDateFormat("dow mon dd hh:mm:ss zzz yyyy", Locale.ENGLISH);
+        Date saveDate = null;
+        Date nowDate = new Date();
+        long secondsSinceSave = 0;
+
+        try
+        {
+            saveDate = df.parse(lastSave);
+        }
+        catch (ParseException ex)
+        {
+            Logger.getLogger(Ship.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if(saveDate != null)
+        {
+           secondsSinceSave = (nowDate.getTime() - saveDate.getTime()) / 1000;
+        }
+        
+        return secondsSinceSave;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -116,17 +208,12 @@ public class Ship implements Serializable
         activeComponents =  new ShipComponent[EShipComponent.values().length];
         brokenComponents =  new ShipComponent[EShipComponent.values().length];
         
-        
-        
         // This for each creates a new component and places it in the array at the index
         for(EShipComponent m : EShipComponent.values()) 
         {
            shipComponents[m.ordinal()] = compFactory.buildComponent(m);
            //shipComponents[m.ordinal()] = new ShipComponent(m.name());
         }
-
-        
-
 
         // This for each creates ship stats 
         this.shipStats = new ShipStatistics();
@@ -136,9 +223,6 @@ public class Ship implements Serializable
         { 
            //seniorStaff[i.ordinal()] = new SeniorStaff(i);
            seniorStaff[i.ordinal()] = staffFactory.buildStaff(i);
-
-           
-           
         }
         
         //money checkers

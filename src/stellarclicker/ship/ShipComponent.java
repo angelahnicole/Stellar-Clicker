@@ -45,8 +45,10 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
+import com.jme3.export.OutputCapsule;
 import com.jme3.export.Savable;
 import java.io.IOException;
 import java.util.Random;
@@ -97,11 +99,15 @@ public class ShipComponent implements Savable
     
     protected Random rand;
     
+    private OutputCapsule outCapsule;
+    private InputCapsule inCapsule;
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // CONSTRUCTOR
     // --------------------------------------------------------------------------------------------------------------------------------------------
+    
     public ShipComponent(String NAME, int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, float LEVEL_COST, int[] levelTiers, String basePictureName)
     {
         this.levelTiers = levelTiers;
@@ -123,7 +129,14 @@ public class ShipComponent implements Savable
         
         updateTimeTaken();
         this.timer = new Timer();
-
+        this.rand = new Random();
+        this.durabilityLossRange = 25;
+    }
+    
+    public ShipComponent()
+    {
+        updateTimeTaken();
+        this.timer = new Timer();
         this.rand = new Random();
         this.durabilityLossRange = 25;
     }
@@ -136,12 +149,50 @@ public class ShipComponent implements Savable
     
     public void write(JmeExporter ex) throws IOException
     {
-        
+        outCapsule = ex.getCapsule(this);
+        outCapsule.write(levelTiers, "levelTiers", null);
+        outCapsule.write(basePictureName, "basePictureName", "");
+        outCapsule.write(NAME, "NAME", "");
+        outCapsule.write(BASE_TIME, "BASE_TIME", 0);
+        outCapsule.write(MAX_DURABILITY, "MAX_DURABILITY", 0);
+        outCapsule.write(MIN_LEVEL, "MIN_LEVEL", 0);
+        outCapsule.write(MAX_LEVEL, "MAX_LEVEL", 0);
+        outCapsule.write(NUM_SHIP_STATS, "NUM_SHIP_STATS", 0);
+        outCapsule.write(durability, "durability", MAX_DURABILITY);
+        outCapsule.write(level, "level", MIN_LEVEL);
+        outCapsule.write(currentState, "currentState", EShipComponentState.INACTIVE);
+        outCapsule.write(levelCost, "levelCost", 0);
+        outCapsule.write(repairCost, "repairCost", levelCost * 0.1f);
+        outCapsule.write(managed, "managed", false);
     }
     
     public void read(JmeImporter im) throws IOException
     {
-        
+        inCapsule = im.getCapsule(this);
+        this.levelTiers = inCapsule.readIntArray("levelTiers", levelTiers);
+        this.basePictureName = inCapsule.readString("basePictureName", "");
+        this.NAME = inCapsule.readString("NAME", "");
+        this.BASE_TIME = inCapsule.readInt("BASE_TIME", 0);
+        this.MAX_DURABILITY = inCapsule.readInt("MAX_DURABILITY", 0);
+        this.MIN_LEVEL = inCapsule.readInt("MIN_LEVEL", 0);
+        this.MAX_LEVEL = inCapsule.readInt("MAX_LEVEL", 0);
+        this.NUM_SHIP_STATS = inCapsule.readInt("NUM_SHIP_STATS", 0);
+        this.durability = inCapsule.readInt("durability", MAX_DURABILITY);
+        this.level = inCapsule.readInt("level", MIN_LEVEL);
+        this.currentState = inCapsule.readEnum("currentState", EShipComponentState.class, EShipComponentState.INACTIVE);
+        this.levelCost = inCapsule.readDouble("levelCost", 0);
+        this.repairCost = inCapsule.readDouble("repairCost", levelCost * 0.1f);
+        this.managed = inCapsule.readBoolean("managed", false);
+    }
+    
+    public OutputCapsule getExporterCapsule()
+    {
+        return outCapsule;
+    }
+    
+    public InputCapsule getImporterCapsule()
+    {
+        return inCapsule;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

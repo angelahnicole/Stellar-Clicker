@@ -14,8 +14,11 @@ package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
+import com.jme3.export.OutputCapsule;
+import com.jme3.export.Savable;
 import java.io.IOException;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.EShipStat;
@@ -24,18 +27,18 @@ import stellarclicker.util.EShipComponentState;
 import stellarclicker.util.Timer;
 import stellarclicker.util.*;
 
-public class SeniorStaff 
+public class SeniorStaff implements Savable
 {
     protected ShipComponent managedComponent;
-    protected EShipStat[] shipStatComponentBoostIdx;
-    protected EShipStat shipStatComponentBoost;
-    protected int[] shipStatBoost;
     protected double purchasedCost;
     protected boolean isPurchased;
     protected String staffType;
     protected String name;
     protected String description;
     protected String onPurchase;
+    
+    private OutputCapsule outCapsule;
+    private InputCapsule inCapsule;
     
     // Constructor
     public SeniorStaff(String officerType, String name, String description, double cost, String onPurchase)
@@ -48,6 +51,11 @@ public class SeniorStaff
 
     }
     
+    public SeniorStaff()
+    {
+        
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // --------------------------------------------------------------------------------------------------------------------------------------------
@@ -56,19 +64,42 @@ public class SeniorStaff
 
     public void write(JmeExporter ex) throws IOException
     {
-
+        outCapsule = ex.getCapsule(this);
+        outCapsule.write(managedComponent, "managedComponent", null);
+        outCapsule.write(purchasedCost, "purchasedCost", 0);
+        outCapsule.write(isPurchased, "isPurchased", false);
+        outCapsule.write(staffType, "staffType", "");
+        outCapsule.write(name, "name", "");
+        outCapsule.write(description, "description", "");
+        outCapsule.write(onPurchase, "onPurchase", "");
+        
     }
 
     public void read(JmeImporter im) throws IOException
     {
-
+        inCapsule = im.getCapsule(this);
+        this.managedComponent = (ShipComponent) inCapsule.readSavable("managedComponent", managedComponent);
+        this.purchasedCost = inCapsule.readDouble("purchasedCost", purchasedCost);
+        this.isPurchased = inCapsule.readBoolean("isPurchased", isPurchased);
+        this.staffType = inCapsule.readString("staffType", staffType);
+        this.name = inCapsule.readString("name", "");
+        this.description = inCapsule.readString("description", "");
+        this.onPurchase = inCapsule.readString("onPurchase", "");
+    }
+    
+    public OutputCapsule getExporterCapsule()
+    {
+        return outCapsule;
+    }
+    
+    public InputCapsule getImporterCapsule()
+    {
+        return inCapsule;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-   
-   
-   
+
      /**========================================================================================================================== 
     * @name update
     * 

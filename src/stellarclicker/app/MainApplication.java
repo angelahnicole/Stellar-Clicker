@@ -48,8 +48,14 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
 import com.jme3.audio.AudioSource.Status;
 import com.jme3.audio.AudioNode;
+import com.jme3.export.binary.BinaryExporter;
+import com.jme3.export.binary.BinaryImporter;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import stellarclicker.util.EAppState;
 import stellarclicker.ship.Ship;
@@ -80,6 +86,9 @@ public class MainApplication extends SimpleApplication
     private float gameTime;
     
     private boolean beginTime = false;
+    
+    // persistence information
+    private File saveFile;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -112,12 +121,31 @@ public class MainApplication extends SimpleApplication
     @Override
     public void simpleInitApp()
     {
-        
-        
         // Adding JSON loader so we can read JSON files (needs to happen before ship is created)
         assetManager.registerLoader(JSONLoader.class, "json");
-
-        myShip = new Ship();
+        
+        // get save information
+        String userHome = System.getProperty("user.home");
+        this.saveFile = new File(userHome + "/Saves/myShip.j3o");
+        
+        // retrieve the ship from save
+        BinaryImporter importer = BinaryImporter.getInstance();
+        try
+        {
+            if(saveFile.exists())
+            {
+                myShip = (Ship) importer.load(saveFile);
+            }
+            else
+            {
+                myShip = new Ship();
+            }
+            
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(MainApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         // initialize background music
         initMusic();
@@ -215,6 +243,19 @@ public class MainApplication extends SimpleApplication
     public void destroy()
     {
         super.destroy();
+        
+        // get the file to save
+        BinaryExporter exporter = BinaryExporter.getInstance();
+        
+        // save the whole ship!
+        try
+        {
+            exporter.save(this.myShip, this.saveFile);
+        }
+        catch(Exception ex)
+        {
+            Logger.getLogger(MainApplication.class.getName()).log(Level.SEVERE, "Error: Failed to save game!", ex);
+        }
 
         System.out.println("Destroy");
     }
