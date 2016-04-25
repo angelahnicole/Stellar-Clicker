@@ -82,7 +82,7 @@ public class Ship
     private double moneyPerSecond;
     private ComponentFactory compFactory;
     private StaffFactory staffFactory;
-    private int previousMoneyTime;
+    private int previousSecond;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -141,8 +141,8 @@ public class Ship
         }
         
         //money checkers
-        this.officers = 6;
-        this.previousMoneyTime = 0;
+        this.officers = 0;
+        this.previousSecond = 0;
         
         //money checkers
     }
@@ -167,23 +167,40 @@ public class Ship
         for(EShipComponent m : EShipComponent.values()) 
         {
             shipComponents[m.ordinal()].update(gameTime);
+            
+            
         }
         
         
         
-        //TODO: TEST
-        //check officer happiness & update money per second
-        calcMoneyPerSecond(2000000);
+        
         
         //increases money by money per second.
-        if ((int)gameTime > this.previousMoneyTime)
+        if ((int)gameTime > this.previousSecond)
         {
-            earnMoney(this.moneyPerSecond);
-            this.previousMoneyTime = (int)gameTime;
             
-            System.out.println(getCashFormat());
+            earnMoney(this.moneyPerSecond);
+            this.previousSecond = (int)gameTime;
+            for(EShipComponent m : EShipComponent.values()) 
+            {   
+                if (shipComponents[m.ordinal()].checkLeveled())
+                {
+                    updateStats();
+                    calculateClaimableOfficers();
+                    claimOfficers();
+                    calcMoneyPerSecond();
                     
+                }
+            
+            
+            }
+            
+                 
         }
+        
+        
+        
+        
     }
     
     /**=========================================================================================================================
@@ -291,12 +308,15 @@ public class Ship
     * 
     * @description Calculates the amount of ca$h money to give the player  
     *///=========================================================================================================================
-    private void calcMoneyPerSecond(int multiplier)
+    private void calcMoneyPerSecond()
     {
+       
         //need more statistics for this calculation.
-       double change = this.officers*multiplier;
+       double change = this.officers*500;
        this.moneyPerSecond = change;
     }
+    
+    
     
     /**========================================================================================================================== 
     * @name RESET SHIP
@@ -305,9 +325,9 @@ public class Ship
     *///=========================================================================================================================
     public void resetShip()
     {
-        this.money = 0.0;
+        this.money = 1.0;
         this.initializeComponents();
-        System.out.println("Resetting the ship");
+        
         
     }
     
@@ -323,6 +343,17 @@ public class Ship
         this.claimableOfficers += count;
     }
     
+    public void calculateClaimableOfficers()
+    {
+        if (shipStats.getStatValue(EShipStat.OFFICER_HAPPINESS) > 0)
+        {
+           increaseClaimableOfficers(shipStats.getStatValue(EShipStat.OFFICER_HAPPINESS));
+        }
+        
+        else {
+            this.claimableOfficers = 0;
+        }
+    }
     /**========================================================================================================================== 
     * @name CLAIM OFFICERS
     * 
@@ -332,6 +363,7 @@ public class Ship
     {
         //check component levels
         this.officers += this.claimableOfficers;
+        this.claimableOfficers = 0;
     }
     
     /**========================================================================================================================== 
@@ -700,6 +732,37 @@ public class Ship
     {
         return String.format(this.basePictureName, getShipCurrentTier());
     }
+    
+     public void updateStats()
+    {
+        
+        
+        for(ShipComponent shipComp : shipComponents)
+        {
+            int statBoost = 0;
+            int level = shipComp.getLevel();
+            String[] affectedStats = shipComp.getStats();
+            statBoost = Math.round(level/2);
+            for (int i = 0; i< affectedStats.length;i++)
+            {
+                
+                this.shipStats.updateStat(EShipStat.valueOf(affectedStats[i]), statBoost);
+                
+            }
+                
+        }
+        
+            
+            
+        
+        
+    }
+     
+     public ShipStatistics getShipStats()
+     {
+         return this.shipStats;
+     }
+             
     
     /**========================================================================================================================== 
     * @name GET SHIP CURRENT TIER
