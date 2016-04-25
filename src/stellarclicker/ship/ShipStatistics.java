@@ -27,9 +27,14 @@ public class ShipStatistics {
         
         for(EShipStat x : EShipStat.values()){
             shipStats[x.ordinal()] = new ShipStat(x.name(),0);
-            System.out.println(shipStats[x.ordinal()].getStatName());
-        }        
+            
+        }
+        
+        
+        
     }
+    
+    
 
     /////
     /*
@@ -53,6 +58,20 @@ public class ShipStatistics {
       public void updateStat(int value){
           this.stat += value;
       }
+  }
+  
+  public void updateStat(EShipStat stat, int value)
+  {
+   this.shipStats[stat.ordinal()].updateStat(value);
+  }
+  
+   public int getStatValue(EShipStat stat)
+  {
+   return this.shipStats[stat.ordinal()].getStatValue();
+  }
+    public String getStatName(EShipStat stat)
+  {
+   return this.shipStats[stat.ordinal()].getStatName();
   }
 }
 
