@@ -114,56 +114,6 @@ public class ShipStatistics implements Savable
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /////
-    /*
-     * ShipStat object class
-     */
-    /////
-    public class ShipStat implements Savable
-    {
-
-        private String name;
-        private int stat = 0;
-
-        ShipStat(String name, int stat)
-        {
-            this.name = name;
-            this.stat = stat;
-        }
-        
-        ShipStat()
-        {
-            
-        }
-
-        public void write(JmeExporter ex) throws IOException
-        {
-            OutputCapsule myCapsule = ex.getCapsule(this);
-            myCapsule.write(this.name, "name", "");
-            myCapsule.write(this.stat, "stat", 0);
-        }
-
-        public void read(JmeImporter im) throws IOException
-        {
-            InputCapsule myCapsule = im.getCapsule(this);
-            this.name = myCapsule.readString("name", "");
-            this.stat = myCapsule.readInt("stat", 0);
-        }
-
-        public int getStatValue()
-        {
-          return stat;
-        }
-
-        public String getStatName()
-        {
-          return name;
-        }
-
-        public void updateStat(int value)
-        {
-          this.stat += value;
-        }
-  }
+    
 }
 

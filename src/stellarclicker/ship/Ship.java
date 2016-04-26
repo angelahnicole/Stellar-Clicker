@@ -102,6 +102,7 @@ public class Ship implements Savable
     
     private OutputCapsule outCapsule;
     private InputCapsule inCapsule;
+    private String lastSaveTime;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -132,7 +133,12 @@ public class Ship implements Savable
         outCapsule.write(money, "money", 0);
         outCapsule.write(moneyPerSecond, "moneyPerSecond", 0);
         outCapsule.write(previousMoneyTime, "previousMoneyTime", 0);
-        outCapsule.write(new Date().toString(), "saveDate", new Date().toString());
+        
+        // write the save time
+        DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
+        Date nowDate = new Date();
+        this.lastSaveTime = df.format(nowDate).toString();
+        outCapsule.write(lastSaveTime, "lastSaveTime", "");
     }
     
     public void read(JmeImporter im) throws IOException
@@ -154,34 +160,83 @@ public class Ship implements Savable
         this.moneyPerSecond = inCapsule.readDouble("moneyPerSecond", moneyPerSecond);
         this.previousMoneyTime = inCapsule.readInt("previousMoneyTime", previousMoneyTime);
         
-        
-        String lastSave = inCapsule.readString("saveDate", "");
-        if(!lastSave.isEmpty())
+        // level up / repair components based on how much time has passed
+        this.lastSaveTime = inCapsule.readString("lastSaveTime", "");
+        if(!lastSaveTime.isEmpty())
         {
-            long secondsSinceSave = getSecondsSinceSave(lastSave);
+            updateShipComponentsSinceSave( getSecondsSinceSave(lastSaveTime) );
+        }
+        
+        // update money based on how much time has passed
+        
+        // update officers based on how much time has passed
+    }
+    
+    private void updateShipComponentsSinceSave(float secondsSinceSave)
+    {
+        System.out.println();
+        System.out.println("UPDATING COMPONENTS! \t\t Seconds Since Save: " + secondsSinceSave);
+        System.out.println();
+        
+        for(int i = 0; i < this.shipComponents.length; i++)
+        {
+            ShipComponent shipComp = this.shipComponents[i];
+            float timeLeft = shipComp.getLastTimeLeft();
+            EShipComponent shipEnum = EShipComponent.values()[i];
+            boolean isManaged = isSeniorStaffPurchased(shipEnum);
             
-            // update ship components here
-            
-            // for every ship component
-            //   get time left
-            //   if (timeLeft <= secondsSinceSave)
-            //     getLevelsJSONObject
-            //     long totalTime = timeLeft;
-            //     for level = currentLevel to maxLevel
-            //       totalTime += jsonObj.get("level")
-            //       if(totalTime >= secondsSinceSave)
-            //          componentCurrentLevel = level
-            //          componentTimeLeft  
-            
+            System.out.println("Component: " + shipEnum + "\t \t Time Left: " + timeLeft);
+
+            // first check if it's repairing, and, if so, repair it! 
+            // break the loop if it isn't managed by senior staff
+            if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
+            {
+                shipComp.repairComponent();
+                if(!isManaged) break;
+            }
+
+            // only update the level if the time since saved is more than the time left to level the component
+            // the time left will be negative if it's inactive
+            if(Float.compare(timeLeft, 0) >= 0 && timeLeft <= secondsSinceSave)
+            {
+                float totalTime = timeLeft;
+                int level = shipComp.getLevel();
+
+                // level up the component and accumulate how much time it takes to level it up
+                do
+                {
+                    level = shipComp.levelUp(false);
+                    totalTime += shipComp.getTimeTaken(level, true);
+                }
+                // only continue to level up the component if it's automated, we haven't gone too far in time, and we haven't exceeded the max level
+                while(isManaged && totalTime < secondsSinceSave && level < shipComp.MAX_LEVEL);
+
+
+                float newTimeLeft = -1;
+                float newTimeElapsed = -1;
+                EShipComponentState newState = EShipComponentState.INACTIVE;
+
+                // if it's not exactly equal to zero, we are continuing to level up the component if it's managed
+                if(isManaged && Float.compare(totalTime, secondsSinceSave) > 0)
+                {
+                    newTimeElapsed = totalTime - secondsSinceSave;
+                    newTimeLeft = shipComp.getTimeTaken(level, true) - newTimeElapsed;
+                    newState = EShipComponentState.GAINING_EXP;
+                }
+
+                // set the new time and state
+                shipComp.setSavedTime(newTimeLeft, newTimeElapsed);
+                shipComp.setComponentState(newState);
+            }
         }
     }
     
-    private long getSecondsSinceSave(String lastSave)
+    private float getSecondsSinceSave(String lastSave)
     {
         DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
         Date saveDate = null;
         Date nowDate = new Date();
-        long secondsSinceSave = 0;
+        float secondsSinceSave = 0;
 
         try
         {
@@ -775,6 +830,18 @@ public class Ship implements Savable
     public boolean isSeniorStaffPurchased(ESeniorStaff officer)
     {
         return seniorStaff[officer.ordinal()].isPurchased();
+    }
+    
+    /**========================================================================================================================== 
+    * @name IS SENIOR STAFF PURCHASED
+    * 
+    * @description Whether or not the senior staff is purchased
+    * 
+    * @param shipComp the enumerated ship component
+    *///=========================================================================================================================
+    public boolean isSeniorStaffPurchased(EShipComponent shipComp)
+    {
+        return seniorStaff[shipComp.ordinal()].isPurchased();
     }
     
     /**========================================================================================================================== 

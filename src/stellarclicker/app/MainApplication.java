@@ -126,7 +126,7 @@ public class MainApplication extends SimpleApplication
         
         // get save information
         String userHome = System.getProperty("user.home");
-        this.saveFile = new File(userHome + "/Saves/myShip.j3o");
+        this.saveFile = new File(userHome + "/StellarClicker/Saves/ship.j3o");
         
         // retrieve the ship from save
         BinaryImporter importer = BinaryImporter.getInstance();

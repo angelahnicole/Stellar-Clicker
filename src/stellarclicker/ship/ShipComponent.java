@@ -174,8 +174,8 @@ public class ShipComponent implements Savable
         
         // update timer information
         outCapsule.write(timer.getActivation(), "isActive", false);
-        outCapsule.write(timer.getLastTimeLeft(), "timeLeft", 0);
-        outCapsule.write(timer.getLastTimeElapsed(), "timeElapsed", 0);
+        outCapsule.write(timer.getLastTimeLeft(), "timeLeft", -1);
+        outCapsule.write(timer.getLastTimeElapsed(), "timeElapsed", -1);
     }
     
     public void read(JmeImporter im) throws IOException
@@ -197,8 +197,8 @@ public class ShipComponent implements Savable
         this.managed = inCapsule.readBoolean("managed", false);
         
         boolean isTimerActive = inCapsule.readBoolean("isActive", false);
-        this.lastTimeLeft = inCapsule.readFloat("timeLeft", 0);
-        this.lastTimeElapsed = inCapsule.readFloat("timeElapsed", 0);
+        this.lastTimeLeft = inCapsule.readFloat("timeLeft", -1);
+        this.lastTimeElapsed = inCapsule.readFloat("timeElapsed", -1);
         
         if(isTimerActive)
         {
@@ -309,6 +309,29 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
+    * @name LEVEL UP
+    * 
+    * @description Increases the level of this component, updates its state, but does NOT update the time taken to repair and
+    * gain experience if indicated. This is to be used when leveling up components after a save.
+    * 
+    * @param updateTimeTaken Whether or not to update the time
+    * 
+    * @return int The new level of the component
+    *///=========================================================================================================================
+    public int levelUp(boolean updateTimeTaken)
+    {
+        this.level += 1;
+        this.currentState = EShipComponentState.INACTIVE;
+        
+        if(updateTimeTaken)
+        {
+            updateTimeTaken();
+        }
+        
+        return this.level;
+    }
+    
+    /**========================================================================================================================== 
     * @name GAIN REPAIR
     * 
     * @description Starts the repair component timer and set its component state to repairing 
@@ -409,6 +432,7 @@ public class ShipComponent implements Savable
     {
         return this.levelCost;
     }
+    
     /**========================================================================================================================== 
     * @name GET SHIP STATISTIC
     * 
@@ -506,6 +530,53 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
+    * @name GET TIME TAKEN
+    * 
+    * @description Returns the amount of time it will take to level up the component. Will be used to help load saved games.
+    * 
+    * @param level The current level of the component
+    * @param returnExpTime Whether or not to return experience time or repair time
+    * 
+    * @return float The time taken to level it up or repair it
+    *///=========================================================================================================================
+    public float getTimeTaken(int level, boolean returnExpTime)
+    {
+        float timeTaken = (float) this.BASE_TIME / ( ((float)level/10.00f) + 1.00f);
+        
+        // return time it takes to gain experience
+        if(returnExpTime)
+        {
+            return timeTaken;
+        }
+        // return time it takes to repair
+        else
+        {
+            return timeTaken * 2;
+        }
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET LAST TIME LEFT
+    * 
+    * @description Returns the last saved time left in a running timer on a component
+    *///=========================================================================================================================
+    public float getLastTimeLeft()
+    {
+        return this.lastTimeLeft;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET LAST TIME ELAPSED
+    * 
+    * @description Returns the last saved time elapsed in a running timer on a component
+    *///=========================================================================================================================
+    public float getLastTimeElapsed()
+    {
+        return this.lastTimeElapsed;
+    }
+    
+    
+    /**========================================================================================================================== 
     * @name UPDATE TIME TAKEN
     * 
     * @description Updates the current time taken to repair and gain experience
@@ -514,6 +585,30 @@ public class ShipComponent implements Savable
     {
         this.expTime = this.BASE_TIME / ((this.level/10)+1);
         this.repairTime = this.expTime * 2;
+    }
+    
+    /**========================================================================================================================== 
+    * @name SET SAVED TIME
+    * 
+    * @description Updates the time left and time elapsed during experience/repair gain
+    * 
+    * @param lastTimeLeft Last saved time left in a running timer on a component
+    * @param lastTimeElapsed Last saved time elapsed in a running timer on a component
+    *///=========================================================================================================================
+    public void setSavedTime(float lastTimeLeft, float lastTimeElapsed)
+    {
+        this.lastTimeLeft = lastTimeLeft;
+        this.lastTimeElapsed = lastTimeElapsed;
+    }
+    
+    /**========================================================================================================================== 
+    * @name SET COMPONENT STATE
+    * 
+    * @description Updates the component state ont he 
+    *///=========================================================================================================================
+    public void setComponentState(EShipComponentState newState)
+    {
+        this.currentState = newState;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
