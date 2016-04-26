@@ -229,7 +229,7 @@ public class MainApplication extends SimpleApplication
         //update time across game
         if (this.beginTime == true)
         {
-        myShip.update(tpf, gameTime);
+            myShip.update(tpf, gameTime);
         }
     }
 
