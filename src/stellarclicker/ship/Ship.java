@@ -98,7 +98,7 @@ public class Ship implements Savable
     private double moneyPerSecond;
     private ComponentFactory compFactory;
     private StaffFactory staffFactory;
-    private int previousMoneyTime;
+    private int previousSecond;
     
     private OutputCapsule outCapsule;
     private InputCapsule inCapsule;
@@ -132,7 +132,7 @@ public class Ship implements Savable
         outCapsule.write(claimableOfficers, "claimableOfficers", 0);
         outCapsule.write(money, "money", 0);
         outCapsule.write(moneyPerSecond, "moneyPerSecond", 0);
-        outCapsule.write(previousMoneyTime, "previousMoneyTime", 0);
+        outCapsule.write(previousSecond, "previousSecond", 0);
         
         // write the save time
         DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
@@ -158,7 +158,7 @@ public class Ship implements Savable
         this.claimableOfficers = inCapsule.readDouble("claimableOfficers", claimableOfficers);
         this.money = inCapsule.readDouble("money", money);
         this.moneyPerSecond = inCapsule.readDouble("moneyPerSecond", moneyPerSecond);
-        this.previousMoneyTime = inCapsule.readInt("previousMoneyTime", previousMoneyTime);
+        this.previousSecond = inCapsule.readInt("previousSecond", previousSecond);
         
         // level up / repair components based on how much time has passed
         this.lastSaveTime = inCapsule.readString("lastSaveTime", "");
@@ -292,8 +292,8 @@ public class Ship implements Savable
         }
         
         //money checkers
-        this.officers = 6;
-        this.previousMoneyTime = 0;
+        this.officers = 0;
+        this.previousSecond = 0;
         
         //money checkers
     }
@@ -318,23 +318,40 @@ public class Ship implements Savable
         for(EShipComponent m : EShipComponent.values()) 
         {
             shipComponents[m.ordinal()].update(gameTime);
+            
+            
         }
         
         
         
-        //TODO: TEST
-        //check officer happiness & update money per second
-        calcMoneyPerSecond(2000000);
+        
         
         //increases money by money per second.
-        if ((int)gameTime > this.previousMoneyTime)
+        if ((int)gameTime > this.previousSecond)
         {
-            earnMoney(this.moneyPerSecond);
-            this.previousMoneyTime = (int)gameTime;
             
-            System.out.println(getCashFormat());
+            earnMoney(this.moneyPerSecond);
+            this.previousSecond = (int)gameTime;
+            for(EShipComponent m : EShipComponent.values()) 
+            {   
+                if (shipComponents[m.ordinal()].checkLeveled())
+                {
+                    updateStats();
+                    calculateClaimableOfficers();
+                    claimOfficers();
+                    calcMoneyPerSecond();
                     
+                }
+            
+            
+            }
+            
+                 
         }
+        
+        
+        
+        
     }
     
     /**=========================================================================================================================
@@ -442,12 +459,15 @@ public class Ship implements Savable
     * 
     * @description Calculates the amount of ca$h money to give the player  
     *///=========================================================================================================================
-    private void calcMoneyPerSecond(int multiplier)
+    private void calcMoneyPerSecond()
     {
+       
         //need more statistics for this calculation.
-       double change = this.officers*multiplier;
+       double change = this.officers*500;
        this.moneyPerSecond = change;
     }
+    
+    
     
     /**========================================================================================================================== 
     * @name RESET SHIP
@@ -456,9 +476,9 @@ public class Ship implements Savable
     *///=========================================================================================================================
     public void resetShip()
     {
-        this.money = 0.0;
+        this.money = 1.0;
         this.initializeComponents();
-        System.out.println("Resetting the ship");
+        
         
     }
     
@@ -474,6 +494,17 @@ public class Ship implements Savable
         this.claimableOfficers += count;
     }
     
+    public void calculateClaimableOfficers()
+    {
+        if (shipStats.getStatValue(EShipStat.OFFICER_HAPPINESS) > 0)
+        {
+           increaseClaimableOfficers(shipStats.getStatValue(EShipStat.OFFICER_HAPPINESS));
+        }
+        
+        else {
+            this.claimableOfficers = 0;
+        }
+    }
     /**========================================================================================================================== 
     * @name CLAIM OFFICERS
     * 
@@ -483,6 +514,7 @@ public class Ship implements Savable
     {
         //check component levels
         this.officers += this.claimableOfficers;
+        this.claimableOfficers = 0;
     }
     
     /**========================================================================================================================== 
@@ -863,6 +895,37 @@ public class Ship implements Savable
     {
         return String.format(this.basePictureName, getShipCurrentTier());
     }
+    
+     public void updateStats()
+    {
+        
+        
+        for(ShipComponent shipComp : shipComponents)
+        {
+            int statBoost = 0;
+            int level = shipComp.getLevel();
+            String[] affectedStats = shipComp.getStats();
+            statBoost = Math.round(level/2);
+            for (int i = 0; i< affectedStats.length;i++)
+            {
+                
+                this.shipStats.updateStat(EShipStat.valueOf(affectedStats[i]), statBoost);
+                
+            }
+                
+        }
+        
+            
+            
+        
+        
+    }
+     
+     public ShipStatistics getShipStats()
+     {
+         return this.shipStats;
+     }
+             
     
     /**========================================================================================================================== 
     * @name GET SHIP CURRENT TIER

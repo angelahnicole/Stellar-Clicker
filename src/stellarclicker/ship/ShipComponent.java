@@ -51,11 +51,12 @@ import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
 import com.jme3.export.Savable;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 import stellarclicker.util.EShipComponentState;
-
+import stellarclicker.util.EShipStat;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public class ShipComponent implements Savable
@@ -98,13 +99,18 @@ public class ShipComponent implements Savable
     protected boolean managed;
     protected Random rand;
     
-    
     // persistence
     private boolean isTimerSet;
     private float lastTimeElapsed;
     private float lastTimeLeft;
     private OutputCapsule outCapsule;
     private InputCapsule inCapsule;
+    
+    protected String[] affectedStats;
+    protected ShipStatistics shipStats;
+    
+    protected int statBoost;
+    protected boolean leveled;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -136,6 +142,10 @@ public class ShipComponent implements Savable
         this.rand = new Random();
         this.durabilityLossRange = 25;
         this.isTimerSet = true;
+        
+        this.shipStats = new ShipStatistics();
+        this.statBoost = 0;
+        this.leveled = false;
     }
     
     public ShipComponent()
@@ -195,6 +205,10 @@ public class ShipComponent implements Savable
         this.levelCost = inCapsule.readDouble("levelCost", 0);
         this.repairCost = inCapsule.readDouble("repairCost", levelCost * 0.1f);
         this.managed = inCapsule.readBoolean("managed", false);
+        
+        this.shipStats = new ShipStatistics();
+        this.statBoost = 0;
+        this.leveled = false;
         
         boolean isTimerActive = inCapsule.readBoolean("isActive", false);
         this.lastTimeLeft = inCapsule.readFloat("timeLeft", -1);
@@ -278,6 +292,24 @@ public class ShipComponent implements Savable
         }
     }
     
+    public void setStats(List<String> stats)
+    {
+        this.affectedStats = new String[stats.size()];
+        for (int i=0; i<affectedStats.length;i++)
+        {
+            this.affectedStats[i] = stats.get(i);
+            
+        }
+        
+    }
+    
+    public String[] getStats()
+    {
+        return this.affectedStats;
+    }
+    
+    
+    
     /**========================================================================================================================== 
     * @name GAIN EXPERIENCE
     * 
@@ -294,6 +326,7 @@ public class ShipComponent implements Savable
         
     }
     
+   
     /**========================================================================================================================== 
     * @name LEVEL UP
     * 
@@ -304,10 +337,16 @@ public class ShipComponent implements Savable
     {
         this.level += 1;
         updateTimeTaken();
-        
+        this.leveled = true;
         this.currentState = EShipComponentState.INACTIVE;
     }
     
+    public boolean checkLeveled()
+    {
+        boolean temp = this.leveled;
+        this.leveled = false;
+        return temp;
+    }
     /**========================================================================================================================== 
     * @name LEVEL UP
     * 

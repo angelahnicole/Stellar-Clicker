@@ -44,6 +44,8 @@ package stellarclicker.util;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import java.util.ArrayList;
+import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -114,6 +116,20 @@ public class ComponentFactory
             levelTiers,
             (String) temp.get("BASE_PICTURE_NAME")
         );
+        
+        JSONArray statArray = (JSONArray) temp.get("AFFECTED_STATS");
+        
+        List<String> list = new ArrayList<String>();
+        for(int i = 0; i < statArray.size(); i++){
+            
+            list.add((String)statArray.get(i));
+            
+        }
+        
+        
+        newComponent.setStats(list);
+        
+        
         
         return newComponent;
     }
