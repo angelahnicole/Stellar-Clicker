@@ -162,12 +162,23 @@ public class Ship implements Savable
             
             // update ship components here
             
+            // for every ship component
+            //   get time left
+            //   if (timeLeft <= secondsSinceSave)
+            //     getLevelsJSONObject
+            //     long totalTime = timeLeft;
+            //     for level = currentLevel to maxLevel
+            //       totalTime += jsonObj.get("level")
+            //       if(totalTime >= secondsSinceSave)
+            //          componentCurrentLevel = level
+            //          componentTimeLeft  
+            
         }
     }
     
     private long getSecondsSinceSave(String lastSave)
     {
-        DateFormat df = new SimpleDateFormat("dow mon dd hh:mm:ss zzz yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
         Date saveDate = null;
         Date nowDate = new Date();
         long secondsSinceSave = 0;

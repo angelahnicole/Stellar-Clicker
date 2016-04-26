@@ -475,14 +475,24 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 ESeniorStaff staffEnum = ESeniorStaff.values()[i];
                 StaffElementController staffElem = this.screen.findControl(staffEnum.toString(), StaffElementController.class);
                 
-                if( !MainApplication.app.myShip.canAfford(staffEnum) )
+                // only change it if it's not purchased
+                if(MainApplication.app.myShip.isSeniorStaffPurchased(staffEnum))
                 {
-                    staffElem.disableBuying();
+                    staffElem.enableBuying();
+                    staffElem.disableComponent();
                 }
                 else
                 {
-                    staffElem.enableBuying();
+                    if( !MainApplication.app.myShip.canAfford(staffEnum) )
+                    {
+                        staffElem.disableBuying();
+                    }
+                    else
+                    {
+                        staffElem.enableBuying();
+                    }
                 }
+
             }
             
             

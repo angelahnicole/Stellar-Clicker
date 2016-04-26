@@ -96,9 +96,13 @@ public class ShipComponent implements Savable
     // whether the component is managed by an officer.
     // TODO: use ship component state instead of this bool
     protected boolean managed;
-    
     protected Random rand;
     
+    
+    // persistence
+    private boolean isTimerSet;
+    private float lastTimeElapsed;
+    private float lastTimeLeft;
     private OutputCapsule outCapsule;
     private InputCapsule inCapsule;
     
@@ -131,14 +135,16 @@ public class ShipComponent implements Savable
         this.timer = new Timer();
         this.rand = new Random();
         this.durabilityLossRange = 25;
+        this.isTimerSet = true;
     }
     
     public ShipComponent()
     {
         updateTimeTaken();
-        this.timer = new Timer();
         this.rand = new Random();
+        this.timer = new Timer();
         this.durabilityLossRange = 25;
+        this.isTimerSet = true;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,6 +170,12 @@ public class ShipComponent implements Savable
         outCapsule.write(levelCost, "levelCost", 0);
         outCapsule.write(repairCost, "repairCost", levelCost * 0.1f);
         outCapsule.write(managed, "managed", false);
+        
+        
+        // update timer information
+        outCapsule.write(timer.getActivation(), "isActive", false);
+        outCapsule.write(timer.getLastTimeLeft(), "timeLeft", 0);
+        outCapsule.write(timer.getLastTimeElapsed(), "timeElapsed", 0);
     }
     
     public void read(JmeImporter im) throws IOException
@@ -183,6 +195,15 @@ public class ShipComponent implements Savable
         this.levelCost = inCapsule.readDouble("levelCost", 0);
         this.repairCost = inCapsule.readDouble("repairCost", levelCost * 0.1f);
         this.managed = inCapsule.readBoolean("managed", false);
+        
+        boolean isTimerActive = inCapsule.readBoolean("isActive", false);
+        this.lastTimeLeft = inCapsule.readFloat("timeLeft", 0);
+        this.lastTimeElapsed = inCapsule.readFloat("timeElapsed", 0);
+        
+        if(isTimerActive)
+        {
+            this.isTimerSet = false;
+        }
     }
     
     public OutputCapsule getExporterCapsule()
@@ -223,6 +244,17 @@ public class ShipComponent implements Savable
     public void manageTimers()
     {
         
+        // check if timers need to be reset
+        if(!this.isTimerSet)
+        {
+            // set the timer with what is left
+            // note: this has an obvious flaw: the percentages will be completely wrong, but the time keeping would still be correct
+            this.timer.set(this.gameTime, this.lastTimeLeft);
+            
+            // make sure that we don't do it again
+            this.isTimerSet = true;
+        }
+        
         if (this.currentState != EShipComponentState.BROKEN)
         {
             // check for completion of timers
@@ -232,10 +264,10 @@ public class ShipComponent implements Savable
                 {
                     this.timer.cancelTimer();
                     levelUp();
-                    
+
                     //degrade component
                     degradeComponent();
-                    
+
                 }
                 else if(this.currentState == EShipComponentState.REPAIRING)
                 {
@@ -255,10 +287,9 @@ public class ShipComponent implements Savable
     {
         //prevent experience gain if gaining experience.
         if (this.currentState != EShipComponentState.BROKEN)
-        {this.timer.set(this.gameTime, this.expTime);
-        
-        
-        this.currentState = EShipComponentState.GAINING_EXP;
+        {
+            this.timer.set(this.gameTime, this.expTime);
+            this.currentState = EShipComponentState.GAINING_EXP;
         }
         
     }

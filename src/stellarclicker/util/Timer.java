@@ -16,12 +16,12 @@
 
 package stellarclicker.util;
 
-import java.io.Serializable;
-
-public class Timer implements Serializable{
+public class Timer
+{
     private Boolean isActive;
     private float start;
     private float stop;
+    private float lastGametime;
     
     float percent;
     
@@ -34,7 +34,18 @@ public class Timer implements Serializable{
         this.percent = 0;
         
     }
-        /**========================================================================================================================== 
+    
+    public Timer(boolean isActive, float start, float stop, float percent)
+    {
+        this.isActive = isActive;
+        this.start = start;
+        this.stop = stop;
+        this.percent = percent;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**========================================================================================================================== 
     * @name getActivation
     * 
     * @description If timer is activated
@@ -44,7 +55,8 @@ public class Timer implements Serializable{
     {
             return this.isActive;
     }
-        /**========================================================================================================================== 
+    
+    /**========================================================================================================================== 
     * @name Set
     * 
     * @description Starts timer (seconds) which is based on the current gametime.
@@ -57,10 +69,9 @@ public class Timer implements Serializable{
         this.isActive = true;
         this.start = gametime;
         this.stop = this.start + seconds;
-
-
     }
-        /**========================================================================================================================== 
+    
+    /**========================================================================================================================== 
     * @name checkCompletion
     * 
     * @description Determines if a timer has elapsed.
@@ -69,6 +80,8 @@ public class Timer implements Serializable{
     *///=========================================================================================================================
     public Boolean checkCompletion(float gametime)
     {
+        this.lastGametime = gametime;
+        
         if (isActive && gametime > this.stop)
         {
             isActive = false;
@@ -79,7 +92,8 @@ public class Timer implements Serializable{
 
         return false;
     }
-       /**========================================================================================================================== 
+    
+    /**========================================================================================================================== 
     * @name getPercentComplete
     * 
     * @description returns the percent of how complete a timer is.
@@ -93,6 +107,61 @@ public class Timer implements Serializable{
         {
          this.percent = (gametime - this.start)/(this.stop - this.start);
          return this.percent;
+        }
+        
+        return 0;
+    }
+    
+    /**========================================================================================================================== 
+    * @name getLastGametime
+    * 
+    * @description Returns the last recorded "game time"
+    *///=========================================================================================================================
+    public float getLastGametime()
+    {
+        return this.lastGametime;
+    }
+    
+    /**========================================================================================================================== 
+    * @name getLastTimeLeft
+    * 
+    * @description 
+    *///=========================================================================================================================
+    public float getLastTimeLeft()
+    {
+        if(isActive)
+        {
+            return this.stop - this.lastGametime;
+        }
+        
+        return 0;
+    }
+    
+    /**========================================================================================================================== 
+    * @name getLastTimeElapsed
+    * 
+    * @description 
+    *///=========================================================================================================================
+    public float getLastTimeElapsed()
+    {
+        if(isActive)
+        {
+            return this.lastGametime - this.start;
+        }
+        
+        return 0;
+    }
+    
+    /**========================================================================================================================== 
+    * @name getLastPercent
+    * 
+    * @description 
+    *///=========================================================================================================================
+    public float getLastPercent()
+    {
+        if(isActive)
+        {
+            return this.percent;
         }
         
         return 0;

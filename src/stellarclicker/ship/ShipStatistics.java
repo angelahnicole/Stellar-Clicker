@@ -119,7 +119,7 @@ public class ShipStatistics implements Savable
      * ShipStat object class
      */
     /////
-    private class ShipStat implements Savable
+    public class ShipStat implements Savable
     {
 
         private String name;
@@ -129,6 +129,11 @@ public class ShipStatistics implements Savable
         {
             this.name = name;
             this.stat = stat;
+        }
+        
+        ShipStat()
+        {
+            
         }
 
         public void write(JmeExporter ex) throws IOException
