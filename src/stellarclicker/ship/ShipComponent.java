@@ -1,4 +1,3 @@
-
 package stellarclicker.ship;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,6 +56,7 @@ import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 import stellarclicker.util.EShipComponentState;
 import stellarclicker.util.EShipStat;
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public class ShipComponent implements Savable
@@ -115,7 +115,7 @@ public class ShipComponent implements Savable
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    // CONSTRUCTOR
+    // CONSTRUCTORS
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     public ShipComponent(String NAME, int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, float LEVEL_COST, int[] levelTiers, String basePictureName)
@@ -163,6 +163,13 @@ public class ShipComponent implements Savable
     // PERSISTENCE METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
+    /**========================================================================================================================== 
+    * @name WRITE
+    * 
+    * @description Saves a saved ship from file
+    * 
+    * @param ex A jMonkeyEngine exporter
+    *///=========================================================================================================================
     public void write(JmeExporter ex) throws IOException
     {
         outCapsule = ex.getCapsule(this);
@@ -188,6 +195,13 @@ public class ShipComponent implements Savable
         outCapsule.write(timer.getLastTimeElapsed(), "timeElapsed", -1);
     }
     
+    /**========================================================================================================================== 
+    * @name READ
+    * 
+    * @description Loads a saved ship from file
+    * 
+    * @param im A jMonkeyEngine importer
+    *///=========================================================================================================================
     public void read(JmeImporter im) throws IOException
     {
         inCapsule = im.getCapsule(this);
@@ -218,16 +232,6 @@ public class ShipComponent implements Savable
         {
             this.isTimerSet = false;
         }
-    }
-    
-    public OutputCapsule getExporterCapsule()
-    {
-        return outCapsule;
-    }
-    
-    public InputCapsule getImporterCapsule()
-    {
-        return inCapsule;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

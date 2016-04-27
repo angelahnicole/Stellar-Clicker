@@ -62,12 +62,9 @@ import stellarclicker.util.StaffFactory;
 import stellarclicker.util.*;
 
 import java.util.Arrays;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import stellarclicker.app.MainApplication;
 
 
@@ -124,6 +121,13 @@ public class Ship implements Savable
     // PERSISTENCE METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
+    /**========================================================================================================================== 
+    * @name WRITE
+    * 
+    * @description Saves a saved ship from file
+    * 
+    * @param ex A jMonkeyEngine exporter
+    *///=========================================================================================================================
     public void write(JmeExporter ex) throws IOException
     {
         outCapsule = ex.getCapsule(this);
@@ -143,6 +147,13 @@ public class Ship implements Savable
         outCapsule.write(lastSaveTime, "lastSaveTime", "");
     }
     
+    /**========================================================================================================================== 
+    * @name READ
+    * 
+    * @description Loads a saved ship from file
+    * 
+    * @param im A jMonkeyEngine importer
+    *///=========================================================================================================================
     public void read(JmeImporter im) throws IOException
     {
         inCapsule = im.getCapsule(this);
@@ -166,6 +177,13 @@ public class Ship implements Savable
         this.lastSaveTime = inCapsule.readString("lastSaveTime", "");
     }
     
+    /**========================================================================================================================== 
+    * @name UPDATE SHIP COMPONENTS SINCE SAVE
+    * 
+    * @description Updates all of the ship components' levels and repairing based on how much time has passed
+    * 
+    * @param secondsSinceSave Seconds since it was saved
+    *///=========================================================================================================================
     public void updateShipComponentsSinceSave(float secondsSinceSave)
     {
         System.out.println();
@@ -229,6 +247,15 @@ public class Ship implements Savable
         }
     }
     
+    /**========================================================================================================================== 
+    * @name GET SECONDS SINCE SAVE
+    * 
+    * @description Calculates the number of seconds since the last time it was saved
+    * 
+    * @param lastSave A formatted string of the time since it last saved
+    * 
+    * @returns float Seconds since it was saved
+    *///=========================================================================================================================
     public float getSecondsSinceSave(String lastSave) throws Exception
     {
         DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
@@ -247,11 +274,17 @@ public class Ship implements Savable
         return secondsSinceSave;
     }
     
+    /**========================================================================================================================== 
+    * @name GET LAST SAVE TIME
+    * 
+    * @description Retrieves a stringified save date, if there is any. The string will be empty if the ship was not saved.
+    * 
+    * @returns String A formatted string of the time since it last saved
+    *///=========================================================================================================================
     public String getLastSaveTime()
     {
         return this.lastSaveTime;
     }
-    
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -316,14 +349,9 @@ public class Ship implements Savable
         for(EShipComponent m : EShipComponent.values()) 
         {
             shipComponents[m.ordinal()].update(gameTime);
-            
-            
+
         }
-        
-        
-        
-        
-        
+
         //increases money by money per second.
         if ((int)gameTime > this.previousSecond)
         {
@@ -338,18 +366,9 @@ public class Ship implements Savable
                     calculateClaimableOfficers();
                     claimOfficers();
                     calcMoneyPerSecond();
-                    
                 }
-            
-            
-            }
-            
-                 
+            }    
         }
-        
-        
-        
-        
     }
     
     /**=========================================================================================================================

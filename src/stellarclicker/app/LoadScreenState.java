@@ -7,7 +7,8 @@ package stellarclicker.app;
  * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * --------------------------------------------------------------------------------------------------------------------------
- * @description 
+ * @description An application state that loads the game on a background thread and updates a progress bar until the game
+ * is fully loaded, and then goes into the MainGameScreenState.
  * --------------------------------------------------------------------------------------------------------------------------
     JME LICENSE
     ******************************************************************************
@@ -59,15 +60,14 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.tools.SizeValue;
-import java.io.File;
-import java.io.IOException;
 
+import java.io.File;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import stellarclicker.ship.Ship;
 import stellarclicker.util.EAppState;
 import stellarclicker.util.ProgressInfo;
@@ -230,10 +230,8 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     *///=========================================================================================================================
     public void onStartScreen()
     {
-        
     }
 
-    
     /**========================================================================================================================== 
     * @name ON END SCREEN
     * 
@@ -249,43 +247,52 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     // LOADING SCREEN CONTROLLER METHODS
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
+    /**========================================================================================================================== 
+    * @name CREATE LOAD CALLABLE
+    * 
+    * @description Creates a callable that will load or create a ship
+    * 
+    * @param loadScreen The currently running load screen state
+    *///=========================================================================================================================
     public Callable createLoadCallable(final LoadScreenState loadScreen)
     {
-        return 
-            new Callable()
+        return new Callable()
+        {
+            public Object call() throws Exception
             {
-                public Object call() throws Exception
+                // create or load ship and pause briefly to see loading labels
+                Ship myShip = loadScreen.loadShip();
+                Thread.sleep(250);
+
+                // update ship info if the ship has been loaded and not created
+                if(myShip != null)
                 {
-                    // create or load ship
-                    Ship myShip = loadScreen.loadShip();
-                    
-                    // pause to see loading labels
-                    Thread.sleep(250);
-
-                    // update ship info
-                    if(myShip != null)
+                    String lastSaveTime = myShip.getLastSaveTime();
+                    if(!lastSaveTime.isEmpty())
                     {
-                        String lastSaveTime = myShip.getLastSaveTime();
+                        // update ship components based on how much time has passed and pause briefly to show loading labels
+                        myShip.updateShipComponentsSinceSave( myShip.getSecondsSinceSave(lastSaveTime) );
+                        Thread.sleep(250);
 
-                        if(!lastSaveTime.isEmpty())
-                        {
-                            myShip.updateShipComponentsSinceSave( myShip.getSecondsSinceSave(lastSaveTime) );
-                            
-                            // pause to see loading labels
-                            Thread.sleep(250);
-                        }
-                    }
 
-                    // update money based on how much time has passed
+                        // update money based on how much time has passed and pause briefly to show loading labels
 
-                    // update officers based on how much time has passed
-
-                    return null;
+                        // update officers based on how much time has passed and pause briefly to show loading labels
+                    } 
                 }
-            };
-                
+
+                return null;
+            }
+        };       
     }
     
+    /**========================================================================================================================== 
+    * @name QUEUE UPDATE PROGRESS
+    * 
+    * @description Queues a callable to run the jME main update thread that will update the progress bar
+    * 
+    * @param loadScreen The currently running load screen state
+    *///=========================================================================================================================
     public void queueUpdateProgress(final LoadScreenState loadScreen)
     {
         MainApplication.app.enqueue
@@ -348,7 +355,7 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     * 
     * @description Loads ship from a save file or, if the save file doesn't exist, creates a new ship
     * 
-    * @returns Ship The new loaded ship
+    * @returns Ship The newly loaded / created ship
     *///=========================================================================================================================
     public Ship loadShip() throws Exception
     {
@@ -377,8 +384,6 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
         
         return loadedShip;
     }
-    
-    
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
