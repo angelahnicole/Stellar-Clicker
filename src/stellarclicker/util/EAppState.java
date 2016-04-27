@@ -14,7 +14,8 @@ package stellarclicker.util;
 
 public enum EAppState 
 {
-    SPLASH_SCREEN_STATE, 
+    SPLASH_STATE, 
+    LOAD_STATE,
     GAME_STATE, 
     STAY_STATE
 }

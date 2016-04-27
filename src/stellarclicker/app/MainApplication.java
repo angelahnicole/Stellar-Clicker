@@ -49,17 +49,16 @@ import com.jme3.app.state.AppState;
 import com.jme3.audio.AudioSource.Status;
 import com.jme3.audio.AudioNode;
 import com.jme3.export.binary.BinaryExporter;
-import com.jme3.export.binary.BinaryImporter;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import stellarclicker.util.EAppState;
 import stellarclicker.ship.Ship;
 import stellarclicker.util.JSONLoader;
+import stellarclicker.util.ProgressInfo;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -88,8 +87,9 @@ public class MainApplication extends SimpleApplication
     private boolean beginTime = false;
     
     // persistence information
+    public ProgressInfo progressInfo;
     private File saveFile;
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
@@ -124,31 +124,14 @@ public class MainApplication extends SimpleApplication
         // Adding JSON loader so we can read JSON files (needs to happen before ship is created)
         assetManager.registerLoader(JSONLoader.class, "json");
         
-        // get save information
-        String userHome = System.getProperty("user.home");
-        this.saveFile = new File(userHome + "/StellarClicker/Saves/ship.j3o");
-        
-        // retrieve the ship from save
-        BinaryImporter importer = BinaryImporter.getInstance();
-        try
-        {
-            if(saveFile.exists())
-            {
-                myShip = (Ship) importer.load(saveFile);
-            }
-            else
-            {
-                myShip = new Ship();
-            }
-            
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(MainApplication.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         // initialize background music
         initMusic();
+        
+        // initialize the save file
+        initSaveFile();
+        
+        // initialize progress info
+        progressInfo = new ProgressInfo();
         
         // initializing the nifty GUI
         niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
@@ -156,7 +139,7 @@ public class MainApplication extends SimpleApplication
         guiViewPort.addProcessor(niftyDisplay);
        
         // always start with the start state
-        changeState = EAppState.SPLASH_SCREEN_STATE;
+        changeState = EAppState.SPLASH_STATE;
        
         // set stats views to default off
         setDisplayFps(false);
@@ -190,7 +173,7 @@ public class MainApplication extends SimpleApplication
         switch(changeState)
         {
             // go to the splash screen state
-            case SPLASH_SCREEN_STATE:
+            case SPLASH_STATE:
             {
                 if(stateManager.hasState(currentState))
                 {
@@ -199,7 +182,20 @@ public class MainApplication extends SimpleApplication
                 
                 currentState = new SplashScreenState();
                 stateManager.attach(currentState);
-                startShip();
+                
+                break;
+            }
+            // go to the load screen state
+            case LOAD_STATE:
+            {
+                if(stateManager.hasState(currentState))
+                {
+                    stateManager.detach(currentState);
+                }
+                
+                currentState = new LoadScreenState();
+                stateManager.attach(currentState);
+                
                 break;
             }
             // go to the main game state
@@ -212,6 +208,7 @@ public class MainApplication extends SimpleApplication
                 
                 currentState = new MainGameScreenState();
                 stateManager.attach(currentState);
+                startShip();
                 
                 break;
             }
@@ -227,9 +224,9 @@ public class MainApplication extends SimpleApplication
         changeState = EAppState.STAY_STATE;
         
         //update time across game
-        if (this.beginTime == true)
+        if (this.myShip != null && this.beginTime == true)
         {
-            myShip.update(tpf, gameTime);
+            this.myShip.update(tpf, gameTime);
         }
     }
 
@@ -237,27 +234,13 @@ public class MainApplication extends SimpleApplication
     /**========================================================================================================================== 
     * @name DESTROY
     * 
-    * @description Kill the current state 
+    * @description Kill the current state and save the game.
     *///=========================================================================================================================
     @Override
     public void destroy()
     {
         super.destroy();
-        
-        // get the file to save
-        BinaryExporter exporter = BinaryExporter.getInstance();
-        
-        // save the whole ship!
-        try
-        {
-            exporter.save(this.myShip, this.saveFile);
-        }
-        catch(Exception ex)
-        {
-            Logger.getLogger(MainApplication.class.getName()).log(Level.SEVERE, "Error: Failed to save game!", ex);
-        }
-
-        System.out.println("Destroy");
+        saveGame();
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -278,7 +261,7 @@ public class MainApplication extends SimpleApplication
         changeState = newState;
     }
     
-     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
     // SOUND MANAGEMENT METHODS
@@ -401,7 +384,45 @@ public class MainApplication extends SimpleApplication
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    // GETTERS
+    // PERSISTENCE
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
+    /**========================================================================================================================== 
+    * @name INIT SAVE FILE
+    * 
+    * @description Initializes the save file with the correct location
+    *///=========================================================================================================================
+    public void initSaveFile()
+    {
+        String userHome = System.getProperty("user.home");
+        this.saveFile = new File(userHome + "/StellarClicker/Saves/ship.j3o");
+    }
+    
+    /**========================================================================================================================== 
+    * @name SAVE GAME
+    * 
+    * @description Saves the game (or ship) using jME
+    *///=========================================================================================================================
+    public void saveGame()
+    {
+        // get the file to save
+        BinaryExporter exporter = BinaryExporter.getInstance();
+        
+        // save the whole ship!
+        try
+        {
+            exporter.save(this.myShip, this.saveFile);
+        }
+        catch(Exception ex)
+        {
+            Logger.getLogger(MainApplication.class.getName()).log(Level.SEVERE, "Error: Failed to save game!", ex);
+        }
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // GETTERS AND SETTERS
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
@@ -412,6 +433,30 @@ public class MainApplication extends SimpleApplication
     public Nifty getNifty()
     {
         return nifty;
+    }
+    
+    /**========================================================================================================================== 
+    * @name GET SAVE FILE
+    * 
+    * @description Returns the save file
+    * 
+    * @return File The file object for the save file
+    *///=========================================================================================================================
+    public File getSaveFile()
+    {
+        return this.saveFile;
+    }
+    
+    /**========================================================================================================================== 
+    * @name SET SHIP
+    * 
+    * @description Set the ship object with a new instance
+    * 
+    * @param newShip The new ship instance
+    *///=========================================================================================================================
+    public void setShip(Ship newShip)
+    {
+        this.myShip = newShip;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

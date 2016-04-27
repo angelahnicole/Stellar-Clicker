@@ -62,13 +62,13 @@ import stellarclicker.util.StaffFactory;
 import stellarclicker.util.*;
 
 import java.util.Arrays;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import stellarclicker.app.MainApplication;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,6 +103,7 @@ public class Ship implements Savable
     private OutputCapsule outCapsule;
     private InputCapsule inCapsule;
     private String lastSaveTime;
+    private ProgressInfo progressInfo;
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -114,6 +115,7 @@ public class Ship implements Savable
         compFactory = new ComponentFactory();
         staffFactory = new StaffFactory();
         this.initializeComponents();
+        this.progressInfo = MainApplication.app.progressInfo;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,21 +164,14 @@ public class Ship implements Savable
         
         // level up / repair components based on how much time has passed
         this.lastSaveTime = inCapsule.readString("lastSaveTime", "");
-        if(!lastSaveTime.isEmpty())
-        {
-            updateShipComponentsSinceSave( getSecondsSinceSave(lastSaveTime) );
-        }
-        
-        // update money based on how much time has passed
-        
-        // update officers based on how much time has passed
     }
     
-    private void updateShipComponentsSinceSave(float secondsSinceSave)
+    public void updateShipComponentsSinceSave(float secondsSinceSave)
     {
         System.out.println();
         System.out.println("UPDATING COMPONENTS! \t\t Seconds Since Save: " + secondsSinceSave);
         System.out.println();
+        float progressIncrements = (1.0f - this.progressInfo.getProgressMade() ) / this.shipComponents.length;
         
         for(int i = 0; i < this.shipComponents.length; i++)
         {
@@ -186,6 +181,9 @@ public class Ship implements Savable
             boolean isManaged = isSeniorStaffPurchased(shipEnum);
             
             System.out.println("Component: " + shipEnum + "\t \t Time Left: " + timeLeft);
+            
+            // update the progress bar info
+            this.progressInfo.updateProgress(progressIncrements, "Updating the " + shipEnum + " component");
 
             // first check if it's repairing, and, if so, repair it! 
             // break the loop if it isn't managed by senior staff
@@ -231,21 +229,15 @@ public class Ship implements Savable
         }
     }
     
-    private float getSecondsSinceSave(String lastSave)
+    public float getSecondsSinceSave(String lastSave) throws Exception
     {
         DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
         Date saveDate = null;
         Date nowDate = new Date();
         float secondsSinceSave = 0;
 
-        try
-        {
-            saveDate = df.parse(lastSave);
-        }
-        catch (ParseException ex)
-        {
-            Logger.getLogger(Ship.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // parse the date; may throw exception
+        saveDate = df.parse(lastSave);
 
         if(saveDate != null)
         {
@@ -254,6 +246,12 @@ public class Ship implements Savable
         
         return secondsSinceSave;
     }
+    
+    public String getLastSaveTime()
+    {
+        return this.lastSaveTime;
+    }
+    
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -265,7 +263,7 @@ public class Ship implements Savable
     private void initializeComponents()
     {
         //TODO: THIS SHOULDN'T BE STARTING MONEY
-        this.money = 1.0;
+        this.money = 10000000;
         
         // Initializes the component array 
         shipComponents = new ShipComponent[EShipComponent.values().length];
@@ -292,7 +290,7 @@ public class Ship implements Savable
         }
         
         //money checkers
-        this.officers = 0;
+        this.officers = 1000;
         this.previousSecond = 0;
         
         //money checkers

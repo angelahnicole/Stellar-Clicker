@@ -73,6 +73,10 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
 {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // ATTRIBUTES
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
     public static final String OFFICER_LAYER_ID = "officerUI";
     public static final String OFFICER_WINDOW_ID = "officerWindow";
     public static final String SENIOR_STAFF_LAYER_ID = "seniorStaff";
@@ -185,8 +189,6 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     public void bind(Nifty nifty, Screen screen)
     {
-        System.out.println("bind( " + screen.getScreenId() + ")");
-        
         this.nifty = nifty;
         this.screen = screen;
         
@@ -202,7 +204,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     public void onStartScreen()
     {
-        System.out.println("onStartScreen");
+        
     }
 
     

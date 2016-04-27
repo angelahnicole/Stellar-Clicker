@@ -133,8 +133,6 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     *///=========================================================================================================================
     public void bind(Nifty nifty, Screen screen)
     {
-        System.out.println("bind( " + screen.getScreenId() + ")");
-        
         this.nifty = nifty;
         this.screen = screen;
     }
@@ -147,8 +145,6 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     *///=========================================================================================================================
     public void onStartScreen()
     {
-        System.out.println("onStartScreen");
-        
         // start music
         MainApplication.app.startMusic();
     }
@@ -182,14 +178,22 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     }
     
     /**========================================================================================================================== 
+    * @name LOAD GAME
+    * 
+    * @description Switches the application to the loading state
+    *///=========================================================================================================================
+    public void loadGame()
+    {
+        MainApplication.app.changeState(EAppState.LOAD_STATE);
+    }
+    
+    /**========================================================================================================================== 
     * @name OPEN CREDITS WINDOW
     * 
     * @description Opens the credits window in the main screen
     *///=========================================================================================================================
     public void openCreditsWindow()
     {
-        System.out.println("Credits Window Opened"); 
-        
         Element window = this.screen.findElementByName(CREDITS_WINDOW_ID);
         if(window != null)
         {
@@ -197,7 +201,6 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
         }
     }
 
-    
     /**========================================================================================================================== 
     * @name QUIT GAME
     * 
