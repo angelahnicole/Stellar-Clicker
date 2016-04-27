@@ -212,7 +212,7 @@
         <panel childLayout="center" padding="5px">
             <panel backgroundImage="Interface/Images/UI/glassPanel_light.png" style="glassPanel" childLayout="vertical" height="100%" padding="10px">
 
-                <panel id="#heading" childLayout="vertical">
+                <panel id="#centered-heading" childLayout="vertical">
                     <text text="$headingText" style="rubik_font20" color="#000000"/>
                     <panel childLayout="center" backgroundColor="#FFFFFF60" height="2px"/>
                 </panel>
@@ -243,7 +243,7 @@
                     <panel childLayout="vertical">
 
                         <!-- SENIOR STAFF HEADING -->
-                        <panel id="#heading" childLayout="vertical">
+                        <panel id="#staff-heading" childLayout="vertical">
                             <panel childLayout="horizontal">
                                 <text width="50%" text="$staffName" style="rubik_font20" color="#000000" textHAlign="left" textVAlign="top"/>
                                 <text width="50%" text="$staffTitle" style="rubik_font20" color="#000000" textHAlign="right" textVAlign="top"/>
@@ -298,7 +298,7 @@
                     <panel childLayout="vertical">
 
                         <!-- CREDITS HEADING -->
-                        <panel id="#heading" childLayout="vertical">
+                        <panel id="#credits-heading" childLayout="vertical">
                             <panel childLayout="horizontal">
                                 <text width="50%" text="$creditsName" style="rubik_font26" color="#000000" textHAlign="left" textVAlign="top"/>
                                 <text width="50%" text="$creditsTitle" style="rubik_font26" color="#777" textHAlign="right" textVAlign="top"/>

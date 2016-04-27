@@ -26,7 +26,7 @@
             <panel id="panel_bottom" height="25%" width="75%" align="center" childLayout="horizontal" >
                 
                 <panel id="panel_bottom_left" height="50%" width="33%" valign="center" childLayout="center" padding="10px">
-                    <control name="splash-button" mainText="SPACE" backgroundColor="#18B81250" color="#FFFFFF80" onClickMethod="startGame()"/>
+                    <control name="splash-button" mainText="SPACE" backgroundColor="#18B81250" color="#FFFFFF80" onClickMethod="loadGame()"/>
                 </panel>
                 
                 <panel id="panel_bottom_mid" height="50%" width="33%" valign="center" childLayout="center" padding="10px">
@@ -50,42 +50,42 @@
             <control id="creditsWindow" name="scrollPanelWindow" windowTitle="Credits" panelHeight="200%">
                 <panel childLayout="vertical" padding="5px">
                     
-                     <control name="creditsDiv"
+                     <control id="andrea-credit" name="creditsDiv"
                              creditsImage="Textures/Credits/andrea.png" 
                              creditsName="Andrea Johnson" creditsTitle="Artist" 
                              creditsText="Andrea lovingly created the awesome pixel art for the game."/>
                      
-                     <control name="creditsDiv"
+                     <control id="alex-credit" name="creditsDiv"
                              creditsImage="Textures/Credits/alex.png" 
                              creditsName="Alex Dunn" creditsTitle="Developer" 
                              creditsText="Alex coded like a fiend."/>
                      
-                     <control name="creditsDiv"
+                     <control id="angie-credit" name="creditsDiv"
                              creditsImage="Textures/Credits/angie.png"
                              creditsName="Angela Gross" creditsTitle="Developer" 
                              creditsText="Angela programmed real good like, did a few 'shops, and came up with the concept."/>
                      
-                     <control name="creditsDiv"
+                     <control id="matt-credit" name="creditsDiv"
                              creditsImage="Textures/Credits/matt.png"
                              creditsName="Matt Dolan" creditsTitle="Developer" 
                              creditsText="Matt unleashed his code-fu."/>
                      
-                     <control name="creditsDiv"
+                     <control id="kenney-credit" name="creditsDiv"
                              creditsImage="Textures/Credits/kenney.png"
                              creditsName="Kenney" creditsTitle="UI Pack" 
                              creditsText="UI pack: Space extension by Kenney Vleugels (www.kenney.nl)"/>
                      
-                     <control name="creditsDiv"
+                     <control id="jme-credit" name="creditsDiv"
                              creditsImage="Textures/Credits/jme.png"
                              creditsName="jMonkeyEngine" creditsTitle="Game Engine" 
                              creditsText="jMonkeyEngine provided a great cross-platform engine to work with (jmonkeyengine.org)"/>
 
-                     <control name="creditsDiv"
+                     <control i="freepik-credit" name="creditsDiv"
                              creditsImage="Textures/Credits/freepik.png"
                              creditsName="Freepik" creditsTitle="Free Vector Icons" 
                              creditsText="Vector icons from Freepik (flaticon.com)"/>
                      
-                     <control name="creditsDiv"
+                     <control id="audionautix-credit" name="creditsDiv"
                              creditsImage="Textures/Credits/audionautix.png"
                              creditsName="AudioNautix" creditsTitle="Music" 
                              creditsText="The background music, 'Cycles', is created by AudioNautix (audionautix.com)"/>
