@@ -15,14 +15,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 package stellarclicker.util;
-
+import java.lang.*;
 public class Timer
 {
     private Boolean isActive;
     private float start;
     private float stop;
     private float lastGametime;
-    
+    private int comparison;
     float percent;
     
     
@@ -32,11 +32,12 @@ public class Timer
         this.start = 0;
         this.stop = 0;
         this.percent = 0;
-        
+        this.comparison = 1;
     }
     
     public Timer(boolean isActive, float start, float stop, float percent)
     {
+        
         this.isActive = isActive;
         this.start = start;
         this.stop = stop;
@@ -81,8 +82,8 @@ public class Timer
     public Boolean checkCompletion(float gametime)
     {
         this.lastGametime = gametime;
-        
-        if (isActive && gametime > this.stop)
+        this.comparison = Float.compare(gametime, this.stop);
+        if (isActive && this.comparison > 0)
         {
             isActive = false;
             this.start = 0;
