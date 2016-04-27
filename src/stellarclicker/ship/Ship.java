@@ -364,7 +364,7 @@ public class Ship implements Savable
                 {
                     updateStats();
                     calculateClaimableOfficers();
-                    claimOfficers();
+                    
                     calcMoneyPerSecond();
                 }
             }    
@@ -532,6 +532,7 @@ public class Ship implements Savable
         //check component levels
         this.officers += this.claimableOfficers;
         this.claimableOfficers = 0;
+        calcMoneyPerSecond();
     }
     
     /**========================================================================================================================== 
