@@ -103,7 +103,15 @@ public class ComponentFactory
             Integer.parseInt( (String)tierArray.get(4) )
         };
         
-      
+        // create array from JSON array
+        int numStats = Integer.parseInt( (String)temp.get("NUM_STATS") );
+        JSONArray statArray = (JSONArray) temp.get("AFFECTED_STATS");
+        int[] affectedStats = new int[numStats];
+        for(int i = 0; i < statArray.size(); i++)
+        {
+            affectedStats[i] = EShipStat.valueOf( (String)statArray.get(i) ).ordinal();
+        }
+        
         newComponent = new ShipComponent
         (  
             type.toString(), 
@@ -111,25 +119,12 @@ public class ComponentFactory
             Integer.parseInt( (String)temp.get("MAX_DUR") ), 
             Integer.parseInt( (String)temp.get("MIN_LEVEL") ), 
             Integer.parseInt( (String)temp.get("MAX_LEVEL") ), 
-            Integer.parseInt( (String)temp.get("NUM_STATS") ), 
+            numStats, 
+            affectedStats,
             Float.parseFloat( (String)temp.get("LEVEL_COST") ),
             levelTiers,
             (String) temp.get("BASE_PICTURE_NAME")
         );
-        
-        JSONArray statArray = (JSONArray) temp.get("AFFECTED_STATS");
-        
-        List<String> list = new ArrayList<String>();
-        for(int i = 0; i < statArray.size(); i++){
-            
-            list.add((String)statArray.get(i));
-            
-        }
-        
-        
-        newComponent.setStats(list);
-        
-        
         
         return newComponent;
     }

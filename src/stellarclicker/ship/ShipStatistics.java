@@ -65,7 +65,7 @@ public class ShipStatistics implements Savable
     // ATTRIBUTES
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
-    private ShipStat[] shipStats;
+    protected ShipStat[] shipStats;
     
     private OutputCapsule outCapsule;
     private InputCapsule inCapsule;
@@ -83,9 +83,7 @@ public class ShipStatistics implements Savable
         for(EShipStat x : EShipStat.values())
         {
             shipStats[x.ordinal()] = new ShipStat(x.name(),0);
-            
         }
-        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,17 +128,67 @@ public class ShipStatistics implements Savable
     
     public void updateStat(EShipStat stat, int value)
     {
-        this.shipStats[stat.ordinal()].updateStat(value);
+        if(this.shipStats[stat.ordinal()] != null)
+        {
+            this.shipStats[stat.ordinal()].updateStat(value);
+        }
+    }
+    
+    public void updateStat(int statOrdinal, int value)
+    {
+        if(statOrdinal < this.shipStats.length && this.shipStats[statOrdinal] != null)
+        {
+            this.shipStats[statOrdinal].updateStat(value);
+        }
     }
 
     public int getStatValue(EShipStat stat)
     {
-        return this.shipStats[stat.ordinal()].getStatValue();
+        if(this.shipStats[stat.ordinal()] != null)
+        {
+            return this.shipStats[stat.ordinal()].getStatValue();
+        }
+        else
+        {
+            return -1;
+        }
     }
-     public String getStatName(EShipStat stat)
+    
+    public int getStatValue(int statOrdinal)
     {
-        return this.shipStats[stat.ordinal()].getStatName();
+        if(statOrdinal < this.shipStats.length && this.shipStats[statOrdinal] != null)
+        {
+            return this.shipStats[statOrdinal].getStatValue();
+        }
+        else
+        {
+            return -1;
+        }
     }
+    
+    public String getStatName(EShipStat stat)
+    {
+        if(this.shipStats[stat.ordinal()] != null)
+        {
+            return this.shipStats[stat.ordinal()].getStatName();
+        }
+        else
+        {
+            return "";
+        }
+    }
+     
+     public String getStatName(int statOrdinal)
+     {
+         if(statOrdinal < this.shipStats.length && this.shipStats[statOrdinal] != null)
+         {
+            return this.shipStats[statOrdinal].getStatName();
+         }
+         else
+         {
+             return "";
+         }
+     }
       
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     

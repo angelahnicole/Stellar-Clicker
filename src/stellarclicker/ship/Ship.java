@@ -372,6 +372,30 @@ public class Ship implements Savable
         }
     }
     
+    /**========================================================================================================================== 
+    * @name UPDATE STATS
+    * 
+    * @description 
+    *///=========================================================================================================================
+    public void updateStats()
+    {
+        for(ShipComponent shipComp : shipComponents)
+        {
+            int statBoost = 0;
+            int level = shipComp.getLevel();
+            int[] affectedStats = shipComp.getShipStats();
+            statBoost = Math.round(level/2);
+            
+            if(affectedStats != null)
+            {
+                for (int i = 0; i< affectedStats.length;i++)
+                {
+                    this.shipStats.updateStat(affectedStats[i], statBoost);
+                }
+            }    
+        } 
+    }
+    
     /**=========================================================================================================================
     * @name GAIN COMPONENT EXPERIENCE
     * 
@@ -408,8 +432,8 @@ public class Ship implements Savable
         double temp = shipComponents[component.ordinal()].getLevelCost();
         if (this.money > temp)
         {
-        this.money = this.money - temp;
-        shipComponents[component.ordinal()].levelUp();
+            this.money = this.money - temp;
+            shipComponents[component.ordinal()].levelUp();
         }
     }
 
@@ -425,8 +449,8 @@ public class Ship implements Savable
         double temp = shipComponents[component.ordinal()].getRepairCost();
         if (this.money > temp)
         {
-        this.money = this.money - temp;
-        shipComponents[component.ordinal()].repairComponent();
+            this.money = this.money - temp;
+            shipComponents[component.ordinal()].repairComponent();
         }
     }
     
@@ -915,29 +939,11 @@ public class Ship implements Savable
         return String.format(this.basePictureName, getShipCurrentTier());
     }
     
-     public void updateStats()
+    
+    
+    public ShipStat[] getShipStatsArr()
     {
-        
-        
-        for(ShipComponent shipComp : shipComponents)
-        {
-            int statBoost = 0;
-            int level = shipComp.getLevel();
-            String[] affectedStats = shipComp.getStats();
-            statBoost = Math.round(level/2);
-            for (int i = 0; i< affectedStats.length;i++)
-            {
-                
-                this.shipStats.updateStat(EShipStat.valueOf(affectedStats[i]), statBoost);
-                
-            }
-                
-        }
-        
-            
-            
-        
-        
+        return this.shipStats.shipStats;
     }
      
      public ShipStatistics getShipStats()

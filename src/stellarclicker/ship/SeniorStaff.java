@@ -52,6 +52,7 @@ import com.jme3.export.OutputCapsule;
 import com.jme3.export.Savable;
 
 import java.io.IOException;
+import stellarclicker.app.MainApplication;
 
 import stellarclicker.util.EShipComponentState;
 
@@ -94,7 +95,6 @@ public class SeniorStaff implements Savable
     
     public SeniorStaff()
     {
-        
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

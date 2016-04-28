@@ -203,8 +203,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     * @description Method that is called when the screen has initially started up
     *///=========================================================================================================================
     public void onStartScreen()
-    {
-        
+    {  
     }
 
     
@@ -248,6 +247,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 shipElem.updateLevel(shipComp.getLevel());
                 shipElem.updateCost(shipComp.getFormattedLevelCost());
                 
+                // update picture
                 updateShipTier();
             }
             

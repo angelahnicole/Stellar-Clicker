@@ -50,8 +50,10 @@ import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
 import com.jme3.export.Savable;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import stellarclicker.app.MainApplication;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 import stellarclicker.util.EShipComponentState;
@@ -110,8 +112,7 @@ public class ShipComponent implements Savable
     private OutputCapsule outCapsule;
     private InputCapsule inCapsule;
     
-    protected String[] affectedStats;
-    protected ShipStatistics shipStats;
+    protected int[] affectedStats;
     
     protected int statBoost;
     protected boolean leveled;
@@ -122,7 +123,7 @@ public class ShipComponent implements Savable
     // CONSTRUCTORS
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
-    public ShipComponent(String NAME, int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, float LEVEL_COST, int[] levelTiers, String basePictureName)
+    public ShipComponent(String NAME, int BASE_TIME, int MAX_DUR, int MIN_LEVEL, int MAX_LEVEL, int NUM_STATS, int[] affectedStats, float LEVEL_COST, int[] levelTiers, String basePictureName)
     {
         this.levelTiers = levelTiers;
         this.basePictureName = basePictureName;
@@ -147,18 +148,22 @@ public class ShipComponent implements Savable
         this.durabilityLossRange = 25;
         this.isTimerSet = true;
         
-        this.shipStats = new ShipStatistics();
         this.statBoost = 0;
         this.leveled = false;
+        
+        this.affectedStats = affectedStats;
     }
     
     public ShipComponent()
     {
         updateTimeTaken();
+        
         this.rand = new Random();
         this.timer = new Timer();
         this.durabilityLossRange = 25;
         this.isTimerSet = true;
+        this.statBoost = 0;
+        this.leveled = false;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,6 +196,7 @@ public class ShipComponent implements Savable
         outCapsule.write(levelCost, "levelCost", 0);
         outCapsule.write(repairCost, "repairCost", levelCost * 0.1f);
         outCapsule.write(managed, "managed", false);
+        outCapsule.write(affectedStats, "affectedStats", null);
         
         
         // update timer information
@@ -217,16 +223,13 @@ public class ShipComponent implements Savable
         this.MIN_LEVEL = inCapsule.readInt("MIN_LEVEL", 0);
         this.MAX_LEVEL = inCapsule.readInt("MAX_LEVEL", 0);
         this.NUM_SHIP_STATS = inCapsule.readInt("NUM_SHIP_STATS", 0);
+        this.affectedStats = inCapsule.readIntArray("affectedStats", affectedStats);
         this.durability = inCapsule.readInt("durability", MAX_DURABILITY);
         this.level = inCapsule.readInt("level", MIN_LEVEL);
         this.currentState = inCapsule.readEnum("currentState", EShipComponentState.class, EShipComponentState.INACTIVE);
         this.levelCost = inCapsule.readDouble("levelCost", 0);
         this.repairCost = inCapsule.readDouble("repairCost", levelCost * 0.1f);
         this.managed = inCapsule.readBoolean("managed", false);
-        
-        this.shipStats = new ShipStatistics();
-        this.statBoost = 0;
-        this.leveled = false;
         
         boolean isTimerActive = inCapsule.readBoolean("isActive", false);
         this.lastTimeLeft = inCapsule.readFloat("timeLeft", -1);
@@ -265,7 +268,6 @@ public class ShipComponent implements Savable
     *///=========================================================================================================================
     public void manageTimers()
     {
-        
         // check if timers need to be reset
         if(!this.isTimerSet)
         {
@@ -277,7 +279,7 @@ public class ShipComponent implements Savable
             this.isTimerSet = true;
         }
         
-        if (this.currentState != EShipComponentState.BROKEN)
+        if (this.currentState != EShipComponentState.BROKEN || this.currentState != EShipComponentState.INACTIVE)
         {
             // check for completion of timers
             if (this.timer.checkCompletion(gameTime))
@@ -299,24 +301,6 @@ public class ShipComponent implements Savable
             }
         }
     }
-    
-    public void setStats(List<String> stats)
-    {
-        this.affectedStats = new String[stats.size()];
-        for (int i=0; i<affectedStats.length;i++)
-        {
-            this.affectedStats[i] = stats.get(i);
-            
-        }
-        
-    }
-    
-    public String[] getStats()
-    {
-        return this.affectedStats;
-    }
-    
-    
     
     /**========================================================================================================================== 
     * @name GAIN EXPERIENCE
@@ -481,20 +465,34 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET SHIP STATISTIC
+    * @name GET SHIP STATS
     * 
-    * @description Get the Statistic 
+    * @description Get ship statistics that are affected by this component
+    * 
+    * @returns int[] An array of ordinal integer values of EShipStat enums
     *///=========================================================================================================================
-    public void getShipStatistic()
+    public int[] getShipStats()
     {
-        
+        return this.affectedStats;
+    }
+    
+    
+    /**========================================================================================================================== 
+    * @name GET NUM SHIP STATS
+    * 
+    * @description The number of ship stats that this component affects
+    * 
+    * @returns int The number of ship stats it affects
+    *///=========================================================================================================================
+    public int getNumShipStats()
+    {
+        return this.NUM_SHIP_STATS;
     }
     
     /**========================================================================================================================== 
     * @name GET LEVEL
     * 
     * @description Returns the current level of this 
-    * 
     *///=========================================================================================================================
      public int getLevel()
     {
@@ -505,8 +503,6 @@ public class ShipComponent implements Savable
     * @name GET TIMER PERCENT
     * 
     * @description Returns the percent of the timer completion 
-    * 
-    * @param gameTime The main application time
     *///=========================================================================================================================
     public double getTimerPercent()
     {
@@ -518,8 +514,6 @@ public class ShipComponent implements Savable
     * @name GET TIME Remaining
     * 
     * @description Returns the percent of the timer completion 
-    * 
-    * @param gameTime The main application time
     *///=========================================================================================================================
     public String getTimeRemaining()
     {
