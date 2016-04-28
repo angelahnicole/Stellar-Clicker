@@ -115,9 +115,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
     /**========================================================================================================================== 
-    * @name INITIALIZE
+    *  INITIALIZE
     * 
-    * @description Initializes the application state 
+    * <br><br> Initializes the application state 
     * 
     * @param stateManager An instance of the main application's state manager
     * @param app The main application
@@ -138,9 +138,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
 
     /**========================================================================================================================== 
-    * @name CLEAN UP
+    *  CLEAN UP
     * 
-    * @description Cleans up the application state
+    * <br><br> Cleans up the application state
     *///=========================================================================================================================
     @Override
     public void cleanup()
@@ -149,9 +149,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
 
     /**========================================================================================================================== 
-    * @name SET ENABLED
+    *  SET ENABLED
     * 
-    * @description Make the application state enabled or disabled (i.e. pause and unpause)
+    * <br><br> Make the application state enabled or disabled (i.e. pause and unpause)
     * 
     * @param enabled Whether or not to enabled or disable the application state
     *///=========================================================================================================================
@@ -162,9 +162,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE
+    *  UPDATE
     * 
-    * @description Method called by the main thread (loop) that updates the state of the game.
+    * <br><br> Method called by the main thread (loop) that updates the state of the game.
     * 
     * @param tpf The amount of time per frame
     *///=========================================================================================================================
@@ -188,9 +188,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
     /**========================================================================================================================== 
-    * @name BIND
+    *  BIND
     * 
-    * @description Method that binds the screen controller with the nifty instance and the screen.
+    * <br><br> Method that binds the screen controller with the nifty instance and the screen.
     * 
     * @param nifty The nifty instance
     * @param screen The screen instance
@@ -209,18 +209,18 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
 
     /**========================================================================================================================== 
-    * @name ON START SCREEN
+    *  ON START SCREEN
     * 
-    * @description Method that is called when the screen has initially started up
+    * <br><br> Method that is called when the screen has initially started up
     *///=========================================================================================================================
     public void onStartScreen()
     {  
     }
 
     /**========================================================================================================================== 
-    * @name ON END SCREEN
+    *  ON END SCREEN
     * 
-    * @description Method that is called at the end of the screen's life
+    * <br><br> Method that is called at the end of the screen's life
     *///=========================================================================================================================
     public void onEndScreen()
     { 
@@ -233,9 +233,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name INIT SHIP COMPONENTS    
+    *  INIT SHIP COMPONENTS    
     * 
-    * @description Grabs a list of inactive ship components from the Ship and updates the level text
+    * <br><br> Grabs a list of inactive ship components from the Ship and updates the level text
     *///=========================================================================================================================
     private void initShipComponents()
     {
@@ -265,9 +265,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name INIT SENIOR STAFF 
+    *  INIT SENIOR STAFF 
     * 
-    * @description Grabs a list of senior staff and updates the costs
+    * <br><br> Grabs a list of senior staff and updates the costs
     *///=========================================================================================================================
     private void initSeniorStaff()
     {
@@ -284,9 +284,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE ACTIVE SHIP COMPONENTS
+    *  UPDATE ACTIVE SHIP COMPONENTS
     * 
-    * @description Grabs a list of active ship components from the Ship and updates each of their progress bars accordingly.
+    * <br><br> Grabs a list of active ship components from the Ship and updates each of their progress bars accordingly.
     *///=========================================================================================================================
     private void updateActiveShipComponents()
     {
@@ -337,9 +337,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE INACTIVE SHIP COMPONENTS
+    *  UPDATE INACTIVE SHIP COMPONENTS
     * 
-    * @description Grabs a list of inactive ship components from the Ship and, if the components aren't already enabled again,
+    * <br><br> Grabs a list of inactive ship components from the Ship and, if the components aren't already enabled again,
     * we enable them.
     *///=========================================================================================================================
     private void updateInactiveShipComponents()
@@ -378,9 +378,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE BROKEN SHIP COMPONENTS
+    *  UPDATE BROKEN SHIP COMPONENTS
     * 
-    * @description Grabs a list of the broken ship components from the Ship and, if the component isn't showing the user that it
+    * <br><br> Grabs a list of the broken ship components from the Ship and, if the component isn't showing the user that it
     * is broken, then we show them that it is.
     *///=========================================================================================================================
     private void updateBrokenShipComponents()
@@ -421,9 +421,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE SHIP TIER
+    *  UPDATE SHIP TIER
     * 
-    * @description Updates the ship's tier based on the ship components' tiers
+    * <br><br> Updates the ship's tier based on the ship components' tiers
     *///=========================================================================================================================
     private void updateShipTier()
     {
@@ -438,9 +438,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE MONEY INFO
+    *  UPDATE MONEY INFO
     * 
-    * @description Updates cash and buttons to reflect money
+    * <br><br> Updates cash and buttons to reflect money
     *///=========================================================================================================================
     private void updateMoneyInfo()
     {
@@ -508,9 +508,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE SHIP STATISTICS
+    *  UPDATE SHIP STATISTICS
     * 
-    * @description Updates ship statistic values
+    * <br><br> Updates ship statistic values
     *///=========================================================================================================================
     private void updateShipStatistics()
     {
@@ -531,6 +531,16 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         }
     }
     
+    /**========================================================================================================================== 
+    *  UPDATE OFFICER INFO
+    * 
+    * <br><br> Updates information about officers and money gaining
+    *///=========================================================================================================================
+    private void updateOfficerInfo()
+    {
+        double claimableOfficers = MainApplication.app.myShip.getClaimableOfficers();
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
@@ -538,9 +548,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name TOGGLE MUSIC
+    *  TOGGLE MUSIC
     * 
-    * @description Toggles the music volume on and off along with changing the icon picture
+    * <br><br> Toggles the music volume on and off along with changing the icon picture
     *///=========================================================================================================================
     public void toggleMusic()
     {
@@ -565,9 +575,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name OPEN OFFICER WINDOW
+    *  OPEN OFFICER WINDOW
     * 
-    * @description Opens the officer window in the main screen
+    * <br><br> Opens the officer window in the main screen
     *///=========================================================================================================================
     public void openOfficerWindow()
     {
@@ -586,9 +596,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name OPEN CLAIM POPUP
+    *  OPEN CLAIM POPUP
     * 
-    * @description Opens the claim popup window
+    * <br><br> Opens the claim popup window
     *///=========================================================================================================================
     public void openClaimPopup()
     {
@@ -596,9 +606,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name CLOSE CLAIM POPUP
+    *  CLOSE CLAIM POPUP
     * 
-    * @description Closes the claim popup window
+    * <br><br> Closes the claim popup window
     *///=========================================================================================================================
     public void closeClaimPopup()
     {
@@ -606,9 +616,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name CLAIM OFFICERS
+    *  CLAIM OFFICERS
     * 
-    * @description Closes the claim popup window, calls the claim officer funciton, and restarts the game state
+    * <br><br> Closes the claim popup window, calls the claim officer funciton, and restarts the game state
     *///=========================================================================================================================
     public void claimOfficers()
     {
@@ -620,9 +630,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name OPEN SENIOR STAFF WINDOW
+    *  OPEN SENIOR STAFF WINDOW
     * 
-    * @description Opens the senior staff window in the main screen
+    * <br><br> Opens the senior staff window in the main screen
     *///=========================================================================================================================
     public void openSeniorStaffWindow()
     {
@@ -641,9 +651,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
     
     /**========================================================================================================================== 
-    * @name OPEN UNLOCKS WINDOW
+    *  OPEN UNLOCKS WINDOW
     * 
-    * @description Opens the unlocks window in the main screen
+    * <br><br> Opens the unlocks window in the main screen
     *///=========================================================================================================================
     public void openUnlocksWindow()
     {
@@ -662,9 +672,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     }
 
     /**========================================================================================================================== 
-    * @name OPEN TRAVEL WINDOW
+    *  OPEN TRAVEL WINDOW
     * 
-    * @description Opens the travel window in the main screen
+    * <br><br> Opens the travel window in the main screen
     *///=========================================================================================================================
     public void openTravelWindow()
     {

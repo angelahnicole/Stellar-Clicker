@@ -93,9 +93,9 @@ public class MainApplication extends SimpleApplication
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
-    * @name MAIN
+    *  MAIN
     * 
-    * @description Main entry into the game.
+    * <br><br> Main entry into the game.
     * 
     * @param args Arguments given to the main method (usually via command line)
     *///=========================================================================================================================
@@ -115,9 +115,9 @@ public class MainApplication extends SimpleApplication
     // --------------------------------------------------------------------------------------------------------------------------------------------
    
     /**========================================================================================================================== 
-    * @name SIMPLE INIT APP
+    *  SIMPLE INIT APP
     * 
-    * @description Initialization for the state
+    * <br><br> Initialization for the state
     *///=========================================================================================================================
     @Override
     public void simpleInitApp()
@@ -148,9 +148,9 @@ public class MainApplication extends SimpleApplication
     }
 
     /**========================================================================================================================== 
-    * @name UPDATE
+    *  UPDATE
     * 
-    * @description Update method for the state
+    * <br><br> Update method for the state
     *///=========================================================================================================================
     @Override
     public void update()
@@ -233,9 +233,9 @@ public class MainApplication extends SimpleApplication
 
     
     /**========================================================================================================================== 
-    * @name DESTROY
+    *  DESTROY
     * 
-    * @description Kill the current state and save the game.
+    * <br><br> Kill the current state and save the game.
     *///=========================================================================================================================
     @Override
     public void destroy()
@@ -251,9 +251,9 @@ public class MainApplication extends SimpleApplication
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name CHANGE STATE
+    *  CHANGE STATE
     * 
-    * @description Notifies the state manager to switch to the new state
+    * <br><br> Notifies the state manager to switch to the new state
     * 
     * @param newState the new app state to switch to
     *///=========================================================================================================================
@@ -269,9 +269,9 @@ public class MainApplication extends SimpleApplication
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name CHECK MUSIC
+    *  CHECK MUSIC
     * 
-    * @description Restarts the music once it has stopped (you can't loop streamed music)
+    * <br><br> Restarts the music once it has stopped (you can't loop streamed music)
     *///=========================================================================================================================
     private void checkMusic()
     {
@@ -283,9 +283,9 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name INIT MUSIC
+    *  INIT MUSIC
     * 
-    * @description Creates a new audio node with the desired settings for background music
+    * <br><br> Creates a new audio node with the desired settings for background music
     *///=========================================================================================================================
     private void initMusic()
     {
@@ -296,9 +296,9 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name START MUSIC
+    *  START MUSIC
     * 
-    * @description Returns whether or not the music is "on", or if the volume is on
+    * @return boolean Whether or not the music is "on", or if the volume is on
     *///=========================================================================================================================
     public boolean isMusicOn()
     {
@@ -306,9 +306,9 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name START MUSIC
+    *  START MUSIC
     * 
-    * @description Starts the background music for the game
+    * <br><br> Starts the background music for the game
     *///=========================================================================================================================
     public void startMusic()
     {
@@ -320,9 +320,9 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name STOP MUSIC
+    *  STOP MUSIC
     * 
-    * @description Stops the background music for the game
+    * <br><br> Stops the background music for the game
     *///=========================================================================================================================
     public void stopMusic()
     {
@@ -334,9 +334,9 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name SET MUSIC VOLUME
+    *  SET MUSIC VOLUME
     * 
-    * @description Toggles the volume of the music.
+    * <br><br> Toggles the volume of the music.
     * 
     * @param mute Whether or not you want to mute the music
     *///=========================================================================================================================
@@ -362,9 +362,9 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name SET MUSIC VOLUME
+    *  SET MUSIC VOLUME
     * 
-    * @description Changes the volume of the music.
+    * <br><br> Changes the volume of the music.
     * 
     * @param volume The volume of the music.
     *///=========================================================================================================================
@@ -389,9 +389,9 @@ public class MainApplication extends SimpleApplication
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name INIT SAVE FILE
+    *  INIT SAVE FILE
     * 
-    * @description Initializes the save file with the correct location
+    * <br><br> Initializes the save file with the correct location
     *///=========================================================================================================================
     public void initSaveFile()
     {
@@ -400,9 +400,9 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name SAVE GAME
+    *  SAVE GAME
     * 
-    * @description Saves the game (or ship) using jME
+    * <br><br> Saves the game (or ship) using jME
     *///=========================================================================================================================
     public void saveGame()
     {
@@ -427,9 +427,9 @@ public class MainApplication extends SimpleApplication
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name GET NIFTY
+    *  GET NIFTY
     * 
-    * @description Returns the main instance of nifty 
+    * @return Nifty The main instance of nifty 
     *///=========================================================================================================================
     public Nifty getNifty()
     {
@@ -437,9 +437,7 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name GET SAVE FILE
-    * 
-    * @description Returns the save file
+    *  GET SAVE FILE
     * 
     * @return File The file object for the save file
     *///=========================================================================================================================
@@ -449,9 +447,9 @@ public class MainApplication extends SimpleApplication
     }
     
     /**========================================================================================================================== 
-    * @name SET SHIP
+    *  SET SHIP
     * 
-    * @description Set the ship object with a new instance
+    * <br><br> Set the ship object with a new instance
     * 
     * @param newShip The new ship instance
     *///=========================================================================================================================
@@ -460,10 +458,9 @@ public class MainApplication extends SimpleApplication
         this.myShip = newShip;
     }
      /**========================================================================================================================== 
-    * @name claimOfficers
+    *  CLAIM OFFICERS
     * 
-    * @description Set the ship object with previous instance with new officers
-    * 
+    * <br><br> Set the ship object with previous instance with new officers
     *///=========================================================================================================================
     public void claimOfficers()
     {

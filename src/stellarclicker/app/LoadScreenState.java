@@ -109,9 +109,9 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
     /**========================================================================================================================== 
-    * @name INITIALIZE
+    *  INITIALIZE
     * 
-    * @description Initializes the application state 
+    * <br><br> Initializes the application state 
     * 
     * @param stateManager An instance of the main application's state manager
     * @param app The main application
@@ -135,9 +135,9 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     }
 
     /**========================================================================================================================== 
-    * @name CLEAN UP
+    *  CLEAN UP
     * 
-    * @description Cleans up the application state
+    * <br><br> Cleans up the application state
     *///=========================================================================================================================
     @Override
     public void cleanup()
@@ -147,9 +147,9 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     }
 
     /**========================================================================================================================== 
-    * @name SET ENABLED
+    *  SET ENABLED
     * 
-    * @description Make the application state enabled or disabled (i.e. pause and unpause)
+    * <br><br> Make the application state enabled or disabled (i.e. pause and unpause)
     * 
     * @param enabled Whether or not to enabled or disable the application state
     *///=========================================================================================================================
@@ -160,9 +160,9 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE
+    *  UPDATE
     * 
-    * @description Method called by the main thread (loop) that updates the state of the screen
+    * <br><br> Method called by the main thread (loop) that updates the state of the screen
     * 
     * @param tpf The amount of time per frame
     *///=========================================================================================================================
@@ -209,9 +209,9 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
     /**========================================================================================================================== 
-    * @name BIND
+    *  BIND
     * 
-    * @description Method that binds the screen controller with the nifty instance and the screen.
+    * <br><br> Method that binds the screen controller with the nifty instance and the screen.
     * 
     * @param nifty The nifty instance
     * @param screen The screen instance
@@ -224,18 +224,18 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     }
 
     /**========================================================================================================================== 
-    * @name ON START SCREEN
+    *  ON START SCREEN
     * 
-    * @description Method that is called when the screen has initially started up
+    * <br><br> Method that is called when the screen has initially started up
     *///=========================================================================================================================
     public void onStartScreen()
     {
     }
 
     /**========================================================================================================================== 
-    * @name ON END SCREEN
+    *  ON END SCREEN
     * 
-    * @description Method that is called at the end of the screen's life
+    * <br><br> Method that is called at the end of the screen's life
     *///=========================================================================================================================
     public void onEndScreen()
     { 
@@ -248,11 +248,11 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name CREATE LOAD CALLABLE
-    * 
-    * @description Creates a callable that will load or create a ship
+    *  CREATE LOAD CALLABLE
     * 
     * @param loadScreen The currently running load screen state
+    * 
+    * @return Callable Creates a callable that will load or create a ship
     *///=========================================================================================================================
     public Callable createLoadCallable(final LoadScreenState loadScreen)
     {
@@ -287,9 +287,9 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     }
     
     /**========================================================================================================================== 
-    * @name QUEUE UPDATE PROGRESS
+    *  QUEUE UPDATE PROGRESS
     * 
-    * @description Queues a callable to run the jME main update thread that will update the progress bar
+    * <br><br> Queues a callable to run the jME main update thread that will update the progress bar
     * 
     * @param loadScreen The currently running load screen state
     *///=========================================================================================================================
@@ -311,9 +311,9 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE PROGRESS BAR
+    *  UPDATE PROGRESS BAR
     * 
-    * @description Moves the progress bar given the desired percentage and updates the progress bar text
+    * <br><br> Moves the progress bar given the desired percentage and updates the progress bar text
     * 
     * @param percentComplete The percentage (a number from 0 to 1) that the bar should update to
     * @param progressText Text to show over the progress bar
@@ -351,9 +351,9 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name LOAD SHIP
+    *  LOAD SHIP
     * 
-    * @description Loads ship from a save file or, if the save file doesn't exist, creates a new ship
+    * <br><br> Loads ship from a save file or, if the save file doesn't exist, creates a new ship
     * 
     * @returns Ship The newly loaded / created ship
     *///=========================================================================================================================

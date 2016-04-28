@@ -7,7 +7,7 @@ package stellarclicker.ship;
  * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * --------------------------------------------------------------------------------------------------------------------------
- * @description This is the ship class that defines the ship object
+ * <br><br> This is the ship class that defines the ship object
  * --------------------------------------------------------------------------------------------------------------------------
     JME LICENSE
     ******************************************************************************
@@ -105,8 +105,9 @@ public class Ship implements Savable
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
-    // CONSTRUCTOR
+    // CONSTRUCTORS
     // --------------------------------------------------------------------------------------------------------------------------------------------
+    
     public Ship()      
     {    
         compFactory = new ComponentFactory();
@@ -114,12 +115,8 @@ public class Ship implements Savable
         this.initializeComponents();
         this.progressInfo = MainApplication.app.progressInfo;
         this.officers = 0;
-    }
+    } 
     
-    // --------------------------------------------------------------------------------------------------------------------------------------------
-    // CONSTRUCTOR
-    // @param officers the amount of officers initially on ship
-    // ----------------
     public Ship(double officers)
     {
         compFactory = new ComponentFactory();
@@ -135,9 +132,9 @@ public class Ship implements Savable
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name WRITE
+    *  WRITE
     * 
-    * @description Saves a saved ship from file
+    * <br><br> Saves a saved ship from file
     * 
     * @param ex A jMonkeyEngine exporter
     *///=========================================================================================================================
@@ -161,9 +158,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name READ
+    *  READ
     * 
-    * @description Loads a saved ship from file
+    * <br><br> Loads a saved ship from file
     * 
     * @param im A jMonkeyEngine importer
     *///=========================================================================================================================
@@ -191,9 +188,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE SHIP COMPONENTS SINCE SAVE
+    *  UPDATE SHIP COMPONENTS SINCE SAVE
     * 
-    * @description Updates all of the ship components' levels and repairing based on how much time has passed
+    * <br><br> Updates all of the ship components' levels and repairing based on how much time has passed
     * 
     * @param secondsSinceSave Seconds since it was saved
     *///=========================================================================================================================
@@ -274,13 +271,11 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET SECONDS SINCE SAVE
-    * 
-    * @description Calculates the number of seconds since the last time it was saved
+    *  GET SECONDS SINCE SAVE
     * 
     * @param lastSave A formatted string of the time since it last saved
     * 
-    * @returns float Seconds since it was saved
+    * @returns float The number of seconds since the last time it was saved
     *///=========================================================================================================================
     public float getSecondsSinceSave(String lastSave) throws Exception
     {
@@ -301,11 +296,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET LAST SAVE TIME
+    *  GET LAST SAVE TIME
     * 
-    * @description Retrieves a stringified save date, if there is any. The string will be empty if the ship was not saved.
-    * 
-    * @returns String A formatted string of the time since it last saved
+    * @returns String Retrieves a stringified save date, if there is any. The string will be empty if the ship was not saved.
     *///=========================================================================================================================
     public String getLastSaveTime()
     {
@@ -315,9 +308,9 @@ public class Ship implements Savable
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
-    * @name INITIALIZE COMPONENTS
+    *  INITIALIZE COMPONENTS
     * 
-    * @description Initializes component array and creates new components from Enum  
+    * <br><br> Initializes component array and creates new components from Enum  
     *///=========================================================================================================================
     private void initializeComponents()
     {
@@ -357,9 +350,9 @@ public class Ship implements Savable
     }
     
      /**========================================================================================================================== 
-    * @name UPDATE
+    *  UPDATE
     * 
-    * @description Runs the components update cycle 
+    * <br><br> Runs the components update cycle 
     * 
     * @param tpf The main game time state
     * @param gameTime The main game time in total seconds
@@ -399,9 +392,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE STATS
+    *  UPDATE STATS
     * 
-    * @description 
+    * <br><br> 
     *///=========================================================================================================================
     public void updateStats()
     {
@@ -423,9 +416,9 @@ public class Ship implements Savable
     }
     
     /**=========================================================================================================================
-    * @name GAIN COMPONENT EXPERIENCE
+    *  GAIN COMPONENT EXPERIENCE
     * 
-    * @description  
+    * <br><br>  
     * 
     * @param component the component to gain experience
     *///=========================================================================================================================   
@@ -435,9 +428,9 @@ public class Ship implements Savable
     }
     
     /**=========================================================================================================================
-    * @name GAIN COMPONENT REPAIR
+    *  GAIN COMPONENT REPAIR
     * 
-    * @description Instantly repair component 
+    * <br><br> Instantly repair component 
     * 
     * @param component The ship component enum that describes the desired ship component
     *///=========================================================================================================================
@@ -447,9 +440,9 @@ public class Ship implements Savable
     }
     
     /**=========================================================================================================================
-    * @name PURCHASE COMPONENT LEVEL
+    *  PURCHASE COMPONENT LEVEL
     * 
-    * @description Instantly level up the component if the user has enough money 
+    * <br><br> Instantly level up the component if the user has enough money 
     * 
     * @param component The ship component enum that describes the desired ship component
     *///=========================================================================================================================
@@ -464,9 +457,9 @@ public class Ship implements Savable
     }
 
     /**=========================================================================================================================
-    * @name PURCHASE COMPONENT REPAIR
+    *  PURCHASE COMPONENT REPAIR
     * 
-    * @description Instantly repairs component if the user has enough money 
+    * <br><br> Instantly repairs component if the user has enough money 
     * 
     * @param component The ship component enum that describes the desired ship component
     *///=========================================================================================================================
@@ -481,9 +474,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name PURCHASE COMPONENT EXPERIENCE
+    *  PURCHASE COMPONENT EXPERIENCE
     * 
-    * @description Allows user to purchase more experience for a component  
+    * <br><br> Allows user to purchase more experience for a component  
     * 
     * @param component The ship component enum that describes the desired ship component
     *///=========================================================================================================================
@@ -493,9 +486,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name PURCHASE SENIOR STAFF
+    *  PURCHASE SENIOR STAFF
     * 
-    * @description Allows user to purchase staff officer for a component  
+    * <br><br> Allows user to purchase staff officer for a component  
     * 
     * @param officer The senior staff enum that describes the desired senior officer
     * @param money the current clatinum the player has.
@@ -510,9 +503,9 @@ public class Ship implements Savable
     }  
 
     /**========================================================================================================================== 
-    * @name EARN MONEY
+    *  EARN MONEY
     * 
-    * @description Allows user to generate ca$h money  
+    * <br><br> Allows user to generate ca$h money  
     * 
     * @param moneyPerSecond amount to increase by
     *///=========================================================================================================================
@@ -523,9 +516,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name CALCULATE MONEY PER SECOND
+    *  CALCULATE MONEY PER SECOND
     * 
-    * @description Calculates the amount of ca$h money to give the player  
+    * <br><br> Calculates the amount of ca$h money to give the player  
     *///=========================================================================================================================
     private void calcMoneyPerSecond()
     {
@@ -538,9 +531,9 @@ public class Ship implements Savable
     
     
     /**========================================================================================================================== 
-    * @name RESET SHIP
+    *  RESET SHIP
     * 
-    * @description Allows user to reset the ship
+    * <br><br> Allows user to reset the ship
     *///=========================================================================================================================
     public void resetShip()
     {
@@ -551,9 +544,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name INCREASE CLAIMABLE OFFICERS
+    *  INCREASE CLAIMABLE OFFICERS
     * 
-    * @description Increases the amount of officers joined to the ship.
+    * <br><br> Increases the amount of officers joined to the ship.
     * 
     * @param count The number of officers to increase by
     *///=========================================================================================================================
@@ -573,32 +566,44 @@ public class Ship implements Savable
             this.claimableOfficers = 0;
         }
     }
+    
     /**========================================================================================================================== 
-    * @name CLAIM OFFICERS
+    *  GET CLAIMABLE OFFICERS
     * 
-    * @description Increases the amount of officers joined to the ship.
+    * @return double 
     *///=========================================================================================================================
     public double getClaimableOfficers()
     {
-        //get officers.
-        
         return this.claimableOfficers;
     }
     
     /**========================================================================================================================== 
-    * @name GET MONEY
+    *  GET CURRENT OFFICERS
     * 
-    * @description reports cash amount in formatted string
-    * 
-    * @param officer the enumerated officer
+    * @return double
     *///=========================================================================================================================
-    public Double getCash()
+    public double getCurrentOfficers()
+    {
+        return this.officers;
+    }
+    
+    /**========================================================================================================================== 
+    *  GET CASH
+    * 
+    * @return double Reports cash amount as a number
+    *///=========================================================================================================================
+    public double getCash()
     {
         return this.money;
         
     }
     
-    public String getCashFormat()
+    /**========================================================================================================================== 
+    *  GET CASH STR
+    * 
+    * @return String The current cash formatted as a string
+    *///=========================================================================================================================
+    public String getCashStr()
     {
         return BigNumber.getNumberString(this.money);
     }
@@ -612,11 +617,11 @@ public class Ship implements Savable
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**=========================================================================================================================
-    * @name GET INSTANT REPAIR COST
-    * 
-    * @description Instantly level up the component if the user has enough money 
+    *  GET INSTANT REPAIR COST
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return double The cost to instantly repair the given component
     *///=========================================================================================================================
     public double getInstantRepairCost(EShipComponent component)
     {
@@ -624,11 +629,11 @@ public class Ship implements Savable
     }
     
     /**=========================================================================================================================
-    * @name GET INSTANT LEVEL COST
-    * 
-    * @description Instantly level up the component if the user has enough money 
+    *  GET INSTANT LEVEL COST
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return double The cost to instantly level up the given component
     *///=========================================================================================================================
     public double getInstantLevelCost(EShipComponent component)
     {
@@ -636,11 +641,11 @@ public class Ship implements Savable
     }
     
     /**=========================================================================================================================
-    * @name GET SHIP COMPONENT COST
-    * 
-    * @description Returns the cost of the ship depending on its state
+    *  GET SHIP COMPONENT COST
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return double The cost of the ship depending on its state
     *///=========================================================================================================================
     public double getShipComponentCost(EShipComponent component)
     {
@@ -663,11 +668,11 @@ public class Ship implements Savable
     }
     
     /**=========================================================================================================================
-    * @name GET SHIP COMPONENT COST STRING
-    * 
-    * @description Returns the formatted cost of the ship depending on its state
+    *  GET SHIP COMPONENT COST STRING
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return String The formatted cost of the ship depending on its state
     *///=========================================================================================================================
     public String getShipComponentCostStr(EShipComponent component)
     {
@@ -675,11 +680,11 @@ public class Ship implements Savable
     }
     
     /**=========================================================================================================================
-    * @name GET SHIP COMPONENT LEVEL
-    * 
-    * @description Instantly level up the component if the user has enough money 
+    *  GET SHIP COMPONENT LEVEL
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return int The level of the given ship component
     *///=========================================================================================================================
     public int getShipComponentLevel(EShipComponent component)
     {
@@ -687,11 +692,11 @@ public class Ship implements Savable
     }
     
     /**=========================================================================================================================
-    * @name GET SHIP COMPONENT CURRENT PICTURE NAME
-    * 
-    * @description Returns the name of the picture based on its tier of the ship component
+    *  GET SHIP COMPONENT CURRENT PICTURE NAME
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return String The name of the picture based on its tier of the ship component
     *///=========================================================================================================================
     public String getShipComponentCurrentPictureName(EShipComponent component)
     {
@@ -699,11 +704,11 @@ public class Ship implements Savable
     }
    
     /**=========================================================================================================================
-    * @name GET TIMER PERCENT
-    * 
-    * @description Returns a percentage of how much time is remaining if the component is gaining experience or repariing
+    *  GET TIMER PERCENT
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return double A percentage of how much time is remaining if the component is gaining experience or repairing
     *///=========================================================================================================================
     public double getTimerPercent(EShipComponent component)
     {
@@ -711,11 +716,11 @@ public class Ship implements Savable
     }
 
     /**=========================================================================================================================
-    * @name GET TIME LEFT
-    * 
-    * @description Returns a formatted string of how much time is remaining if the component is gaining experience or repariing
+    *  GET TIME LEFT
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return A formatted string of how much time is remaining if the component is gaining experience or repariing
     *///=========================================================================================================================
     public String getTimeLeft(EShipComponent component)
     {
@@ -723,11 +728,11 @@ public class Ship implements Savable
     }
 
     /**========================================================================================================================== 
-    * @name GET COMPONENT
-    * 
-    * @description Returns a component based on enum value  
+    *  GET COMPONENT
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return ShipComponent A component based on enum value  
     *///=========================================================================================================================
     public ShipComponent getComponent(EShipComponent component)
     {   
@@ -735,11 +740,11 @@ public class Ship implements Savable
     }
         
     /**========================================================================================================================== 
-    * @name GET COMPONENT STATE
-    * 
-    * @description Returns the state that the desired ship component is in
+    *  GET COMPONENT STATE
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return EShipComponentState The state that the desired ship component is in
     *///=========================================================================================================================
     public EShipComponentState getComponentState(EShipComponent component)
     {   
@@ -747,11 +752,11 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name CAN AFFORD
-    * 
-    * @description Returns whether or not the user can afford purchasing repairs or levels
+    *  CAN AFFORD
     * 
     * @param component The ship component enum that describes the desired ship component
+    * 
+    * @return boolean Whether or not the user can afford purchasing repairs or levels
     *///=========================================================================================================================
     public boolean canAfford(EShipComponent component)
     {
@@ -759,11 +764,11 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name CAN AFFORD
-    * 
-    * @description Returns whether or not the user can afford purchasing senior staff
+    *  CAN AFFORD
     * 
     * @param officer The senior staff enum that describes the desired senior staff
+    * 
+    * @return boolean Whether or not the user can afford purchasing senior staff
     *///=========================================================================================================================
     public boolean canAfford(ESeniorStaff officer)
     {
@@ -771,9 +776,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET ALL COMPONENTS
+    *  GET ALL COMPONENTS
     * 
-    * @description Returns all ship components
+    * @return ShipComponent[] All ship components
     *///=========================================================================================================================
     public ShipComponent[] getAllComponents()
     {
@@ -781,9 +786,9 @@ public class Ship implements Savable
     }
      
     /**========================================================================================================================== 
-    * @name GET ACTIVE COMPONENTS
+    *  GET ACTIVE COMPONENTS
     * 
-    * @description Returns the components that are either being repaired or gaining experience
+    * @return ShipComponent[] The components that are either being repaired or gaining experience
     *///=========================================================================================================================
     public ShipComponent[] getActiveComponents()
     {
@@ -805,9 +810,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET BROKEN COMPONENTS
+    *  GET BROKEN COMPONENTS
     * 
-    * @description Returns the components that are broken and need to be repaired
+    * @return ShipComponent[] The components that are broken and need to be repaired
     *///=========================================================================================================================
     public ShipComponent[] getBrokenComponents()
     {
@@ -829,10 +834,12 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET INACTIVE COMPONENTS
+    *  GET INACTIVE COMPONENTS
     * 
-    * @description Returns the components that aren't being repaired or gaining experience. (Note: Even automated components
-    * need to be inactive for a brief period of time in order to properly reset and update information about them)
+    * <br><br> Note: Even automated components need to be inactive for a brief period of time in order to properly reset and 
+    * update information about them
+    * 
+    * @return ShipComponent[] Te components that aren't being repaired or gaining experience. 
     *///=========================================================================================================================
     public ShipComponent[] getInactiveComponents()
     {
@@ -853,9 +860,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET ALL STAFF
+    *  GET ALL STAFF
     * 
-    * @description Get all of the ship's senior staff
+    * @return SeniorStaff[] Get all of the ship's senior staff
     *///=========================================================================================================================
     public SeniorStaff[] getAllStaff()
     {
@@ -863,33 +870,33 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET SENIOR STAFF NAME
-    * 
-    * @description reports the NAME of the senior staff member
+    *  GET SENIOR STAFF NAME
     * 
     * @param officer the enumerated officer
+    * 
+    * @return String Reports the NAME of the senior staff member
     *///=========================================================================================================================
     public String getSeniorStaffName(ESeniorStaff officer)
     {
         return seniorStaff[officer.ordinal()].getName();
     }
     /**========================================================================================================================== 
-    * @name GET SENIOR STAFF ON PURCHASE
-    * 
-    * @description Reports the event On_Purchase for the officer;
+    *  GET SENIOR STAFF ON PURCHASE
     * 
     * @param officer the enumerated officer
+    * 
+    * @return String Reports the event On_Purchase for the officer
     *///=========================================================================================================================
     public String getSeniorStaffOnPurchase(ESeniorStaff officer)
     {
         return seniorStaff[officer.ordinal()].getOnPurchase();
     }
     /**========================================================================================================================== 
-    * @name GET SENIOR STAFF DESCRIPTION
-    * 
-    * @description Reports the description of the officer.
+    *  GET SENIOR STAFF DESCRIPTION
     * 
     * @param officer the enumerated officer
+    * 
+    * @return String Reports the description of the officer.
     *///=========================================================================================================================
     public String getSeniorStaffDescription(ESeniorStaff officer)
     {
@@ -897,11 +904,11 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET SENIOR STAFF COST STR
-    * 
-    * @description Reports the formatted cost of a staff member
+    *  GET SENIOR STAFF COST STR
     * 
     * @param officer the enumerated officer
+    * 
+    * @return String Reports the formatted cost of a staff member
     *///=========================================================================================================================
     public String getSeniorStaffCostStr(ESeniorStaff officer)
     {
@@ -909,11 +916,11 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET SENIOR STAFF COST
-    * 
-    * @description Reports the numerical cost of a staff member
+    *  GET SENIOR STAFF COST
     * 
     * @param officer the enumerated officer
+    * 
+    * @return double Reports the numerical cost of a staff member
     *///=========================================================================================================================
     public double getSeniorStaffCost(ESeniorStaff officer)
     {
@@ -921,11 +928,11 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name IS SENIOR STAFF PURCHASED
-    * 
-    * @description Whether or not the senior staff is purchased
+    *  IS SENIOR STAFF PURCHASED
     * 
     * @param officer the enumerated officer
+    * 
+    * @return boolean Whether or not the senior staff is purchased
     *///=========================================================================================================================
     public boolean isSeniorStaffPurchased(ESeniorStaff officer)
     {
@@ -933,11 +940,11 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name IS SENIOR STAFF PURCHASED
-    * 
-    * @description Whether or not the senior staff is purchased
+    *  IS SENIOR STAFF PURCHASED
     * 
     * @param shipComp the enumerated ship component
+    * 
+    * @return boolean Whether or not the senior staff is purchased
     *///=========================================================================================================================
     public boolean isSeniorStaffPurchased(EShipComponent shipComp)
     {
@@ -945,9 +952,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET CURRENT MONEY STR
+    *  GET CURRENT MONEY STR
     * 
-    * @description Returns formatted money value
+    * @return String Returns formatted money value
     *///=========================================================================================================================
     public String getCurrentMoneyStr()
     {
@@ -955,9 +962,9 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET SHIP CURRENT PICTURE NAME
+    *  GET SHIP CURRENT PICTURE NAME
     * 
-    * @description Returns the name of the picture based on its tier
+    * @return String The name of the picture based on its tier
     *///=========================================================================================================================
     public String getShipCurrentPictureName()
     {
@@ -971,9 +978,9 @@ public class Ship implements Savable
              
     
     /**========================================================================================================================== 
-    * @name GET SHIP CURRENT TIER
+    *  GET SHIP CURRENT TIER
     * 
-    * @description Returns the smallest tier of all of the ship components (which is the ship's current tier)
+    * @return int The smallest tier of all of the ship components (which is the ship's current tier)
     *///=========================================================================================================================
     private int getShipCurrentTier()
     {
@@ -993,11 +1000,11 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET CURRENT TIER
-    * 
-    * @description Returns the current tier from the ship's tiers based on the given level
+    *  GET CURRENT TIER
     * 
     * @param level The level of the ship component we want to check against
+    * 
+    * @return int The current tier from the ship's tiers based on the given level
     *///=========================================================================================================================
     private int getCurrentTier(int level)
     {

@@ -8,7 +8,7 @@ package stellarclicker.ship;
  * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * --------------------------------------------------------------------------------------------------------------------------
- * @description 
+ * <br><br> 
  * --------------------------------------------------------------------------------------------------------------------------
     JME LICENSE
     ******************************************************************************
@@ -104,9 +104,9 @@ public class SeniorStaff implements Savable
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
     /**========================================================================================================================== 
-    * @name WRITE
+    *  WRITE
     * 
-    * @description Saves a saved senior staff from file
+    * <br><br> Saves a saved senior staff from file
     * 
     * @param ex A jMonkeyEngine exporter
     *///=========================================================================================================================
@@ -124,9 +124,9 @@ public class SeniorStaff implements Savable
     }
 
     /**========================================================================================================================== 
-    * @name READ
+    *  READ
     * 
-    * @description Loads a saved senior staff from file
+    * <br><br> Loads a saved senior staff from file
     * 
     * @param im A jMonkeyEngine importer
     *///=========================================================================================================================
@@ -146,11 +146,13 @@ public class SeniorStaff implements Savable
     
 
      /**========================================================================================================================== 
-    * @name update
+    * UPDATE
+    * 
+    * <br><br> checks components for inactive state and manages them. 
     * 
     * @param gameTime updates gametime for officer.
     * 
-    * @description checks components for inactive state and manages them. 
+    * 
     *///=========================================================================================================================
     public void update(float gameTime)
     {
@@ -160,12 +162,12 @@ public class SeniorStaff implements Savable
         }
     }
      /**========================================================================================================================== 
-    * @name purchase
+    *  PURCHASE
     * 
     * @param component the shipComponent to manage
     * @param money the current amount of clatinum the user has. 
     * 
-    * @description Purchases a component for management to operate 
+    * <br><br> Purchases a component for management to operate 
     *///=========================================================================================================================
     public String purchase(ShipComponent component, double money)
     {
@@ -184,11 +186,11 @@ public class SeniorStaff implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name manageComponent()
+    *  MANAGE COMPONENT
     * 
-    
+    * <br><br> manages component timer based on current state
     * 
-    * @description manages component timer based on current state
+    * @param gameTime
     *///=========================================================================================================================
     public void manageComponent(float gameTime)
     {

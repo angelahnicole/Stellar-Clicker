@@ -45,7 +45,6 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import com.jme3.math.Vector2f;
 import de.lessvoid.nifty.EndNotify;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
@@ -107,9 +106,9 @@ public class ShipComponentElementController implements Controller
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
     /**========================================================================================================================== 
-    * @name BIND
+    *  BIND
     * 
-    * @description Method that binds the controller with nifty, the screen, the element and its properties/attributes.
+    * <br><br> Method that binds the controller with nifty, the screen, the element and its properties/attributes.
     * 
     * @param nifty The nifty instance
     * @param screen The screen instance
@@ -128,9 +127,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name INIT
+    *  INIT
     * 
-    * @description Method that initializes the element by passing its properties/attributes.
+    * <br><br> Method that initializes the element by passing its properties/attributes.
     * 
     * @param parameter The element's parameters
     * @param controlDefinitionAttributes The element's attributes (defined in Nifty XML)
@@ -141,18 +140,18 @@ public class ShipComponentElementController implements Controller
     }
 
     /**========================================================================================================================== 
-    * @name ON START SCREEN
+    *  ON START SCREEN
     * 
-    * @description Method that is called when the screen has initially started up
+    * <br><br> Method that is called when the screen has initially started up
     *///=========================================================================================================================
     public void onStartScreen()
     {
     }
 
     /**========================================================================================================================== 
-    * @name ON FOCUS
+    *  ON FOCUS
     * 
-    * @description Method that is called after a focus change event
+    * <br><br> Method that is called after a focus change event
     * 
     * @param getFocus Whether or not it has focus
     *///=========================================================================================================================
@@ -161,9 +160,9 @@ public class ShipComponentElementController implements Controller
     }
 
     /**========================================================================================================================== 
-    * @name INPUT EVENT
+    *  INPUT EVENT
     * 
-    * @description Method that is called when input is passed from the element to the controller
+    * <br><br> Method that is called when input is passed from the element to the controller
     * 
     * @param inputEvent A nifty input event that contains information to pass from the UI to the controller
     *///=========================================================================================================================
@@ -179,9 +178,9 @@ public class ShipComponentElementController implements Controller
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name INTERACT
+    *  INTERACT
     * 
-    * @description Method called when the ship component's circle is clicked. If the component is broken, then clicking the 
+    * <br><br> Method called when the ship component's circle is clicked. If the component is broken, then clicking the 
     * circle will repair it. If the component isn't broken, then clicking the circle will allow it to gain experience.
     *///=========================================================================================================================
     public void interact()
@@ -201,9 +200,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name PURCHASE
+    *  PURCHASE
     * 
-    * @description Method called when the ship component's buy button is clicked. If the component is broken, then clicking this 
+    * <br><br> Method called when the ship component's buy button is clicked. If the component is broken, then clicking this 
     * will purchase a repair. If the component isn't broken, then clicking it will purchase a level.
     *///=========================================================================================================================
     public void purchase()
@@ -223,9 +222,9 @@ public class ShipComponentElementController implements Controller
     }
 
     /**========================================================================================================================== 
-    * @name GAIN EXP
+    *  GAIN EXP
     * 
-    * @description Method called when the ship component's circle is clicked. Disables the component and will update the 
+    * <br><br> Method called when the ship component's circle is clicked. Disables the component and will update the 
     * progress bar as progress is being made in gaining experience.
     *///=========================================================================================================================
     public void gainExp()
@@ -241,9 +240,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name PURCHASE LEVEL
+    *  PURCHASE LEVEL
     * 
-    * @description Method called when the "Buy" button is clicked. Instantly levels a component up
+    * <br><br> Method called when the "Buy" button is clicked. Instantly levels a component up
     *///=========================================================================================================================
     public void purchaseLevel()
     {
@@ -264,9 +263,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name REPAIR
+    *  REPAIR
     * 
-    * @description Method called when a component is broken and needs to be repaired. Disables the component and will update the
+    * <br><br> Method called when a component is broken and needs to be repaired. Disables the component and will update the
     * progress bar as progress is being made.
     *///=========================================================================================================================
     public void repair()
@@ -279,9 +278,9 @@ public class ShipComponentElementController implements Controller
     }
     
      /**========================================================================================================================== 
-    * @name PURCHASE REPAIR
+    *  PURCHASE REPAIR
     * 
-    * @description Method called when a component is broken and needs to be repaired. Instantly repairs the component.
+    * <br><br> Method called when a component is broken and needs to be repaired. Instantly repairs the component.
     *///=========================================================================================================================
     public void purchaseRepair()
     {
@@ -295,9 +294,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE LEVEL
+    *  UPDATE LEVEL
     * 
-    * @description Updates the level text of the ship component
+    * <br><br> Updates the level text of the ship component
     * 
     * @param newLevel The new level of the ship component
     *///=========================================================================================================================
@@ -324,9 +323,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE TIME LEFT
+    *  UPDATE TIME LEFT
     * 
-    * @description Updates the time remaining when repairing/gaining experience
+    * <br><br> Updates the time remaining when repairing/gaining experience
     * 
     * @param newTimeLeft A formatted string hh:mm:ss for the time remaining
     *///=========================================================================================================================
@@ -341,9 +340,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE COST
+    *  UPDATE COST
     * 
-    * @description Updates the new cost of the ship component
+    * <br><br> Updates the new cost of the ship component
     * 
     * @param newCost The new cost of the ship component
     *///=========================================================================================================================
@@ -361,9 +360,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE PROGRESS BAR
+    *  UPDATE PROGRESS BAR
     * 
-    * @description Moves the progress bar given the desired percentage and its name
+    * <br><br> Moves the progress bar given the desired percentage and its name
     * 
     * @param percentComplete The percentage (a number from 0 to 1) that the bar should update to
     * @param progressBarID The name (ID) of the element that contains the progress bar
@@ -388,9 +387,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name BREAK COMPONENT
+    *  BREAK COMPONENT
     * 
-    * @description Overlays a broken icon to indicate to the user that it is broken along with disallowing the user to buy any
+    * <br><br> Overlays a broken icon to indicate to the user that it is broken along with disallowing the user to buy any
     * levels.
     * 
     * @param repairCost Formatted cost to repair the component
@@ -407,9 +406,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name FIX COMPONENT
+    *  FIX COMPONENT
     * 
-    * @description Hides the broken icon and enables the buy button.
+    * <br><br> Hides the broken icon and enables the buy button.
     * 
     * @param levelCost Formatted cost to level the component
     *///=========================================================================================================================
@@ -425,11 +424,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name IS ELEMENT ENABLED
+    *  IS ELEMENT ENABLED
     * 
-    * @description Returns whether or not the element is enabled
-    * 
-    * @return boolean Whether or not the element is enabled
+    * @return boolean Whether or not the ship element is enabled
     *///=========================================================================================================================
     public boolean isElementEnabled()
     {
@@ -437,11 +434,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name IS LEVEL BUTTON ENABLED
+    *  IS LEVEL BUTTON ENABLED
     * 
-    * @description Returns whether or not the level button element is enabled
-    * 
-    * @return boolean Whether or not the element is enabled
+    * @return boolean Whether or not the level button element is enabled
     *///=========================================================================================================================
     public boolean isLevelButtonEnabled()
     {
@@ -449,11 +444,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name IS BUY BUTTON ENABLED
+    *  IS BUY BUTTON ENABLED
     * 
-    * @description Returns whether or not the buy button element is enabled
-    * 
-    * @return boolean Whether or not the element is enabled
+    * @return boolean Whether or not the buy button element is enabled
     *///=========================================================================================================================
     public boolean isBuyButtonEnabled()
     {
@@ -461,9 +454,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name REENABLE COMPONENT
+    *  REENABLE COMPONENT
     * 
-    * @description Re-enables the component by resetting the progress bar, making 
+    * <br><br> Re-enables the component by resetting the progress bar, making 
     *///=========================================================================================================================
     public void reenableComponent()
     {
@@ -479,9 +472,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name DISABLE BUYING
+    *  DISABLE BUYING
     * 
-    * @description Disables the buy button for the ship component
+    * <br><br> Disables the buy button for the ship component
     *///=========================================================================================================================
     public void disableBuying()
     {
@@ -489,9 +482,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name ENABLE BUYING
+    *  ENABLE BUYING
     * 
-    * @description Enables the button for buying- has to make sure to have the correct color and labeling
+    * <br><br> Enables the button for buying- has to make sure to have the correct color and labeling
     * 
     * @param currentCost Formatted cost
     *///=========================================================================================================================
@@ -501,9 +494,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name ENABLE BUYING
+    *  ENABLE BUYING
     * 
-    * @description Enables the button for buying- has to make sure to have the correct color and labeling
+    * <br><br> Enables the button for buying- has to make sure to have the correct color and labeling
     * 
     * @param currentCost Formatted cost
     *///=========================================================================================================================
@@ -520,9 +513,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name SWTICH TO REPAIR BUTTON
+    *  SWTICH TO REPAIR BUTTON
     * 
-    * @description Changes the buy button to have repair text and repair color
+    * <br><br> Changes the buy button to have repair text and repair color
     * 
     * @param repairCost Formatted cost of repairing the component
     *///=========================================================================================================================
@@ -546,9 +539,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name SWTICH TO LEVEL BUTTON
+    *  SWTICH TO LEVEL BUTTON
     * 
-    * @description Changes the buy button to have level text and level color
+    * <br><br> Changes the buy button to have level text and level color
     * 
     * @param repairCost Formatted cost of leveling the component
     *///=========================================================================================================================
@@ -572,9 +565,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name DISABLE LEVEL BUTTON
+    *  DISABLE LEVEL BUTTON
     * 
-    * @description Disables the level button of the component
+    * <br><br> Disables the level button of the component
     *///=========================================================================================================================
     public void disableLevelButton()
     {
@@ -582,9 +575,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name DISABLE BUY BUTTON
+    *  DISABLE BUY BUTTON
     * 
-    * @description Disables the buy button of the component
+    * <br><br> Disables the buy button of the component
     *///=========================================================================================================================
     public void disableBuyButton()
     {
@@ -592,9 +585,9 @@ public class ShipComponentElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name ENABLE BUY BUTTON
+    *  ENABLE BUY BUTTON
     * 
-    * @description Enables the buy button of the component
+    * <br><br> Enables the buy button of the component
     *///=========================================================================================================================
     public void enableBuyButton()
     {
@@ -613,11 +606,13 @@ public class ShipComponentElementController implements Controller
     }
 
     /**========================================================================================================================== 
-    * @name STRING TO ENUM
+    *  STRING TO ENUM
     * 
-    * @description Converts a string to an EShipComponent enumeration
+    * <br><br> Converts a string to an EShipComponent enumeration
     * 
     * @param enumString A string holding the name of the enumeration e.g. "HULL"
+    * 
+    * @return EShipComponent The converted EShipComponent enum
     *///=========================================================================================================================
     private EShipComponent stringToEnum(String enumString)
     {

@@ -7,7 +7,7 @@ package stellarclicker.ship;
  * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * --------------------------------------------------------------------------------------------------------------------------
- * @description This class defines a ship component for the ship 
+ *  This class defines a ship component for the ship 
  * --------------------------------------------------------------------------------------------------------------------------
     JME LICENSE
     ******************************************************************************
@@ -50,14 +50,10 @@ import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
 import com.jme3.export.Savable;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import stellarclicker.app.MainApplication;
 import stellarclicker.util.BigNumber;
 import stellarclicker.util.Timer;
 import stellarclicker.util.EShipComponentState;
-import stellarclicker.util.EShipStat;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -173,9 +169,9 @@ public class ShipComponent implements Savable
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name WRITE
+    *  WRITE
     * 
-    * @description Saves a saved ship from file
+    *  <br><br> Saves a saved ship from file
     * 
     * @param ex A jMonkeyEngine exporter
     *///=========================================================================================================================
@@ -206,9 +202,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name READ
+    *  READ
     * 
-    * @description Loads a saved ship from file
+    *  <br><br> Loads a saved ship from file
     * 
     * @param im A jMonkeyEngine importer
     *///=========================================================================================================================
@@ -248,9 +244,9 @@ public class ShipComponent implements Savable
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name UPDATE
+    *  UPDATE
     * 
-    * @description Runs the components update cycle 
+    *  <br><br> Runs the components update cycle 
     * 
     * @param gameTime The main game time state
     *///=========================================================================================================================
@@ -262,9 +258,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name MANAGE TIMERS
+    *  MANAGE TIMERS
     * 
-    * @description 
+    * <br><br> 
     *///=========================================================================================================================
     public void manageTimers()
     {
@@ -303,9 +299,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GAIN EXPERIENCE
+    *  GAIN EXPERIENCE
     * 
-    * @description Start experience timer and set component state to GAINING EXP
+    *  <br><br> Start experience timer and set component state to GAINING EXP
     *///=========================================================================================================================
     public void gainExperience()
     {
@@ -320,10 +316,10 @@ public class ShipComponent implements Savable
     
    
     /**========================================================================================================================== 
-    * @name LEVEL UP
+    *  LEVEL UP
     * 
-    * @description Increases the level of this component, updates the time taken to repair and gain experience, and sets its 
-    * state to inactive.
+    *  <br><br> Increases the level of this component, updates the time taken to repair and gain experience, and sets its 
+    *  state to inactive.
     *///=========================================================================================================================
     public void levelUp()
     {
@@ -333,6 +329,11 @@ public class ShipComponent implements Savable
         this.currentState = EShipComponentState.INACTIVE;
     }
     
+    /**========================================================================================================================== 
+    *  CHECK LEVELED
+    * 
+    *  @return boolean 
+    *///=========================================================================================================================
     public boolean checkLeveled()
     {
         boolean temp = this.leveled;
@@ -340,10 +341,10 @@ public class ShipComponent implements Savable
         return temp;
     }
     /**========================================================================================================================== 
-    * @name LEVEL UP
+    *  LEVEL UP
     * 
-    * @description Increases the level of this component, updates its state, but does NOT update the time taken to repair and
-    * gain experience if indicated. This is to be used when leveling up components after a save.
+    *  <br><br> Increases the level of this component, updates its state, but does NOT update the time taken to repair and
+    *  gain experience if indicated. This is to be used when leveling up components after a save.
     * 
     * @param updateTimeTaken Whether or not to update the time
     * 
@@ -363,9 +364,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GAIN REPAIR
+    *  GAIN REPAIR
     * 
-    * @description Starts the repair component timer and set its component state to repairing 
+    *  <br><br> Starts the repair component timer and set its component state to repairing 
     *///=========================================================================================================================
     public void gainRepair()
     {
@@ -376,9 +377,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name DEGRADE COMPONENT
+    *  DEGRADE COMPONENT
     * 
-    * @description Reduces the components durability 
+    *  <br><br> Reduces the components durability 
     *///=========================================================================================================================
     public void degradeComponent()
     {
@@ -395,9 +396,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name REPAIR COMPONENT
+    *  REPAIR COMPONENT
     * 
-    * @description Repairs the component by setting its durability to the max and sets it component state to inactive
+    *  <br><br> Repairs the component by setting its durability to the max and sets it component state to inactive
     *///=========================================================================================================================
     public void repairComponent()
     {
@@ -407,9 +408,9 @@ public class ShipComponent implements Savable
     }
      
     /**========================================================================================================================== 
-    * @name BREAK COMPONENT
+    *  BREAK COMPONENT
     * 
-    * @description Sets the state to broken and the durability to 0 
+    *  <br><Br> Sets the state to broken and the durability to 0 
     *///=========================================================================================================================
     private void breakComponent()
     {
@@ -425,9 +426,9 @@ public class ShipComponent implements Savable
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name GET FORMATTED LEVEL COST
+    *  GET FORMATTED LEVEL COST
     * 
-    * @description Returns a formatted string of the level cost
+    *  @return String A formatted string of the level cost
     *///=========================================================================================================================
     public String getFormattedLevelCost()
     {
@@ -435,9 +436,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET FORMATTED REPAIR COST
+    *  GET FORMATTED REPAIR COST
     * 
-    * @description Returns a formatted string of the repair cost
+    *  @return String A formatted string of the repair cost
     *///=========================================================================================================================
     public String getFormattedRepairCost()
     {
@@ -445,9 +446,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET REPAIR COST
+    *  GET REPAIR COST
     * 
-    * @description Returns a formatted string of the repair cost
+    *  @return double A formatted string of the repair cost
     *///=========================================================================================================================
     public double getRepairCost()
     {
@@ -455,9 +456,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET LEVEL COST
+    *  GET LEVEL COST
     * 
-    * @description Returns a formatted string of the repair cost
+    *  @return double A formatted string of the repair cost
     *///=========================================================================================================================
     public double getLevelCost()
     {
@@ -465,9 +466,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET SHIP STATS
+    *  GET SHIP STATS
     * 
-    * @description Get ship statistics that are affected by this component
+    *  <br><br>Get ship statistics that are affected by this component
     * 
     * @returns int[] An array of ordinal integer values of EShipStat enums
     *///=========================================================================================================================
@@ -478,9 +479,7 @@ public class ShipComponent implements Savable
     
     
     /**========================================================================================================================== 
-    * @name GET NUM SHIP STATS
-    * 
-    * @description The number of ship stats that this component affects
+    *  GET NUM SHIP STATS 
     * 
     * @returns int The number of ship stats it affects
     *///=========================================================================================================================
@@ -490,9 +489,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET LEVEL
+    *  GET LEVEL
     * 
-    * @description Returns the current level of this 
+    *  @return int Returns the current level of this 
     *///=========================================================================================================================
      public int getLevel()
     {
@@ -500,9 +499,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET TIMER PERCENT
+    *  GET TIMER PERCENT
     * 
-    * @description Returns the percent of the timer completion 
+    *  @return double Returns the percent of the timer completion 
     *///=========================================================================================================================
     public double getTimerPercent()
     {
@@ -511,9 +510,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET TIME Remaining
+    *  GET TIME REMAINING
     * 
-    * @description Returns the percent of the timer completion 
+    *  @return String A formatted string of the percent of the timer completion 
     *///=========================================================================================================================
     public String getTimeRemaining()
     {
@@ -528,9 +527,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET COMPONENT STATE
+    *  GET COMPONENT STATE
     * 
-    * @description Returns the state of the component 
+    *  @return EShipComponentState The state of the component 
     *///=========================================================================================================================
     public EShipComponentState getComponentState()
     {
@@ -538,9 +537,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET CURRENT TIER
+    *  GET CURRENT TIER
     * 
-    * @description Returns the current tier that the ship component is on
+    * @return int The current tier that the ship component is on
     *///=========================================================================================================================
     public int getCurrentTier()
     {
@@ -562,9 +561,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET CURRENT PICTURE NAME
+    *  GET CURRENT PICTURE NAME
     * 
-    * @description Returns the name of the picture based on its tier
+    *  @return String Returns the name of the picture based on its tier
     *///=========================================================================================================================
     public String getCurrentPictureName()
     {
@@ -572,9 +571,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET TIME TAKEN
+    *  GET TIME TAKEN
     * 
-    * @description Returns the amount of time it will take to level up the component. Will be used to help load saved games.
+    * <br><br> Returns the amount of time it will take to level up the component. Will be used to help load saved games.
     * 
     * @param level The current level of the component
     * @param returnExpTime Whether or not to return experience time or repair time
@@ -598,9 +597,9 @@ public class ShipComponent implements Savable
     }
     
     /**==========================================================================================================================
-    * @name GET LAST TIME LEFT
+    *  GET LAST TIME LEFT
     * 
-    * @description Returns the last saved time left in a running timer on a component
+    *  @return float The last saved time left in a running timer on a component
     *///=========================================================================================================================
     public float getLastTimeLeft()
     {
@@ -608,9 +607,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name GET LAST TIME ELAPSED
+    * GET LAST TIME ELAPSED
     * 
-    * @description Returns the last saved time elapsed in a running timer on a component
+    * @return float The last saved time elapsed in a running timer on a component
     *///=========================================================================================================================
     public float getLastTimeElapsed()
     {
@@ -619,9 +618,9 @@ public class ShipComponent implements Savable
     
     
     /**========================================================================================================================== 
-    * @name UPDATE TIME TAKEN
+    *  UPDATE TIME TAKEN
     * 
-    * @description Updates the current time taken to repair and gain experience
+    * <br><br> Updates the current time taken to repair and gain experience
     *///=========================================================================================================================
     public void updateTimeTaken()
     {
@@ -640,9 +639,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name SET SAVED TIME
+    *  SET SAVED TIME
     * 
-    * @description Updates the time left and time elapsed during experience/repair gain
+    * <br><br> Updates the time left and time elapsed during experience/repair gain
     * 
     * @param lastTimeLeft Last saved time left in a running timer on a component
     * @param lastTimeElapsed Last saved time elapsed in a running timer on a component
@@ -654,9 +653,9 @@ public class ShipComponent implements Savable
     }
     
     /**========================================================================================================================== 
-    * @name SET COMPONENT STATE
+    *  SET COMPONENT STATE
     * 
-    * @description Updates the component state ont he 
+    * <br><br> Updates the component state ont he 
     *///=========================================================================================================================
     public void setComponentState(EShipComponentState newState)
     {

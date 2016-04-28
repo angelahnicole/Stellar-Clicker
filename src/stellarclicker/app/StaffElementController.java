@@ -85,9 +85,9 @@ public class StaffElementController implements Controller
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
     /**========================================================================================================================== 
-    * @name BIND
+    *  BIND
     * 
-    * @description Method that binds the controller with nifty, the screen, the element and its properties/attributes.
+    * <br><br> Method that binds the controller with nifty, the screen, the element and its properties/attributes.
     * 
     * @param nifty The nifty instance
     * @param screen The screen instance
@@ -103,9 +103,9 @@ public class StaffElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name INIT
+    *  INIT
     * 
-    * @description Method that initializes the element by passing its properties/attributes.
+    * <br><br> Method that initializes the element by passing its properties/attributes.
     * 
     * @param parameter The element's parameters
     * @param controlDefinitionAttributes The element's attributes (defined in Nifty XML)
@@ -118,9 +118,9 @@ public class StaffElementController implements Controller
     }
 
     /**========================================================================================================================== 
-    * @name ON START SCREEN
+    *  ON START SCREEN
     * 
-    * @description Method that is called when the screen has initially started up
+    * <br><br> Method that is called when the screen has initially started up
     *///=========================================================================================================================
     public void onStartScreen()
     {
@@ -128,9 +128,9 @@ public class StaffElementController implements Controller
     }
 
     /**========================================================================================================================== 
-    * @name ON FOCUS
+    *  ON FOCUS
     * 
-    * @description Method that is called after a focus change event
+    * <br><br> Method that is called after a focus change event
     * 
     * @param getFocus Whether or not it has focus
     *///=========================================================================================================================
@@ -140,9 +140,9 @@ public class StaffElementController implements Controller
     }
 
     /**========================================================================================================================== 
-    * @name INPUT EVENT
+    *  INPUT EVENT
     * 
-    * @description Method that is called when input is passed from the element to the controller
+    * <br><br> Method that is called when input is passed from the element to the controller
     * 
     * @param inputEvent A nifty input event that contains information to pass from the UI to the controller
     *///=========================================================================================================================
@@ -158,9 +158,9 @@ public class StaffElementController implements Controller
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name PURCHASE
+    *  PURCHASE
     * 
-    * @description Purchases a senior staff and disables the component
+    * <br><br> Purchases a senior staff and disables the component
     *///=========================================================================================================================
     public void purchase()
     {
@@ -169,9 +169,9 @@ public class StaffElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE COST
+    *  UPDATE COST
     * 
-    * @description Updates the senior staff purchase cost
+    * <br><br> Updates the senior staff purchase cost
     * 
     * @param cost Formatted cost
     *///=========================================================================================================================
@@ -186,9 +186,9 @@ public class StaffElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name DISABLE BUYING
+    *  DISABLE BUYING
     * 
-    * @description Disables the staff purchase button if it's not already purchased
+    * <br><br> Disables the staff purchase button if it's not already purchased
     *///=========================================================================================================================
     public void disableBuying()
     {
@@ -208,9 +208,9 @@ public class StaffElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name ENABLE BUYING
+    *  ENABLE BUYING
     * 
-    * @description Enables the staff purchase button if it's not already purchased
+    * <br><br> Enables the staff purchase button if it's not already purchased
     *///=========================================================================================================================
     public void enableBuying()
     {
@@ -229,9 +229,9 @@ public class StaffElementController implements Controller
     }
     
     /**========================================================================================================================== 
-    * @name DISABLE COMPONENT
+    *  DISABLE COMPONENT
     * 
-    * @description Disables the component
+    * <br><br> Disables the component
     *///=========================================================================================================================
     public void disableComponent()
     {
@@ -245,11 +245,13 @@ public class StaffElementController implements Controller
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name STRING TO ENUM
+    *  STRING TO ENUM
     * 
-    * @description Converts a string to an ESeniorStaff enumeration
+    * <br><br> Converts a string to an ESeniorStaff enumeration
     * 
     * @param enumString A string holding the name of the enumeration e.g. "BARKEEP"
+    * 
+    * @return ESeniorStaff The newly converted Senior Staff enum
     *///=========================================================================================================================
     private ESeniorStaff stringToEnum(String enumString)
     {

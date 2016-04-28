@@ -52,9 +52,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     // APP STATE METHODS
 
     /**========================================================================================================================== 
-    * @name INITIALIZE
+    *  INITIALIZE
     * 
-    * @description Initializes the application state 
+    * <br><br> Initializes the application state 
     * 
     * @param stateManager An instance of the main application's state manager
     * @param app The main application
@@ -78,9 +78,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     }
 
     /**========================================================================================================================== 
-    * @name CLEAN UP
+    *  CLEAN UP
     * 
-    * @description Cleans up the application state
+    * <br><br> Cleans up the application state
     *///=========================================================================================================================
     @Override
     public void cleanup()
@@ -90,9 +90,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
 
     
     /**========================================================================================================================== 
-    * @name SET ENABLED
+    *  SET ENABLED
     * 
-    * @description Make the application state enabled or disabled (i.e. pause and unpause)
+    * <br><br> Make the application state enabled or disabled (i.e. pause and unpause)
     * 
     * @param enabled Whether or not to enabled or disable the application state
     *///=========================================================================================================================
@@ -104,9 +104,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
 
     
     /**========================================================================================================================== 
-    * @name UPDATE
+    *  UPDATE
     * 
-    * @description Method called by the main thread (loop) that updates the state of the game.
+    * <br><br> Method called by the main thread (loop) that updates the state of the game.
     * 
     * @param tpf The amount of time per frame
     *///=========================================================================================================================
@@ -124,9 +124,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
 
     
     /**========================================================================================================================== 
-    * @name BIND
+    *  BIND
     * 
-    * @description Method that binds the screen controller with the nifty instance and the screen.
+    * <br><br> Method that binds the screen controller with the nifty instance and the screen.
     * 
     * @param nifty The nifty instance
     * @param screen The screen instance
@@ -139,9 +139,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
 
     
     /**========================================================================================================================== 
-    * @name ON START SCREEN
+    *  ON START SCREEN
     * 
-    * @description Method that is called when the screen has initially started up
+    * <br><br> Method that is called when the screen has initially started up
     *///=========================================================================================================================
     public void onStartScreen()
     {
@@ -151,9 +151,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
 
     
     /**========================================================================================================================== 
-    * @name ON END SCREEN
+    *  ON END SCREEN
     * 
-    * @description Method that is called at the end of the screen's life
+    * <br><br> Method that is called at the end of the screen's life
     *///=========================================================================================================================
     public void onEndScreen()
     {
@@ -168,9 +168,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
 
     
     /**========================================================================================================================== 
-    * @name START GAME
+    *  START GAME
     * 
-    * @description Switches the application to the starting state
+    * <br><br> Switches the application to the starting state
     *///=========================================================================================================================
     public void startGame()
     {
@@ -178,9 +178,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     }
     
     /**========================================================================================================================== 
-    * @name LOAD GAME
+    *  LOAD GAME
     * 
-    * @description Switches the application to the loading state
+    * <br><br> Switches the application to the loading state
     *///=========================================================================================================================
     public void loadGame()
     {
@@ -188,9 +188,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     }
     
     /**========================================================================================================================== 
-    * @name OPEN CREDITS WINDOW
+    *  OPEN CREDITS WINDOW
     * 
-    * @description Opens the credits window in the main screen
+    * <br><br> Opens the credits window in the main screen
     *///=========================================================================================================================
     public void openCreditsWindow()
     {
@@ -202,9 +202,9 @@ public class SplashScreenState extends AbstractAppState implements ScreenControl
     }
 
     /**========================================================================================================================== 
-    * @name QUIT GAME
+    *  QUIT GAME
     * 
-    * @description Terminates the application
+    * <br><br> Terminates the application
     *///=========================================================================================================================
     public void quitGame()
     {
