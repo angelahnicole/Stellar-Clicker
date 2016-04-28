@@ -459,6 +459,18 @@ public class MainApplication extends SimpleApplication
     {
         this.myShip = newShip;
     }
-    
+     /**========================================================================================================================== 
+    * @name claimOfficers
+    * 
+    * @description Set the ship object with previous instance with new officers
+    * 
+    *///=========================================================================================================================
+    public void claimOfficers()
+    {
+        double officers = this.myShip.getClaimableOfficers();
+        Ship newShip = new Ship(officers);
+        this.myShip = newShip;
+        
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

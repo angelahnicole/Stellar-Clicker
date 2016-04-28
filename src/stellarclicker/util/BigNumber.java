@@ -63,7 +63,12 @@ public class BigNumber
     {
         // get the index used for the number suffix
         int suffixIndex = (int)Math.log10(number) / 3;
-        String numberSuffix = numberSuffixes[suffixIndex];
+        String numberSuffix = "";
+        if (suffixIndex >= 0)
+        {
+            numberSuffix = numberSuffixes[suffixIndex];
+        }
+        
 
         // get a truncated version of the number
         number /= Math.pow(10, suffixIndex * 3);
