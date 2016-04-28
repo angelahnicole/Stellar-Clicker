@@ -89,6 +89,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public static final String AUDIO_IMAGE_ID = "audioButton#iconPanel#iconImage";
     public static final String MONEY_COMP_ID = "money";
     public static final String MONEY_TEXT_ID = "#compMoney";
+    public static final String CLAIM_POPUP_ID = "claimPopup";
     
     private Nifty nifty;
     private Screen screen;
@@ -99,6 +100,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     private ViewPort viewPort;
     private ViewPort guiViewPort;
     private AudioRenderer audioRenderer;
+    
+    private Element claimPopup;
     
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,6 +198,9 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         // we initialize components and staff here since the screen cannot be non-null
         initShipComponents();
         initSeniorStaff();
+        
+        // create popup
+        this.claimPopup = nifty.createPopup(CLAIM_POPUP_ID);
     }
 
     /**========================================================================================================================== 
@@ -496,8 +502,6 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 }
 
             }
-            
-            
         }
         
     }
@@ -549,6 +553,23 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         {
             window.setVisible(true);
         }
+    }
+    
+    public void openClaimPopup()
+    {
+        this.nifty.showPopup(this.screen, this.claimPopup.getId(), null);
+    }
+    
+    public void closeClaimPopup()
+    {
+        this.nifty.closePopup(this.claimPopup.getId());
+    }
+    
+    public void claimOfficers()
+    {
+        this.nifty.closePopup(this.claimPopup.getId());
+        
+        System.out.println("We've claimed officers!!!");
     }
     
     /**========================================================================================================================== 
