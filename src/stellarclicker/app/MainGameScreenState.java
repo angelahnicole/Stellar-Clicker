@@ -546,12 +546,17 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     public void openOfficerWindow()
     {
-        System.out.println("Officer Window Opened"); 
-        
         Element window = this.screen.findElementByName(OFFICER_WINDOW_ID);
         if(window != null)
         {
-            window.setVisible(true);
+            if(window.isVisible()) 
+            {
+                window.setVisible(false);
+            }
+            else
+            {
+                window.setVisible(true);
+            }
         }
     }
     
@@ -579,12 +584,17 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     public void openSeniorStaffWindow()
     {
-        System.out.println("Staff Window Opened");   
-        
         Element window = this.screen.findElementByName(SENIOR_STAFF_WINDOW_ID);
         if(window != null)
         {
-            window.setVisible(true);
+            if(window.isVisible()) 
+            {
+                window.setVisible(false);
+            }
+            else
+            {
+                window.setVisible(true);
+            }
         }
     }
     
@@ -595,12 +605,17 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     public void openUnlocksWindow()
     {
-        System.out.println("Unlock Screen Window Opened");
-        
         Element window = this.screen.findElementByName(UNLOCKS_WINDOW_ID);
         if(window != null)
         {
-            window.setVisible(true);
+            if(window.isVisible()) 
+            {
+                window.setVisible(false);
+            }
+            else
+            {
+                window.setVisible(true);
+            }
         }
     }
 
@@ -611,12 +626,17 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     public void openTravelWindow()
     {
-        System.out.println("Travel Window Opened");
-        
         Element window = this.screen.findElementByName(TRAVEL_WINDOW_ID);
         if(window != null)
         {
-            window.setVisible(true);
+            if(window.isVisible()) 
+            {
+                window.setVisible(false);
+            }
+            else
+            {
+                window.setVisible(true);
+            }
         }
     }
  
