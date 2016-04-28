@@ -113,8 +113,21 @@ public class Ship implements Savable
         staffFactory = new StaffFactory();
         this.initializeComponents();
         this.progressInfo = MainApplication.app.progressInfo;
+        this.officers = 0;
     }
     
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // CONSTRUCTOR
+    // @param officers the amount of officers initially on ship
+    // ----------------
+    public Ship(double officers)
+    {
+        compFactory = new ComponentFactory();
+        staffFactory = new StaffFactory();
+        this.initializeComponents();
+        this.progressInfo = MainApplication.app.progressInfo;
+        this.officers = officers;
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // --------------------------------------------------------------------------------------------------------------------------------------------
@@ -323,11 +336,12 @@ public class Ship implements Savable
            seniorStaff[i.ordinal()] = staffFactory.buildStaff(i);
         }
         
-        //money checkers
-        this.officers = 1000;
+        
+        //TODO: SHOULD BE SET TO 0
+        
         this.previousSecond = 0;
         
-        //money checkers
+        
     }
     
      /**========================================================================================================================== 
@@ -552,12 +566,11 @@ public class Ship implements Savable
     * 
     * @description Increases the amount of officers joined to the ship.
     *///=========================================================================================================================
-    private void claimOfficers()
+    public double getClaimableOfficers()
     {
-        //check component levels
-        this.officers += this.claimableOfficers;
-        this.claimableOfficers = 0;
-        calcMoneyPerSecond();
+        //get officers.
+        
+        return this.claimableOfficers;
     }
     
     /**========================================================================================================================== 
