@@ -63,10 +63,12 @@ import de.lessvoid.nifty.screen.ScreenController;
 import stellarclicker.ship.SeniorStaff;
 
 import stellarclicker.ship.ShipComponent;
+import stellarclicker.ship.ShipStatistics;
 import stellarclicker.util.EAppState;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponent;
 import stellarclicker.util.EShipComponentState;
+import stellarclicker.util.EShipStat;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -91,6 +93,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     public static final String MONEY_COMP_ID = "money";
     public static final String MONEY_TEXT_ID = "#compMoney";
     public static final String CLAIM_POPUP_ID = "claimPopup";
+    public static final String SHIP_STAT_VALUE_TEXT_ID = "#statValue";
     
     private Nifty nifty;
     private Screen screen;
@@ -174,6 +177,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             updateInactiveShipComponents();
             updateBrokenShipComponents();
             updateMoneyInfo();
+            updateShipStatistics();
         }
     }
     
@@ -213,7 +217,6 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     {  
     }
 
-    
     /**========================================================================================================================== 
     * @name ON END SCREEN
     * 
@@ -483,7 +486,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 StaffElementController staffElem = this.screen.findControl(staffEnum.toString(), StaffElementController.class);
                 
                 // only change it if it's not purchased
-                if(MainApplication.app.myShip.isSeniorStaffPurchased(staffEnum))
+                if( MainApplication.app.myShip.isSeniorStaffPurchased(staffEnum) )
                 {
                     staffElem.enableBuying();
                     staffElem.disableComponent();
@@ -501,8 +504,31 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 }
 
             }
-        }
+        } 
+    }
+    
+    /**========================================================================================================================== 
+    * @name UPDATE SHIP STATISTICS
+    * 
+    * @description Updates ship statistic values
+    *///=========================================================================================================================
+    private void updateShipStatistics()
+    {
+        ShipStatistics shipStats = MainApplication.app.myShip.getShipStats();
         
+        for(EShipStat statEnum : EShipStat.values())
+        {
+            // retrieve a formated ship statistic
+            int statValue = shipStats.getStatValue(statEnum);
+            String formattedValue = String.format("%03d", statValue);
+            
+            // update the stat element
+            Element statElement = this.screen.findElementByName(statEnum.toString());
+            if(statElement != null)
+            {
+                statElement.findElementByName(SHIP_STAT_VALUE_TEXT_ID).getRenderer(TextRenderer.class).setText(formattedValue);
+            }
+        }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

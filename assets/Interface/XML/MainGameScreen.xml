@@ -93,12 +93,12 @@
                         <!-- SHIP STATISTICS -->
                         <panel height="68%" childLayout="vertical" padding="10px,5px" valign="center" align="center">
                             
-                            <control id="hullHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="001"/>
-                            <control id="shieldHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="001"/>
-                            <control id="engineSpeed" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/engineSpeed.png" statName="ENGINE SPEED" statValue="001"/>
-                            <control id="weaponDamage" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/weaponDamage.png" statName="WEAPON DMG" statValue="001"/>
-                            <control id="officerHealth" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/officerHealth.png" statName="OFFICER HEALTH" statValue="001"/>
-                            <control id="officerHappiness" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/officerHappiness.png" statName="OFFICER HAPPINESS" statValue="001"/>
+                            <control id="HULL_HEALTH" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/hullHealth.png" statName="HULL HEALTH" statValue="001"/>
+                            <control id="SHIELD_HEALTH" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/shieldHealth.png" statName="SHIELD HEALTH" statValue="001"/>
+                            <control id="ENGINE_SPEED" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/engineSpeed.png" statName="ENGINE SPEED" statValue="001"/>
+                            <control id="WEAPON_DAMAGE" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/weaponDamage.png" statName="WEAPON DMG" statValue="001"/>
+                            <control id="OFFICER_HEALTH" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/officerHealth.png" statName="OFFICER HEALTH" statValue="001"/>
+                            <control id="OFFICER_HAPPINESS" name="ship-statistic-text" statHeight="16%" statImagePath="Interface/Images/Icons/officerHappiness.png" statName="OFFICER HAPPINESS" statValue="001"/>
                             
                         </panel>
 
