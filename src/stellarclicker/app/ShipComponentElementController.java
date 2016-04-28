@@ -45,6 +45,7 @@ package stellarclicker.app;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+import com.jme3.math.Vector2f;
 import de.lessvoid.nifty.EndNotify;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Controller;
@@ -62,6 +63,7 @@ import java.util.Properties;
 import de.lessvoid.nifty.tools.Color;
 import stellarclicker.ship.ShipComponent;
 import stellarclicker.util.EShipComponent;
+import stellarclicker.util.EShipComponentState;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -135,8 +137,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void init(Properties parameter, Attributes controlDefinitionAttributes)
     {
-        System.out.println("init() called for element: " + shipCompElem);
-        
         appearsBroken = false;
     }
 
@@ -147,7 +147,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void onStartScreen()
     {
-        
     }
 
     /**========================================================================================================================== 
@@ -159,7 +158,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void onFocus(boolean getFocus)
     {
-        
     }
 
     /**========================================================================================================================== 
@@ -188,7 +186,11 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void interact()
     {
-        if(!appearsBroken)
+        EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+        ShipComponent shipComp = MainApplication.app.myShip.getComponent(shipEnum);
+        EShipComponentState currentState = shipComp.getComponentState();
+        
+        if(currentState == EShipComponentState.INACTIVE || currentState == EShipComponentState.GAINING_EXP)
         {
             gainExp();
         }
@@ -206,7 +208,11 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void purchase()
     {
-        if(!appearsBroken)
+        EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
+        ShipComponent shipComp = MainApplication.app.myShip.getComponent(shipEnum);
+        EShipComponentState currentState = shipComp.getComponentState();
+        
+        if(currentState == EShipComponentState.INACTIVE || currentState == EShipComponentState.GAINING_EXP)
         {
             purchaseLevel();
         }
@@ -226,8 +232,6 @@ public class ShipComponentElementController implements Controller
     {
         if(this.shipCompElem.isEnabled())
         {
-            System.out.println("Starting to gain experience with " + shipCompElem.getId());
-            
             // start to gain experience and set off timing events
             EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
             MainApplication.app.myShip.gainComponentExperience(shipEnum);
@@ -245,8 +249,6 @@ public class ShipComponentElementController implements Controller
     {
         if(this.shipCompElem.isEnabled())
         {
-            System.out.println("Buying a new level " + shipCompElem.getId());
-            
             EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
             ShipComponent shipComp = MainApplication.app.myShip.getComponent(shipEnum);
             
@@ -269,8 +271,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void repair()
     {
-        System.out.println("Starting to repair " + shipCompElem.getId());
-        
         // purchase experience and set off timing events
         EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
         MainApplication.app.myShip.gainComponentRepair(shipEnum);
@@ -285,8 +285,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void purchaseRepair()
     {
-        System.out.println("Starting to repair " + shipCompElem.getId());
-        
         // purchase experience and set off timing events
         EShipComponent shipEnum = stringToEnum(shipCompElem.getId());
         ShipComponent shipComp =  MainApplication.app.myShip.getComponent(shipEnum);
@@ -469,8 +467,6 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void reenableComponent()
     {
-        System.out.println("Re-enabled  " + shipCompElem.getId());
-        
         this.shipCompElem.enable();
         this.shipCompElem.findElementByName(LEVEL_BUTTON_ID).enable();
         
@@ -497,20 +493,30 @@ public class ShipComponentElementController implements Controller
     * 
     * @description Enables the button for buying- has to make sure to have the correct color and labeling
     * 
-    * @param cost Formatted cost
+    * @param currentCost Formatted cost
     *///=========================================================================================================================
-    public void enableBuying(String cost)
+    public void enableBuying(String currentCost)
     {
-        if(appearsBroken)
+        enableBuyButton();
+    }
+    
+    /**========================================================================================================================== 
+    * @name ENABLE BUYING
+    * 
+    * @description Enables the button for buying- has to make sure to have the correct color and labeling
+    * 
+    * @param currentCost Formatted cost
+    *///=========================================================================================================================
+    public void updateState(EShipComponentState currentState, String currentCost)
+    {
+        if(currentState == EShipComponentState.INACTIVE || currentState == EShipComponentState.GAINING_EXP)
         {
-            switchToRepairButton(cost);
+            fixComponent(currentCost);
         }
         else
         {
-            switchToLevelButton(cost);
+            breakComponent(currentCost);
         }
-
-        enableBuyButton();
     }
     
     /**========================================================================================================================== 

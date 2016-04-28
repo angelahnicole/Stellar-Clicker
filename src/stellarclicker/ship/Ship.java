@@ -190,6 +190,7 @@ public class Ship implements Savable
         System.out.println("UPDATING COMPONENTS! \t\t Seconds Since Save: " + secondsSinceSave);
         System.out.println();
         float progressIncrements = (1.0f - this.progressInfo.getProgressMade() ) / this.shipComponents.length;
+        int daysSinceSave = (int)(secondsSinceSave / 86400);
         
         for(int i = 0; i < this.shipComponents.length; i++)
         {
@@ -202,19 +203,22 @@ public class Ship implements Savable
             
             // update the progress bar info
             this.progressInfo.updateProgress(progressIncrements, "Updating the " + shipEnum + " component");
-
-            // first check if it's repairing, and, if so, repair it! 
-            // break the loop if it isn't managed by senior staff
-            if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
-            {
-                shipComp.repairComponent();
-                if(!isManaged) break;
-            }
+            
+            // want to update the current time taken to level
+            shipComp.updateTimeTaken();
 
             // only update the level if the time since saved is more than the time left to level the component
             // the time left will be negative if it's inactive
             if(Float.compare(timeLeft, 0) >= 0 && timeLeft <= secondsSinceSave)
             {
+                // first check if it's repairing, and, if so, repair it! 
+                // break the loop if it isn't managed by senior staff
+                if(shipComp.getComponentState() == EShipComponentState.REPAIRING)
+                {
+                    shipComp.repairComponent();
+                    if(!isManaged) break;
+                }
+                
                 float totalTime = timeLeft;
                 int level = shipComp.getLevel();
 
@@ -226,7 +230,6 @@ public class Ship implements Savable
                 }
                 // only continue to level up the component if it's automated, we haven't gone too far in time, and we haven't exceeded the max level
                 while(isManaged && totalTime < secondsSinceSave && level < shipComp.MAX_LEVEL);
-
 
                 float newTimeLeft = -1;
                 float newTimeElapsed = -1;
@@ -245,6 +248,15 @@ public class Ship implements Savable
                 shipComp.setComponentState(newState);
                 shipComp.updateTimeTaken();
             }
+            
+            // there's a chance that the component will be broken if it's inactive
+            // the component may degrade more the more inactive you are
+            double chance = Math.random();
+            for(int day = 0; day < daysSinceSave; day++)
+            {
+                if(chance < 0.5) shipComp.degradeComponent();
+            }
+            
         }
     }
     

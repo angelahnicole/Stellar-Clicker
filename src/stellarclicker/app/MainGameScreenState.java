@@ -235,11 +235,11 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     private void initShipComponents()
     {
-        ShipComponent[] inactiveComponents = MainApplication.app.myShip.getInactiveComponents();
+        ShipComponent[] allComponents = MainApplication.app.myShip.getAllComponents();
         
-        for(int i = 0; i < inactiveComponents.length; i++)
+        for(int i = 0; i < allComponents.length; i++)
         {
-            ShipComponent shipComp = inactiveComponents[i];
+            ShipComponent shipComp = allComponents[i];
             
             if(shipComp != null)
             {
@@ -252,13 +252,11 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                 // update basic information about the ship component
                 shipElem.updateLevel(shipComp.getLevel());
                 shipElem.updateCost(shipComp.getFormattedLevelCost());
+                shipElem.updateState(shipComp.getComponentState(), MainApplication.app.myShip.getShipComponentCostStr(shipEnum));
                 
                 // update picture
                 updateShipTier();
             }
-            
-            // discard element
-            inactiveComponents[i] = null;
         }
     }
     
@@ -560,16 +558,31 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         }
     }
     
+    /**========================================================================================================================== 
+    * @name OPEN CLAIM POPUP
+    * 
+    * @description Opens the claim popup window
+    *///=========================================================================================================================
     public void openClaimPopup()
     {
         this.nifty.showPopup(this.screen, this.claimPopup.getId(), null);
     }
     
+    /**========================================================================================================================== 
+    * @name CLOSE CLAIM POPUP
+    * 
+    * @description Closes the claim popup window
+    *///=========================================================================================================================
     public void closeClaimPopup()
     {
         this.nifty.closePopup(this.claimPopup.getId());
     }
     
+    /**========================================================================================================================== 
+    * @name CLAIM OFFICERS
+    * 
+    * @description Opens the claim popup window
+    *///=========================================================================================================================
     public void claimOfficers()
     {
         this.nifty.closePopup(this.claimPopup.getId());

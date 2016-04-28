@@ -596,7 +596,7 @@ public class ShipComponent implements Savable
         }
     }
     
-    /**========================================================================================================================== 
+    /**==========================================================================================================================
     * @name GET LAST TIME LEFT
     * 
     * @description Returns the last saved time left in a running timer on a component
