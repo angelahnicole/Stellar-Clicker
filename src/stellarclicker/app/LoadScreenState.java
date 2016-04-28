@@ -376,7 +376,7 @@ public class LoadScreenState extends AbstractAppState implements ScreenControlle
         else
         {
             loadedShip = new Ship();
-            progressInfo.updateProgress(0.8f, "No save file found! A new ship has been created...");
+            progressInfo.updateProgress(1.0f, "No save file found! A new ship has been created...");
         }
         
         // set the new ship
