@@ -523,7 +523,8 @@ public class ShipComponent implements Savable
         int mins = (int)Math.ceil(remainder / 60);
         remainder = remainder - mins * 60;
         int sec = (int)Math.ceil(remainder);
-        return hours + ":" + mins + ":" + sec;
+        
+        return String.format("%02d", hours) + ":" + String.format("%02d", mins) + ":" + String.format("%02d", sec);
     }
     
     /**========================================================================================================================== 

@@ -963,13 +963,6 @@ public class Ship implements Savable
     {
         return String.format(this.basePictureName, getShipCurrentTier());
     }
-    
-    
-    
-    public ShipStat[] getShipStatsArr()
-    {
-        return this.shipStats.shipStats;
-    }
      
      public ShipStatistics getShipStats()
      {
