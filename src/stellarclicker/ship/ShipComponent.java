@@ -89,8 +89,12 @@ public class ShipComponent implements Savable
     protected double repairCost;    
     
     // timers to change components.
-    protected long expTime;
-    protected long repairTime;
+    protected long eT;
+    protected long rT;
+    
+    protected float experienceTime;
+    protected float repairTime;
+    
     protected Timer timer;
     protected float gameTime;
 
@@ -324,7 +328,7 @@ public class ShipComponent implements Savable
         //prevent experience gain if gaining experience.
         if (this.currentState != EShipComponentState.BROKEN)
         {
-            this.timer.set(this.gameTime, this.expTime);
+            this.timer.set(this.gameTime, this.experienceTime);
             this.currentState = EShipComponentState.GAINING_EXP;
         }
         
@@ -626,8 +630,18 @@ public class ShipComponent implements Savable
     *///=========================================================================================================================
     private void updateTimeTaken()
     {
-        this.expTime = this.BASE_TIME / ((this.level/10)+1);
-        this.repairTime = this.expTime * 2;
+        this.experienceTime = this.BASE_TIME / ((this.level/10)+1);
+        this.repairTime = this.experienceTime * 2;
+        
+        if (this.experienceTime < 0.5)
+        {
+            this.experienceTime = (float)0.5;
+        }
+        
+        if (this.repairTime < 1.0)
+        {
+            this.repairTime = (float)1.0;
+        }
     }
     
     /**========================================================================================================================== 

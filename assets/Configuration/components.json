@@ -1,7 +1,7 @@
 {
     "HULL":
     {
-        "BASE_TIME": "10",
+        "BASE_TIME": "30",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
@@ -13,7 +13,7 @@
     },
     "SHIELDS":
     {
-        "BASE_TIME": "10",
+        "BASE_TIME": "300",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
@@ -26,7 +26,7 @@
     },
     "ENGINES":
     {
-        "BASE_TIME": "10",
+        "BASE_TIME": "1200",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
@@ -38,7 +38,7 @@
     },
     "WEAPONS":
     {
-        "BASE_TIME": "10",
+        "BASE_TIME": "300",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
@@ -50,7 +50,7 @@
     },
     "LIFE_SUPPORT":
     {
-        "BASE_TIME": "10",
+        "BASE_TIME": "60",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
@@ -62,7 +62,7 @@
     },
     "REPLICATORS":
     {
-        "BASE_TIME": "10",
+        "BASE_TIME": "86400",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
@@ -74,7 +74,7 @@
     },
     "HOLODECKS":
     {
-        "BASE_TIME": "10",
+        "BASE_TIME": "43200",
         "MAX_DUR": "100",
         "MIN_LEVEL": "1",
         "MAX_LEVEL": "999",
