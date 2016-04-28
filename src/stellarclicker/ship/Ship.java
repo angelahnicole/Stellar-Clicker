@@ -240,9 +240,10 @@ public class Ship implements Savable
                     newState = EShipComponentState.GAINING_EXP;
                 }
 
-                // set the new time and state
+                // set the new time and state and update time taken
                 shipComp.setSavedTime(newTimeLeft, newTimeElapsed);
                 shipComp.setComponentState(newState);
+                shipComp.updateTimeTaken();
             }
         }
     }

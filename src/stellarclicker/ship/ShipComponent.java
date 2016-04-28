@@ -628,7 +628,7 @@ public class ShipComponent implements Savable
     * 
     * @description Updates the current time taken to repair and gain experience
     *///=========================================================================================================================
-    private void updateTimeTaken()
+    public void updateTimeTaken()
     {
         this.experienceTime = this.BASE_TIME / ((this.level/10)+1);
         this.repairTime = this.experienceTime * 2;
