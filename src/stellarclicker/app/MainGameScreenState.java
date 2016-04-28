@@ -63,6 +63,7 @@ import de.lessvoid.nifty.screen.ScreenController;
 import stellarclicker.ship.SeniorStaff;
 
 import stellarclicker.ship.ShipComponent;
+import stellarclicker.util.EAppState;
 import stellarclicker.util.ESeniorStaff;
 import stellarclicker.util.EShipComponent;
 import stellarclicker.util.EShipComponentState;
@@ -581,13 +582,15 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     /**========================================================================================================================== 
     * @name CLAIM OFFICERS
     * 
-    * @description Opens the claim popup window
+    * @description Closes the claim popup window, calls the claim officer funciton, and restarts the game state
     *///=========================================================================================================================
     public void claimOfficers()
     {
         this.nifty.closePopup(this.claimPopup.getId());
         
-        System.out.println("We've claimed officers!!!");
+        // claim officers and reset state
+        MainApplication.app.claimOfficers();
+        MainApplication.app.changeState(EAppState.GAME_STATE);
     }
     
     /**========================================================================================================================== 
