@@ -555,6 +555,11 @@ public class Ship implements Savable
         this.claimableOfficers += count;
     }
     
+    /**========================================================================================================================== 
+    *  CALCULATE CLAIMABLE OFFICERS
+    * 
+    * <br><br> 
+    *///=========================================================================================================================
     public void calculateClaimableOfficers()
     {
         if (shipStats.getStatValue(EShipStat.OFFICER_HAPPINESS) > 0)
@@ -588,6 +593,26 @@ public class Ship implements Savable
     }
     
     /**========================================================================================================================== 
+    *  GET CLAIMABLE OFFICERS STR
+    * 
+    * @return String
+    *///=========================================================================================================================
+    public String getClaimableOfficersStr()
+    {
+        return BigNumber.getNumberString(this.claimableOfficers);
+    }
+    
+    /**========================================================================================================================== 
+    *  GET CURRENT OFFICERS
+    * 
+    * @return String
+    *///=========================================================================================================================
+    public String getCurrentOfficersStr()
+    {
+        return BigNumber.getNumberString(this.officers);
+    }
+    
+    /**========================================================================================================================== 
     *  GET CASH
     * 
     * @return double Reports cash amount as a number
@@ -595,7 +620,6 @@ public class Ship implements Savable
     public double getCash()
     {
         return this.money;
-        
     }
     
     /**========================================================================================================================== 

@@ -82,6 +82,8 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     
     public static final String OFFICER_LAYER_ID = "officerUI";
     public static final String OFFICER_WINDOW_ID = "officerWindow";
+    public static final String OFFICERS_CLAIMED_TEXT_ID = "officersClaimedText";
+    public static final String OFFICERS_ATTRACTED_TEXT_ID = "officersAttractedText";
     public static final String SENIOR_STAFF_LAYER_ID = "seniorStaff";
     public static final String SENIOR_STAFF_WINDOW_ID = "seniorStaffWindow";
     public static final String UNLOCKS_LAYER_ID = "unlocksUI";
@@ -178,6 +180,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             updateBrokenShipComponents();
             updateMoneyInfo();
             updateShipStatistics();
+            updateOfficerInfo();
         }
     }
     
@@ -240,7 +243,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     private void initShipComponents()
     {
         ShipComponent[] allComponents = MainApplication.app.myShip.getAllComponents();
-        
+
         for(int i = 0; i < allComponents.length; i++)
         {
             ShipComponent shipComp = allComponents[i];
@@ -538,7 +541,16 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
     *///=========================================================================================================================
     private void updateOfficerInfo()
     {
-        double claimableOfficers = MainApplication.app.myShip.getClaimableOfficers();
+        String claimableOfficers = MainApplication.app.myShip.getClaimableOfficersStr();
+        String currentOfficers = MainApplication.app.myShip.getCurrentOfficersStr();
+        
+        // update the attracted and current officer elements
+        Element officerWindow = this.screen.findElementByName(OFFICER_WINDOW_ID);
+        if(officerWindow != null)
+        {
+            officerWindow.findElementByName(OFFICERS_ATTRACTED_TEXT_ID).getRenderer(TextRenderer.class).setText(claimableOfficers);
+            officerWindow.findElementByName(OFFICERS_CLAIMED_TEXT_ID).getRenderer(TextRenderer.class).setText(currentOfficers);
+        }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

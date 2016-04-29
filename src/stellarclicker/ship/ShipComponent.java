@@ -389,7 +389,7 @@ public class ShipComponent implements Savable
         {
             this.durabilityLossRange = this.durabilityLossRange - 1;
         }
-        if (this.durability < 0)
+        if (this.durability < 0 && this.currentState != EShipComponentState.REPAIRING && this.currentState != EShipComponentState.GAINING_EXP)
         {
             breakComponent();
         }

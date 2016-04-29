@@ -116,13 +116,13 @@ public class BigNumber
         // get the index used for the number suffix
         int suffixIndex = (int)Math.log10(number) / 3;
         String numberSuffix = "";
+        
+        // get the suffix and truncate the number (don't truncate if there isn't a suffix)
         if (suffixIndex >= 0)
         {
             numberSuffix = numberSuffixes[suffixIndex];
-        } 
-
-        // get a truncated version of the number
-        number /= Math.pow(10, suffixIndex * 3);
+            number /= Math.pow(10, suffixIndex * 3);
+        }
         
         // return the number
         return formatCurrency(number) + " " + numberSuffix;
