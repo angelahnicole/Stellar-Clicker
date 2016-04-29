@@ -71,13 +71,13 @@ public class ShipStat implements Savable
     // CONSTRUCTORS
     // --------------------------------------------------------------------------------------------------------------------------------------------
 
-    ShipStat(String name, int stat)
+    public ShipStat(String name, int stat)
     {
         this.name = name;
         this.stat = stat;
     }
 
-    ShipStat()
+    public ShipStat()
     {
     }
     
