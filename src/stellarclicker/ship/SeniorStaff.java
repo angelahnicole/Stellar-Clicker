@@ -8,7 +8,7 @@ package stellarclicker.ship;
  * --------------------------------------------------------------------------------------------------------------------------
  * @author Angela Gross, Matthew Dolan, Alex Dunn
  * --------------------------------------------------------------------------------------------------------------------------
- * <br><br> 
+ * @description
  * --------------------------------------------------------------------------------------------------------------------------
     JME LICENSE
     ******************************************************************************
@@ -151,8 +151,6 @@ public class SeniorStaff implements Savable
     * <br><br> checks components for inactive state and manages them. 
     * 
     * @param gameTime updates gametime for officer.
-    * 
-    * 
     *///=========================================================================================================================
     public void update(float gameTime)
     {
@@ -164,10 +162,10 @@ public class SeniorStaff implements Savable
      /**========================================================================================================================== 
     *  PURCHASE
     * 
+    * <br><br> Purchases a component for management to operate 
+    * 
     * @param component the shipComponent to manage
     * @param money the current amount of clatinum the user has. 
-    * 
-    * <br><br> Purchases a component for management to operate 
     *///=========================================================================================================================
     public String purchase(ShipComponent component, double money)
     {
@@ -188,9 +186,9 @@ public class SeniorStaff implements Savable
     /**========================================================================================================================== 
     *  MANAGE COMPONENT
     * 
-    * <br><br> manages component timer based on current state
+    * <br><br> Manages component timer based on current state
     * 
-    * @param gameTime
+    * @param gameTime The global game time
     *///=========================================================================================================================
     public void manageComponent(float gameTime)
     {

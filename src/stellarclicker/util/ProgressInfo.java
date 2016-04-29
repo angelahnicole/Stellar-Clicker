@@ -62,9 +62,7 @@ public class ProgressInfo
     // --------------------------------------------------------------------------------------------------------------------------------------------
     
     /**========================================================================================================================== 
-    * @name GET PROGRESS TEXT
-    * 
-    * @description Returns the text that is shown on the progress bar
+    *  GET PROGRESS TEXT
     * 
     * @return String The text that is shown on the progress bar
     *///=========================================================================================================================
@@ -74,9 +72,7 @@ public class ProgressInfo
     }
     
     /**========================================================================================================================== 
-    * @name GET PROGRESS MADE
-    * 
-    * @description Returns percentage of the progress bar that is shown
+    *  GET PROGRESS MADE
     * 
     * @return float The percentage of the progress bar that is shown
     *///=========================================================================================================================
@@ -86,9 +82,9 @@ public class ProgressInfo
     }
     
     /**========================================================================================================================== 
-    * @name SET PROGRESS
+    *  SET PROGRESS
     * 
-    * @description Safely overwrites the text that is shown on the progress bar and the percentage of the bar that is shown
+    * <br><br> Safely overwrites the text that is shown on the progress bar and the percentage of the bar that is shown
     * 
     * @param newProgressMade The percentage of the bar that is shown (this overwrites it)
     * @param newProgressText The text that is shown on the progress bars
@@ -106,9 +102,9 @@ public class ProgressInfo
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE PROGRESS
+    *  UPDATE PROGRESS
     * 
-    * @description Safely overwrites the text that is shown on the progress bar and adds to the percentage of the bar that is 
+    * <br><br> Safely overwrites the text that is shown on the progress bar and adds to the percentage of the bar that is 
     * shown
     * 
     * @param newProgressMade The percentage of the bar that is shown (this adds to it)
@@ -127,9 +123,9 @@ public class ProgressInfo
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE PROGRESS
+    *  UPDATE PROGRESS
     * 
-    * @description Safely adds to the percentage of the bar that is shown
+    * <br><br> Safely adds to the percentage of the bar that is shown
     * 
     * @param newProgressMade The percentage of the bar that is shown (this adds to it)
     *///=========================================================================================================================
@@ -145,9 +141,9 @@ public class ProgressInfo
     }
     
     /**========================================================================================================================== 
-    * @name UPDATE PROGRESS
+    *  UPDATE PROGRESS
     * 
-    * @description Safely overwrites the text that is shown on the progress bar
+    * <br><br> Safely overwrites the text that is shown on the progress bar
     * 
     * @param newProgressText The text that is shown on the progress bars
     *///=========================================================================================================================

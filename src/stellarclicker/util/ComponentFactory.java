@@ -44,8 +44,6 @@ package stellarclicker.util;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import java.util.ArrayList;
-import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -77,9 +75,9 @@ public class ComponentFactory
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
-    * @name BUILD COMPONENT
+    * BUILD COMPONENT
     * 
-    * @description Builds a component based on a file that is in JSON
+    * <br><br> Builds a component based on a file that is in JSON
     * 
     * @param type The ship component we would like to create
     * 
@@ -130,9 +128,9 @@ public class ComponentFactory
     }
     
     /**========================================================================================================================== 
-    * @name TEST BUILD
+    * TEST BUILD
     * 
-    * @description Builds every component by reading in JSON
+    * Builds every component by reading in JSON
     *///=========================================================================================================================
     public void testBuild()
     {

@@ -73,9 +73,9 @@ public class StaffFactory
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
-    * @name BUILD STAFF
+    *  BUILD STAFF
     * 
-    * @description Builds a senior staff based on a file that is in JSON
+    * <br><br> Builds a senior staff based on a file that is in JSON
     * 
     * @param type The senior staff type we would like to create
     * 
@@ -88,28 +88,22 @@ public class StaffFactory
         JSONObject temp = ( JSONObject ) jsonMembers.get(type.toString());
        
         
-        newMember = new SeniorStaff(
-                (String) temp.get("TITLE"), 
-                (String)temp.get("NAME"), 
-                (String)temp.get("DESCRIPTION"), 
-                Double.parseDouble((String)temp.get("COST")),
-                (String)temp.get("ON_PURCHASE")
-                
+        newMember = new SeniorStaff
+        (
+            (String) temp.get("TITLE"), 
+            (String)temp.get("NAME"), 
+            (String)temp.get("DESCRIPTION"), 
+            Double.parseDouble((String)temp.get("COST")),
+            (String)temp.get("ON_PURCHASE")
         );
-        
-        
-        
-        
-        
-        
-        
+
         return newMember;
     }
     
     /**========================================================================================================================== 
-    * @name TEST BUILD
+    *  TEST BUILD
     * 
-    * @description Builds every senior staff by reading in JSON
+    * <br><br> Builds every senior staff by reading in JSON
     *///=========================================================================================================================
     public void testBuild()
     {

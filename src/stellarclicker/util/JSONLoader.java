@@ -42,9 +42,9 @@ public class JSONLoader implements AssetLoader
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  
     /**========================================================================================================================== 
-     * @name READ LOAD
+     * READ LOAD
      * 
-     * @description Load the file using the binary importer. 
+     * <br><br> Load the file using the binary importer. 
      * 
      * @param assetInfo 
      * 

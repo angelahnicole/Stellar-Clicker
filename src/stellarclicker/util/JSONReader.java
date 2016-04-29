@@ -65,14 +65,12 @@ public class JSONReader
     // --------------------------------------------------------------------------------------------------------------------------------------------
     public JSONReader()
     {
-       // createFile();
-      //  System.out.println(readComponents());
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
-    * @name READ COMPONENTS
+    *  READ COMPONENTS
     * 
     * @description Reads in the components as JSON
     * 
@@ -87,11 +85,9 @@ public class JSONReader
     }
     
     /**========================================================================================================================== 
-    * @name READ STAFF
+    *  READ STAFF
     * 
-    * @description Reads in the staff members as JSON
-    * 
-    * @return JSONObject Object that has the read in staff members
+    * @return JSONObject JSONObject that has the read in the senior staff represented by JSON
     *///=========================================================================================================================
     public JSONObject readStaff()
     {
@@ -102,11 +98,9 @@ public class JSONReader
     }
     
     /**========================================================================================================================== 
-    * @name GET ASSET
+    *  GET ASSET
     * 
-    * @description Returns a the asset as a file object
-    * 
-    * @return JSONObject Object that has the read in staff members
+    * @return JSONObject JSONObject that has the read in the asset represented by JSON
     *///=========================================================================================================================
     private JSONObject getAsset(String assetKey)
     {
@@ -114,9 +108,9 @@ public class JSONReader
     }
     
     /**========================================================================================================================== 
-    * @name READ FILE
+    *  READ FILE
     * 
-    * @description Reads in the given file and tries to parse it as JSON
+    * <br><br> Reads in the given file and tries to parse it as JSON
     * 
     * @param path The path to the file
     * 

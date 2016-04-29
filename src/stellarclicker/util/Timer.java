@@ -1,23 +1,61 @@
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * @file Timer.java
- * 
- * @author Angela Gross, Matthew Dolan, Alex Dunn
- * 
- * @description Timer object which times & reports progress of specific events
- * 
- */
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 package stellarclicker.util;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**========================================================================================================================== 
+ * @file Timer.java
+ * --------------------------------------------------------------------------------------------------------------------------
+ * @author Angela Gross, Matthew Dolan, Alex Dunn
+ * --------------------------------------------------------------------------------------------------------------------------
+ * @description Timer object which times & reports progress of specific events
+ * --------------------------------------------------------------------------------------------------------------------------
+    JME LICENSE
+    ******************************************************************************
+    Copyright (c) 2003-2016 jMonkeyEngine
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+
+    * Neither the name of 'jMonkeyEngine' nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+    PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *///========================================================================================================================
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 import java.lang.*;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 public class Timer
 {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // ATTRIBUTES
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    
     private Boolean isActive;
     private float start;
     private float stop;
@@ -25,6 +63,11 @@ public class Timer
     private int comparison;
     float percent;
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+    // CONSTRUCTORS
+    // --------------------------------------------------------------------------------------------------------------------------------------------
     
     public Timer()
     {
@@ -47,20 +90,19 @@ public class Timer
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /**========================================================================================================================== 
-    * @name getActivation
+    *  GET ACTIVATION
     * 
-    * @description If timer is activated
-   
+    * @return Boolean Whether or not the timer is activated
     *///=========================================================================================================================
     public Boolean getActivation()
     {
-            return this.isActive;
+        return this.isActive;
     }
     
     /**========================================================================================================================== 
-    * @name Set
+    *  SET
     * 
-    * @description Starts timer (seconds) which is based on the current gametime.
+    * <br><br> Starts timer (seconds) which is based on the current gametime.
     * 
     * @param gametime The current gametime
     * @param seconds the elapsed seconds before timer is complete
@@ -73,11 +115,11 @@ public class Timer
     }
     
     /**========================================================================================================================== 
-    * @name checkCompletion
-    * 
-    * @description Determines if a timer has elapsed.
+    *  CHECK COMPLETION
     * 
     * @param gametime the current gametimes
+    * 
+    * @return Boolean Whether or not the timer has fully completed
     *///=========================================================================================================================
     public Boolean checkCompletion(float gametime)
     {
@@ -95,28 +137,27 @@ public class Timer
     }
     
     /**========================================================================================================================== 
-    * @name getPercentComplete
-    * 
-    * @description returns the percent of how complete a timer is.
+    *  GET PERCENT COMPLETE
     * 
     * @param gametime the current gametime
+    * 
+    * @return float The timer's percentage of completion
     *///=========================================================================================================================
     public float getPercentComplete(float gametime)
     {
-        
         if (isActive)
         {
-         this.percent = (gametime - this.start)/(this.stop - this.start);
-         return this.percent;
+            this.percent = (gametime - this.start)/(this.stop - this.start);
+            return this.percent;
         }
-        
+
         return 0;
     }
     
     /**========================================================================================================================== 
-    * @name getLastGametime
+    *  GET LAST GAME TIME
     * 
-    * @description Returns the last recorded "game time"
+    * @return float The last recorded "game time"
     *///=========================================================================================================================
     public float getLastGametime()
     {
@@ -124,9 +165,9 @@ public class Timer
     }
     
     /**========================================================================================================================== 
-    * @name getLastTimeLeft
+    *  GET LAST TIME LEFT
     * 
-    * @description 
+    * @return float The time left since it last saved
     *///=========================================================================================================================
     public float getLastTimeLeft()
     {
@@ -139,9 +180,9 @@ public class Timer
     }
     
     /**========================================================================================================================== 
-    * @name getLastTimeElapsed
+    *  GET LAST TIME ELAPSED
     * 
-    * @description 
+    * @return float The time elapsed since it last saved
     *///=========================================================================================================================
     public float getLastTimeElapsed()
     {
@@ -154,9 +195,9 @@ public class Timer
     }
     
     /**========================================================================================================================== 
-    * @name getLastPercent
+    *  GET LAST PERCENT
     * 
-    * @description 
+    * @return float The percent complete since it last saved
     *///=========================================================================================================================
     public float getLastPercent()
     {
@@ -169,27 +210,27 @@ public class Timer
     }
 
     /**========================================================================================================================== 
-    * @name getTimeRemaining
+    *  GET TIME REMAINING
     * 
-    * @description returns how complete a timer is.
+    * @param gametime The current gametime
     * 
-    * @param gametime the current gametime
+    * @return float How much time is left in the timer (if active)
     *///=========================================================================================================================
     public float getTimeRemaining(float gametime)
     {
         if (isActive)
         {
-         return this.stop - gametime;
+            return this.stop - gametime;
         }   
+        
         return 0;
     }
 
     
     /**========================================================================================================================== 
-    * @name cancelTimer
+    *  CANCEL TIMER
     * 
-    * @description Resets the timer object to default values.
-    * 
+    * <br><br> Resets the timer object to default values.
     *///=========================================================================================================================
     public void cancelTimer()
     {
@@ -200,6 +241,11 @@ public class Timer
     }
     
     
+    /**========================================================================================================================== 
+    *  GET TIME
+    * 
+    * 
+    *///=========================================================================================================================
     public void getTime()
     {
       float current = this.stop - this.start;
