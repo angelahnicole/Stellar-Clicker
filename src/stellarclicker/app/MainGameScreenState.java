@@ -523,7 +523,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
         {
             // retrieve a formated ship statistic
             int statValue = shipStats.getStatValue(statEnum);
-            String formattedValue = String.format("%03d", statValue);
+            String formattedValue = String.format("%06d", statValue);
             
             // update the stat element
             Element statElement = this.screen.findElementByName(statEnum.toString());
