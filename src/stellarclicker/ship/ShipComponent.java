@@ -664,4 +664,28 @@ public class ShipComponent implements Savable
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    public void setExperienceTime(float time)
+    {
+        this.experienceTime = time;
+    }
+    
+    public void setDurability(int durability)
+    {
+        this.durability = durability;
+    }
+    
+    public void setMaxDurability(int durability)
+    {
+        this.MAX_DURABILITY = durability;
+    }
+    
+    public void setRepairTime(float time)
+    {
+        this.repairTime = time;
+    }
+    public int getDurability()
+    {
+        return this.durability;
+    }
+    
 }
