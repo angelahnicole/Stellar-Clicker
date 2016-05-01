@@ -80,7 +80,7 @@ public class Ship implements Savable
     
     // The ship's level tiers that corresponds to the different pictures it can upgrade to. 
     // All of its ship components will have to be at the level for each tier for it to upgrade
-    private final int[] allLevelTiers = { 1, 5, 10, 15, 20 };
+    private final int[] allLevelTiers = { 1, 10, 100, 1000, 2000 };
     private final String basePictureName = "mainShip_%s.png";
     
     private ShipComponent[] brokenComponents; 
