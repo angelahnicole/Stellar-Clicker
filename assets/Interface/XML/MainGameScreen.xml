@@ -15,13 +15,13 @@
             
             <panel childLayout="horizontal">
                 
-                <panel width="17.5%"/>
+                <panel width="20%"/>
                 
                 <panel width="65%" childLayout="center" padding="30%">
                     <image id="mainShipImage" filename="Textures/Ships/mainShip_1.png" width="100%" height="100%"/>
                 </panel>
                 
-                <panel width="17.5%"/>
+                <panel width="15%"/>
             </panel>
             
         </layer>
@@ -31,40 +31,46 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <!-- Left Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
-            <panel id="leftPanel" width="30%" height="100%" childLayout="vertical">
+            <panel id="leftPanel" width="35%" height="100%" childLayout="vertical">
                 
                 <!-- SHIP COMPONENTS: IDs will match their ship component enumeration -->
-                <control id="LIFE_SUPPORT" name="ship-component-div" 
-                         compName="LIFE SUPPORT" 
-                         compImage="Textures/ShipComponents/lifeSupportComponent1.png" 
-                         compLevel="1" />
+                
+                <control id="HULL" name="ship-component-div" 
+                         compName="HULL"
+                         compImage="Textures/ShipComponents/hullComponent1.png" 
+                         compLevel="1"/>
                 <control id="SHIELDS" name="ship-component-div" 
                          compName="SHIELDS" 
                          compImage="Textures/ShipComponents/shieldComponent1.png" 
-                         compLevel="1"/>
-                <control id="WEAPONS" name="ship-component-div" 
-                         compName="WEAPONS" 
-                         compImage="Textures/ShipComponents/weaponComponent1.png"
                          compLevel="1"/>
                 <control id="ENGINES" name="ship-component-div" 
                          compName="ENGINES" 
                          compImage="Textures/ShipComponents/engineComponent1.png" 
                          compLevel="1"/>
+                <control id="WEAPONS" name="ship-component-div" 
+                         compName="WEAPONS" 
+                         compImage="Textures/ShipComponents/weaponComponent1.png"
+                         compLevel="1"/>
+                <control id="LIFE_SUPPORT" name="ship-component-div" 
+                         compName="LIFE SUPPORT" 
+                         compImage="Textures/ShipComponents/lifeSupportComponent1.png" 
+                         compLevel="1" />
+                 <control id="REPLICATORS" name="ship-component-div" 
+                         compName="REPLICATORS" 
+                         compImage="Textures/ShipComponents/replicatorComponent1.png" 
+                         compLevel="1"/>
                 <control id="HOLODECKS" name="ship-component-div" 
                          compName="HOLODECKS" 
                          compImage="Textures/ShipComponents/holodeckComponent1.png" 
                          compLevel="1"/>
-                <control id="REPLICATORS" name="ship-component-div" 
-                         compName="REPLICATORS" 
-                         compImage="Textures/ShipComponents/replicatorComponent1.png" 
-                         compLevel="1"/>
+               
                
             </panel>
             
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <!-- Middle Panel -->
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
-            <panel id="middlePanel" width="40%" height="100%" childLayout="vertical">
+            <panel id="middlePanel" width="35%" height="100%" childLayout="vertical">
 
             </panel>
             
@@ -77,13 +83,8 @@
                 <control id="money" name="money-component-div" height="17%"
                          compName="CLATINUM"
                          compImage="Interface/Images/Icons/clatinum.png" 
-                         compMoney="20.0 K"/>
+                         compMoney="0.0 K"/>
                 
-                <!-- HULL COMPONENT: IDs will match their ship component enumeration -->
-                <control id="HULL" name="ship-component-div" height="17%" 
-                         compName="HULL"
-                         compImage="Textures/ShipComponents/hullComponent1.png" 
-                         compLevel="1"/>
                 
                 <panel padding="7px" childLayout="center" width="100%">
                     <panel backgroundImage="Interface/Images/UI/glassPanel_light_lowAlpha.png" style="glassPanel" width="100%" childLayout="vertical" padding="5px">
@@ -183,26 +184,19 @@
             <control id="seniorStaffWindow" name="scrollPanelWindow" windowTitle="Senior Staff" panelHeight="200%">
                 <panel id="seniorStaffPanel" childLayout="vertical" padding="5px">
                     
-                    <control name="seniorStaffDiv" id="CHIEF_MEDICAL_OFFICER"
-                             staffImage="Textures/Staff/chiefMedicalOfficer.png" 
-                             staffName="Dr. Kvork Cain" staffTitle="Chief Medical Officer" 
+                    <control name="seniorStaffDiv" id="HULL_ENGINEER"
+                             staffImage="Textures/Staff/hullEngineer.png" 
+                             staffName="Flrrrp Flurp" staffTitle="Hull Engineer" 
                              staffCost="0 K" 
-                             staffDescription="Repairs and upgrades LIFE SUPPORT" 
-                             staffOnPurchase="x5 to OFFICER HEALTH on purchase"/>
-                    
+                             staffDescription="Repairs and upgrades the HULL" 
+                             staffOnPurchase="x5 to HULL HEALTH on purchase"/>
+
                     <control name="seniorStaffDiv" id="SHIELDS_ENGINEER"
                              staffImage="Textures/Staff/shieldsEngineer.png" 
                              staffName="Hairy Pepper" staffTitle="Shields Engineer" 
                              staffCost="0 K" 
                              staffDescription="Repairs and upgrades SHIELDS" 
                              staffOnPurchase="x5 to SHIELD HEALTH on purchase"/>
-                    
-                    <control name="seniorStaffDiv" id="TACTICAL_OFFICER"
-                             staffImage="Textures/Staff/tacticalOfficer.png" 
-                             staffName="Gazorp Zadorp" staffTitle="Tactical Officer" 
-                             staffCost="0 K" 
-                             staffDescription="Repairs and upgrades WEAPONS" 
-                             staffOnPurchase="x5 to WEAPON DAMAGE on purchase"/>
                     
                     <control name="seniorStaffDiv" id="WARP_ENGINEER"
                              staffImage="Textures/Staff/warpEngineer.png" 
@@ -211,12 +205,19 @@
                              staffDescription="Repairs and upgrades ENGINES" 
                              staffOnPurchase="x5 to ENGINE SPEED on purchase"/>
                     
-                    <control name="seniorStaffDiv" id="HOLODECK_PROGRAMMER"
-                             staffImage="Textures/Staff/holodeckEngineer.png" 
-                             staffName="Klaatu" staffTitle="Holodeck Programmer" 
+                    <control name="seniorStaffDiv" id="TACTICAL_OFFICER"
+                             staffImage="Textures/Staff/tacticalOfficer.png" 
+                             staffName="Gazorp Zadorp" staffTitle="Tactical Officer" 
                              staffCost="0 K" 
-                             staffDescription="Repairs and upgrades HOLODECKS" 
-                             staffOnPurchase="x5 to OFFICER HAPPINESS on purchase"/>
+                             staffDescription="Repairs and upgrades WEAPONS" 
+                             staffOnPurchase="x5 to WEAPON DAMAGE on purchase"/>
+                    
+                    <control name="seniorStaffDiv" id="CHIEF_MEDICAL_OFFICER"
+                             staffImage="Textures/Staff/chiefMedicalOfficer.png" 
+                             staffName="Dr. Kvork Cain" staffTitle="Chief Medical Officer" 
+                             staffCost="0 K" 
+                             staffDescription="Repairs and upgrades LIFE SUPPORT" 
+                             staffOnPurchase="x5 to OFFICER HEALTH on purchase"/>
                     
                     <control name="seniorStaffDiv" id="BARKEEP"
                              staffImage="Textures/Staff/barkeep.png" 
@@ -225,12 +226,14 @@
                              staffDescription="Repairs and upgrades REPLICATORS" 
                              staffOnPurchase="x5 to OFFICER HEALTH and HAPPINESS on purchase"/>
                     
-                    <control name="seniorStaffDiv" id="HULL_ENGINEER"
-                             staffImage="Textures/Staff/hullEngineer.png" 
-                             staffName="Flrrrp Flurp" staffTitle="Hull Engineer" 
+                    <control name="seniorStaffDiv" id="HOLODECK_PROGRAMMER"
+                             staffImage="Textures/Staff/holodeckEngineer.png" 
+                             staffName="Klaatu" staffTitle="Holodeck Programmer" 
                              staffCost="0 K" 
-                             staffDescription="Repairs and upgrades the HULL" 
-                             staffOnPurchase="x5 to HULL HEALTH on purchase"/>
+                             staffDescription="Repairs and upgrades HOLODECKS" 
+                             staffOnPurchase="x5 to OFFICER HAPPINESS on purchase"/>
+                    
+                    
                     
                 </panel>
             </control>

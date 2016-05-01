@@ -13,7 +13,7 @@
                 <panel width="30%" childLayout="vertical">
 
                     <!-- SHIP COMPONENT IMAGE / BUTTON -->
-                    <panel id="#levelButton" backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" style="componentButton">
+                    <panel id="#levelButton" backgroundImage="Interface/Images/UI/shipComponentCircle_whiteBlack.png" childLayout="center" style="componentButton" height="80%">
                         
                         <interact onClick="interact()"></interact>
                         
@@ -26,7 +26,7 @@
                         </panel>
                         
                         <panel id="#compPanel" childLayout="center" padding="10px">
-                            <image id="#compImage" filename="$compImage" width="100%" height="100%"/>
+                            <image id="#compImage" filename="$compImage" height="100%" width="80%"/>
                             <image id="#brokenImage" filename="Textures/ShipComponents/brokenGlass_white.png" width="100%" height="100%" visible="false"/>
                         </panel>
 
@@ -34,7 +34,7 @@
 
                     <!-- SHIP COMPONENT LEVEL BANNER -->
                     <panel backgroundImage="Interface/Images/UI/shipComponentBanner_light.png" childLayout="center" width="100%">
-                        <text id="#levelText" text="$compLevel" style="rubik_font20" color="#000000"/>
+                        <text id="#levelText" text="$compLevel" style="rubik_font14" color="#000000"/>
                     </panel>
 
                 </panel>
@@ -115,12 +115,12 @@
                 <image id="#statImage" filename="$statImagePath" height="30px" width="30px"/>
             </panel>
             
-            <panel width="80%" height="100%" childLayout="horizontal" padding="0px,5px" backgroundColor="#FFFFFF80">
+            <panel width="70%" height="100%" childLayout="horizontal" padding="0px,5px" backgroundColor="#FFFFFF80">
                 <text id="#statName" text="$statName" style="rubik_font14" color="#000000" textHAlign="left"/>
             </panel>
             
-            <panel width="10%" height="100%" childLayout="horizontal" valign="center" padding="5px" backgroundColor="#00000090">
-                <text id="#statValue" text="$statValue" style="rubik_font12" color="#FFF" textHAlign="right" textVAlign="center"/>
+            <panel width="20%" height="100%" childLayout="horizontal" valign="center" padding="5px" backgroundColor="#00000090">
+                <text id="#statValue" text="$statValue" style="rubik_font10" color="#FFF" textHAlign="right" textVAlign="center"/>
             </panel>
 
         </panel>
