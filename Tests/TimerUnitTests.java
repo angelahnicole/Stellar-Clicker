@@ -3,8 +3,7 @@
  * and open the template in the editor.
  */
 
-import com.jayway.awaitility.Duration;
-import static com.jayway.awaitility.Awaitility.*;
+
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,8 +12,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
-import org.hamcrest.Matcher.*;
 import org.junit.Assert.*;
 import stellarclicker.util.Timer;
 /**
