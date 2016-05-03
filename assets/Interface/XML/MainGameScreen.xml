@@ -79,6 +79,9 @@
             <!-- +++++++++++++++++++++++++++++++++++++++ -->
             <panel id="rightPanel" width="30%" height="100%" childLayout="vertical">
                 
+                <!-- BUY CONTROLS -->
+                <control id="buy-controls" name="buy-control-div" height="5%"/>
+                
                 <!-- MONEY SUMMARY -->
                 <control id="money" name="money-component-div" height="17%"
                          compName="CLATINUM"

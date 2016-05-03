@@ -96,6 +96,7 @@ public class Ship implements Savable
     private ComponentFactory compFactory;
     private StaffFactory staffFactory;
     private int previousSecond;
+    private int levelsBought;
     
     private OutputCapsule outCapsule;
     private InputCapsule inCapsule;
@@ -115,6 +116,7 @@ public class Ship implements Savable
         this.initializeComponents();
         this.progressInfo = MainApplication.app.progressInfo;
         this.officers = 0;
+        this.levelsBought = 1;
     } 
     
     public Ship(double officers)
@@ -124,6 +126,7 @@ public class Ship implements Savable
         this.initializeComponents();
         this.progressInfo = MainApplication.app.progressInfo;
         this.officers = officers;
+        this.levelsBought = 1;
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -448,11 +451,14 @@ public class Ship implements Savable
     *///=========================================================================================================================
     public void purchaseComponentLevel(EShipComponent component)
     {
-        double temp = shipComponents[component.ordinal()].getLevelCost();
-        if (this.money > temp)
+        for(int i = 0; i < this.levelsBought; i++)
         {
-            this.money = this.money - temp;
-            shipComponents[component.ordinal()].levelUp();
+            double temp = shipComponents[component.ordinal()].getLevelCost();
+            if (this.money > temp)
+            {
+                this.money = this.money - temp;
+                shipComponents[component.ordinal()].levelUp();
+            }
         }
     }
 
@@ -685,7 +691,7 @@ public class Ship implements Savable
         // user can buy levels if it's gaining experience or inactive
         else if(shipCompState == EShipComponentState.GAINING_EXP || shipCompState == EShipComponentState.INACTIVE)
         {
-            cost = this.getInstantLevelCost(component);
+            cost = this.levelsBought * this.getInstantLevelCost(component);
         }
         
         return cost;
@@ -701,6 +707,18 @@ public class Ship implements Savable
     public String getShipComponentCostStr(EShipComponent component)
     {
         return BigNumber.getNumberString( getShipComponentCost(component) );
+    }
+    
+    /**=========================================================================================================================
+    *  SET LEVELS BOUGHT
+    * 
+    * <br><br> Sets how many levels a user will try to buy at once
+    * 
+    * @param newLevelsBought The new value of buying levels in bulk (should be either 1, 10, 100, or 1000)
+    *///=========================================================================================================================
+    public void setLevelsBought(int newLevelsBought)
+    {
+        this.levelsBought = newLevelsBought;
     }
     
     /**=========================================================================================================================
