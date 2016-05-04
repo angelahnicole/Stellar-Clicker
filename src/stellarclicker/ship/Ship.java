@@ -318,7 +318,7 @@ public class Ship implements Savable
     private void initializeComponents()
     {
         //TODO: THIS SHOULDN'T BE STARTING MONEY
-        this.money = 10000000;
+        this.money = 0;
         
         // Initializes the component array 
         shipComponents = new ShipComponent[EShipComponent.values().length];
@@ -375,21 +375,22 @@ public class Ship implements Savable
 
         }
 
+        updateStats();
         //increases money by money per second.
         if ((int)gameTime > this.previousSecond)
         {
             
             earnMoney(this.moneyPerSecond);
             this.previousSecond = (int)gameTime;
+            
             for(EShipComponent m : EShipComponent.values()) 
             {   
-                if (shipComponents[m.ordinal()].checkLeveled())
-                {
-                    updateStats();
-                    calculateClaimableOfficers();
-                    
-                    calcMoneyPerSecond();
-                }
+               
+                
+                calculateClaimableOfficers();
+
+                calcMoneyPerSecond();
+                
             }    
         }
     }
@@ -401,21 +402,35 @@ public class Ship implements Savable
     *///=========================================================================================================================
     public void updateStats()
     {
+        double boost = 7;
+        int officerHappiness = 0;
         for(ShipComponent shipComp : shipComponents)
         {
+            if (shipComp.checkLeveled())
+                {
             int statBoost = 0;
             int level = shipComp.getLevel();
             int[] affectedStats = shipComp.getShipStats();
             statBoost = Math.round(level/2);
+            //increases officer happiness proportional to the value of the component
+            if (level % (int)Math.pow(2, boost) == 0)
+            {
+                officerHappiness += 1;
+            }
             
+            this.shipStats.updateStat(EShipStat.OFFICER_HAPPINESS, officerHappiness);
             if(affectedStats != null)
             {
                 for (int i = 0; i< affectedStats.length;i++)
                 {
                     this.shipStats.updateStat(affectedStats[i], statBoost);
                 }
-            }    
+            }
+                }
+            boost -= 1;
         } 
+        
+        
     }
     
     /**=========================================================================================================================
@@ -530,7 +545,7 @@ public class Ship implements Savable
     {
        
         //need more statistics for this calculation.
-       double change = this.officers*500;
+       double change = this.officers*5;
        this.moneyPerSecond = change;
     }
     
@@ -570,7 +585,12 @@ public class Ship implements Savable
     {
         if (shipStats.getStatValue(EShipStat.OFFICER_HAPPINESS) > 0)
         {
+           
+           
            increaseClaimableOfficers(shipStats.getStatValue(EShipStat.OFFICER_HAPPINESS));
+           
+           
+           
         }
         
         else {
