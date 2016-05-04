@@ -475,9 +475,18 @@ public class ShipComponentElementController implements Controller
     *  DISABLE BUYING
     * 
     * <br><br> Disables the buy button for the ship component
+    * 
+    * @param currentCost Formatted cost
     *///=========================================================================================================================
-    public void disableBuying()
+    public void disableBuying(String currentCost)
     {
+        // update cost
+        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
+        if(mainText != null)
+        {
+            mainText.getRenderer(TextRenderer.class).setText(currentCost);
+        }
+        
         disableBuyButton();
     }
     
@@ -490,6 +499,13 @@ public class ShipComponentElementController implements Controller
     *///=========================================================================================================================
     public void enableBuying(String currentCost)
     {
+        // update cost
+        Element mainText = this.shipCompElem.findElementByName(MAIN_TEXT_ID);
+        if(mainText != null)
+        {
+            mainText.getRenderer(TextRenderer.class).setText(currentCost);
+        }
+        
         enableBuyButton();
     }
     

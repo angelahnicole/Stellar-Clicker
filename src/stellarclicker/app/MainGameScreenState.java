@@ -54,6 +54,8 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.ViewPort;
 
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.NiftyEventSubscriber;
+import de.lessvoid.nifty.controls.RadioButtonGroupStateChangedEvent;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
@@ -471,7 +473,7 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
                     
                     if( !MainApplication.app.myShip.canAfford(shipEnum) )
                     {
-                        shipElem.disableBuying();
+                        shipElem.disableBuying(MainApplication.app.myShip.getShipComponentCostStr(shipEnum) );
                     }
                     else
                     {
@@ -551,6 +553,52 @@ public class MainGameScreenState extends AbstractAppState implements ScreenContr
             officerWindow.findElementByName(OFFICERS_ATTRACTED_TEXT_ID).getRenderer(TextRenderer.class).setText(claimableOfficers);
             officerWindow.findElementByName(OFFICERS_CLAIMED_TEXT_ID).getRenderer(TextRenderer.class).setText(currentOfficers);
         }
+    }
+    
+    /**========================================================================================================================== 
+    *  ON BUY CONTROL RADIO GROUP CHANGED
+    * 
+    * <br><br> 
+    * 
+    * @param id 
+    * @parm event
+    *///=========================================================================================================================
+    @NiftyEventSubscriber(id="BuyControlRadioGroup")
+    public void onBuyControlRadioGroupChanged(final String id, final RadioButtonGroupStateChangedEvent event)
+    {
+        int levelsBought;
+        
+        switch(event.getSelectedId())
+        {
+            case "option-1":
+            {
+                levelsBought = 1;
+                break;
+            }
+            case "option-10":
+            {
+                levelsBought = 10;
+                break;
+            }
+            case "option-100":
+            {
+                levelsBought = 100;
+                break;
+            }
+            case "option-1000":
+            {
+                levelsBought = 1000;
+                break;
+            }
+            default: 
+            {
+                levelsBought = 1;
+                break;
+            }
+        }
+        
+        MainApplication.app.myShip.setLevelsBought(levelsBought);
+        updateMoneyInfo();
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

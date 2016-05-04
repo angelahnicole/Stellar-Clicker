@@ -13,6 +13,10 @@
         <attributes font="Interface/Fonts/RubikMonoOne_14.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
     
+    <style id="rubik_font14_radio">
+        <attributes font="Interface/Fonts/RubikMonoOne_14.fnt" align="center" valign="center" textHAlign="right" textVAlign="center"/>
+    </style>
+    
     <style id="rubik_font20">
         <attributes font="Interface/Fonts/RubikMonoOne_20.fnt" width="*" align="center" valign="center" textHAlign="center" textVAlign="center"/>
     </style>
