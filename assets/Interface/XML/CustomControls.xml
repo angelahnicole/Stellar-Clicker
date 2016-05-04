@@ -82,12 +82,16 @@
         
         <panel width="100%" childLayout="center" padding="5px">
             
+            
+            
             <!-- BUY CONTROL RADIO BUTTONS -->
-            <panel backgroundImage="Interface/Images/UI/glassPanel_light_lowAlpha.png" width="100%" height="100%" style="glassPanel" childLayout="center" valign="center" padding="3px">
+            <panel backgroundImage="Interface/Images/UI/glassPanel_light_lowAlpha.png" width="100%" height="100%" style="glassPanel" childLayout="vertical" valign="center">
+                
+                <panel childLayout="center" height="10%"/>
                 
                 <control id="BuyControlRadioGroup" name="radioButtonGroup"/>
                 
-                <panel childLayout="horizontal" valign="center">
+                <panel childLayout="horizontal" valign="center" height="60%">
                     <panel childLayout="center" width="10%"/>
                     <panel childLayout="horizontal" width="20%">
                       <control name="label" text="x1" style="rubik_font14_radio" />
@@ -106,11 +110,12 @@
                       <control name="radioButton" id="option-1000" group="BuyControlRadioGroup" />
                     </panel>
                     <panel childLayout="center" width="10%"/>
-                    
-              </panel>
+                </panel>
                 
-                
+                <panel childLayout="center" height="10%"/>
             </panel>
+            
+            
             
         </panel>
         
